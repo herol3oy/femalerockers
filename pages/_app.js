@@ -15,6 +15,7 @@ function MyApp({ Component, pageProps }) {
         body {
           background: #111;
         }
+        
       `}</style>
     </>
   )
