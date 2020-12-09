@@ -13,7 +13,7 @@ function MyApp({ Component, pageProps }) {
 
       <style global jsx>{`
         body {
-          background: var(--bs-dark);
+          background: #111;
         }
       `}</style>
     </>
