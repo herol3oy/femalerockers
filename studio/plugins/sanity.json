@@ -1,0 +1,16 @@
+{
+    "paths": {
+      "source": "./src",
+      "compiled": "./lib"
+    },
+    "parts": [
+      {
+        "name": "part:@sanity/base/components/unicorn-slider",
+        "description": "React component which provides a slider input"
+      },
+      {
+        "implements": "part:@sanity/base/components/unicorn-slider",
+        "path": "components/Slider.js"
+      }
+    ]
+  }
