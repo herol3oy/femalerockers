@@ -1,13 +1,13 @@
 import Navbar from '../components/Navbar'
 import Carousel from '../components/Carousel'
-import Rockers from '../components/Rockers'
+import Musicians from '../components/Musicians'
 
 export default function Home() {
   return (
     <>
     <Navbar />
     <Carousel />
-    <Rockers />
+    <Musicians />
     </>
   )
 }

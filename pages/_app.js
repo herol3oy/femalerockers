@@ -1,5 +1,5 @@
-import 'bootstrap/dist/css/bootstrap.min.css'
 import Head from 'next/head'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -15,7 +15,6 @@ function MyApp({ Component, pageProps }) {
         body {
           background: #111;
         }
-        
       `}</style>
     </>
   )
