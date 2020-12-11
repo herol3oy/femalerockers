@@ -8,7 +8,6 @@ export default function Home() {
     <>
       <Carousel />
       <Musicians />
-      <Footer />
     </>
   )
 }
