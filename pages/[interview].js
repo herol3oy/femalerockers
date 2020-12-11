@@ -6,7 +6,17 @@ import imageUrlBuilder from "@sanity/image-url"
 import Image from 'next/image'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
+import styled from "styled-components"
 
+const StyledTitle = styled.h2`
+    background: linear-gradient(45deg,#f09433,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+`
+const StyledExcerpt = styled.p`
+    font-family: 'Roboto', sans-serif;
+`
 export default function interview() {
     const [interviewContent, setInterviewContent] = useState(null)
 
@@ -47,6 +57,14 @@ export default function interview() {
 
     if (!interviewContent) return <div>Loading...</div>
 
+    const highlight = props => {
+        return (
+            <span style={{ backgroundColor: props.mark.color }}>
+                {props.children}
+            </span>
+        )
+    }
+
     return (
         <>
             <Image
@@ -59,34 +77,23 @@ export default function interview() {
             />
             <Container>
                 <Row className='justify-content-center'>
-                    <section className='col-lg-5 bg-dark'>
-                        <strong>{interviewContent.title}</strong>
-                        <p>{interviewContent.excerpt}</p>
-                        
+                    <section className='col-12 col-lg-7 col-md-8'>
+                        <StyledTitle className='display-5 fw-bolder mt-5'>
+                            {interviewContent.title}
+                        </StyledTitle>
+                        <StyledExcerpt className='h3 lh-base text-light'>
+                            {interviewContent.excerpt}
+                        </StyledExcerpt>
+                        <hr className='my-5 text-light'/>
                         <BlockContent
                             className='text-light'
                             blocks={interviewContent.body}
                             projectId="ldn05m4o"
                             dataset="production"
-                            imageOptions={{ w: 800, h: 600, fit: 'max' }}
+                            serializers={{ marks: { highlight } }}
+                            renderContainerOnSingleChild={true}
                         />
-
-                        {/* LOREM TEXT */}
-                        <p className='text-light'>
-                            on 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC
-                            "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
-
-                            1914 translation by H. Rackham
-                            "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?"
-
-                            Section 1.10.33 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC
-                            "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat."
-
-                            1914 translation by H. Rackham
-                            "On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we like best, every pleasure is to be welcomed and every pain avoided. But in certain circumstances and owing to the claims of duty or the obligations of business it will frequently occur that pleasures have to be repudiated and annoyances accepted. The wise man therefore always holds in these matters to this principle of selection: he rejects pleasures to secure other greater pleasures, or else he endures pains to avoid worse pains."
-                        </p>
                     </section>
-
                 </Row>
             </Container>
         </>

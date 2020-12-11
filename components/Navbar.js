@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 export default function navbar() {
     return (
-        <Container fluid className='my-3'>
+        <Container fluid className='my-3 position-absolute top-0 start-0' style={{zIndex:'2'}}>
             <Navbar className='container d-flex justify-content-center justify-content-sm-between ' expand="lg">
                 <section className='flex text-center text-sm-start'>
                     <Link href='/'>
