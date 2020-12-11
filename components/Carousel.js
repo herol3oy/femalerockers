@@ -5,7 +5,7 @@ import Image from 'next/image'
 export default function carousel() {
     return (
         <>
-            <Container>
+            <Container className='my-3'>
                 <Carousel prevLabel='' nextLabel=''>
                     <Carousel.Item>
                         <Image

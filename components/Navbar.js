@@ -4,12 +4,12 @@ import Link from 'next/link'
 
 export default function navbar() {
     return (
-        <Container fluid>
+        <Container fluid className='my-3'>
             <Navbar className='container d-flex justify-content-center justify-content-sm-between ' expand="lg">
                 <section className='flex text-center text-sm-start'>
                     <Link href='/'>
                         <a className='h3 site-title text-danger fw-bolder text-decoration-none'>
-                            FEMALEROCKERS
+                            FEMALE ROCKERS
                     </a>
                     </Link>
                     <p className='text-light'>interviews future sensations in rock music</p>
@@ -22,6 +22,10 @@ export default function navbar() {
             <style jsx>{`
                 .site-title {
                     font-family: 'Cinzel', serif;
+                }
+
+                p {
+                    letter-spacing: 2px;
                 }
                 
                 .instagram-btn {
