@@ -6,10 +6,9 @@ import Footer from '@/components/Footer'
 export default function Home() {
   return (
     <>
-    <Navbar />
-    <Carousel />
-    <Musicians />
-    <Footer />
+      <Carousel />
+      <Musicians />
+      <Footer />
     </>
   )
 }

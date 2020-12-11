@@ -25,6 +25,7 @@ export default function Musicians() {
             firstName,
             lastName,
             profession,
+            country,
             slug,
             profileImage{
                 asset->{
@@ -40,13 +41,13 @@ export default function Musicians() {
 
     return (
         <Container className='overflow-hidden'>
-            <Row className='row-cols-2 row-cols-sm-2 row-cols-lg-6 g-0 my-3 gy-2'>
+            <Row className='row-cols-2 row-cols-sm-2 row-cols-lg-6 row-cols-md-4 g-0 my-3 gy-2'>
                 {_.map(musicians, (rocker, i) => (
                     <Link key={i} href={rocker.slug.current}>
                         <a className='p-0 text-white text-decoration-none'>
                             <Card className='px-1 bg-transparent border-0 border-top'>
                                 <Image
-                                    className="border-top border-danger border-2 rounded-top d-block"
+                                    className="border-top border-danger border-2 rounded-top rounded-bottom d-block"
                                     src={urlFor(rocker.profileImage.asset.url).url()}
                                     alt="First slide"
                                     layout="responsive"
@@ -54,7 +55,7 @@ export default function Musicians() {
                                     height={240}
                                 />
                                 <StyledCard>
-                                    <Card.Title className='text-danger fw-bold'>{`${rocker.firstName} ${rocker.lastName}`}</Card.Title>
+                                    <Card.Title className='text-danger fw-bold'>{`${rocker.firstName} ${rocker.lastName} ${rocker.country}`}</Card.Title>
                                     <Card.Text>
                                         {rocker.profession.map((profession, i) => <Badge key={i} className='badge rounded-pill bg-danger' pill variant="danger">{profession}</Badge>)}
                                     </Card.Text>

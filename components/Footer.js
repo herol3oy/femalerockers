@@ -7,7 +7,7 @@ export default function Footer() {
         <Container fluid className='my-5'>
             <Container>
                 <Row>
-                    <section className='col-6'>
+                    <section className='col-12 col-lg-6'>
                         <h5 className='site-title fw-bold border-bottom text-light text-left pt-5 pt-lg-0 pt-md-0 mb-1 pb-1'>
                             FEMALE ROCKERS
                         </h5>
@@ -15,7 +15,7 @@ export default function Footer() {
                             Our mission is to spread the word for talented musicians and give them a stance where they can professionally present their portfolio.
                         </small>
                     </section>
-                    <section className='col-3'>
+                    <section className='col-12 col-lg-3'>
                         <h5 className='site-title fw-bold border-bottom text-light text-left pt-5 pt-lg-0 pt-md-0 mb-1 pb-1'>
                             INTERVIEW
                         </h5>
@@ -26,7 +26,7 @@ export default function Footer() {
                             </Link>
                         </small>
                     </section>
-                    <section className='col-3'>
+                    <section className='col-12 col-lg-3'>
                         <h5 className='site-title fw-bold border-bottom text-light text-left pt-5 pt-lg-0 pt-md-0 mb-1 pb-1'>
                             COVID-19
                         </h5>
