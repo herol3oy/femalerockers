@@ -17,6 +17,15 @@ const GlobalStyle = createGlobalStyle`
         background: #111;
     }
 
+    nav {
+        z-index: 3;
+        backdrop-filter: blur(5px);
+    }
+
+    a {
+        cursor: pointer;
+    }
+
     hr {
         background: radial-gradient(ellipse at center,hsla(0,0%,100%,.2) 0,hsla(0,0%,100%,0) 75%);
     }
@@ -40,10 +49,6 @@ const GlobalStyle = createGlobalStyle`
 
     figure img {
         width: 100%;
-    }
-
-    a {
-        cursor: pointer;
     }
 
     blockquote {

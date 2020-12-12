@@ -6,6 +6,7 @@ import imageUrlBuilder from "@sanity/image-url"
 import Image from 'next/image'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
+import Badge from 'react-bootstrap/Badge'
 import styled from "styled-components"
 
 const StyledTitle = styled.h2`
@@ -20,6 +21,16 @@ const BgWrap = styled.section`
     overflow: hidden;
     z-index: -1;
 `
+
+const StyledInfoBox = styled.section`
+    position: absolute;
+    top: 50vh;
+    z-index: 99999;
+    color: red;
+`
+
+
+
 export default function interview() {
     const [interviewContent, setInterviewContent] = useState(null)
 
@@ -73,17 +84,17 @@ export default function interview() {
                             height={20}
                         />
                     </dt>
-                    <dd className='fw-bold'>{text}</dd>
+                    <dd className='h5 fw-bold'>{text}</dd>
                 </div>
             )
         }
         if (props.node.children[0].marks[0] !== 'strong' && props.node.children[0].text !== interviewContent.firstName.toUpperCase()) {
             return (
-                <div className='my-3'>
+                <div className='my-5'>
                     <dt className='fw-bold'>
                         {interviewContent.firstName.toUpperCase()}
                     </dt>
-                    <dd className='fw-thin'>
+                    <dd className='h5 lh-lg fw-thin'>
                         {props.node.children[0].text}
                     </dd>
                 </div>
@@ -94,19 +105,27 @@ export default function interview() {
 
     return (
         <>
-            <BgWrap>
-                <Image
-                    src={urlFor(interviewContent.coverImage.asset).url()}
-                    alt={interviewContent.firstName}
-                    layout="fill"
-                    objectFit="cover"
-                    quality={100}
-                />
-            </BgWrap>
+            <div>
+                <BgWrap>
+                    <Image
+                        src={urlFor(interviewContent.coverImage.asset).url()}
+                        alt={interviewContent.firstName}
+                        layout="fill"
+                        objectFit="cover"
+                        quality={100}
+                    />
+                </BgWrap>
+                <StyledInfoBox>
+                    {interviewContent.profession.map((profession, i) => <Badge key={i} className='badge rounded-pill bg-danger' pill variant="danger">{profession}</Badge>)}
+                    <h1 className='display-4 text-danger fw-bold'>{`${interviewContent.firstName} ${interviewContent.lastName}`}</h1>
+                    
+                </StyledInfoBox>
+            </div>
+
             <Container>
                 <Row className='justify-content-center'>
-                    <section className='col-12 col-lg-7 col-md-8'>
-                        <StyledTitle className='display-5 fw-bolder mt-5'>
+                    <section className='col-12 col-lg-7 col-md-10'>
+                        <StyledTitle className='display-5 fw-bolder'>
                             {interviewContent.title}
                         </StyledTitle>
                         <p className='h3 lh-base text-light'>

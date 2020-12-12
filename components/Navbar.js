@@ -1,9 +1,10 @@
 import Navbar from 'react-bootstrap/Navbar'
+import Container from 'react-bootstrap/Container'
 import Link from 'next/link'
 
 export default function navbar() {
     return (
-        <>
+        <Container fluid>
             <Navbar className='container d-flex justify-content-center justify-content-sm-between' expand="lg">
                 <section className='flex text-center text-sm-start'>
                     <Link href='/'>
@@ -19,10 +20,6 @@ export default function navbar() {
             </Navbar>
 
             <style jsx>{`
-                nav {
-                    z-index: 2;
-                    backdrop-filter: blur(5px);
-                }
 
                 .site-title {
                     font-family: 'Cinzel', serif;
@@ -42,6 +39,6 @@ export default function navbar() {
                 }
                 
                 `}</style>
-        </>
+        </Container>
     )
 }
