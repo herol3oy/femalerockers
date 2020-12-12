@@ -21,11 +21,16 @@ const GlobalStyle = createGlobalStyle`
         background: radial-gradient(ellipse at center,hsla(0,0%,100%,.2) 0,hsla(0,0%,100%,0) 75%);
     }
 
-    p {
+    dd {
         font-family: 'Roboto', sans-serif;
     }
 
-    img {
+    dt {
+        position: absolute;
+        margin-left: -75px;
+    }
+
+    .card img, section > img {
         filter: grayscale(100%);
     }
 

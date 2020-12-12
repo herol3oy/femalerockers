@@ -1,10 +1,15 @@
 import Navbar from 'react-bootstrap/Navbar'
 import Container from 'react-bootstrap/Container'
 import Link from 'next/link'
+import styled from "styled-components"
+
+const StyledContainer = styled(Container)`
+    z-index: 1;
+`
 
 export default function navbar() {
     return (
-        <Container fluid className='my-3'>
+        <StyledContainer fluid className='my-3 position-absolute'>
             <Navbar className='container d-flex justify-content-center justify-content-sm-between ' expand="lg">
                 <section className='flex text-center text-sm-start'>
                     <Link href='/'>
@@ -38,6 +43,6 @@ export default function navbar() {
                 }
                 
                 `}</style>
-        </Container>
+        </StyledContainer>
     )
 }

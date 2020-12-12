@@ -14,6 +14,12 @@ const StyledTitle = styled.h2`
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 `
+
+const BgWrap = styled.section`
+    height: 100vh;
+    overflow: hidden;
+    z-index: -1;
+`
 export default function interview() {
     const [interviewContent, setInterviewContent] = useState(null)
 
@@ -57,26 +63,46 @@ export default function interview() {
     const BlockRenderer = (props) => {
         const { marks, text } = props.node.children[0]
         if (props.node.style === 'blockquote') return <blockquote>{text}</blockquote>
-        if (marks[0] === 'strong') return <><dt>FS</dt><dd>{text}</dd></>
-        if (props.node.children[0].marks[0] !== 'strong' && props.node.children[0].text !== interviewContent.firstName.toUpperCase()) return <><dt>{interviewContent.firstName.toUpperCase()}</dt><dd>{props.node.children[0].text}</dd></>
+        if (marks[0] === 'strong') {
+            return (
+                <div>
+                    <dt>
+                        <Image
+                            src='/android-chrome-192x192.png'
+                            width={20}
+                            height={20}
+                        />
+                    </dt>
+                    <dd className='fw-bold'>{text}</dd>
+                </div>
+            )
+        }
+        if (props.node.children[0].marks[0] !== 'strong' && props.node.children[0].text !== interviewContent.firstName.toUpperCase()) {
+            return (
+                <div className='my-3'>
+                    <dt className='fw-bold'>
+                        {interviewContent.firstName.toUpperCase()}
+                    </dt>
+                    <dd className='fw-thin'>
+                        {props.node.children[0].text}
+                    </dd>
+                </div>
+            )
+        }
         return null
     }
 
     return (
         <>
-            <section className='position-relative'>
+            <BgWrap>
                 <Image
-                    className="position-absolute"
                     src={urlFor(interviewContent.coverImage.asset).url()}
                     alt={interviewContent.firstName}
-                    layout="responsive"
-                    width={1200}
-                    height={800}
+                    layout="fill"
+                    objectFit="cover"
+                    quality={100}
                 />
-                <div className='position-absolute'>
-
-                </div>
-            </section>
+            </BgWrap>
             <Container>
                 <Row className='justify-content-center'>
                     <section className='col-12 col-lg-7 col-md-8'>

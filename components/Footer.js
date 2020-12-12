@@ -15,7 +15,7 @@ export default function Footer() {
                             Our mission is to spread the word for talented musicians and give them a stance where they can professionally present their portfolio.
                         </small>
                     </section>
-                    <section className='col-12 col-lg-3'>
+                    <section className='col-12 col-lg-3 my-3 my-lg-0'>
                         <h5 className='site-title fw-bold border-bottom text-light text-left pt-5 pt-lg-0 pt-md-0 mb-1 pb-1'>
                             INTERVIEW
                         </h5>
