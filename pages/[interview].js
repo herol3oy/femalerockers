@@ -4,10 +4,17 @@ import sanityClient from '../lib/SanityClient'
 import BlockContent from "@sanity/block-content-to-react"
 import imageUrlBuilder from "@sanity/image-url"
 import Image from 'next/image'
+import Link from 'next/link'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Badge from 'react-bootstrap/Badge'
 import styled from "styled-components"
+import { FaYoutube } from "react-icons/fa"
+import { FaSpotify } from "react-icons/fa"
+import { FaInstagram } from "react-icons/fa"
+import { FaLink } from "react-icons/fa"
+import { FaTwitter } from "react-icons/fa"
+import { FaFacebookF } from "react-icons/fa"
 
 const StyledTitle = styled.h2`
     background: linear-gradient(45deg,#f09433,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888);
@@ -20,6 +27,16 @@ const BgWrap = styled.section`
     height: 100vh;
     overflow: hidden;
     z-index: -1;
+    &::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        display: inline-block;
+        background: linear-gradient(to top, #000000 0%, rgba(255, 255, 255, 0) 100%);
+    }
 `
 
 const StyledInfoBox = styled.section`
@@ -116,9 +133,59 @@ export default function interview() {
                     />
                 </BgWrap>
                 <StyledInfoBox>
-                    {interviewContent.profession.map((profession, i) => <Badge key={i} className='badge rounded-pill bg-danger' pill variant="danger">{profession}</Badge>)}
-                    <h1 className='display-4 text-danger fw-bold'>{`${interviewContent.firstName} ${interviewContent.lastName}`}</h1>
-                    
+                    {interviewContent.profession.map((profession, i) => {
+                        return <Badge key={i} className='badge rounded-pill bg-danger' pill variant="danger">{profession}</Badge>
+                    })}
+                    <h1 className='display-2 text-danger fw-bold'>{`${interviewContent.firstName} ${interviewContent.lastName}`}</h1>
+                    {interviewContent.youtube
+                        ? <Link href={interviewContent.youtube}>
+                            <a target='_blank'>
+                                <FaYoutube className='h4 mx-1 text-light' />
+                            </a>
+                        </Link>
+                        : null
+                     }
+                     {interviewContent.spotify
+                        ? <Link href={interviewContent.spotify}>
+                            <a target='_blank'>
+                                <FaSpotify className='h4 mx-1 text-light' />
+                            </a>
+                        </Link>
+                        : null
+                     }
+                     {interviewContent.instagram
+                        ? <Link href={interviewContent.instagram}>
+                            <a target='_blank'>
+                                <FaInstagram className='h4 mx-1 text-light' />
+                            </a>
+                        </Link>
+                        : null
+                     }
+                     {interviewContent.website
+                        ? <Link href={interviewContent.website}>
+                            <a target='_blank'>
+                                <FaLink className='h4 mx-1 text-light' />
+                            </a>
+                        </Link>
+                        : null
+                     }
+                     {interviewContent.twitter
+                        ? <Link href={interviewContent.twitter}>
+                            <a target='_blank'>
+                                <FaTwitter className='h4 mx-1 text-light' />
+                            </a>
+                        </Link>
+                        : null
+                     }
+                     {interviewContent.facebook
+                        ? <Link href={interviewContent.facebook}>
+                            <a target='_blank'>
+                                <FaFacebookF className='h4 mx-1 text-light' />
+                            </a>
+                        </Link>
+                        : null
+                     }
+
                 </StyledInfoBox>
             </div>
 
