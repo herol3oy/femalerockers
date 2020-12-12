@@ -30,8 +30,12 @@ const GlobalStyle = createGlobalStyle`
         margin-left: -75px;
     }
 
-    .card img, section > img {
-        filter: grayscale(100%);
+    img {
+        filter: grayscale(100%)
+    }
+
+    dt img {
+        filter: grayscale(0);
     }
 
     figure img {

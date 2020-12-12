@@ -10,9 +10,16 @@ import imageUrlBuilder from "@sanity/image-url"
 import Link from 'next/link'
 import styled from "styled-components"
 
-const StyledCard = styled(Card.ImgOverlay)`
-  top:unset;
-`;
+const StyledCard = styled(Card)`
+    &:hover > * {
+        opacity: 1;
+        transition: all ease 800ms
+    }
+`
+const StyledImgOverlay = styled(Card.ImgOverlay)`
+  top: unset;
+  opacity: 0;
+`
 
 const builder = imageUrlBuilder(sanityClient)
 const urlFor = (source) => builder.image(source)
@@ -45,22 +52,22 @@ export default function Musicians() {
                 {_.map(musicians, (rocker, i) => (
                     <Link key={i} href={rocker.slug.current}>
                         <a className='p-0 text-white text-decoration-none'>
-                            <Card className='px-1 bg-transparent border-0 border-top'>
+                            <StyledCard className='px-1 bg-transparent border-0 border-top'>
                                 <Image
                                     className="border-top border-danger border-2 rounded-top rounded-bottom d-block"
-                                    src={urlFor(rocker.profileImage.asset.url).url()}
+                                    src={urlFor(rocker.profileImage.asset.url).width(160).height(240).url()}
                                     alt="First slide"
                                     layout="responsive"
                                     width={160}
                                     height={240}
                                 />
-                                <StyledCard>
+                                <StyledImgOverlay>
                                     <Card.Title className='text-danger fw-bold'>{`${rocker.firstName} ${rocker.lastName} ${rocker.country}`}</Card.Title>
                                     <Card.Text>
                                         {rocker.profession.map((profession, i) => <Badge key={i} className='badge rounded-pill bg-danger' pill variant="danger">{profession}</Badge>)}
                                     </Card.Text>
-                                </StyledCard>
-                            </Card>
+                                </StyledImgOverlay>
+                            </StyledCard>
                         </a>
                     </Link>
                 ))}

@@ -3,14 +3,15 @@ import Container from 'react-bootstrap/Container'
 import Link from 'next/link'
 import styled from "styled-components"
 
-const StyledContainer = styled(Container)`
-    z-index: 1;
+const StyledNavbar = styled(Navbar)`
+    z-index: 2;
+    backdrop-filter: blur(5px);
 `
 
 export default function navbar() {
     return (
-        <StyledContainer fluid className='my-3 position-absolute'>
-            <Navbar className='container d-flex justify-content-center justify-content-sm-between ' expand="lg">
+        <>
+            <StyledNavbar className='container d-flex justify-content-center justify-content-sm-between ' expand="lg">
                 <section className='flex text-center text-sm-start'>
                     <Link href='/'>
                         <a className='h3 site-title text-danger fw-bolder text-decoration-none'>
@@ -22,7 +23,7 @@ export default function navbar() {
                 <Link href='https://instagram.com/femalerockers_'>
                     <a className='instagram-btn text-decoration-none' target='_blank' >Instagram</a>
                 </Link>
-            </Navbar>
+            </StyledNavbar>
 
             <style jsx>{`
                 .site-title {
@@ -43,6 +44,6 @@ export default function navbar() {
                 }
                 
                 `}</style>
-        </StyledContainer>
+        </>
     )
 }
