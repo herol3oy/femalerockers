@@ -1,17 +1,10 @@
 import Navbar from 'react-bootstrap/Navbar'
-import Container from 'react-bootstrap/Container'
 import Link from 'next/link'
-import styled from "styled-components"
-
-const StyledNavbar = styled(Navbar)`
-    z-index: 2;
-    backdrop-filter: blur(5px);
-`
 
 export default function navbar() {
     return (
         <>
-            <StyledNavbar className='container d-flex justify-content-center justify-content-sm-between ' expand="lg">
+            <Navbar className='container d-flex justify-content-center justify-content-sm-between' expand="lg">
                 <section className='flex text-center text-sm-start'>
                     <Link href='/'>
                         <a className='h3 site-title text-danger fw-bolder text-decoration-none'>
@@ -23,9 +16,14 @@ export default function navbar() {
                 <Link href='https://instagram.com/femalerockers_'>
                     <a className='instagram-btn text-decoration-none' target='_blank' >Instagram</a>
                 </Link>
-            </StyledNavbar>
+            </Navbar>
 
             <style jsx>{`
+                nav {
+                    z-index: 2;
+                    backdrop-filter: blur(5px);
+                }
+
                 .site-title {
                     font-family: 'Cinzel', serif;
                 }

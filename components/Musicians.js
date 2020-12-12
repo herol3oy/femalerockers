@@ -9,20 +9,14 @@ import Image from 'next/image'
 import imageUrlBuilder from "@sanity/image-url"
 import Link from 'next/link'
 import styled from "styled-components"
-
-const StyledCard = styled(Card)`
-    &:hover > * {
-        opacity: 1;
-        transition: all ease 800ms
-    }
-`
-const StyledImgOverlay = styled(Card.ImgOverlay)`
-  top: unset;
-  opacity: 0;
-`
+import { motion } from 'framer-motion'
 
 const builder = imageUrlBuilder(sanityClient)
 const urlFor = (source) => builder.image(source)
+
+const StyledImgOverlay = styled(Card.ImgOverlay)`
+  top: unset;
+`
 
 export default function Musicians() {
     const [musicians, setMusicians] = useState(null)
@@ -46,17 +40,33 @@ export default function Musicians() {
             .catch(console.error)
     }, [])
 
+    const variants = {
+        hidden: { opacity: 0 },
+        visible: { opacity: 1 }
+      }
+
     return (
         <Container className='overflow-hidden'>
-            <Row className='row-cols-2 row-cols-sm-2 row-cols-lg-6 row-cols-md-4 g-0 my-3 gy-2'>
+            <Row
+                className='row-cols-2 row-cols-sm-2 row-cols-lg-6 row-cols-md-4 g-0 my-3 gy-2'>
                 {_.map(musicians, (rocker, i) => (
                     <Link key={i} href={rocker.slug.current}>
-                        <a className='p-0 text-white text-decoration-none'>
-                            <StyledCard className='px-1 bg-transparent border-0 border-top'>
+                        <motion.a
+                            initial='hidden'
+                            animate='visible'
+                            variants={variants}
+                            drag='x'
+                            dragConstraints={{ left: -100, right: 100 }}
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.9 }}
+                            className='p-0 text-white text-decoration-none'>
+                            <Card
+
+                                className='px-1 bg-transparent border-0 border-top'>
                                 <Image
                                     className="border-top border-danger border-2 rounded-top rounded-bottom d-block"
                                     src={urlFor(rocker.profileImage.asset.url).width(160).height(240).url()}
-                                    alt="First slide"
+                                    alt={`${rocker.firstName} ${rocker.lastName}`}
                                     layout="responsive"
                                     width={160}
                                     height={240}
@@ -67,8 +77,8 @@ export default function Musicians() {
                                         {rocker.profession.map((profession, i) => <Badge key={i} className='badge rounded-pill bg-danger' pill variant="danger">{profession}</Badge>)}
                                     </Card.Text>
                                 </StyledImgOverlay>
-                            </StyledCard>
-                        </a>
+                            </Card>
+                        </motion.a>
                     </Link>
                 ))}
             </Row>

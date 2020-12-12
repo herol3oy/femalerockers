@@ -42,6 +42,10 @@ const GlobalStyle = createGlobalStyle`
         width: 100%;
     }
 
+    a {
+        cursor: pointer;
+    }
+
     blockquote {
         color: #dc3545;
         font-family: 'Roboto', sans-serif;
