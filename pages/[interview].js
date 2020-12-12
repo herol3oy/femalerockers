@@ -14,9 +14,6 @@ const StyledTitle = styled.h2`
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 `
-const StyledExcerpt = styled.p`
-    font-family: 'Roboto', sans-serif;
-`
 export default function interview() {
     const [interviewContent, setInterviewContent] = useState(null)
 
@@ -57,41 +54,45 @@ export default function interview() {
 
     if (!interviewContent) return <div>Loading...</div>
 
-    const highlight = props => {
-        return (
-            <span style={{ backgroundColor: props.mark.color }}>
-                {props.children}
-            </span>
-        )
+    const BlockRenderer = (props) => {
+        const { marks, text } = props.node.children[0]
+        if (props.node.style === 'blockquote') return <blockquote>{text}</blockquote>
+        if (marks[0] === 'strong') return <><dt>FS</dt><dd>{text}</dd></>
+        if (props.node.children[0].marks[0] !== 'strong' && props.node.children[0].text !== interviewContent.firstName.toUpperCase()) return <><dt>{interviewContent.firstName.toUpperCase()}</dt><dd>{props.node.children[0].text}</dd></>
+        return null
     }
 
     return (
         <>
-            <Image
-                className="cover__img"
-                src={urlFor(interviewContent.coverImage.asset).url()}
-                alt={interviewContent.firstName}
-                layout="responsive"
-                width={1100}
-                height={800}
-            />
+            <section className='position-relative'>
+                <Image
+                    className="position-absolute"
+                    src={urlFor(interviewContent.coverImage.asset).url()}
+                    alt={interviewContent.firstName}
+                    layout="responsive"
+                    width={1200}
+                    height={800}
+                />
+                <div className='position-absolute'>
+
+                </div>
+            </section>
             <Container>
                 <Row className='justify-content-center'>
                     <section className='col-12 col-lg-7 col-md-8'>
                         <StyledTitle className='display-5 fw-bolder mt-5'>
                             {interviewContent.title}
                         </StyledTitle>
-                        <StyledExcerpt className='h3 lh-base text-light'>
+                        <p className='h3 lh-base text-light'>
                             {interviewContent.excerpt}
-                        </StyledExcerpt>
-                        <hr className='my-5 text-light'/>
+                        </p>
+                        <hr className='my-5 text-light' />
                         <BlockContent
                             className='text-light'
                             blocks={interviewContent.body}
                             projectId="ldn05m4o"
                             dataset="production"
-                            serializers={{ marks: { highlight } }}
-                            renderContainerOnSingleChild={true}
+                            serializers={{ types: { block: BlockRenderer } }}
                         />
                     </section>
                 </Row>

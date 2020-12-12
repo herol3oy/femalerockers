@@ -21,6 +21,10 @@ const GlobalStyle = createGlobalStyle`
         background: radial-gradient(ellipse at center,hsla(0,0%,100%,.2) 0,hsla(0,0%,100%,0) 75%);
     }
 
+    p {
+        font-family: 'Roboto', sans-serif;
+    }
+
     img {
         filter: grayscale(100%);
     }
@@ -36,6 +40,7 @@ const GlobalStyle = createGlobalStyle`
         font-weight: 700;
         position: relative;
         margin: 1em 0;
+        line-height: 1.1;
     }
 
     blockquote::before {
@@ -43,7 +48,7 @@ const GlobalStyle = createGlobalStyle`
         font-size: 3em;
         line-height: 0;
         left: -0.2rem;
-        top: 1.4rem;
+        top: .9rem;
         position: absolute;
         text-align: center;
     }
