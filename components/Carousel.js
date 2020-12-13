@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react'
 import Carousel from 'react-bootstrap/Carousel'
 import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Badge from 'react-bootstrap/Badge'
 import Image from 'next/image'
+import Link from 'next/link'
 import sanityClient from '../lib/SanityClient'
 import _ from 'lodash'
 import imageUrlBuilder from "@sanity/image-url"
@@ -36,7 +39,8 @@ export default function carousel() {
                     country,
                     profileImage,
                     coverImage,
-                    body,
+                    profession,
+                    slug,
                 }`
             )
             .then((musician) => setCarousel(musician))
@@ -57,20 +61,33 @@ export default function carousel() {
                                     layout="fill"
                                     objectFit="cover"
                                     quality={100}
+                                // layout='responsive'
+                                // width={1200}
+                                // height={800}
                                 />
-                                <Carousel.Caption className='d-flex' >
-                                    <Image
-                                        src={urlFor(rocker.profileImage.asset).width(162).height(240).url()}
-                                        alt={`${rocker.firstName} ${rocker.lastName}`}
-                                        layout="intrinsic"
-                                        width={162}
-                                        height={240}
-                                    />
-                                    <div className='d-flex flex-column m-2'>
-                                        <h1 className='text-start display-4 text-danger fw-bolder'>{`${rocker.firstName} ${rocker.lastName}`}</h1>
-                                        <p className='text-start'>{rocker.excerpt.substring(0, 120)}</p>
-                                    </div>
-                                </Carousel.Caption>
+                                <Link href={`${rocker.slug.current}`}>
+                                    <a>
+                                        <Carousel.Caption>
+                                            <Row>
+                                                <div className='col-4'>
+                                                    <Image
+                                                        src={urlFor(rocker.profileImage.asset).url()}
+                                                        alt={`${rocker.firstName} ${rocker.lastName}`}
+                                                        width={162}
+                                                        height={240}
+                                                    />
+                                                </div>
+                                                <div className='col-8 text-start'>
+                                                    {rocker.profession.map((profession, i) => <Badge key={i} className='badge rounded-pill bg-danger' pill>{profession}</Badge>)}
+                                                    <h1 className='text-start text-danger fw-bolder'>{`${rocker.firstName} ${rocker.lastName} ${rocker.country}`}</h1>
+                                                    <h4 className='text-start d-lg-block d-none'>{rocker.excerpt}</h4>
+                                                </div>
+
+                                            </Row>
+                                        </Carousel.Caption>
+                                    </a>
+                                </Link>
+
                             </Carousel.Item>
                         )
                     })}
@@ -79,11 +96,17 @@ export default function carousel() {
 
             <style global jsx>{`
                     .carousel-item {
-                        height: 500px;
+                        height: 520px;
                     }
                     .carousel-caption {
                         z-index:1;
                     }
+                    @media only screen and (max-width:600px) {
+                        .carousel-item {
+                            height: 320px;
+                        }
+                    }
+
             `}</style>
         </>
     )
