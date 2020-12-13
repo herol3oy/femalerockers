@@ -77,7 +77,7 @@ export default function carousel() {
                                                         height={240}
                                                     />
                                                 </div>
-                                                <div className='col-8 text-start'>
+                                                <div className='col-8 text-start align-self-end'>
                                                     {rocker.profession.map((profession, i) => <Badge key={i} className='badge rounded-pill bg-danger' pill>{profession}</Badge>)}
                                                     <h1 className='text-start text-danger fw-bolder'>{`${rocker.firstName} ${rocker.lastName} ${rocker.country}`}</h1>
                                                     <h4 className='text-start d-lg-block d-none'>{rocker.excerpt}</h4>
