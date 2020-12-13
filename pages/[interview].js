@@ -46,8 +46,6 @@ const StyledInfoBox = styled.section`
     color: red;
 `
 
-
-
 export default function interview() {
     const [interviewContent, setInterviewContent] = useState(null)
 
@@ -132,7 +130,7 @@ export default function interview() {
                         quality={100}
                     />
                 </BgWrap>
-                <StyledInfoBox>
+                <StyledInfoBox className='p-3 w-100'>
                     {interviewContent.profession.map((profession, i) => {
                         return <Badge key={i} className='badge rounded-pill bg-danger' pill variant="danger">{profession}</Badge>
                     })}
@@ -144,47 +142,47 @@ export default function interview() {
                             </a>
                         </Link>
                         : null
-                     }
-                     {interviewContent.spotify
+                    }
+                    {interviewContent.spotify
                         ? <Link href={interviewContent.spotify}>
                             <a target='_blank'>
                                 <FaSpotify className='h4 mx-1 text-light' />
                             </a>
                         </Link>
                         : null
-                     }
-                     {interviewContent.instagram
+                    }
+                    {interviewContent.instagram
                         ? <Link href={interviewContent.instagram}>
                             <a target='_blank'>
                                 <FaInstagram className='h4 mx-1 text-light' />
                             </a>
                         </Link>
                         : null
-                     }
-                     {interviewContent.website
+                    }
+                    {interviewContent.website
                         ? <Link href={interviewContent.website}>
                             <a target='_blank'>
                                 <FaLink className='h4 mx-1 text-light' />
                             </a>
                         </Link>
                         : null
-                     }
-                     {interviewContent.twitter
+                    }
+                    {interviewContent.twitter
                         ? <Link href={interviewContent.twitter}>
                             <a target='_blank'>
                                 <FaTwitter className='h4 mx-1 text-light' />
                             </a>
                         </Link>
                         : null
-                     }
-                     {interviewContent.facebook
+                    }
+                    {interviewContent.facebook
                         ? <Link href={interviewContent.facebook}>
                             <a target='_blank'>
                                 <FaFacebookF className='h4 mx-1 text-light' />
                             </a>
                         </Link>
                         : null
-                     }
+                    }
 
                 </StyledInfoBox>
             </div>

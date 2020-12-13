@@ -22,7 +22,7 @@ export default function Musicians() {
     const [musicians, setMusicians] = useState(null)
 
     useEffect(() => {
-        sanityClient.fetch(`*[_type == "interview"]{
+        sanityClient.fetch(`*[_type == "interview"] | order(date){
             firstName,
             lastName,
             profession,

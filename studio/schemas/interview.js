@@ -84,6 +84,11 @@ export default {
             type: "string",
         },
         {
+            title: 'Publish on homepage carousel?',
+            name: 'carousel',
+            type: 'boolean'
+        },
+        {
             name: "date",
             type: "datetime",
         },
