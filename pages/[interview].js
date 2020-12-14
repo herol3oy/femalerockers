@@ -32,6 +32,7 @@ const StyledTitle = styled.h2`
 const BgWrap = styled.section`
     height: 100vh;
     overflow: hidden;
+    display:flex;
     z-index: -1;
     &::after {
         content: "";
@@ -132,86 +133,83 @@ export default function interview() {
 
     return (
         <>
-            <div>
-                <BgWrap>
+            <BgWrap>
+                <Image
+                    src={urlFor(interviewContent.coverImage.asset).url()}
+                    alt={interviewContent.firstName}
+                    layout="fill"
+                    objectFit="cover"
+                />
+            </BgWrap>
+            <motion.div
+                ref={ref}
+                style={{ opacity }}
+                className='d-flex justify-content-center '
+            >
+                <StyledInfoBox className='d-flex justify-content-start justify-content-lg-center bg-dark'>
                     <Image
-                        src={urlFor(interviewContent.coverImage.asset).url()}
-                        alt={interviewContent.firstName}
-                        layout="fill"
-                        objectFit="cover"
-                        quality={100}
+                        src={urlFor(interviewContent.profileImage.asset).url()}
+                        width={160}
+                        height={240}
                     />
-                </BgWrap>
-                <motion.div
-                    ref={ref}
-                    style={{ opacity }}
-                    className='d-flex justify-content-center '
-                >
-                    <StyledInfoBox className='d-flex justify-content-start justify-content-lg-center bg-dark'>
-                        <Image
-                            src={urlFor(interviewContent.profileImage.asset).url()}
-                            width={160}
-                            height={240}
-                        />
-                        <div className='align-self-end'>
+                    <div className='align-self-end p-2'>
 
-                            {interviewContent.profession.map((profession, i) => {
-                                return <Badge key={i} className='badge rounded-pill bg-danger' pill variant="danger">{profession}</Badge>
-                            })}
-                            <h1 className='display-2 text-danger fw-bold'>{`${interviewContent.firstName} ${interviewContent.lastName}`}</h1>
-                            {interviewContent.youtube
-                                ? <Link href={interviewContent.youtube}>
-                                    <a target='_blank'>
-                                        <FaYoutube className='h4 mx-1 text-light' />
-                                    </a>
-                                </Link>
-                                : null
-                            }
-                            {interviewContent.spotify
-                                ? <Link href={interviewContent.spotify}>
-                                    <a target='_blank'>
-                                        <FaSpotify className='h4 mx-1 text-light' />
-                                    </a>
-                                </Link>
-                                : null
-                            }
-                            {interviewContent.instagram
-                                ? <Link href={interviewContent.instagram}>
-                                    <a target='_blank'>
-                                        <FaInstagram className='h4 mx-1 text-light' />
-                                    </a>
-                                </Link>
-                                : null
-                            }
-                            {interviewContent.website
-                                ? <Link href={interviewContent.website}>
-                                    <a target='_blank'>
-                                        <FaLink className='h4 mx-1 text-light' />
-                                    </a>
-                                </Link>
-                                : null
-                            }
-                            {interviewContent.twitter
-                                ? <Link href={interviewContent.twitter}>
-                                    <a target='_blank'>
-                                        <FaTwitter className='h4 mx-1 text-light' />
-                                    </a>
-                                </Link>
-                                : null
-                            }
-                            {interviewContent.facebook
-                                ? <Link href={interviewContent.facebook}>
-                                    <a target='_blank'>
-                                        <FaFacebookF className='h4 mx-1 text-light' />
-                                    </a>
-                                </Link>
-                                : null
-                            }
+                        {interviewContent.profession.map((profession, i) => {
+                            return <Badge key={i} className='badge rounded-pill bg-danger' pill variant="danger">{profession}</Badge>
+                        })}
+                        <h1 className='display-2 text-danger fw-bold'>{`${interviewContent.firstName} ${interviewContent.lastName}`}</h1>
+                        {interviewContent.youtube
+                            ? <Link href={interviewContent.youtube}>
+                                <a target='_blank'>
+                                    <FaYoutube className='h4 mx-1 text-light' />
+                                </a>
+                            </Link>
+                            : null
+                        }
+                        {interviewContent.spotify
+                            ? <Link href={interviewContent.spotify}>
+                                <a target='_blank'>
+                                    <FaSpotify className='h4 mx-1 text-light' />
+                                </a>
+                            </Link>
+                            : null
+                        }
+                        {interviewContent.instagram
+                            ? <Link href={interviewContent.instagram}>
+                                <a target='_blank'>
+                                    <FaInstagram className='h4 mx-1 text-light' />
+                                </a>
+                            </Link>
+                            : null
+                        }
+                        {interviewContent.website
+                            ? <Link href={interviewContent.website}>
+                                <a target='_blank'>
+                                    <FaLink className='h4 mx-1 text-light' />
+                                </a>
+                            </Link>
+                            : null
+                        }
+                        {interviewContent.twitter
+                            ? <Link href={interviewContent.twitter}>
+                                <a target='_blank'>
+                                    <FaTwitter className='h4 mx-1 text-light' />
+                                </a>
+                            </Link>
+                            : null
+                        }
+                        {interviewContent.facebook
+                            ? <Link href={interviewContent.facebook}>
+                                <a target='_blank'>
+                                    <FaFacebookF className='h4 mx-1 text-light' />
+                                </a>
+                            </Link>
+                            : null
+                        }
 
-                        </div>
-                    </StyledInfoBox>
-                </motion.div>
-            </div>
+                    </div>
+                </StyledInfoBox>
+            </motion.div>
 
             <Container>
                 <Row className='justify-content-center'>

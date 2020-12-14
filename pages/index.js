@@ -1,11 +1,13 @@
-import Carousel from '@/components/Carousel'
-import Musicians from '@/components/Musicians'
+import Carousel from '@/Carousel'
+import Musicians from '@/Musicians'
+import RandomQuote from '@/RandomQuote'
 
 export default function Home() {
   return (
     <>
       <Carousel />
       <Musicians />
+      <RandomQuote />
     </>
   )
 }

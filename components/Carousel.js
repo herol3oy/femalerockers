@@ -13,6 +13,7 @@ import styled from "styled-components"
 
 const StyledCarousel = styled(Carousel)`
     &::after {
+        display:flex;
         content: "";
         position: absolute;
         left: 0;
@@ -71,7 +72,7 @@ export default function carousel() {
                                     <a>
                                         <Carousel.Caption>
                                             <Row>
-                                                <div className='col-4'>
+                                                <div className='col-4 d-flex justify-content-end'>
                                                     <Image
                                                         src={urlFor(rocker.profileImage.asset).url()}
                                                         alt={`${rocker.firstName} ${rocker.lastName}`}

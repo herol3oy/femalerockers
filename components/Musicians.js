@@ -60,7 +60,7 @@ export default function Musicians() {
                             className='p-0 text-white text-decoration-none'>
                             <Card
 
-                                className='mx-1 bg-transparent border-top border-danger border-2 rounded-top rounded-bottom'>
+                                className='mx-1 bg-transparent border-0 border-top border-danger border-2 rounded-top rounded-bottom'>
                                 <Image
                                     className="d-block rounded-top"
                                     src={urlFor(rocker.profileImage.asset.url).width(160).height(240).url()}
