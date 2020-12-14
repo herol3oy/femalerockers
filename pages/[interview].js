@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/router'
 import sanityClient from '../lib/SanityClient'
 import BlockContent from "@sanity/block-content-to-react"
@@ -15,6 +15,12 @@ import { FaInstagram } from "react-icons/fa"
 import { FaLink } from "react-icons/fa"
 import { FaTwitter } from "react-icons/fa"
 import { FaFacebookF } from "react-icons/fa"
+import {
+    motion,
+    useSpring,
+    useTransform,
+    useViewportScroll
+} from "framer-motion"
 
 const StyledTitle = styled.h2`
     background: linear-gradient(45deg,#f09433,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888);
@@ -37,18 +43,18 @@ const BgWrap = styled.section`
         display: inline-block;
         background: linear-gradient(to top, #000000 0%, rgba(255, 255, 255, 0) 100%);
     }
-`
-
+    `
 const StyledInfoBox = styled.section`
     position: absolute;
-    top: 50vh;
+    bottom: 0;
+    left: 6wh;
     z-index: 99999;
     color: red;
 `
 
 export default function interview() {
     const [interviewContent, setInterviewContent] = useState(null)
-
+    const ref = useRef(null)
     const router = useRouter()
     const { interview } = router.query
 
@@ -56,6 +62,8 @@ export default function interview() {
     const urlFor = (source) => builder.image(source)
 
     useEffect(() => {
+        window.scrollTo({ top: 0 })
+
         sanityClient
             .fetch(
                 `*[_type == "interview" && slug.current == "${interview}"]{
@@ -84,7 +92,9 @@ export default function interview() {
             .catch(console.error)
     }, [interview])
 
-    if (!interviewContent) return <div>Loading...</div>
+    const { scrollY } = useViewportScroll()
+    const yRange = useTransform(scrollY, [350, 0], [0, 1])
+    const opacity = useSpring(yRange, { stiffness: 400, damping: 40 })
 
     const BlockRenderer = (props) => {
         const { marks, text } = props.node.children[0]
@@ -95,8 +105,8 @@ export default function interview() {
                     <dt>
                         <Image
                             src='/android-chrome-192x192.png'
-                            width={20}
-                            height={20}
+                            width={32}
+                            height={32}
                         />
                     </dt>
                     <dd className='h5 fw-bold'>{text}</dd>
@@ -105,11 +115,11 @@ export default function interview() {
         }
         if (props.node.children[0].marks[0] !== 'strong' && props.node.children[0].text !== interviewContent.firstName.toUpperCase()) {
             return (
-                <div className='my-5'>
+                <div className='my-4'>
                     <dt className='fw-bold'>
                         {interviewContent.firstName.toUpperCase()}
                     </dt>
-                    <dd className='h5 lh-lg fw-thin'>
+                    <dd className='h5 lh-base fw-thin'>
                         {props.node.children[0].text}
                     </dd>
                 </div>
@@ -117,6 +127,8 @@ export default function interview() {
         }
         return null
     }
+
+    if (!interviewContent) return <div>Loading...</div>
 
     return (
         <>
@@ -130,61 +142,75 @@ export default function interview() {
                         quality={100}
                     />
                 </BgWrap>
-                <StyledInfoBox className='p-3 w-100'>
-                    {interviewContent.profession.map((profession, i) => {
-                        return <Badge key={i} className='badge rounded-pill bg-danger' pill variant="danger">{profession}</Badge>
-                    })}
-                    <h1 className='display-2 text-danger fw-bold'>{`${interviewContent.firstName} ${interviewContent.lastName}`}</h1>
-                    {interviewContent.youtube
-                        ? <Link href={interviewContent.youtube}>
-                            <a target='_blank'>
-                                <FaYoutube className='h4 mx-1 text-light' />
-                            </a>
-                        </Link>
-                        : null
-                    }
-                    {interviewContent.spotify
-                        ? <Link href={interviewContent.spotify}>
-                            <a target='_blank'>
-                                <FaSpotify className='h4 mx-1 text-light' />
-                            </a>
-                        </Link>
-                        : null
-                    }
-                    {interviewContent.instagram
-                        ? <Link href={interviewContent.instagram}>
-                            <a target='_blank'>
-                                <FaInstagram className='h4 mx-1 text-light' />
-                            </a>
-                        </Link>
-                        : null
-                    }
-                    {interviewContent.website
-                        ? <Link href={interviewContent.website}>
-                            <a target='_blank'>
-                                <FaLink className='h4 mx-1 text-light' />
-                            </a>
-                        </Link>
-                        : null
-                    }
-                    {interviewContent.twitter
-                        ? <Link href={interviewContent.twitter}>
-                            <a target='_blank'>
-                                <FaTwitter className='h4 mx-1 text-light' />
-                            </a>
-                        </Link>
-                        : null
-                    }
-                    {interviewContent.facebook
-                        ? <Link href={interviewContent.facebook}>
-                            <a target='_blank'>
-                                <FaFacebookF className='h4 mx-1 text-light' />
-                            </a>
-                        </Link>
-                        : null
-                    }
+                <motion.div
+                    ref={ref}
+                    style={{ opacity }}
+                    className='d-flex justify-content-center '
+                >
+                    <StyledInfoBox className='d-flex justify-content-start justify-content-lg-center bg-dark'>
+                        <Image
+                            src={urlFor(interviewContent.profileImage.asset).url()}
+                            width={160}
+                            height={240}
+                        />
+                        <div className='align-self-end'>
 
-                </StyledInfoBox>
+                            {interviewContent.profession.map((profession, i) => {
+                                return <Badge key={i} className='badge rounded-pill bg-danger' pill variant="danger">{profession}</Badge>
+                            })}
+                            <h1 className='display-2 text-danger fw-bold'>{`${interviewContent.firstName} ${interviewContent.lastName}`}</h1>
+                            {interviewContent.youtube
+                                ? <Link href={interviewContent.youtube}>
+                                    <a target='_blank'>
+                                        <FaYoutube className='h4 mx-1 text-light' />
+                                    </a>
+                                </Link>
+                                : null
+                            }
+                            {interviewContent.spotify
+                                ? <Link href={interviewContent.spotify}>
+                                    <a target='_blank'>
+                                        <FaSpotify className='h4 mx-1 text-light' />
+                                    </a>
+                                </Link>
+                                : null
+                            }
+                            {interviewContent.instagram
+                                ? <Link href={interviewContent.instagram}>
+                                    <a target='_blank'>
+                                        <FaInstagram className='h4 mx-1 text-light' />
+                                    </a>
+                                </Link>
+                                : null
+                            }
+                            {interviewContent.website
+                                ? <Link href={interviewContent.website}>
+                                    <a target='_blank'>
+                                        <FaLink className='h4 mx-1 text-light' />
+                                    </a>
+                                </Link>
+                                : null
+                            }
+                            {interviewContent.twitter
+                                ? <Link href={interviewContent.twitter}>
+                                    <a target='_blank'>
+                                        <FaTwitter className='h4 mx-1 text-light' />
+                                    </a>
+                                </Link>
+                                : null
+                            }
+                            {interviewContent.facebook
+                                ? <Link href={interviewContent.facebook}>
+                                    <a target='_blank'>
+                                        <FaFacebookF className='h4 mx-1 text-light' />
+                                    </a>
+                                </Link>
+                                : null
+                            }
+
+                        </div>
+                    </StyledInfoBox>
+                </motion.div>
             </div>
 
             <Container>

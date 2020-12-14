@@ -3,6 +3,7 @@ import Carousel from 'react-bootstrap/Carousel'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Badge from 'react-bootstrap/Badge'
+import Button from 'react-bootstrap/Button'
 import Image from 'next/image'
 import Link from 'next/link'
 import sanityClient from '../lib/SanityClient'
@@ -19,7 +20,7 @@ const StyledCarousel = styled(Carousel)`
         width: 100%;
         height: 100%;
         display: inline-block;
-        background: linear-gradient(to top, #000000 0%, rgba(255, 255, 255, 0) 100%);
+        background: linear-gradient(to top, #111 0%, rgba(255, 255, 255, 0) 100%);
     }
 `
 
@@ -35,7 +36,7 @@ export default function carousel() {
                 `*[_type == "interview" && carousel == true ]{
                     firstName,
                     lastName,
-                    excerpt,
+                    title,
                     country,
                     profileImage,
                     coverImage,
@@ -50,7 +51,8 @@ export default function carousel() {
     return (
         <>
             <Container className='my-3'>
-                <StyledCarousel prevLabel='' nextLabel=''>
+                <StyledCarousel prevLabel='' nextLabel=''
+                >
                     {_.map(carousel, (rocker, i) => {
                         return (
                             <Carousel.Item key={i} >
@@ -80,7 +82,8 @@ export default function carousel() {
                                                 <div className='col-8 text-start align-self-end'>
                                                     {rocker.profession.map((profession, i) => <Badge key={i} className='badge rounded-pill bg-danger' pill>{profession}</Badge>)}
                                                     <h1 className='text-start text-danger fw-bolder'>{`${rocker.firstName} ${rocker.lastName} ${rocker.country}`}</h1>
-                                                    <h4 className='text-start d-lg-block d-none'>{rocker.excerpt}</h4>
+                                                    <h4 className='text-start font-monospace d-lg-block d-none'>{rocker.title}</h4>
+                                                    <Button variant="secondary" size="sm"><small>READ MORE 👉</small></Button>
                                                 </div>
 
                                             </Row>
