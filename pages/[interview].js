@@ -14,6 +14,7 @@ import { FaInstagram } from 'react-icons/fa'
 import { FaLink } from 'react-icons/fa'
 import { FaTwitter } from 'react-icons/fa'
 import { FaFacebookF } from 'react-icons/fa'
+import Head from 'next/head'
 import {
     StyledTitle,
     BgWrap,
@@ -106,6 +107,12 @@ export default function interview() {
 
     return (
         <>
+            <Head>
+                <title>
+                    FemaleRockers | Exclusive Interview With {`${interviewContent.firstName} ${interviewContent.lastName}`}
+                </title>
+            </Head>
+
             <BgWrap>
                 <Image
                     src={urlFor(interviewContent.coverImage.asset).url()}
