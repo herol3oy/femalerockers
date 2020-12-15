@@ -32,8 +32,8 @@ export default function interview() {
     const router = useRouter()
     const { interview } = router.query
 
-    const builder = imageUrlBuilder(sanityClient)
-    const urlFor = (source) => builder.image(source)
+    const urlFor = (source) =>
+        imageUrlBuilder(sanityClient).image(source)
 
     useEffect(() => {
         window.scrollTo({ top: 0 })

@@ -19,15 +19,15 @@ export default function RandomQuote() {
                     quote,
                 }`
             )
-            .then((data) => setQuotes(data[_.random(data.length)]))
+            .then((data) => setQuotes(data[_.random(data.length - 1)]))
             .catch(console.error)
 
     }, [])
 
     return (
-        <StyledContainer fluid>
+        <StyledContainer fluid className='mt-5'>
             <Container className='d-flex flex-column justify-content-center align-items-center p-5'>
-                <StyledQuote className='text-center text-danger'>{quotes?.quote}</StyledQuote >
+                <StyledQuote className='text-center text-light'>"{quotes?.quote}"</StyledQuote >
                 <Link href={quotes?.slug?.current || '/'}>
                     <a className='text-light'>
                         ~ {`${quotes?.firstName} ${quotes?.lastName}`} ~

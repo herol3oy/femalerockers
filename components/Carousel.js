@@ -36,50 +36,45 @@ export default function carousel() {
     }, [])
 
     return (
-        <>
-            <Container className='my-3'>
-                <StyledCarousel prevLabel='' nextLabel=''
-                >
-                    {_.map(carousel, (rocker, i) => {
-                        return (
-                            <Carousel.Item key={i} >
-                                <Image
-                                    className="d-block"
-                                    src={urlFor(rocker.coverImage.asset).url()}
-                                    alt={`${rocker.firstName} ${rocker.lastName}`}
-                                    layout="fill"
-                                    objectFit="cover"
-                                    quality={100}
-                                />
-                                <Link href={`${rocker.slug.current}`}>
-                                    <a>
-                                        <Carousel.Caption>
-                                            <Row>
-                                                <div className='col-4 d-flex justify-content-end'>
-                                                    <Image
-                                                        src={urlFor(rocker.profileImage.asset).url()}
-                                                        alt={`${rocker.firstName} ${rocker.lastName}`}
-                                                        width={162}
-                                                        height={240}
-                                                    />
-                                                </div>
-                                                <div className='col-8 text-start align-self-end'>
-                                                    {rocker.profession.map((profession, i) => <Badge key={i} className='badge rounded-pill bg-danger' pill>{profession}</Badge>)}
-                                                    <h1 className='text-start text-danger fw-bolder'>{`${rocker.firstName} ${rocker.lastName} ${rocker.country}`}</h1>
-                                                    <h4 className='text-start font-monospace d-lg-block d-none'>{rocker.title}</h4>
-                                                    <Button variant="secondary" size="sm"><small>READ MORE 👉</small></Button>
-                                                </div>
-
-                                            </Row>
-                                        </Carousel.Caption>
-                                    </a>
-                                </Link>
-
-                            </Carousel.Item>
-                        )
-                    })}
-                </StyledCarousel>
-            </Container>
-        </>
+        <Container className='my-3'>
+            <StyledCarousel prevLabel='' nextLabel=''>
+                {_.map(carousel, (rocker, i) => {
+                    return (
+                        <Carousel.Item key={i} >
+                            <Image
+                                className="d-block"
+                                src={urlFor(rocker.coverImage.asset).url()}
+                                alt={`${rocker.firstName} ${rocker.lastName}`}
+                                layout="fill"
+                                objectFit="cover"
+                                quality={100}
+                            />
+                            <Link href={`${rocker.slug.current}`}>
+                                <a>
+                                    <Carousel.Caption>
+                                        <Row>
+                                            <div className='col-4 d-flex justify-content-end'>
+                                                <Image
+                                                    src={urlFor(rocker.profileImage.asset).url()}
+                                                    alt={`${rocker.firstName} ${rocker.lastName}`}
+                                                    width={162}
+                                                    height={240}
+                                                />
+                                            </div>
+                                            <div className='col-8 text-start align-self-end'>
+                                                <h1 className='text-start text-danger fw-bolder'>{`${rocker.firstName} ${rocker.lastName} ${rocker.country}`}</h1>
+                                                <h4 className='text-start font-monospace d-lg-block d-none'>{rocker.title}</h4>
+                                                {/* {rocker.profession.map((profession, i) => <Badge key={i} className='badge rounded-pill bg-danger' pill>{profession}</Badge>)} */}
+                                                <Button variant="secondary" size="sm"><small>READ MORE 👉</small></Button>
+                                            </div>
+                                        </Row>
+                                    </Carousel.Caption>
+                                </a>
+                            </Link>
+                        </Carousel.Item>
+                    )
+                })}
+            </StyledCarousel>
+        </Container>
     )
 }

@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 export default function Footer() {
     return (
-        <Container fluid className='my-5'>
+        <Container fluid className='mt-0 my-lg-5 mb-5'>
             <Container>
                 <Row>
                     <section className='col-12 col-lg-6'>

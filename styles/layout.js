@@ -69,9 +69,9 @@ export const SiteTitle = styled.a`
 `
 
 export const StyledQuote = styled.h3`
-    font-family: 'Cinzel', serif;
+    font-family: 'Playfair Display', serif;
 `
 
 export const StyledContainer = styled(Container)`
-    background-color: #3e1721;
+    background-color: var(--bs-red);
 `
