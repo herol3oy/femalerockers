@@ -1,5 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
-import { useRouter } from 'next/router'
+import { useRef } from 'react'
 import sanityClient from '../lib/SanityClient'
 import BlockContent from '@sanity/block-content-to-react'
 import imageUrlBuilder from '@sanity/image-url'
@@ -14,6 +13,8 @@ import { FaInstagram } from 'react-icons/fa'
 import { FaLink } from 'react-icons/fa'
 import { FaTwitter } from 'react-icons/fa'
 import { FaFacebookF } from 'react-icons/fa'
+import { getInterviewContent, getAllContentWithSlug } from '../lib/SanityApi'
+import _ from 'lodash'
 import Head from 'next/head'
 import {
     StyledTitle,
@@ -27,45 +28,11 @@ import {
     useViewportScroll
 } from 'framer-motion'
 
-export default function interview() {
-    const [interviewContent, setInterviewContent] = useState(null)
+export default function interview({ data }) {
     const ref = useRef(null)
-    const router = useRouter()
-    const { interview } = router.query
 
     const urlFor = (source) =>
         imageUrlBuilder(sanityClient).image(source)
-
-    useEffect(() => {
-        window.scrollTo({ top: 0 })
-
-        sanityClient
-            .fetch(
-                `*[_type == 'interview' && slug.current == '${interview}']{
-                    title,
-                    excerpt,
-                    title,
-                    excerpt,
-                    firstName,
-                    lastName,
-                    country,
-                    profession,
-                    profileImage,
-                    coverImage,
-                    instagram,
-                    spotify,
-                    facebook,
-                    twitter,
-                    youtube,
-                    website,
-                    date,
-                    body,
-                    
-                }`
-            )
-            .then((musician) => setInterviewContent(musician[0]))
-            .catch(console.error)
-    }, [interview])
 
     const { scrollY } = useViewportScroll()
     const yRange = useTransform(scrollY, [350, 0], [0, 1])
@@ -88,11 +55,11 @@ export default function interview() {
                 </div>
             )
         }
-        if (props.node.children[0].marks[0] !== 'strong' && props.node.children[0].text !== interviewContent.firstName.toUpperCase()) {
+        if (props.node.children[0].marks[0] !== 'strong' && props.node.children[0].text !== data[0].firstName.toUpperCase()) {
             return (
                 <div className='my-4'>
                     <dt className='fw-bold'>
-                        {interviewContent.firstName.toUpperCase()}
+                        {data[0].firstName.toUpperCase()}
                     </dt>
                     <dd className='h5 lh-base fw-thin'>
                         {props.node.children[0].text}
@@ -103,20 +70,20 @@ export default function interview() {
         return null
     }
 
-    if (!interviewContent) return <div>Loading...</div>
+    if (!data[0]) return <div>Loading...</div>
 
     return (
         <>
             <Head>
                 <title>
-                    FemaleRockers | Exclusive Interview With {`${interviewContent.firstName} ${interviewContent.lastName}`}
+                    FemaleRockers | Exclusive Interview With {`${data[0].firstName} ${data[0].lastName}`}
                 </title>
             </Head>
 
             <BgWrap>
                 <Image
-                    src={urlFor(interviewContent.coverImage.asset).url()}
-                    alt={interviewContent.firstName}
+                    src={urlFor(data[0].coverImage.asset).url()}
+                    alt={data[0].firstName}
                     layout='fill'
                     objectFit='cover'
                 />
@@ -128,58 +95,58 @@ export default function interview() {
             >
                 <StyledInfoBox className='d-flex justify-content-start justify-content-lg-center bg-dark'>
                     <Image
-                        src={urlFor(interviewContent.profileImage.asset).url()}
+                        src={urlFor(data[0].profileImage.asset).url()}
                         width={160}
                         height={240}
                     />
                     <div className='align-self-end p-2'>
 
-                        {interviewContent.profession.map((profession, i) => {
+                        {data[0].profession.map((profession, i) => {
                             return <Badge key={i} className='badge rounded-pill bg-danger' pill variant='danger'>{profession}</Badge>
                         })}
-                        <h1 className='display-2 text-danger fw-bold'>{`${interviewContent.firstName} ${interviewContent.lastName}`}</h1>
-                        {interviewContent.youtube
-                            ? <Link href={interviewContent.youtube}>
+                        <h1 className='display-2 text-danger fw-bold'>{`${data[0].firstName} ${data[0].lastName}`}</h1>
+                        {data[0].youtube
+                            ? <Link href={data[0].youtube}>
                                 <a target='_blank'>
                                     <FaYoutube className='h4 mx-1 text-light' />
                                 </a>
                             </Link>
                             : null
                         }
-                        {interviewContent.spotify
-                            ? <Link href={interviewContent.spotify}>
+                        {data[0].spotify
+                            ? <Link href={data[0].spotify}>
                                 <a target='_blank'>
                                     <FaSpotify className='h4 mx-1 text-light' />
                                 </a>
                             </Link>
                             : null
                         }
-                        {interviewContent.instagram
-                            ? <Link href={interviewContent.instagram}>
+                        {data[0].instagram
+                            ? <Link href={data[0].instagram}>
                                 <a target='_blank'>
                                     <FaInstagram className='h4 mx-1 text-light' />
                                 </a>
                             </Link>
                             : null
                         }
-                        {interviewContent.website
-                            ? <Link href={interviewContent.website}>
+                        {data[0].website
+                            ? <Link href={data[0].website}>
                                 <a target='_blank'>
                                     <FaLink className='h4 mx-1 text-light' />
                                 </a>
                             </Link>
                             : null
                         }
-                        {interviewContent.twitter
-                            ? <Link href={interviewContent.twitter}>
+                        {data[0].twitter
+                            ? <Link href={data[0].twitter}>
                                 <a target='_blank'>
                                     <FaTwitter className='h4 mx-1 text-light' />
                                 </a>
                             </Link>
                             : null
                         }
-                        {interviewContent.facebook
-                            ? <Link href={interviewContent.facebook}>
+                        {data[0].facebook
+                            ? <Link href={data[0].facebook}>
                                 <a target='_blank'>
                                     <FaFacebookF className='h4 mx-1 text-light' />
                                 </a>
@@ -195,15 +162,15 @@ export default function interview() {
                 <Row className='justify-content-center'>
                     <section className='col-12 col-lg-7 col-md-10'>
                         <StyledTitle className='display-5 fw-bolder'>
-                            {interviewContent.title}
+                            {data[0].title}
                         </StyledTitle>
                         <p className='h3 lh-base text-light'>
-                            {interviewContent.excerpt}
+                            {data[0].excerpt}
                         </p>
                         <hr className='my-5 text-light' />
                         <BlockContent
                             className='text-light'
-                            blocks={interviewContent.body}
+                            blocks={data[0].body}
                             projectId='ldn05m4o'
                             dataset='production'
                             serializers={{ types: { block: BlockRenderer } }}
@@ -213,4 +180,19 @@ export default function interview() {
             </Container>
         </>
     )
+}
+
+export async function getStaticProps({ params }) {
+    const data = await getInterviewContent(params.interview)
+    return {
+        props: { data },
+    }
+}
+
+export async function getStaticPaths() {
+    const content = await getAllContentWithSlug()
+    const paths = content.map((content) => ({
+        params: { interview: content.slug.toString() },
+    }))
+    return { paths, fallback: false }
 }
