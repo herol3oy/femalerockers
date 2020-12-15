@@ -1,17 +1,39 @@
 import { useEffect, useState } from 'react'
 import Container from 'react-bootstrap/Container'
 import sanityClient from '../lib/SanityClient'
-import BlockContent from "@sanity/block-content-to-react"
 import _ from 'lodash'
+import Link from 'next/link'
+import { StyledQuote, StyledContainer } from '../styles/layout'
 
 export default function RandomQuote() {
+    const [quotes, setQuotes] = useState([])
 
+    useEffect(() => {
+
+        sanityClient
+            .fetch(
+                `*[_type == "interview" && defined(quote)]{
+                    firstName,
+                    lastName,
+                    slug,
+                    quote,
+                }`
+            )
+            .then((data) => setQuotes(data[_.random(data.length)]))
+            .catch(console.error)
+
+    }, [])
 
     return (
-        <Container fluid className='bg-danger'>
-            <Container className='d-flex justify-content-center'>
-                quote
+        <StyledContainer fluid>
+            <Container className='d-flex flex-column justify-content-center align-items-center p-5'>
+                <StyledQuote className='text-center text-danger'>{quotes?.quote}</StyledQuote >
+                <Link href={quotes?.slug?.current || '/'}>
+                    <a className='text-light'>
+                        ~ {`${quotes?.firstName} ${quotes?.lastName}`} ~
+                    </a>
+                </Link>
             </Container>
-        </Container>
+        </StyledContainer>
     )
 }

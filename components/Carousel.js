@@ -9,24 +9,10 @@ import Link from 'next/link'
 import sanityClient from '../lib/SanityClient'
 import _ from 'lodash'
 import imageUrlBuilder from "@sanity/image-url"
-import styled from "styled-components"
+import { StyledCarousel } from '../styles/layout'
 
-const StyledCarousel = styled(Carousel)`
-    &::after {
-        display:flex;
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        display: inline-block;
-        background: linear-gradient(to top, #111 0%, rgba(255, 255, 255, 0) 100%);
-    }
-`
-
-const builder = imageUrlBuilder(sanityClient)
-const urlFor = (source) => builder.image(source)
+const urlFor = (source) =>
+    imageUrlBuilder(sanityClient).image(source)
 
 export default function carousel() {
     const [carousel, setCarousel] = useState(null)
@@ -64,9 +50,6 @@ export default function carousel() {
                                     layout="fill"
                                     objectFit="cover"
                                     quality={100}
-                                // layout='responsive'
-                                // width={1200}
-                                // height={800}
                                 />
                                 <Link href={`${rocker.slug.current}`}>
                                     <a>
@@ -97,21 +80,6 @@ export default function carousel() {
                     })}
                 </StyledCarousel>
             </Container>
-
-            <style global jsx>{`
-                    .carousel-item {
-                        height: 520px;
-                    }
-                    .carousel-caption {
-                        z-index:1;
-                    }
-                    @media only screen and (max-width:600px) {
-                        .carousel-item {
-                            height: 320px;
-                        }
-                    }
-
-            `}</style>
         </>
     )
 }

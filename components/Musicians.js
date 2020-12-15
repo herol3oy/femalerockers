@@ -8,15 +8,11 @@ import _ from 'lodash'
 import Image from 'next/image'
 import imageUrlBuilder from "@sanity/image-url"
 import Link from 'next/link'
-import styled from "styled-components"
 import { motion } from 'framer-motion'
+import { StyledImgOverlay } from '../styles/layout'
 
-const builder = imageUrlBuilder(sanityClient)
-const urlFor = (source) => builder.image(source)
-
-const StyledImgOverlay = styled(Card.ImgOverlay)`
-  top: unset;
-`
+const urlFor = (source) =>
+    imageUrlBuilder(sanityClient).image(source)
 
 export default function Musicians() {
     const [musicians, setMusicians] = useState(null)
@@ -43,7 +39,7 @@ export default function Musicians() {
     const variants = {
         hidden: { opacity: 0 },
         visible: { opacity: 1 }
-      }
+    }
 
     return (
         <Container className='overflow-hidden'>

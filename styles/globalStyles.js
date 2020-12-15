@@ -74,6 +74,20 @@ const GlobalStyle = createGlobalStyle`
     .site-title {
         font-family: 'Cinzel', serif;
     }
+
+    .carousel-item {
+        height: 520px;
+    }
+
+    .carousel-caption {
+        z-index:1;
+    }
+    
+    @media only screen and (max-width:600px) {
+        .carousel-item {
+            height: 320px;
+        }
+    }
 `
     
 export default GlobalStyle;

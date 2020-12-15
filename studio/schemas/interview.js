@@ -97,5 +97,11 @@ export default {
             title: 'Body',
             type: 'blockContent',
         },
+        {
+            title: 'Quote',
+            name: 'quote',
+            type: 'array',
+            of: [{type: 'string'}]
+          }
     ],
 };

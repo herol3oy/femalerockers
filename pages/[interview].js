@@ -1,57 +1,30 @@
 import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/router'
 import sanityClient from '../lib/SanityClient'
-import BlockContent from "@sanity/block-content-to-react"
-import imageUrlBuilder from "@sanity/image-url"
+import BlockContent from '@sanity/block-content-to-react'
+import imageUrlBuilder from '@sanity/image-url'
 import Image from 'next/image'
 import Link from 'next/link'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Badge from 'react-bootstrap/Badge'
-import styled from "styled-components"
-import { FaYoutube } from "react-icons/fa"
-import { FaSpotify } from "react-icons/fa"
-import { FaInstagram } from "react-icons/fa"
-import { FaLink } from "react-icons/fa"
-import { FaTwitter } from "react-icons/fa"
-import { FaFacebookF } from "react-icons/fa"
+import { FaYoutube } from 'react-icons/fa'
+import { FaSpotify } from 'react-icons/fa'
+import { FaInstagram } from 'react-icons/fa'
+import { FaLink } from 'react-icons/fa'
+import { FaTwitter } from 'react-icons/fa'
+import { FaFacebookF } from 'react-icons/fa'
+import {
+    StyledTitle,
+    BgWrap,
+    StyledInfoBox
+} from '../styles/layout'
 import {
     motion,
     useSpring,
     useTransform,
     useViewportScroll
-} from "framer-motion"
-
-const StyledTitle = styled.h2`
-    background: linear-gradient(45deg,#f09433,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-`
-
-const BgWrap = styled.section`
-    height: 100vh;
-    overflow: hidden;
-    display:flex;
-    z-index: -1;
-    &::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        display: inline-block;
-        background: linear-gradient(to top, #000000 0%, rgba(255, 255, 255, 0) 100%);
-    }
-    `
-const StyledInfoBox = styled.section`
-    position: absolute;
-    bottom: 0;
-    left: 6wh;
-    z-index: 99999;
-    color: red;
-`
+} from 'framer-motion'
 
 export default function interview() {
     const [interviewContent, setInterviewContent] = useState(null)
@@ -67,7 +40,7 @@ export default function interview() {
 
         sanityClient
             .fetch(
-                `*[_type == "interview" && slug.current == "${interview}"]{
+                `*[_type == 'interview' && slug.current == '${interview}']{
                     title,
                     excerpt,
                     title,
@@ -137,8 +110,8 @@ export default function interview() {
                 <Image
                     src={urlFor(interviewContent.coverImage.asset).url()}
                     alt={interviewContent.firstName}
-                    layout="fill"
-                    objectFit="cover"
+                    layout='fill'
+                    objectFit='cover'
                 />
             </BgWrap>
             <motion.div
@@ -155,7 +128,7 @@ export default function interview() {
                     <div className='align-self-end p-2'>
 
                         {interviewContent.profession.map((profession, i) => {
-                            return <Badge key={i} className='badge rounded-pill bg-danger' pill variant="danger">{profession}</Badge>
+                            return <Badge key={i} className='badge rounded-pill bg-danger' pill variant='danger'>{profession}</Badge>
                         })}
                         <h1 className='display-2 text-danger fw-bold'>{`${interviewContent.firstName} ${interviewContent.lastName}`}</h1>
                         {interviewContent.youtube
@@ -224,8 +197,8 @@ export default function interview() {
                         <BlockContent
                             className='text-light'
                             blocks={interviewContent.body}
-                            projectId="ldn05m4o"
-                            dataset="production"
+                            projectId='ldn05m4o'
+                            dataset='production'
                             serializers={{ types: { block: BlockRenderer } }}
                         />
                     </section>
