@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react'
 import Container from 'react-bootstrap/Container'
 import Card from 'react-bootstrap/Card'
 import Row from 'react-bootstrap/Row'
@@ -14,28 +13,7 @@ import { StyledImgOverlay } from '../styles/layout'
 const urlFor = (source) =>
     imageUrlBuilder(sanityClient).image(source)
 
-export default function Musicians() {
-    const [musicians, setMusicians] = useState(null)
-
-    useEffect(() => {
-        sanityClient.fetch(`*[_type == "interview"] | order(date){
-            firstName,
-            lastName,
-            profession,
-            country,
-            slug,
-            profileImage{
-                asset->{
-                    _id,
-                    url
-                },
-                alt
-            }
-        }`)
-            .then((data) => setMusicians(data))
-            .catch(console.error)
-    }, [])
-
+export default function Musicians({data}) {
     const variants = {
         hidden: { opacity: 0 },
         visible: { opacity: 1 }
@@ -45,7 +23,7 @@ export default function Musicians() {
         <Container className='overflow-hidden'>
             <Row
                 className='row-cols-2 row-cols-sm-2 row-cols-lg-6 row-cols-md-4 g-0 my-3 gy-2'>
-                {_.map(musicians, (rocker, i) => (
+                {_.map(data, (rocker, i) => (
                     <Link key={i} href={rocker.slug.current}>
                         <motion.a
                             initial='hidden'
