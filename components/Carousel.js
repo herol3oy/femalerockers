@@ -2,14 +2,13 @@ import { useState, useEffect } from 'react'
 import Carousel from 'react-bootstrap/Carousel'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
-import Badge from 'react-bootstrap/Badge'
+// import Badge from 'react-bootstrap/Badge'
 import Button from 'react-bootstrap/Button'
 import Image from 'next/image'
 import Link from 'next/link'
 import sanityClient from '../lib/SanityClient'
 import _ from 'lodash'
 import imageUrlBuilder from "@sanity/image-url"
-import { StyledCarousel } from '../styles/layout'
 
 const urlFor = (source) =>
     imageUrlBuilder(sanityClient).image(source)
@@ -36,7 +35,7 @@ export default function carousel() {
 
     return (
         <Container className='my-3'>
-            <StyledCarousel prevLabel='' nextLabel=''>
+            <Carousel className='carousel' prevLabel='' nextLabel=''>
                 {_.map(carousel, (rocker, i) => {
                     return (
                         <Carousel.Item key={i} >
@@ -73,7 +72,7 @@ export default function carousel() {
                         </Carousel.Item>
                     )
                 })}
-            </StyledCarousel>
+            </Carousel>
         </Container>
     )
 }

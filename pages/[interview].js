@@ -17,11 +17,6 @@ import { getInterviewContent, getAllContentWithSlug } from '../lib/SanityApi'
 import _ from 'lodash'
 import Head from 'next/head'
 import {
-    StyledTitle,
-    BgWrap,
-    StyledInfoBox
-} from '../styles/layout'
-import {
     motion,
     useSpring,
     useTransform,
@@ -80,20 +75,20 @@ export default function interview({ data }) {
                 </title>
             </Head>
 
-            <BgWrap>
+            <section className='interview__coverimg'>
                 <Image
                     src={urlFor(data[0].coverImage.asset).url()}
                     alt={data[0].stageName}
                     layout='fill'
                     objectFit='cover'
                 />
-            </BgWrap>
+            </section>
             <motion.div
                 ref={ref}
                 style={{ opacity }}
                 className='d-flex justify-content-center '
             >
-                <StyledInfoBox className='d-flex justify-content-start justify-content-lg-center bg-dark'>
+                <section className='interview__profile--box d-flex justify-content-start justify-content-lg-center bg-dark'>
                     <Image
                         src={urlFor(data[0].profileImage.asset).url()}
                         width={160}
@@ -155,15 +150,15 @@ export default function interview({ data }) {
                         }
 
                     </div>
-                </StyledInfoBox>
+                </section>
             </motion.div>
 
             <Container>
                 <Row className='justify-content-center'>
                     <section className='col-12 col-lg-7 col-md-10'>
-                        <StyledTitle className='display-5 fw-bolder'>
+                        <h2 className='interview__title display-5 fw-bolder'>
                             {data[0].title}
-                        </StyledTitle>
+                        </h2>
                         <p className='h3 lh-base text-light'>
                             {data[0].excerpt}
                         </p>

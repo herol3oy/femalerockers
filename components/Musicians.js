@@ -8,7 +8,6 @@ import Image from 'next/image'
 import imageUrlBuilder from "@sanity/image-url"
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { StyledImgOverlay, StyledCard } from '../styles/layout'
 
 const urlFor = (source) =>
     imageUrlBuilder(sanityClient).image(source)
@@ -32,7 +31,7 @@ export default function Musicians({ data }) {
                             whileHover={{ scale: 1.1 }}
                             whileTap={{ scale: 0.9 }}
                             className='p-0 text-white text-decoration-none'>
-                            <StyledCard className='mx-1 bg-transparent border-0 border-top border-danger border-2 rounded-top rounded-bottom'>
+                            <Card className='mx-1 bg-transparent border-0 border-top border-danger border-2 rounded-top rounded-bottom'>
                                 <Image
                                     className="d-block rounded-top"
                                     src={urlFor(rocker.profileImage.asset.url).width(160).height(240).url()}
@@ -41,13 +40,13 @@ export default function Musicians({ data }) {
                                     width={160}
                                     height={240}
                                 />
-                                <StyledImgOverlay>
+                                <Card.ImgOverlay className='card__img--overlay'>
                                     <Card.Title className='text-danger fw-bold'>{`${rocker.stageName} ${rocker.country}`}</Card.Title>
                                     <Card.Text>
                                         {rocker.profession.map((profession, i) => <Badge key={i} className='badge rounded-pill bg-danger' pill variant="danger">{profession}</Badge>)}
                                     </Card.Text>
-                                </StyledImgOverlay>
-                            </StyledCard>
+                                </Card.ImgOverlay>
+                            </Card>
                         </motion.a>
                     </Link>
                 ))}

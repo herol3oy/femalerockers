@@ -1,10 +1,6 @@
 import Navbar from 'react-bootstrap/Navbar'
 import Container from 'react-bootstrap/Container'
 import Link from 'next/link'
-import {
-    InstaBtn,
-    SiteTitle
-} from '../styles/layout'
 
 export default function navbar() {
     return (
@@ -12,14 +8,14 @@ export default function navbar() {
             <Navbar className='container d-flex justify-content-center justify-content-sm-between' expand="lg">
                 <section className='flex text-center text-sm-start'>
                     <Link href='/'>
-                        <SiteTitle className='h3 text-danger fw-bolder text-decoration-none'>
+                        <a className='site__title h3 text-danger fw-bolder text-decoration-none'>
                             FEMALE ROCKERS
-                    </SiteTitle>
+                        </a>
                     </Link>
                     <p className='text-light'>interviews future sensations in rock music</p>
                 </section>
                 <Link href='https://instagram.com/femalerockers_'>
-                    <InstaBtn className='text-decoration-none' target='_blank' >Instagram</InstaBtn>
+                    <a className='instagram__btn text-decoration-none' target='_blank' >Instagram</a>
                 </Link>
             </Navbar>
         </Container>
