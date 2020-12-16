@@ -12,11 +12,7 @@ export default {
             type: "string",
         },
         {
-            name: "firstName",
-            type: "string",
-        },
-        {
-            name: "lastName",
+            name: "stageName",
             type: "string",
         },
         {

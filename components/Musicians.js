@@ -28,7 +28,7 @@ export default function Musicians({ data }) {
                         <motion.a
                             initial='hidden'
                             animate='visible'
-                            variants={variants}
+                            // variants={variants}
                             whileHover={{ scale: 1.1 }}
                             whileTap={{ scale: 0.9 }}
                             className='p-0 text-white text-decoration-none'>
