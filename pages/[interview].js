@@ -50,11 +50,11 @@ export default function interview({ data }) {
                 </div>
             )
         }
-        if (props.node.children[0].marks[0] !== 'strong' && props.node.children[0].text !== data[0].stageName.toUpperCase()) {
+        if (props.node.children[0].marks[0] !== 'strong' && props.node.children[0].text !== data[0].stageName.split(' ').shift().toUpperCase()) {
             return (
                 <div className='my-4'>
                     <dt className='fw-bold'>
-                        {data[0].stageName.toUpperCase()}
+                        {data[0].stageName.split(' ').shift().toUpperCase()}
                     </dt>
                     <dd className='h5 lh-base fw-thin'>
                         {props.node.children[0].text}
