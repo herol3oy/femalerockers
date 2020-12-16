@@ -25,9 +25,10 @@ import {
 
 export default function interview({ data }) {
     const {
-        excerpt,
         title,
+        excerpt,
         stageName,
+        country,
         profession,
         profileImage,
         coverImage,
@@ -37,7 +38,8 @@ export default function interview({ data }) {
         twitter,
         youtube,
         website,
-        body } = data[0]
+        date,
+        body, } = data[0]
 
     const ref = useRef(null)
 
@@ -114,7 +116,8 @@ export default function interview({ data }) {
                         {profession.map((profession, i) => {
                             return <Badge key={i} className='badge rounded-pill bg-danger' pill variant='danger'>{profession}</Badge>
                         })}
-                        <h1 className='display-2 text-danger fw-bold'>{`${stageName}`}</h1>
+                        <h1 className='display-2 text-danger fw-bold'>{`${stageName} ${country}`}</h1>
+                        <p className='text-light small'>{new Date(date).toLocaleDateString('en-US', { 'year': 'numeric', 'month': 'long'})}</p>
                         {youtube &&
                             <Link href={youtube}>
                                 <a target='_blank'>
