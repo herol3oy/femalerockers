@@ -50,8 +50,23 @@ export const StyledCarousel = styled(Carousel)`
     }
 `
 
+export const StyledCard = styled(Card)`
+&::after {
+    display:flex;
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+    background: linear-gradient(to top, #111 5%, rgba(255, 255, 255, 0) 100%);
+}
+`
+
 export const StyledImgOverlay = styled(Card.ImgOverlay)`
     top: unset;
+    z-index: 2;
 `
 
 export const InstaBtn = styled.a`
