@@ -36,6 +36,10 @@ dd {
 dt {
     position: absolute;
     margin-left: -75px;
+    @media only screen and (max-width:600px) {
+        position: inherit;
+        margin-left: 0;
+    }
 }
 
 img {

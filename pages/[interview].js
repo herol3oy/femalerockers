@@ -24,6 +24,21 @@ import {
 } from 'framer-motion'
 
 export default function interview({ data }) {
+    const {
+        excerpt,
+        title,
+        stageName,
+        profession,
+        profileImage,
+        coverImage,
+        instagram,
+        spotify,
+        facebook,
+        twitter,
+        youtube,
+        website,
+        body } = data[0]
+
     const ref = useRef(null)
 
     const urlFor = (source) =>
@@ -50,11 +65,11 @@ export default function interview({ data }) {
                 </div>
             )
         }
-        if (props.node.children[0].marks[0] !== 'strong' && props.node.children[0].text !== data[0].stageName.split(' ').shift().toUpperCase()) {
+        if (props.node.children[0].marks[0] !== 'strong' && props.node.children[0].text !== stageName.split(' ').shift().toUpperCase()) {
             return (
                 <div className='my-4'>
                     <dt className='fw-bold'>
-                        {data[0].stageName.split(' ').shift().toUpperCase()}
+                        {stageName.split(' ').shift().toUpperCase()}
                     </dt>
                     <dd className='h5 lh-base fw-thin'>
                         {props.node.children[0].text}
@@ -71,14 +86,14 @@ export default function interview({ data }) {
         <>
             <Head>
                 <title>
-                    FemaleRockers | Exclusive Interview With {`${data[0].stageName}`}
+                    FemaleRockers | Exclusive Interview With {`${stageName}`}
                 </title>
             </Head>
 
             <section className='interview__coverimg'>
                 <Image
-                    src={urlFor(data[0].coverImage.asset).url()}
-                    alt={data[0].stageName}
+                    src={urlFor(coverImage.asset).url()}
+                    alt={stageName}
                     layout='fill'
                     objectFit='cover'
                 />
@@ -90,63 +105,57 @@ export default function interview({ data }) {
             >
                 <section className='interview__profile--box d-flex justify-content-start justify-content-lg-center bg-dark'>
                     <Image
-                        src={urlFor(data[0].profileImage.asset).url()}
+                        src={urlFor(profileImage.asset).url()}
                         width={160}
                         height={240}
                     />
                     <div className='align-self-end p-2'>
 
-                        {data[0].profession.map((profession, i) => {
+                        {profession.map((profession, i) => {
                             return <Badge key={i} className='badge rounded-pill bg-danger' pill variant='danger'>{profession}</Badge>
                         })}
-                        <h1 className='display-2 text-danger fw-bold'>{`${data[0].stageName}`}</h1>
-                        {data[0].youtube
-                            ? <Link href={data[0].youtube}>
+                        <h1 className='display-2 text-danger fw-bold'>{`${stageName}`}</h1>
+                        {youtube &&
+                            <Link href={youtube}>
                                 <a target='_blank'>
                                     <FaYoutube className='h4 mx-1 text-light' />
                                 </a>
                             </Link>
-                            : null
                         }
-                        {data[0].spotify
-                            ? <Link href={data[0].spotify}>
+                        {spotify &&
+                            <Link href={spotify}>
                                 <a target='_blank'>
                                     <FaSpotify className='h4 mx-1 text-light' />
                                 </a>
                             </Link>
-                            : null
                         }
-                        {data[0].instagram
-                            ? <Link href={data[0].instagram}>
+                        {instagram &&
+                            <Link href={instagram}>
                                 <a target='_blank'>
                                     <FaInstagram className='h4 mx-1 text-light' />
                                 </a>
                             </Link>
-                            : null
                         }
-                        {data[0].website
-                            ? <Link href={data[0].website}>
+                        {website &&
+                            <Link href={website}>
                                 <a target='_blank'>
                                     <FaLink className='h4 mx-1 text-light' />
                                 </a>
                             </Link>
-                            : null
                         }
-                        {data[0].twitter
-                            ? <Link href={data[0].twitter}>
+                        {twitter &&
+                            <Link href={twitter}>
                                 <a target='_blank'>
                                     <FaTwitter className='h4 mx-1 text-light' />
                                 </a>
                             </Link>
-                            : null
                         }
-                        {data[0].facebook
-                            ? <Link href={data[0].facebook}>
+                        {facebook &&
+                            <Link href={facebook}>
                                 <a target='_blank'>
                                     <FaFacebookF className='h4 mx-1 text-light' />
                                 </a>
                             </Link>
-                            : null
                         }
 
                     </div>
@@ -157,15 +166,15 @@ export default function interview({ data }) {
                 <Row className='justify-content-center'>
                     <section className='col-12 col-lg-7 col-md-10'>
                         <h2 className='interview__title display-5 fw-bolder'>
-                            {data[0].title}
+                            {title}
                         </h2>
                         <p className='h3 lh-base text-light'>
-                            {data[0].excerpt}
+                            {excerpt}
                         </p>
                         <hr className='my-5 text-light' />
                         <BlockContent
                             className='text-light'
-                            blocks={data[0].body}
+                            blocks={body}
                             projectId='ldn05m4o'
                             dataset='production'
                             serializers={{ types: { block: BlockRenderer } }}
