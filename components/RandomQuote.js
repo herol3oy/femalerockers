@@ -13,8 +13,7 @@ export default function RandomQuote() {
         sanityClient
             .fetch(
                 `*[_type == "interview" && defined(quote)]{
-                    firstName,
-                    lastName,
+                    stageName,
                     slug,
                     quote,
                 }`
@@ -30,7 +29,7 @@ export default function RandomQuote() {
                 <StyledQuote className='text-center text-light'>"{quotes?.quote}"</StyledQuote >
                 <Link href={quotes?.slug?.current || '/'}>
                     <a className='text-light'>
-                        ~ {`${quotes?.firstName} ${quotes?.lastName}`} ~
+                        ~ {`${quotes?.stageName}`} ~
                     </a>
                 </Link>
             </Container>

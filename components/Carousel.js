@@ -21,8 +21,7 @@ export default function carousel() {
         sanityClient
             .fetch(
                 `*[_type == "interview" && carousel == true ]{
-                    firstName,
-                    lastName,
+                    stageName,
                     title,
                     country,
                     profileImage,
@@ -44,7 +43,7 @@ export default function carousel() {
                             <Image
                                 className="d-block"
                                 src={urlFor(rocker.coverImage.asset).url()}
-                                alt={`${rocker.firstName} ${rocker.lastName}`}
+                                alt={`${rocker.stageName}`}
                                 layout="fill"
                                 objectFit="cover"
                                 quality={100}
@@ -56,13 +55,13 @@ export default function carousel() {
                                             <div className='col-4 d-flex justify-content-end'>
                                                 <Image
                                                     src={urlFor(rocker.profileImage.asset).url()}
-                                                    alt={`${rocker.firstName} ${rocker.lastName}`}
+                                                    alt={`${rocker.stageName}`}
                                                     width={162}
                                                     height={240}
                                                 />
                                             </div>
                                             <div className='col-8 text-start align-self-end'>
-                                                <h1 className='text-start text-danger fw-bolder'>{`${rocker.firstName} ${rocker.lastName} ${rocker.country}`}</h1>
+                                                <h1 className='text-start text-danger fw-bolder'>{`${rocker.stageName} ${rocker.country}`}</h1>
                                                 <h4 className='text-start font-monospace d-lg-block d-none'>{rocker.title}</h4>
                                                 {/* {rocker.profession.map((profession, i) => <Badge key={i} className='badge rounded-pill bg-danger' pill>{profession}</Badge>)} */}
                                                 <Button variant="secondary" size="sm"><small>READ MORE 👉</small></Button>

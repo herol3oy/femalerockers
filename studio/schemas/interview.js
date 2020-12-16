@@ -24,7 +24,7 @@ export default {
             title: "Slug",
             type: "slug",
             options: {
-                source: doc => `${doc.firstName?.toLowerCase()}${doc.lastName ? doc.lastName?.toLowerCase() : ''}`
+                source: doc => doc.stageName.split(' ').join('').toLowerCase()
             }
         },
         {

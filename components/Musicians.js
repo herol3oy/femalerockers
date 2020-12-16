@@ -36,13 +36,13 @@ export default function Musicians({ data }) {
                                 <Image
                                     className="d-block rounded-top"
                                     src={urlFor(rocker.profileImage.asset.url).width(160).height(240).url()}
-                                    alt={`${rocker.firstName} ${rocker.lastName}`}
+                                    alt={`${rocker.stageName}`}
                                     layout="responsive"
                                     width={160}
                                     height={240}
                                 />
                                 <StyledImgOverlay>
-                                    <Card.Title className='text-danger fw-bold'>{`${rocker.firstName} ${rocker.lastName} ${rocker.country}`}</Card.Title>
+                                    <Card.Title className='text-danger fw-bold'>{`${rocker.stageName} ${rocker.country}`}</Card.Title>
                                     <Card.Text>
                                         {rocker.profession.map((profession, i) => <Badge key={i} className='badge rounded-pill bg-danger' pill variant="danger">{profession}</Badge>)}
                                     </Card.Text>

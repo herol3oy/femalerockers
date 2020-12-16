@@ -55,11 +55,11 @@ export default function interview({ data }) {
                 </div>
             )
         }
-        if (props.node.children[0].marks[0] !== 'strong' && props.node.children[0].text !== data[0].firstName.toUpperCase()) {
+        if (props.node.children[0].marks[0] !== 'strong' && props.node.children[0].text !== data[0].stageName.toUpperCase()) {
             return (
                 <div className='my-4'>
                     <dt className='fw-bold'>
-                        {data[0].firstName.toUpperCase()}
+                        {data[0].stageName.toUpperCase()}
                     </dt>
                     <dd className='h5 lh-base fw-thin'>
                         {props.node.children[0].text}
@@ -76,14 +76,14 @@ export default function interview({ data }) {
         <>
             <Head>
                 <title>
-                    FemaleRockers | Exclusive Interview With {`${data[0].firstName} ${data[0].lastName}`}
+                    FemaleRockers | Exclusive Interview With {`${data[0].stageName}`}
                 </title>
             </Head>
 
             <BgWrap>
                 <Image
                     src={urlFor(data[0].coverImage.asset).url()}
-                    alt={data[0].firstName}
+                    alt={data[0].stageName}
                     layout='fill'
                     objectFit='cover'
                 />
@@ -104,7 +104,7 @@ export default function interview({ data }) {
                         {data[0].profession.map((profession, i) => {
                             return <Badge key={i} className='badge rounded-pill bg-danger' pill variant='danger'>{profession}</Badge>
                         })}
-                        <h1 className='display-2 text-danger fw-bold'>{`${data[0].firstName} ${data[0].lastName}`}</h1>
+                        <h1 className='display-2 text-danger fw-bold'>{`${data[0].stageName}`}</h1>
                         {data[0].youtube
                             ? <Link href={data[0].youtube}>
                                 <a target='_blank'>
