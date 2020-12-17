@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import _ from 'lodash'
-import sanityClient from '@/SanityClient'
+import sanityClient from '@lib/SanityClient'
 import BlockContent from '@sanity/block-content-to-react'
 import imageUrlBuilder from '@sanity/image-url'
 import Container from '@BS/Container'
@@ -18,7 +18,7 @@ import { FaFacebookF } from '@ICONS/fa'
 import {
     getInterviewContent,
     getAllContentWithSlug
-} from '@/SanityApi'
+} from '@lib/SanityApi'
 import {
     motion,
     useSpring,
