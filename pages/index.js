@@ -1,8 +1,8 @@
-import Carousel from '@/Carousel'
-import Musicians from '@/Musicians'
-import RandomQuote from '@/RandomQuote'
+import Carousel from '@components/Carousel'
+import Musicians from '@components/Musicians'
+import RandomQuote from '@components/RandomQuote'
 import Head from 'next/head'
-import { getAllMusiciansData } from '../lib/SanityApi'
+import { getAllMusiciansData } from '@lib/SanityApi'
 
 export default function Home({ data }) {
   return (

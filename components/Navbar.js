@@ -1,5 +1,5 @@
-import Navbar from 'react-bootstrap/Navbar'
-import Container from 'react-bootstrap/Container'
+import Navbar from '@BS/Navbar'
+import Container from '@BS/Container'
 import Link from 'next/link'
 
 export default function navbar() {

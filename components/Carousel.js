@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react'
-import Carousel from 'react-bootstrap/Carousel'
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
-// import Badge from 'react-bootstrap/Badge'
-import Button from 'react-bootstrap/Button'
+import Carousel from '@BS/Carousel'
+import Container from '@BS/Container'
+import Row from '@BS/Row'
+import Badge from '@BS/Badge'
+import Button from '@BS/Button'
 import Image from 'next/image'
 import Link from 'next/link'
-import sanityClient from '../lib/SanityClient'
+import sanityClient from '@lib/SanityClient'
 import _ from 'lodash'
 import imageUrlBuilder from "@sanity/image-url"
 
@@ -42,19 +42,19 @@ export default function carousel() {
                             <Image
                                 className="d-block"
                                 src={urlFor(rocker.coverImage.asset).url()}
-                                alt={`${rocker.stageName}`}
+                                alt={rocker.stageName}
                                 layout="fill"
                                 objectFit="cover"
                                 quality={100}
                             />
-                            <Link href={`${rocker.slug.current}`}>
+                            <Link href={rocker.slug.current}>
                                 <a>
                                     <Carousel.Caption>
                                         <Row>
                                             <div className='col-4 d-flex justify-content-end'>
                                                 <Image
                                                     src={urlFor(rocker.profileImage.asset).url()}
-                                                    alt={`${rocker.stageName}`}
+                                                    alt={rocker.stageName}
                                                     width={162}
                                                     height={240}
                                                 />
@@ -62,8 +62,8 @@ export default function carousel() {
                                             <div className='col-8 text-start align-self-end'>
                                                 <h1 className='text-start text-danger fw-bolder'>{`${rocker.stageName} ${rocker.country}`}</h1>
                                                 <h4 className='text-start font-monospace d-lg-block d-none'>{rocker.title}</h4>
-                                                {/* {rocker.profession.map((profession, i) => <Badge key={i} className='badge rounded-pill bg-danger' pill>{profession}</Badge>)} */}
-                                                <Button variant="secondary" size="sm"><small>READ MORE 👉</small></Button>
+                                                {rocker.profession.map((profession, i) => <Badge key={i} className='badge rounded-pill bg-danger' pill>{profession}</Badge>)}
+                                                {/* <Button variant="secondary" size="sm"><small>READ MORE 👉</small></Button> */}
                                             </div>
                                         </Row>
                                     </Carousel.Caption>

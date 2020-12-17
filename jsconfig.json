@@ -2,9 +2,11 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "components/*"
-      ]
+      "@components/*": ["/components/*"],
+      "@lib/*": ["/lib/*"],
+      "@styles/*": ["/styles/*"],
+      "@BS/*": ["/node_modules/react-bootstrap/*"],
+      "@ICONS/*": ["/node_modules/react-icons/*"],
     }
   }
 }

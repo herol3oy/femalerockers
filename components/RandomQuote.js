@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import Container from 'react-bootstrap/Container'
-import sanityClient from '../lib/SanityClient'
+import Container from '@BS/Container'
+import sanityClient from '@lib/SanityClient'
 import _ from 'lodash'
 import Link from 'next/link'
 

@@ -1,5 +1,5 @@
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
+import Container from '@BS/Container'
+import Row from '@BS/Row'
 import Link from 'next/link'
 
 export default function Footer() {
