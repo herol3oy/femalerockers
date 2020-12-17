@@ -1,18 +1,32 @@
+import { useState } from 'react'
 import Link from 'next/link'
 import Container from '@BS/Container'
 import Row from '@BS/Row'
+import ContactForm from './ContactForm'
 
 export default function Footer() {
+    const [modalShow, setModalShow] = useState(false);
+
     return (
         <Container fluid className='mt-0 my-lg-5 mb-5'>
             <Container>
                 <Row>
-                    <section className='col-12 col-lg-6'>
+                    <section className='col-12 col-lg-3'>
                         <h5 className='site-title fw-bold border-bottom text-light text-left pt-5 pt-lg-0 pt-md-0 mb-1 pb-1'>
                             FEMALE ROCKERS
                         </h5>
                         <small className='text-light fw-light'>
                             Our mission is to spread the word for talented musicians and give them a stance where they can professionally present their portfolio.
+                        </small>
+                    </section>
+                    <section className='col-12 col-lg-3'>
+                        <h5 className='site-title fw-bold border-bottom text-light text-left pt-5 pt-lg-0 pt-md-0 mb-1 pb-1'>
+                            CONTACT
+                        </h5>
+                        <small className='text-light fw-light'>
+                            To reach our editorial team please contact us through our {` `}
+                            <a className='fw-bold text-light'onClick={() => setModalShow(true)}>contact</a> form
+
                         </small>
                     </section>
                     <section className='col-12 col-lg-3 my-3 my-lg-0'>
@@ -22,7 +36,7 @@ export default function Footer() {
                         <small className='text-light fw-light'>
                             Try your chance of being interviewed by tagging us on {` `}
                             <Link href='https://www.instagram.com/femalerockers_/'>
-                                <a className='text-light' target='_blank'><u>instagram</u></a>
+                                <a className='fw-bold text-light' target='_blank'><u>instagram</u></a>
                             </Link>
                         </small>
                     </section>
@@ -37,6 +51,10 @@ export default function Footer() {
                     </section>
                 </Row>
             </Container>
+            <ContactForm
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+            />
         </Container>
     )
 }
