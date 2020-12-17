@@ -4,21 +4,19 @@ Our mission is to spread the word for talented musicians and give them a stance 
 ### Tech stacks
 * Frontend
     - [ReactJS](https://reactjs.org/)
-    - [React Router Dom](https://reactrouter.com/web/guides/quick-start)
+    - [NextJS](https://nextjs.org/)
+    - [React Bootstrap](https://react-bootstrap.github.io/)
     - [CSS Bootstrap](https://getbootstrap.com/)
     - [SCSS](https://sass-lang.com/)
-    
-* Backend
-    - [Firebase hosting](https://firebase.google.com/docs/hosting)
     
 * Domain handling
     - [Cloudflare](https://www.cloudflare.com/)
     
 ## Getting started
 ```bash
-    git clone https://github.com/herol3oy/female-rockers.git
-    cd female-rockers
-    npm i && npm start
+    git clone https://github.com/herol3oy/femalerockers.git
+    cd femalerockers
+    npm i && npm run dev
 ```
     
 ### Screenshots
