@@ -77,6 +77,7 @@
 
 .site__title {
     font-family: 'Cinzel', serif;
+    text-shadow: 0px 0px 12px var(--bs-danger);
 }
 
 .homepage__quotation {
@@ -85,4 +86,14 @@
 
 .homepage__quotation--bg {
     background-color: var(--bs-red);
+}
+
+.bg-danger {
+    background-color: #dc354540 !important;
+    color: #dc3e45;
+    text-shadow: 0px 0px 10px #dc3e45;
+}
+
+.card-title {
+    text-shadow: 0 0 8px #9e9d9d;
 }

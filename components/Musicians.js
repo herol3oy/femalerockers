@@ -41,7 +41,7 @@ export default function Musicians({ data }) {
                                     height={240}
                                 />
                                 <Card.ImgOverlay className='card__img--overlay'>
-                                    <Card.Title className='text-danger fw-bold'>{`${rocker.stageName} ${rocker.country}`}</Card.Title>
+                                    <Card.Title className='text-light fw-bold'>{`${rocker.stageName} ${rocker.country}`}</Card.Title>
                                     <Card.Text>
                                         {rocker.profession.map((profession, i) => <Badge key={i} className='badge rounded-pill bg-danger' pill variant="danger">{profession}</Badge>)}
                                     </Card.Text>
