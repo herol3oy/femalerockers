@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
+import Link from 'next/link'
+import _ from 'lodash'
 import Container from '@BS/Container'
 import sanityClient from '@lib/SanityClient'
-import _ from 'lodash'
-import Link from 'next/link'
 
 export default function RandomQuote() {
     const [quotes, setQuotes] = useState([])

@@ -1,9 +1,11 @@
 import { useRef } from 'react'
+import Head from 'next/head'
+import Image from 'next/image'
+import Link from 'next/link'
+import _ from 'lodash'
 import sanityClient from '@/SanityClient'
 import BlockContent from '@sanity/block-content-to-react'
 import imageUrlBuilder from '@sanity/image-url'
-import Image from 'next/image'
-import Link from 'next/link'
 import Container from '@BS/Container'
 import Row from '@BS/Row'
 import Badge from '@BS/Badge'
@@ -13,9 +15,10 @@ import { FaInstagram } from '@ICONS/fa'
 import { FaLink } from '@ICONS/fa'
 import { FaTwitter } from '@ICONS/fa'
 import { FaFacebookF } from '@ICONS/fa'
-import { getInterviewContent, getAllContentWithSlug } from '@/SanityApi'
-import _ from 'lodash'
-import Head from 'next/head'
+import {
+    getInterviewContent,
+    getAllContentWithSlug
+} from '@/SanityApi'
 import {
     motion,
     useSpring,
@@ -117,7 +120,7 @@ export default function interview({ data }) {
                             return <Badge key={i} className='badge rounded-pill bg-danger' pill variant='danger'>{profession}</Badge>
                         })}
                         <h1 className='display-2 text-danger fw-bold'>{`${stageName} ${country}`}</h1>
-                        <p className='text-light small'>{new Date(date).toLocaleDateString('en-US', { 'year': 'numeric', 'month': 'long'})}</p>
+                        <p className='text-light small'>{new Date(date).toLocaleDateString('en-US', { 'year': 'numeric', 'month': 'long' })}</p>
                         {youtube &&
                             <Link href={youtube}>
                                 <a target='_blank'>

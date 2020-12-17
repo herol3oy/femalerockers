@@ -1,12 +1,12 @@
+import Link from 'next/link'
+import Image from 'next/image'
+import _ from 'lodash'
 import Container from '@BS/Container'
 import Card from '@BS/Card'
 import Row from '@BS/Row'
 import Badge from '@BS/Badge'
 import sanityClient from '@lib/SanityClient'
-import _ from 'lodash'
-import Image from 'next/image'
 import imageUrlBuilder from "@sanity/image-url"
-import Link from 'next/link'
 import { motion } from 'framer-motion'
 
 const urlFor = (source) =>

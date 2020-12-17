@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
+import _ from 'lodash'
 import Carousel from '@BS/Carousel'
 import Container from '@BS/Container'
 import Row from '@BS/Row'
 import Badge from '@BS/Badge'
-import Button from '@BS/Button'
-import Image from 'next/image'
-import Link from 'next/link'
+// import Button from '@BS/Button'
 import sanityClient from '@lib/SanityClient'
-import _ from 'lodash'
 import imageUrlBuilder from "@sanity/image-url"
 
 const urlFor = (source) =>
@@ -61,7 +61,7 @@ export default function carousel() {
                                             </div>
                                             <div className='col-8 text-start align-self-end'>
                                                 <h1 className='text-start text-danger fw-bolder'>{`${rocker.stageName} ${rocker.country}`}</h1>
-                                                <h4 className='text-start font-monospace d-lg-block d-none'>{rocker.title}</h4>
+                                                <h4 className='text-start font-monospace d-lg-block d-none'>{rocker.title} →</h4>
                                                 {rocker.profession.map((profession, i) => <Badge key={i} className='badge rounded-pill bg-danger' pill>{profession}</Badge>)}
                                                 {/* <Button variant="secondary" size="sm"><small>READ MORE 👉</small></Button> */}
                                             </div>

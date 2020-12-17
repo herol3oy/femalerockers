@@ -1,6 +1,6 @@
+import Link from 'next/link'
 import Navbar from '@BS/Navbar'
 import Container from '@BS/Container'
-import Link from 'next/link'
 
 export default function navbar() {
     return (
