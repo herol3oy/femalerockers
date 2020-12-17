@@ -61,7 +61,7 @@ export default function interview({ data }) {
                 <div>
                     <dt>
                         <Image
-                            src='/android-chrome-192x192.png'
+                            src='/logo.png'
                             width={32}
                             height={32}
                         />
