@@ -25,6 +25,7 @@ import {
     useTransform,
     useViewportScroll
 } from 'framer-motion'
+import NewsLetter from '@components/NewsLetter'
 
 export default function interview({ data }) {
     const {
@@ -185,6 +186,7 @@ export default function interview({ data }) {
                             dataset='production'
                             serializers={{ types: { block: BlockRenderer } }}
                         />
+                        <NewsLetter />
                     </section>
                 </Row>
             </Container>

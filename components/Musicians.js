@@ -21,33 +21,35 @@ export default function Musicians({ data }) {
     return (
         <Container className='overflow-hidden'>
             <Row
-                className='row-cols-2 row-cols-sm-2 row-cols-lg-6 row-cols-md-4 g-0 my-3 gy-2 salam'>
+                className='row-cols-2 row-cols-sm-2 row-cols-lg-6 row-cols-md-4 g-0 my-3 gy-2'>
                 {_.map(data, (rocker, i) => (
                     <Link key={i} href={rocker.slug.current}>
-                        <motion.a
-                            initial='hidden'
-                            animate='visible'
-                            variants={variants}
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.9 }}
-                            className='p-0 text-white text-decoration-none'>
-                            <Card className='mx-1 bg-transparent border-0 border-top border-danger border-2 rounded-top rounded-bottom'>
-                                <Image
-                                    className="d-block rounded-top"
-                                    src={urlFor(rocker.profileImage.asset.url).width(160).height(240).url()}
-                                    alt={`${rocker.stageName}`}
-                                    layout="responsive"
-                                    width={160}
-                                    height={240}
-                                />
-                                <Card.ImgOverlay className='card__img--overlay'>
-                                    <Card.Title className='text-light fw-bold'>{`${rocker.stageName} ${rocker.country}`}</Card.Title>
-                                    <Card.Text>
-                                        {rocker.profession.map((profession, i) => <Badge key={i} className='badge rounded-pill bg-danger fw-normal' pill>{profession}</Badge>)}
-                                    </Card.Text>
-                                </Card.ImgOverlay>
-                            </Card>
-                        </motion.a>
+                        <a className='p-0 text-white text-decoration-none'>
+                            <motion.div
+                                initial='hidden'
+                                animate='visible'
+                                variants={variants}
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.9 }}
+                            >
+                                <Card className='mx-1 bg-transparent border-0 border-top border-danger border-2 rounded-top rounded-bottom'>
+                                    <Image
+                                        className="d-block rounded-top"
+                                        src={urlFor(rocker.profileImage.asset.url).width(160).height(240).url()}
+                                        alt={`${rocker.stageName}`}
+                                        layout="responsive"
+                                        width={160}
+                                        height={240}
+                                    />
+                                    <Card.ImgOverlay className='card__img--overlay'>
+                                        <Card.Title className='text-light fw-bold'>{`${rocker.stageName} ${rocker.country}`}</Card.Title>
+                                        <Card.Text>
+                                            {rocker.profession.map((profession, i) => <Badge key={i} className='badge rounded-pill bg-danger fw-normal' pill>{profession}</Badge>)}
+                                        </Card.Text>
+                                    </Card.ImgOverlay>
+                                </Card>
+                            </motion.div>
+                        </a>
                     </Link>
                 ))}
             </Row>
