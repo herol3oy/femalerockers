@@ -25,7 +25,7 @@ export default function Footer() {
                         </h5>
                         <small className='text-light fw-light'>
                             To reach our editorial team please contact us through our {` `}
-                            <a className='fw-bold text-light'onClick={() => setModalShow(true)}>contact</a> form
+                            <a className='fw-bold text-light' onClick={() => setModalShow(true)}>contact</a> form
 
                         </small>
                     </section>

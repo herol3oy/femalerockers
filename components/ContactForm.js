@@ -71,7 +71,12 @@ export default function ContactForm(props) {
                             </Form.Group>
                             <Button className='mt-2 fw-bold' variant="success" type="submit">Send 🤘</Button>
                         </Form>
-                    ) : (<h5 className='text-success'>Your message has been sent successfully. we'll get back to you as soon as possible.</h5>)
+                    ) : (
+                            <h5 className='text-success'>
+                                Your message has been sent successfully.
+                                We'll get back to you as soon as possible.
+                            </h5>
+                        )
                 }
             </Modal.Body>
         </Modal>

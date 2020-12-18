@@ -61,8 +61,8 @@ export default function carousel() {
                                             </div>
                                             <div className='col-8 text-start align-self-end'>
                                                 <h1 className='text-start text-danger fw-bolder'>{`${rocker.stageName} ${rocker.country}`}</h1>
-                                                <h4 className='text-start font-monospace d-lg-block d-none'>{rocker.title} →</h4>
-                                                {rocker.profession.map((profession, i) => <Badge key={i} className='badge rounded-pill bg-danger' pill>{profession}</Badge>)}
+                                                <h4 className='text-start fw-lighter d-lg-block d-none'>{rocker.title} →</h4>
+                                                {rocker.profession.map((profession, i) => <Badge key={i} className='badge rounded-pill bg-danger fw-normal' pill>{profession}</Badge>)}
                                                 {/* <Button variant="secondary" size="sm"><small>READ MORE 👉</small></Button> */}
                                             </div>
                                         </Row>
