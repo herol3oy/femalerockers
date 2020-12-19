@@ -89,7 +89,6 @@
     font-family: 'Playfair Display', serif;
 }
 
-
 .bg-danger {
     background-color: #dc354540 !important;
     border: solid 1px #dc3e45; 
@@ -99,4 +98,22 @@
 
 .card-title {
     text-shadow: 0 0 8px #9e9d9d;
+}
+
+.site-title {
+    font-family: 'Cinzel', serif;
+}
+
+.carousel-item {
+    height: 520px;
+}
+
+.carousel-caption {
+    z-index:1;
+}
+
+@media only screen and (max-width:600px) {
+    .carousel-item {
+        height: 320px;
+    }
 }
