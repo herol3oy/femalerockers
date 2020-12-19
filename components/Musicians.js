@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import _ from 'lodash'
@@ -12,7 +13,28 @@ import { motion } from 'framer-motion'
 const urlFor = (source) =>
     imageUrlBuilder(sanityClient).image(source)
 
-export default function Musicians({ data }) {
+export default function Musicians() {
+    const [musicians, setMusicians] = useState(null)
+
+    useEffect(() => {
+    sanityClient
+            .fetch(`*[_type == "interview"] | order(date){
+            stageName,
+            profession,
+            country,
+            slug,
+            profileImage{
+                asset->{
+                    _id,
+                    url
+                },
+                alt
+            }
+    }`)
+            .then(data => setMusicians(data))
+            .catch(console.error)
+    },[])
+
     const variants = {
         hidden: { opacity: 0 },
         visible: { opacity: 1 }
@@ -22,7 +44,7 @@ export default function Musicians({ data }) {
         <Container className='overflow-hidden'>
             <Row
                 className='row-cols-2 row-cols-sm-2 row-cols-lg-6 row-cols-md-4 g-0 my-3 gy-2'>
-                {_.map(data, (rocker, i) => (
+                {_.map(musicians, (rocker, i) => (
                     <Link key={i} href={rocker.slug.current}>
                         <a className='p-0 text-white text-decoration-none'>
                             <motion.div

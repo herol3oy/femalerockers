@@ -2,9 +2,8 @@ import Head from 'next/head'
 import Carousel from '@components/Carousel'
 import Musicians from '@components/Musicians'
 import RandomQuote from '@components/RandomQuote'
-import { getAllMusiciansData } from '@lib/SanityApi'
 
-export default function Home({ data }) {
+export default function Home() {
   return (
     <>
       <Head>
@@ -13,15 +12,8 @@ export default function Home({ data }) {
         </title>
       </Head>
       <Carousel />
-      <Musicians data={data} />
+      <Musicians />
       <RandomQuote />
     </>
   )
-}
-
-export async function getStaticProps() {
-  const data = await getAllMusiciansData()
-  return {
-    props: { data },
-  }
 }
