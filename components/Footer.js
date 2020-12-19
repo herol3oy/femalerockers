@@ -18,6 +18,17 @@ export default function Footer() {
                         <small className='text-light fw-light'>
                             Our mission is to spread the word for talented musicians and give them a stance where they can professionally present their portfolio.
                         </small>
+                        <br />
+                        <small className='text-secondary'>
+                            <Link href='/privacypolicy'>
+                                <a className='text-secondary'>Privacy Policy</a>
+                            </Link>
+                            {` `}and {` `}
+                            <Link href='/terms'>
+                                <a className='text-secondary'>Terms</a>
+                            </Link>
+                           {` `} © 2020
+                        </small>
                     </section>
                     <section className='col-12 col-lg-3'>
                         <h5 className='site-title fw-bold border-bottom text-light text-left pt-5 pt-lg-0 pt-md-0 mb-1 pb-1'>
