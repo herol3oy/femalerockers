@@ -66,7 +66,7 @@ export default function Musicians() {
                                     <Card.ImgOverlay className='card__img--overlay'>
                                         <Card.Title className='text-light fw-bold'>{`${rocker.stageName} ${rocker.country}`}</Card.Title>
                                         <Card.Text>
-                                            {rocker.profession.map((profession, i) => <Badge key={i} className='badge rounded-pill bg-danger fw-normal' pill>{profession}</Badge>)}
+                                            {rocker.profession.map((profession, i) => <Badge key={i} className='badge border border-danger text-danger rounded-pill style__pills fw-normal' pill>{profession}</Badge>)}
                                         </Card.Text>
                                     </Card.ImgOverlay>
                                 </Card>

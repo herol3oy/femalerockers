@@ -8,10 +8,10 @@ export default function Footer() {
     const [modalShow, setModalShow] = useState(false);
 
     return (
-        <Container fluid className='mt-0 my-lg-5 mb-5'>
+        <Container fluid className='mt-0 mt-md-5 my-lg-5 mb-5'>
             <Container>
                 <Row>
-                    <section className='col-12 col-lg-3'>
+                    <section className='col-12 col-lg-3 mb-md-3'>
                         <h5 className='site-title fw-bold border-bottom text-light text-left pt-5 pt-lg-0 pt-md-0 mb-1 pb-1'>
                             FEMALE ROCKERS
                         </h5>
@@ -30,7 +30,7 @@ export default function Footer() {
                            {` `} © 2020
                         </small>
                     </section>
-                    <section className='col-12 col-lg-3'>
+                    <section className='col-12 col-lg-3 mb-md-1'>
                         <h5 className='site-title fw-bold border-bottom text-light text-left pt-5 pt-lg-0 pt-md-0 mb-1 pb-1'>
                             CONTACT
                         </h5>
@@ -40,7 +40,7 @@ export default function Footer() {
 
                         </small>
                     </section>
-                    <section className='col-12 col-lg-3 my-3 my-lg-0'>
+                    <section className='col-12 col-lg-3 my-3 my-lg-0 '>
                         <h5 className='site-title fw-bold border-bottom text-light text-left pt-5 pt-lg-0 pt-md-0 mb-1 pb-1'>
                             INTERVIEW
                         </h5>
