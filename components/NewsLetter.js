@@ -2,7 +2,7 @@ export default function NewsLetter() {
     return (
         <>
 
-            <div className='p-5 bg-danger border-0' id='mc_embed_signup'>
+            <div className='p-5 bg-dark border-0' id='mc_embed_signup'>
             <h1 className='text-danger text-center accent-color'>
                 <strong>
                     WHO IS NEXT?
@@ -62,7 +62,7 @@ export default function NewsLetter() {
                                 value='SUBSCRIBE ›'
                                 name='subscribe'
                                 id='mc-embedded-subscribe'
-                                className='d-flex rounded-0 justify-content-center w-100 mt-1 button btn btn-lg btn-danger'
+                                className='d-flex rounded-0 justify-content-center w-100 mt-1 button btn btn-lg btn-success'
                             />
                         </div>
                     </div>
