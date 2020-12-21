@@ -97,7 +97,22 @@ export default {
             title: 'Quote',
             name: 'quote',
             type: 'array',
-            of: [{type: 'string'}]
-          }
+            of: [{ type: 'string' }]
+        }
     ],
+    preview: {
+        select: {
+            title: 'stageName',
+            date: 'date',
+            media: 'profileImage',
+        },
+        prepare(selection) {
+            const { title, date, media } = selection
+            return {
+                title,
+                media,
+                subtitle: new Date(date).toLocaleDateString('en-US', { 'year': 'numeric', 'month': 'long' }),
+            }
+        }
+    }
 };
