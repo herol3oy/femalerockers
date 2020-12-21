@@ -6,7 +6,6 @@ import Carousel from '@BS/Carousel'
 import Container from '@BS/Container'
 import Row from '@BS/Row'
 import Badge from '@BS/Badge'
-// import Button from '@BS/Button'
 import sanityClient from '@lib/SanityClient'
 import imageUrlBuilder from "@sanity/image-url"
 
@@ -63,7 +62,6 @@ export default function carousel() {
                                                 <h1 className='text-start text-danger fw-bolder'>{`${rocker.stageName} ${rocker.country}`}</h1>
                                                 <h4 className='text-start fw-lighter d-lg-block d-none'>{rocker.title} →</h4>
                                                 {rocker.profession.map((profession, i) => <Badge key={i} className='badge rounded-pill border border-danger text-danger style__pills fw-normal' pill>{profession}</Badge>)}
-                                                {/* <Button variant="secondary" size="sm"><small>READ MORE 👉</small></Button> */}
                                             </div>
                                         </Row>
                                     </Carousel.Caption>
