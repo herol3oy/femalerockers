@@ -14,11 +14,11 @@ const urlFor = (source) =>
 
 export default function carousel() {
     const [carousel, setCarousel] = useState(null)
-
+  
     useEffect(() => {
         sanityClient
             .fetch(
-                `*[_type == "interview" && carousel == true ]{
+                `*[_type == "interview"] | order(date desc) [0..4]{
                     stageName,
                     title,
                     country,
