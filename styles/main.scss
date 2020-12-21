@@ -73,16 +73,41 @@
 
 .instagram__btn {
     padding: 10px;
-    color: #fff;
-    font-weight: 700;
-    border-radius: 20px;
+    width: 150px;
+    position: relative;
+    text-align: center;
+    color: var(--bs-danger);
+    font-weight: bold;
+    border-radius: 50px;
     cursor: pointer;
-    background: linear-gradient(45deg,#f09433,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888);
+    border: solid 2px var(--bs-danger);
+    background-position: 0 -100%;
+    background-repeat: repeat-x;
+    transition: background-position .3s ease;
+    // background: linear-gradient(45deg,#d4cec7,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888);
+    &:hover span{
+        display: none;
+    }
+    &:hover {
+        color: #fff;
+        background-position: 100% 50%;
+    }
+    &:hover::before {
+        content: "Rock 'n roll 🤘";
+    }
 }
+
+.anglebg {
+    background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgd2lkdGg9IjMwMHB4IiBoZWlnaHQ9IjEzMHB4IiB2aWV3Qm94PSIwIDAgMzAwIDEzMCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj4KICAgIDwhLS0gR2VuZXJhdG9yOiBTa2V0Y2ggNDEuMiAoMzUzOTcpIC0gaHR0cDovL3d3dy5ib2hlbWlhbmNvZGluZy5jb20vc2tldGNoIC0tPgogICAgPHRpdGxlPlBhdGggMiBDb3B5PC90aXRsZT4KICAgIDxkZXNjPkNyZWF0ZWQgd2l0aCBTa2V0Y2guPC9kZXNjPgogICAgPGRlZnM+PC9kZWZzPgogICAgPGcgaWQ9IlBhZ2UtMSIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHBvbHlnb24gaWQ9IlBhdGgtMi1Db3B5IiBmaWxsPSIjRkMyOTk1IiBwb2ludHM9IjAgMzIuODU1NDY4NyAwIDEyOS4xOTA1OTkgMjk5Ljg1OTcwNyAxMjkuMTkwNTk5IDI5OS44NTk3MDcgMC4xMDUwNDA3OTEiPjwvcG9seWdvbj4KICAgIDwvZz4KPC9zdmc+');
+  }
 
 .site__title {
     font-family: 'Cinzel', serif;
     text-shadow: 0px 0px 12px var(--bs-danger);
+    
+    & ~ p {
+        letter-spacing: 3px;
+    }
 }
 
 .homepage__quotation {

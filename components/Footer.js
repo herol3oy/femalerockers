@@ -12,14 +12,14 @@ export default function Footer() {
             <Container>
                 <Row>
                     <section className='col-12 col-lg-3 mb-md-3'>
-                        <h5 className='site-title fw-bold border-bottom text-light text-left pt-5 pt-lg-0 pt-md-0 mb-1 pb-1'>
+                        <h6 className='site-title fw-bold border-bottom text-light text-left pt-5 pt-lg-0 pt-md-0 mb-1 pb-1'>
                             FEMALE ROCKERS
-                        </h5>
+                        </h6>
                         <small className='text-light fw-light'>
                             Our mission is to spread the word for talented musicians and give them a stance where they can professionally present their portfolio.
                         </small>
                         <br />
-                        <small className='text-secondary'>
+                        <small className='text-secondary fw-lighter'>
                             <Link href='/privacypolicy'>
                                 <a className='text-secondary'>Privacy Policy</a>
                             </Link>
@@ -27,13 +27,13 @@ export default function Footer() {
                             <Link href='/terms'>
                                 <a className='text-secondary'>Terms</a>
                             </Link>
-                           {` `} © 2020
+                            {` `} © {new Date().getFullYear() > 2020 ? `2020-${new Date().getFullYear()}` : '2020'}
                         </small>
                     </section>
                     <section className='col-12 col-lg-3 mb-md-1'>
-                        <h5 className='site-title fw-bold border-bottom text-light text-left pt-5 pt-lg-0 pt-md-0 mb-1 pb-1'>
+                        <h6 className='site-title fw-bold border-bottom text-light text-left pt-5 pt-lg-0 pt-md-0 mb-1 pb-1'>
                             CONTACT
-                        </h5>
+                        </h6>
                         <small className='text-light fw-light'>
                             To reach our editorial team please contact us through our {` `}
                             <a className='fw-bold text-light' onClick={() => setModalShow(true)}>contact</a> form
@@ -41,9 +41,9 @@ export default function Footer() {
                         </small>
                     </section>
                     <section className='col-12 col-lg-3 my-3 my-lg-0 '>
-                        <h5 className='site-title fw-bold border-bottom text-light text-left pt-5 pt-lg-0 pt-md-0 mb-1 pb-1'>
+                        <h6 className='site-title fw-bold border-bottom text-light text-left pt-5 pt-lg-0 pt-md-0 mb-1 pb-1'>
                             INTERVIEW
-                        </h5>
+                        </h6>
                         <small className='text-light fw-light'>
                             Try your chance of being interviewed by tagging us on {` `}
                             <Link href='https://www.instagram.com/femalerockers_/'>
@@ -52,9 +52,9 @@ export default function Footer() {
                         </small>
                     </section>
                     <section className='col-12 col-lg-3'>
-                        <h5 className='site-title fw-bold border-bottom text-light text-left pt-5 pt-lg-0 pt-md-0 mb-1 pb-1'>
+                        <h6 className='site-title fw-bold border-bottom text-light text-left pt-5 pt-lg-0 pt-md-0 mb-1 pb-1'>
                             COVID-19
-                        </h5>
+                        </h6>
                         <small className='text-light fw-light'>
                             To stop coronavirus please cover your cough and more songs {' '}
                                     😎

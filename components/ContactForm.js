@@ -34,10 +34,11 @@ export default function ContactForm(props) {
         >
             <Modal.Header className='bg-dark'>
                 <Modal.Title className='fw-bold text-light'>
-                    CONTACT US 👩‍🎤
+                    CONTACT 👩‍🎤
             </Modal.Title>
             </Modal.Header>
             <Modal.Body>
+                <p>Please contact us via <strong>femalerockerscontact@gmail.com</strong> or using the below form.</p>
                 {
                     !emailSent ? (
                         <Form onSubmit={sendEmail}>
@@ -69,7 +70,7 @@ export default function ContactForm(props) {
                                     rows={3}
                                     placeholder="Message" />
                             </Form.Group>
-                            <Button className='mt-2 fw-bold' variant="success" type="submit">Send 🤘</Button>
+                            <Button className='mt-2 fw-bold' variant="success" type="submit">Send</Button>
                         </Form>
                     ) : (
                             <h5 className='text-success'>

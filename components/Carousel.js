@@ -5,9 +5,11 @@ import _ from 'lodash'
 import Carousel from '@BS/Carousel'
 import Container from '@BS/Container'
 import Row from '@BS/Row'
+import Button from '@BS/Button'
 import Badge from '@BS/Badge'
 import sanityClient from '@lib/SanityClient'
 import imageUrlBuilder from "@sanity/image-url"
+import { FaLongArrowAltRight } from 'react-icons/fa';
 
 const urlFor = (source) =>
     imageUrlBuilder(sanityClient).image(source)
@@ -59,9 +61,11 @@ export default function carousel() {
                                                 />
                                             </div>
                                             <div className='col-8 text-start align-self-end'>
-                                                <h1 className='text-start text-danger fw-bolder'>{`${rocker.stageName} ${rocker.country}`}</h1>
-                                                <h4 className='text-start fw-lighter d-lg-block d-none'>{rocker.title} →</h4>
-                                                {rocker.profession.map((profession, i) => <Badge key={i} className='badge rounded-pill border border-danger text-danger style__pills fw-normal' pill>{profession}</Badge>)}
+                                                {rocker.profession.map((profession, i) => <Badge key={i} className='style__pills badge rounded-pill border border-danger text-danger fw-normal mb-2' pill>{profession}</Badge>)}
+                                                <h1 className='text-start text-danger fw-bolder m-0'>{`${rocker.stageName} ${rocker.country}`}</h1>
+                                                <h4 className='text-start fw-lighter d-lg-block d-none'>{rocker.title}</h4>
+                                                {/* <Button className=''>→</Button> */}
+                                                <u><strong><p><small>READ MORE <FaLongArrowAltRight /></small></p></strong></u>
                                             </div>
                                         </Row>
                                     </Carousel.Caption>
