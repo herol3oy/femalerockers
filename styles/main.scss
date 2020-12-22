@@ -84,16 +84,10 @@
     cursor: pointer;
     padding: 9px;
     width: 160px;
-    // background: linear-gradient(45deg,#d4cec7,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888);
-    &:hover span{
-        display: none;
-    }
+
     &:hover {
         color: #fff;
         background-position: 100% 50%;
-    }
-    &:hover::before {
-        content: "YES, PLEASE! 🤘";
     }
 }
 

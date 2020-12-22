@@ -16,7 +16,7 @@ export default function navbar() {
                 </section>
                 <Link href='https://instagram.com/femalerockers_'>
                     <a className='instagram__btn anglebg text-decoration-none' target='_blank' >
-                        <span className='anglebg'>MORE VIBES? 😎</span>
+                        <span className='anglebg text-uppercase'>Instagram 🎉</span>
                     </a>
                 </Link>
             </Navbar>
