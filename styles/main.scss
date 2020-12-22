@@ -72,18 +72,18 @@
 }
 
 .instagram__btn {
-    padding: 10px;
-    width: 150px;
-    position: relative;
-    text-align: center;
-    color: var(--bs-danger);
-    font-weight: bold;
-    border-radius: 50px;
-    cursor: pointer;
+    transition: background-position .3s ease;
     border: solid 2px var(--bs-danger);
     background-position: 0 -100%;
     background-repeat: repeat-x;
-    transition: background-position .3s ease;
+    color: var(--bs-danger);
+    border-radius: 50px;
+    position: relative;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 9px;
+    width: 160px;
     // background: linear-gradient(45deg,#d4cec7,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888);
     &:hover span{
         display: none;
@@ -93,7 +93,7 @@
         background-position: 100% 50%;
     }
     &:hover::before {
-        content: "Rock 'n roll 🤘";
+        content: "YES, PLEASE! 🤘";
     }
 }
 
