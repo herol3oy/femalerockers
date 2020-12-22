@@ -144,3 +144,10 @@
 .carousel-control-next, .carousel-control-prev {
     width: 10%;
 }
+
+.scale {
+    transition: all .2s ease-in-out; 
+    &:hover {
+        transform: scale(1.1);
+    }
+}
