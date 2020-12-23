@@ -23,7 +23,7 @@ import {
   useViewportScroll,
 } from "framer-motion";
 import NewsLetter from "@components/NewsLetter";
-import InterviewHead from "@components/InterviewHead";
+import CustomHead from "@components/CustomHead";
 
 export default function interview({ data }) {
   const {
@@ -86,7 +86,7 @@ export default function interview({ data }) {
 
   return (
     <>
-      <InterviewHead title={stageName} coverImage={urlFor(coverImage.asset).url()} />
+      <CustomHead title={stageName} coverImage={urlFor(coverImage.asset).url()} />
       <section className="interview__coverimg">
         <Image
           src={urlFor(coverImage.asset).url()}
