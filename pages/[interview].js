@@ -1,35 +1,35 @@
-import { useRef } from "react";
-import Head from "next/head";
-import Image from "next/image";
-import Link from "next/link";
-import _ from "lodash";
-import sanityClient from "@lib/SanityClient";
-import BlockContent from "@sanity/block-content-to-react";
-import imageUrlBuilder from "@sanity/image-url";
-import Container from "@BS/Container";
-import Row from "@BS/Row";
-import Badge from "@BS/Badge";
-import { FaYoutube } from "@ICONS/fa";
-import { FaSpotify } from "@ICONS/fa";
-import { FaInstagram } from "@ICONS/fa";
-import { FaLink } from "@ICONS/fa";
-import { FaTwitter } from "@ICONS/fa";
-import { FaFacebookF } from "@ICONS/fa";
-import { getInterviewContent, getAllContentWithSlug } from "@lib/SanityApi";
+import { useRef } from "react"
+import Image from "next/image"
+import Link from "next/link"
+import _ from "lodash"
+import sanityClient from "@lib/SanityClient"
+import BlockContent from "@sanity/block-content-to-react"
+import imageUrlBuilder from "@sanity/image-url"
+import Container from "@BS/Container"
+import Row from "@BS/Row"
+import Badge from "@BS/Badge"
+import { FaYoutube } from "@ICONS/fa"
+import { FaSpotify } from "@ICONS/fa"
+import { FaInstagram } from "@ICONS/fa"
+import { FaLink } from "@ICONS/fa"
+import { FaTwitter } from "@ICONS/fa"
+import { FaFacebookF } from "@ICONS/fa"
+import { getInterviewContent, getAllContentWithSlug } from "@lib/SanityApi"
 import {
   motion,
   useSpring,
   useTransform,
   useViewportScroll,
-} from "framer-motion";
-import NewsLetter from "@components/NewsLetter";
-import CustomHead from "@components/CustomHead";
+} from "framer-motion"
+import NewsLetter from "@components/NewsLetter"
+import CustomHead from "@components/CustomHead"
 
 export default function interview({ data }) {
   const {
     title,
     excerpt,
     stageName,
+    slug,
     country,
     profession,
     profileImage,
@@ -42,20 +42,20 @@ export default function interview({ data }) {
     website,
     date,
     body,
-  } = data[0];
+  } = data[0]
 
-  const ref = useRef(null);
+  const ref = useRef(null)
 
-  const urlFor = (source) => imageUrlBuilder(sanityClient).image(source);
+  const urlFor = (source) => imageUrlBuilder(sanityClient).image(source)
 
-  const { scrollY } = useViewportScroll();
-  const yRange = useTransform(scrollY, [350, 0], [0, 1]);
-  const opacity = useSpring(yRange, { stiffness: 400, damping: 40 });
+  const { scrollY } = useViewportScroll()
+  const yRange = useTransform(scrollY, [350, 0], [0, 1])
+  const opacity = useSpring(yRange, { stiffness: 400, damping: 40 })
 
   const BlockRenderer = (props) => {
-    const { marks, text } = props.node.children[0];
+    const { marks, text } = props.node.children[0]
     if (props.node.style === "blockquote")
-      return <blockquote>{text}</blockquote>;
+      return <blockquote>{text}</blockquote>
     if (marks[0] === "strong") {
       return (
         <div>
@@ -64,7 +64,7 @@ export default function interview({ data }) {
           </dt>
           <dd className="h5 fw-bold">{text}</dd>
         </div>
-      );
+      )
     }
     if (
       props.node.children[0].marks[0] !== "strong" &&
@@ -77,16 +77,16 @@ export default function interview({ data }) {
           </dt>
           <dd className="h5 lh-base fw-thin">{props.node.children[0].text}</dd>
         </div>
-      );
+      )
     }
-    return null;
-  };
+    return null
+  }
 
-  if (!data[0]) return <div>Loading...</div>;
+  if (!data[0]) return <div>Loading...</div>
 
   return (
     <>
-      <CustomHead stageName={stageName} coverImage={urlFor(coverImage.asset).url()} />
+      <CustomHead slug={slug} stageName={stageName} coverImage={urlFor(coverImage.asset).url()} />
       <section className="interview__coverimg">
         <Image
           src={urlFor(coverImage.asset).url()}
@@ -117,7 +117,7 @@ export default function interview({ data }) {
                 >
                   {profession}
                 </Badge>
-              );
+              )
             })}
             <h1 className="display-2 text-danger fw-bold">{`${stageName} ${country}`}</h1>
             <p className="text-light small">
@@ -190,20 +190,20 @@ export default function interview({ data }) {
         </Row>
       </Container>
     </>
-  );
+  )
 }
 
 export async function getStaticProps({ params }) {
-  const data = await getInterviewContent(params.interview);
+  const data = await getInterviewContent(params.interview)
   return {
     props: { data },
-  };
+  }
 }
 
 export async function getStaticPaths() {
-  const content = await getAllContentWithSlug();
+  const content = await getAllContentWithSlug()
   const paths = content.map((content) => ({
     params: { interview: content.slug.toString() },
-  }));
-  return { paths, fallback: false };
+  }))
+  return { paths, fallback: false }
 }

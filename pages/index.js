@@ -9,7 +9,7 @@ export default function Home() {
         <Head>
           <title>Female Rockers | Interviews future sensations in rock music</title>
           <meta property='og:title' content='Female Rockers | Interviews future sensations in rock music' />
-          <meta property='og:image' content='/og-thumbnail.png' />
+          <meta property='og:image' content='https://femalerockers.com/_next/image?url=%2Fog-thumbnail.png&w=1200&q=75' />
           <meta property='og:description' content='Our mission is to spread the word for talented musicians' />
           <meta property='og:url' content='https://femalerockers.com' />
           <meta property="og:type" content="website" />

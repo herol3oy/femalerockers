@@ -1,6 +1,6 @@
 import Head from 'next/head'
 
-export default function CustomHead({ stageName, coverImage }) {
+export default function CustomHead({ slug, stageName, coverImage }) {
   return (
     <Head>
         <title>{`Female Rockers | Exclusive Interview With ${stageName}`}</title>
@@ -14,7 +14,7 @@ export default function CustomHead({ stageName, coverImage }) {
         <meta property='og:title' content={`Female Rockers | Exclusive Interview With ${stageName}`} />
         <meta property='og:image' content={coverImage} />
         <meta property='og:description' content='Our mission is to spread the word for talented musicians' />
-        <meta property='og:url' content={`https://femalerockers.com/${stageName}`} />
+        <meta property='og:url' content={`https://femalerockers.com/${slug.current}`} />
         <meta property="og:type" content="article" />
         <meta property="fb:app_id" content="1791721731010141" />
  
