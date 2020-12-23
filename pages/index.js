@@ -12,7 +12,8 @@ export default function Home() {
           <meta property='og:image' content='/og-thumbnail.png' />
           <meta property='og:description' content='Our mission is to spread the word for talented musicians' />
           <meta property='og:url' content='https://femalerockers.com' />
-          <meta property="og:type" content="interview" />
+          <meta property="og:type" content="website" />
+          <meta property="fb:app_id" content="1791721731010141" />
   
           <meta name="twitter:title" content='Female Rockers | Interviews future sensations in rock music' />
           <meta name="twitter:image" content='/og-thumbnail.png' />
