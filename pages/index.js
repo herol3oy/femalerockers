@@ -7,7 +7,7 @@ import CustomHead from '@components/CustomHead'
 export default function Home() {
   return (
     <>
-      <CustomHead />
+      <CustomHead homepageTitle={'Female Rockers | interviews future sensations in rock music'}/>
       <Carousel />
       <Musicians />
       <RandomQuote />

@@ -1,9 +1,9 @@
 import Head from 'next/head'
 
-export default function CustomHead({ title, coverImage }) {
+export default function CustomHead({ homepageTitle, title, coverImage }) {
   return (
     <Head>
-        <title>{title ? `Female Rockers | Exclusive Interview With ${title}`: `Female Rockers interviews future sensations in rock music`}</title>
+        <title>{title ? `Female Rockers | Exclusive Interview With ${title}`: homepageTitle}</title>
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
@@ -11,12 +11,12 @@ export default function CustomHead({ title, coverImage }) {
         <meta name="keywords" content="interview rocknroll music female rockers rock jazz blues" />
         <meta name="theme-color" content="#dc3545" />
 
-        <meta property='og:title' content={`FemaleRockers | Exclusive Interview With ${title}`} />
+        <meta property='og:title' content={title ? `Female Rockers | Exclusive Interview With ${title}`: homepageTitle} />
         <meta property='og:image' content={coverImage || `/screenshot-01.png`} />
         <meta property='og:description' content='Female Rockers mission is to spread the word for talented musicians' />
         <meta property='og:url' content='https://femalerockers.com' />
 
-        <meta name="twitter:title" content={`FemaleRockers | Exclusive Interview With ${title}`} />
+        <meta name="twitter:title" content={title ? `Female Rockers | Exclusive Interview With ${title}`: homepageTitle} />
         <meta name="twitter:description" content="Female Rockers mission is to spread the word for talented musicians and give them a stance where they can professionally present their portfolio." />
         <meta name="twitter:image" content={coverImage || `/screenshot-01.png`} />
         <meta name="twitter:card" content={coverImage || `/screenshot-01.png`} />
