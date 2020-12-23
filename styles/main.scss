@@ -72,6 +72,8 @@
 }
 
 .instagram__btn {
+    display: flex;
+    justify-content: space-around;
     transition: background-position .3s ease;
     border: solid 2px var(--bs-danger);
     background-position: 0 -100%;
