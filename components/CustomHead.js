@@ -19,7 +19,7 @@ export default function CustomHead({ homepageTitle, title, coverImage }) {
         <meta name="twitter:title" content={title ? `Female Rockers | Exclusive Interview With ${title}`: homepageTitle} />
         <meta name="twitter:description" content="Female Rockers mission is to spread the word for talented musicians and give them a stance where they can professionally present their portfolio." />
         <meta name="twitter:image" content={coverImage || `/screenshot-01.png`} />
-        <meta name="twitter:card" content={coverImage || `/screenshot-01.png`} />
+        <meta name="twitter:card" content={title ? `Female Rockers | Exclusive Interview With ${title}`: homepageTitle} />
 
         <link rel="manifest" href="/manifest.json" />
         <link href="/favicon-16x16.png" rel="icon" type="image/png" sizes="16x16" />
