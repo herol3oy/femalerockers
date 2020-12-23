@@ -17,7 +17,7 @@ export default function Musicians() {
 
     useEffect(() => {
         sanityClient
-            .fetch(`*[_type == "interview"] | order(date){
+            .fetch(`*[_type == "interview"] | order(date desc){
             stageName,
             profession,
             country,
