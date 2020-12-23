@@ -17,7 +17,7 @@ export default function CustomHead({ title, coverImage }) {
         <meta property='og:url' content={title ? `https://femalerockers.com/${title}` : 'https://femalerockers.com'} />
         <meta property="og:type" content="interview" />
  
-        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="femalerockers.com" />
         <meta name="twitter:title" content={title ? `Female Rockers | Exclusive Interview With ${title}`: `Female Rockers | Interviews future sensations in rock music`} />
         <meta name="twitter:description" content="Our mission is to spread the word for talented musicians and give them a stance where they can professionally present their portfolio." />
