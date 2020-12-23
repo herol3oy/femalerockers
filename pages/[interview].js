@@ -86,7 +86,7 @@ export default function interview({ data }) {
 
   return (
     <>
-      <CustomHead title={stageName} coverImage={urlFor(coverImage.asset).url()} />
+      <CustomHead stageName={stageName} coverImage={urlFor(coverImage.asset).url()} />
       <section className="interview__coverimg">
         <Image
           src={urlFor(coverImage.asset).url()}

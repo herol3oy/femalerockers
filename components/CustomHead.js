@@ -1,9 +1,9 @@
 import Head from 'next/head'
 
-export default function CustomHead({ title, coverImage }) {
+export default function CustomHead({ stageName, coverImage }) {
   return (
     <Head>
-        <title>{`Female Rockers | Exclusive Interview With ${title}`}</title>
+        <title>{`Female Rockers | Exclusive Interview With ${stageName}`}</title>
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
@@ -11,13 +11,14 @@ export default function CustomHead({ title, coverImage }) {
         <meta name="keywords" content="interview rocknroll music female rockers rock jazz blues" />
         <meta name="theme-color" content="#dc3545" />
 
-        <meta property='og:title' content={`Female Rockers | Exclusive Interview With ${title}`} />
+        <meta property='og:title' content={`Female Rockers | Exclusive Interview With ${stageName}`} />
         <meta property='og:image' content={coverImage} />
         <meta property='og:description' content='Our mission is to spread the word for talented musicians' />
+        <meta property='og:url' content={`https://femalerockers.com/${stageName}`} />
         <meta property="og:type" content="article" />
         <meta property="fb:app_id" content="1791721731010141" />
  
-        <meta name="twitter:title" content={`Female Rockers | Exclusive Interview With ${title}`} />
+        <meta name="twitter:title" content={`Female Rockers | Exclusive Interview With ${stageName}`} />
         <meta name="twitter:image" content={coverImage} />
         <meta name="twitter:description" content="Our mission is to spread the word for talented musicians" />
         <meta name="twitter:card" content="summary_large_image" />

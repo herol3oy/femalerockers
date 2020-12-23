@@ -16,7 +16,7 @@ export default function Home() {
           <meta property="fb:app_id" content="1791721731010141" />
   
           <meta name="twitter:title" content='Female Rockers | Interviews future sensations in rock music' />
-          <meta name="twitter:image" content='/og-thumbnail.png' />
+          <meta name="twitter:image" content='https://femalerockers.com/_next/image?url=%2Fog-thumbnail.png&w=1200&q=75' />
           <meta name="twitter:description" content="Our mission is to spread the word for talented musicians" />
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:site" content="femalerockers.com" />
