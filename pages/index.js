@@ -1,26 +1,12 @@
-import Head from "next/head";
-import Carousel from "@components/Carousel";
-import Musicians from "@components/Musicians";
-import RandomQuote from "@components/RandomQuote";
+import Head from "next/head"
+import Carousel from "@components/Carousel"
+import Musicians from "@components/Musicians"
+import RandomQuote from "@components/RandomQuote"
+import CustomHead from "@components/CustomHead"
 
 export default function Home() {
   return (
     <>
-        <Head>
-          <title>Female Rockers | Interviews future sensations in rock music</title>
-          <meta property='og:title' content='Female Rockers | Interviews future sensations in rock music' />
-          <meta property='og:image' content='https://femalerockers.com/_next/image?url=%2Fog-thumbnail.png&w=1200&q=75' />
-          <meta property='og:description' content='Our mission is to spread the word for talented musicians' />
-          <meta property='og:url' content='https://femalerockers.com' />
-          <meta property="og:type" content="website" />
-          <meta property="fb:app_id" content="1791721731010141" />
-  
-          <meta name="twitter:title" content='Female Rockers | Interviews future sensations in rock music' />
-          <meta name="twitter:image" content='https://femalerockers.com/_next/image?url=%2Fog-thumbnail.png&w=1200&q=75' />
-          <meta name="twitter:description" content="Our mission is to spread the word for talented musicians" />
-          <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:site" content="femalerockers.com" />
-      </Head>
       <Carousel />
       <Musicians />
       <RandomQuote />
