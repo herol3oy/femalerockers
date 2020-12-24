@@ -14,7 +14,7 @@ export default function CustomHead({ slug, stageName, coverImage }) {
         <meta property='og:title' content={stageName ? `Female Rockers | Exclusive Interview With ${stageName}` : 'Female Rockers | Interviews future sensations in rock music'} />
         <meta property='og:image' content={coverImage ? coverImage : 'https://femalerockers.com/_next/image?url=%2Fog-thumbnail.png&w=1200&q=75'} />
         <meta property='og:description' content='Our mission is to spread the word for talented musicians' />
-        <meta property='og:url' content={slug.current ? `https://femalerockers.com/${slug.current}` : 'https://femalerockers.com'} />
+        <meta property='og:url' content={slug?.current ? `https://femalerockers.com/${slug.current}` : 'https://femalerockers.com'} />
         <meta property="og:type" content={stageName ? 'article' : 'website'} />
         <meta property="fb:app_id" content="1791721731010141" />
  
