@@ -202,7 +202,7 @@ export async function getStaticProps({ params }) {
   const data = await getInterviewContent(params.interview)
   return {
     props: { data },
-    revalidate: 1,
+    revalidate: 1
   }
 }
 
@@ -211,5 +211,5 @@ export async function getStaticPaths() {
   const paths = content.map((content) => ({
     params: { interview: content.slug.toString() },
   }))
-  return { paths, fallback: true }
+  return { paths, fallback: false }
 }
