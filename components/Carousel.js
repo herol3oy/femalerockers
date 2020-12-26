@@ -56,6 +56,8 @@ export default function carousel() {
                                                 <Image
                                                     src={urlFor(rocker.profileImage.asset).url()}
                                                     alt={rocker.stageName}
+                                                    layout='intrinsic'
+                                                    objectFit='cover'
                                                     width={162}
                                                     height={240}
                                                 />

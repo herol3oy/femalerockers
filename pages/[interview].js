@@ -124,7 +124,7 @@ export default function interview({ data }) {
                 </Badge>
               )
             })}
-            <h1 className='display-2 text-danger fw-bold'>{`${stageName} ${country}`}</h1>
+            <h1 className='text-danger fw-bold'>{`${stageName} ${country}`}</h1>
             <p className='text-light small'>
               {new Date(date).toLocaleDateString('en-US', {
                 year: 'numeric',
