@@ -1,14 +1,14 @@
 import Link from 'next/link'
 import Navbar from '@components/Navbar'
 import Footer from '@components/Footer'
-// import Banner from '@components/Banner'
+import Banner from '@components/Banner'
 import CookieConsent from 'react-cookie-consent'
 import '@styles/main.scss'
 
 export default function MyApp({ Component, pageProps }) {
   return (
     <>
-      {/* <Banner /> */}
+      <Banner />
       <Navbar />
       <Component {...pageProps} />
       <Footer />

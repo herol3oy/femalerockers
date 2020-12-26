@@ -164,6 +164,10 @@
 }
 
 .banner {
-  background: linear-gradient(270deg, #f5005e, #4801f5);
-  z-index: 3;
+  background: linear-gradient(90deg, var(--bs-danger) 0%, var(--bs-primary) 100%);
+  transition: all 3s ease-in-out;
+}
+
+.btn-close {
+  margin-left: 1em;
 }
