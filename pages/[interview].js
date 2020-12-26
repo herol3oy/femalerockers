@@ -186,8 +186,8 @@ export default function interview({ data }) {
             <BlockContent
               className='text-light'
               blocks={body}
-              projectId='ldn05m4o'
-              dataset='production'
+              projectId={process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}
+              dataset={process.env.NEXT_PUBLIC_SANITY_DATASET}
               serializers={{ types: { block: BlockRenderer } }}
             />
             <NewsLetter />
