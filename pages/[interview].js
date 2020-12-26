@@ -211,5 +211,5 @@ export async function getStaticPaths() {
   const paths = content.map((content) => ({
     params: { interview: content.slug.toString() },
   }))
-  return { paths, fallback: false }
+  return { paths, fallback: true }
 }
