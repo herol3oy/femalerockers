@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
 import Container from '@BS/Container'
 import Row from '@BS/Row'
+import Button from '@BS/Button'
 
 export default function Banner() {
   const [banner, setBanner] = useState(true)
@@ -15,12 +16,13 @@ export default function Banner() {
             <Link href='https://www.instagram.com/femalerockers_/'>
               <a>instagram</a>
             </Link>
-            <button
+            <Button
+              size='sm'
               onClick={() => setBanner(false)}
               type='button'
-              className='btn-close bg-light small'
+              className='btn-close bg-light'
               aria-label='Close'
-            ></button>
+            ></Button>
           </small>
         </Row>
       </Container>
