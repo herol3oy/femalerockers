@@ -55,6 +55,8 @@
 
 .interview__coverimg {
   height: 100vh;
+  overflow: hidden;
+  display: flex;
 
   &::after {
     content: '';
