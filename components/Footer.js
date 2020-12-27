@@ -44,7 +44,7 @@ export default function Footer() {
               <Link href='/page/about'>
                 <a className='fw-bold text-light'>about us</a>
               </Link>
-              here
+              {` `} here
             </small>
           </section>
           <section className='col-12 col-lg-3 mb-md-1'>
