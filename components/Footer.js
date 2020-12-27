@@ -40,10 +40,11 @@ export default function Footer() {
               ABOUT
             </h6>
             <small className='text-light fw-light'>
-              Please read more about us {` `}
+              Please read more {` `}
               <Link href='/page/about'>
-                <a className='fw-bold text-light'>here</a>
+                <a className='fw-bold text-light'>about us</a>
               </Link>
+              here
             </small>
           </section>
           <section className='col-12 col-lg-3 mb-md-1'>
