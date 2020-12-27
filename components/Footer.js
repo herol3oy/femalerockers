@@ -12,9 +12,9 @@ export default function Footer() {
       <Container>
         <Row>
           <section className='col-12 col-lg-6 mb-md-3'>
-            <h6 className='site-title fw-bold border-bottom text-light text-left pt-5 pt-lg-0 pt-md-0 mb-1 pb-1'>
+            <p className='site-title fw-bold border-bottom text-light text-left pt-5 pt-lg-0 pt-md-0 mb-1 pb-1'>
               FEMALE ROCKERS
-            </h6>
+            </p>
             <small className='text-light fw-light'>
               Our mission is to spread the word for talented musicians and give
               them a stance where they can professionally present their
@@ -36,9 +36,9 @@ export default function Footer() {
             </small>
           </section>
           <section className='col-12 col-lg-3'>
-            <h6 className='site-title fw-bold border-bottom text-light text-left pt-5 pt-lg-0 pt-md-0 mb-1 pb-1'>
+            <p className='site-title fw-bold border-bottom text-light text-left pt-5 pt-lg-0 pt-md-0 mb-1 pb-1'>
               ABOUT
-            </h6>
+            </p>
             <small className='text-light fw-light'>
               Please read more {` `}
               <Link href='/page/about'>
@@ -48,9 +48,9 @@ export default function Footer() {
             </small>
           </section>
           <section className='col-12 col-lg-3 mb-md-1'>
-            <h6 className='site-title fw-bold border-bottom text-light text-left pt-5 pt-lg-0 pt-md-0 mb-1 pb-1'>
+            <p className='site-title fw-bold border-bottom text-light text-left pt-5 pt-lg-0 pt-md-0 mb-1 pb-1'>
               CONTACT
-            </h6>
+            </p>
             <small className='text-light fw-light'>
               To reach our editorial team please contact us through our {` `}
               <a
