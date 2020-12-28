@@ -82,7 +82,7 @@ export default function interview({ data }) {
     return null
   }
 
-  if (!data[0]) return <div>Loading...</div>
+  if (!data) return <div>Loading...</div>
 
   return (
     <>
@@ -180,7 +180,7 @@ export default function interview({ data }) {
       <Container>
         <Row className='justify-content-center'>
           <section className='col-12 col-lg-7 col-md-10'>
-            <h2 className='interview__title display-5 fw-bolder'>{title}</h2>
+            {title && <h2 className='interview__title display-5 fw-bolder'>{title}</h2>}
             <p className='h3 lh-base text-light'>{excerpt}</p>
             <hr className='my-5 text-light' />
             <BlockContent
@@ -198,18 +198,19 @@ export default function interview({ data }) {
   )
 }
 
-export async function getStaticProps({ params }) {
+export async function getServerSideProps({ params }) {
   const data = await getInterviewContent(params.interview)
   return {
-    props: { data },
-    revalidate: 1
+    props: {
+      data,
+    },
   }
 }
 
-export async function getStaticPaths() {
-  const content = await getAllContentWithSlug()
-  const paths = content.map((content) => ({
-    params: { interview: content.slug.toString() },
-  }))
-  return { paths, fallback: false }
-}
+// export async function getStaticPaths() {
+//   const content = await getAllContentWithSlug()
+//   const paths = content.map((content) => ({
+//     params: { interview: content.slug.toString() },
+//   }))
+//   return { paths, fallback: false }
+// }
