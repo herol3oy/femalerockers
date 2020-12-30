@@ -25,6 +25,8 @@ import NewsLetter from '@components/NewsLetter'
 import CustomHead from '@components/CustomHead'
 
 export default function interview({ data }) {
+  console.log(data)
+  
   const {
     title,
     excerpt,
@@ -180,7 +182,7 @@ export default function interview({ data }) {
       <Container>
         <Row className='justify-content-center'>
           <section className='col-12 col-lg-7 col-md-10'>
-            {title && <h2 className='interview__title display-5 fw-bolder'>{title}</h2>}
+            <h2 className='interview__title display-5 fw-bolder'>{title}</h2>
             <p className='h3 lh-base text-light'>{excerpt}</p>
             <hr className='my-5 text-light' />
             <BlockContent
@@ -206,11 +208,3 @@ export async function getServerSideProps({ params }) {
     },
   }
 }
-
-// export async function getStaticPaths() {
-//   const content = await getAllContentWithSlug()
-//   const paths = content.map((content) => ({
-//     params: { interview: content.slug.toString() },
-//   }))
-//   return { paths, fallback: false }
-// }
