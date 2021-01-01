@@ -14,7 +14,7 @@ import { FaInstagram } from '@ICONS/fa'
 import { FaLink } from '@ICONS/fa'
 import { FaTwitter } from '@ICONS/fa'
 import { FaFacebookF } from '@ICONS/fa'
-import { getInterviewContent, getAllContentWithSlug } from '@lib/SanityApi'
+import { getInterviewContent } from '@lib/SanityApi'
 import {
   motion,
   useSpring,
@@ -25,8 +25,6 @@ import NewsLetter from '@components/NewsLetter'
 import CustomHead from '@components/CustomHead'
 
 export default function interview({ data }) {
-  console.log(data)
-  
   const {
     title,
     excerpt,
