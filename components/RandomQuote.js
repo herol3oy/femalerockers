@@ -22,12 +22,10 @@ export default function RandomQuote() {
 
     }, [])
 
-    if (!quotes) return <h6>Loading...</h6>
-
     return (
         <Container fluid className='style__pills border-0 mt-5'>
             <Container className='d-flex flex-column justify-content-center align-items-center p-5'>
-                <h3 className='homepage__quotation text-center text-light'>"{quotes?.quote}"</h3 >
+                <p className='homepage__quotation h3 text-center text-light'>"{quotes?.quote}"</p>
                 <Link href={quotes?.slug?.current || '/'}>
                     <a className='text-light'>
                         ~ {`${quotes?.stageName || ' '}`} ~
