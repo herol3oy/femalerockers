@@ -73,17 +73,15 @@ export default function carousel() {
                             {profession}
                           </Badge>
                         ))}
-                        <h1 className='text-start text-danger fw-bolder m-0'>{`${rocker.stageName} ${rocker.country}`}</h1>
+                        <h3 className='text-start text-danger fw-bolder m-0'>{`${rocker.stageName} ${rocker.country}`}</h3>
                         <h4 className='text-start fw-lighter d-lg-block d-none'>
                           {rocker.title}
                         </h4>
                         <u>
                           <strong>
-                            <p>
                               <small>
                                 READ MORE <FaLongArrowAltRight />
                               </small>
-                            </p>
                           </strong>
                         </u>
                       </div>
