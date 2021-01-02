@@ -9,11 +9,16 @@ import Badge from '@BS/Badge'
 import sanityClient from '@lib/SanityClient'
 import imageUrlBuilder from '@sanity/image-url'
 import CardSkeleton from './skeletons/CardSkeleton'
+import Pagination from 'react-sanity-pagination'
 
 const urlFor = (source) => imageUrlBuilder(sanityClient).image(source)
+const itemsToSend = []
 
 export default function Musicians() {
-  const [musicians, setMusicians] = useState('')
+  const [musicians, setMusicians] = useState(null)
+  const [items, setItems] = useState([])
+
+  const postsPerPage = 18
 
   useEffect(() => {
     sanityClient
@@ -32,9 +37,14 @@ export default function Musicians() {
             }
     }`
       )
-      .then((data) => setMusicians(data))
+      .then((data) => {
+        setMusicians(data)
+        itemsToSend.push(...data)
+      })
       .catch(console.error)
   }, [])
+
+  const action = (page, range, items) => setItems(items)
 
   if (!musicians)
     return (
@@ -50,7 +60,7 @@ export default function Musicians() {
   return (
     <Container className='overflow-hidden'>
       <Row className='row-cols-2 row-cols-sm-2 row-cols-lg-6 row-cols-md-4 g-0 my-3 gy-2'>
-        {_.map(musicians, (rocker, i) => (
+        {_.map(items, (rocker, i) => (
           <Link key={i} href={rocker.slug.current}>
             <a className='p-0 text-white text-decoration-none'>
               <Card className='scale mx-1 bg-transparent border-0 border-top border-danger border-2 rounded-top rounded-bottom'>
@@ -83,6 +93,15 @@ export default function Musicians() {
             </a>
           </Link>
         ))}
+      </Row>
+      <Row>
+        <Pagination
+          className='d-flex justify-content-center rounded'
+          items={itemsToSend}
+          action={action}
+          postsPerPage={postsPerPage}
+          paginationStyle={'centerMode'}
+        />
       </Row>
     </Container>
   )
