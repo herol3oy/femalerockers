@@ -1,52 +1,44 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import _ from 'lodash'
 import Container from '@BS/Container'
 import Card from '@BS/Card'
 import Row from '@BS/Row'
+import Button from '@BS/Button'
 import Badge from '@BS/Badge'
 import sanityClient from '@lib/SanityClient'
 import imageUrlBuilder from '@sanity/image-url'
 import CardSkeleton from './skeletons/CardSkeleton'
-import Pagination from 'react-sanity-pagination'
+import useSWR from 'swr'
+import groq from 'groq'
 
 const urlFor = (source) => imageUrlBuilder(sanityClient).image(source)
-const itemsToSend = []
+const postsPerPage = 18
 
 export default function Musicians() {
-  const [musicians, setMusicians] = useState(null)
-  const [items, setItems] = useState([])
+  const [pageIndex, setPageIndex] = useState(postsPerPage)
 
-  const postsPerPage = 18
-
-  useEffect(() => {
-    sanityClient
-      .fetch(
-        `*[_type == "interview"] | order(date desc){
-            stageName,
-            profession,
-            country,
-            slug,
-            profileImage{
-                asset->{
-                    _id,
-                    url
-                },
-                alt
-            }
-    }`
-      )
-      .then((data) => {
-        setMusicians(data)
-        itemsToSend.push(...data)
-      })
-      .catch(console.error)
-  }, [])
-
-  const action = (page, range, items) => setItems(items)
-
-  if (!musicians)
+  const { data, error } = useSWR(
+    groq`*[_type == "interview"] | order(date desc) [${
+      pageIndex - postsPerPage
+    }...${pageIndex}]{
+               stageName,
+               profession,
+               country,
+               slug,
+               profileImage{
+                   asset->{
+                       _id,
+                       url
+                   },
+                   alt
+               }
+       }`,
+    (query) => sanityClient.fetch(query)
+  )
+  if (error) return <div>Failed</div>
+  if (!data)
     return (
       <Container className='overflow-hidden'>
         <Row className='g-0 my-3 gy-2'>
@@ -60,7 +52,7 @@ export default function Musicians() {
   return (
     <Container className='overflow-hidden'>
       <Row className='row-cols-2 row-cols-sm-2 row-cols-lg-6 row-cols-md-4 g-0 my-3 gy-2'>
-        {_.map(items, (rocker, i) => (
+        {_.map(data, (rocker, i) => (
           <Link key={i} href={rocker.slug.current}>
             <a className='p-0 text-white text-decoration-none'>
               <Card className='scale mx-1 bg-transparent border-0 border-top border-danger border-2 rounded-top rounded-bottom'>
@@ -95,13 +87,26 @@ export default function Musicians() {
         ))}
       </Row>
       <Row>
-        <Pagination
-          className='d-flex justify-content-center rounded'
-          items={itemsToSend}
-          action={action}
-          postsPerPage={postsPerPage}
-          paginationStyle={'centerMode'}
-        />
+        <section className='d-flex justify-content-center'>
+          <Button
+            className='mx-1'
+            disabled={pageIndex <= postsPerPage && 'disabled'}
+            variant='dark'
+            size='sm'
+            onClick={() => setPageIndex(pageIndex - postsPerPage)}
+          >
+            👈
+          </Button>
+          <Button
+            className='mx-1'
+            disabled={data.length < postsPerPage && 'disabled'}
+            variant='dark'
+            size='sm'
+            onClick={() => setPageIndex(pageIndex + postsPerPage)}
+          >
+            👉
+          </Button>
+        </section>
       </Row>
     </Container>
   )
