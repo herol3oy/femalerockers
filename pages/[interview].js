@@ -132,46 +132,34 @@ export default function interview({ data }) {
               })}
             </p>
             {youtube && (
-              <Link href={youtube}>
-                <a target='_blank'>
-                  <FaYoutube className='h4 mx-1 text-light' />
-                </a>
-              </Link>
+              <a rel='noreferrer' href={youtube} target='_blank'>
+                <FaYoutube className='h4 mx-1 text-light' />
+              </a>
             )}
             {spotify && (
-              <Link href={spotify}>
-                <a target='_blank'>
-                  <FaSpotify className='h4 mx-1 text-light' />
-                </a>
-              </Link>
+              <a rel='noreferrer' href={spotify} target='_blank'>
+                <FaSpotify className='h4 mx-1 text-light' />
+              </a>
             )}
             {instagram && (
-              <Link href={instagram}>
-                <a target='_blank'>
-                  <FaInstagram className='h4 mx-1 text-light' />
-                </a>
-              </Link>
+              <a rel='noreferrer' href={instagram} target='_blank'>
+                <FaInstagram className='h4 mx-1 text-light' />
+              </a>
             )}
             {website && (
-              <Link href={website}>
-                <a target='_blank'>
-                  <FaLink className='h4 mx-1 text-light' />
-                </a>
-              </Link>
+              <a rel='noreferrer' href={website} target='_blank'>
+                <FaLink className='h4 mx-1 text-light' />
+              </a>
             )}
             {twitter && (
-              <Link href={twitter}>
-                <a target='_blank'>
-                  <FaTwitter className='h4 mx-1 text-light' />
-                </a>
-              </Link>
+              <a rel='noreferrer' href={twitter} target='_blank'>
+                <FaTwitter className='h4 mx-1 text-light' />
+              </a>
             )}
             {facebook && (
-              <Link href={facebook}>
-                <a target='_blank'>
-                  <FaFacebookF className='h4 mx-1 text-light' />
-                </a>
-              </Link>
+              <a rel='noreferrer' href={facebook} target='_blank'>
+                <FaFacebookF className='h4 mx-1 text-light' />
+              </a>
             )}
           </div>
         </section>
