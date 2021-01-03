@@ -24,7 +24,7 @@ export default function MyApp({ Component, pageProps }) {
         }}
         buttonStyle={{
           color: '#fff',
-          backgroundColor: '#FF2E63',
+          backgroundColor: '#dc3545',
           fontSize: '13px',
           marginTop: '15px',
           padding: '.6rem',
