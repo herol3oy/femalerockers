@@ -21,13 +21,13 @@ export default function Footer() {
               portfolio.
             </small>
             <br />
-            <small className='text-secondary fw-lighter'>
+            <small className='text-light fw-lighter'>
               <Link href='/privacypolicy'>
-                <a className='text-secondary'>Privacy Policy</a>
+                <a className='text-light'>Privacy Policy</a>
               </Link>
               {` `}and {` `}
               <Link href='/terms'>
-                <a className='text-secondary'>Terms</a>
+                <a className='text-light'>Terms</a>
               </Link>
               {` `} ©{' '}
               {new Date().getFullYear() > 2020
