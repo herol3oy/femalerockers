@@ -60,7 +60,12 @@ export default function interview({ data }) {
       return (
         <div>
           <dt>
-            <Image src='/logo.png' width={32} height={32} />
+            <Image
+              src='/logo.png'
+              width={32}
+              height={32}
+              alt='Female Rockers Logo'
+            />
           </dt>
           <dd className='h5 fw-bold'>{text}</dd>
         </div>
@@ -110,6 +115,7 @@ export default function interview({ data }) {
             src={urlFor(profileImage.asset).url()}
             width={160}
             height={240}
+            alt={stageName}
           />
           <div className='align-self-end p-2'>
             {profession.map((profession, i) => {

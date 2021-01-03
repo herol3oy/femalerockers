@@ -8,9 +8,9 @@ export default function NewsLetter() {
                     WHO IS NEXT?
                 </strong>
             </h1>
-            <h3 className='fw-lighter text-light text-center mb-5'>
+            <p className='h3 fw-lighter text-light text-center mb-5'>
                 Subscribe to our newsletter for incomming interviews
-            </h3>
+            </p>
                 <form
                     method='post'
                     action='https://femalerockers.us19.list-manage.com/subscribe/post?u=a1033c7d8b2c72e78fd17743a&id=fee35bc5cb'
