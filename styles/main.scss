@@ -1,7 +1,6 @@
 @use './global';
 @use './typography';
 @use './skeletons';
-@use './pagination';
 
 .carousel {
   li {
@@ -28,6 +27,11 @@
 }
 
 .card {
+  &:hover img {
+    filter: blur(3px);
+    opacity: 0.5;
+  }
+
   &::after {
     display: flex;
     content: '';
@@ -38,6 +42,17 @@
     height: 100%;
     display: inline-block;
     background: linear-gradient(to top, #111 5%, rgba(255, 255, 255, 0) 100%);
+  }
+  .card-text {
+    transition: all 2s ease-in;
+    small {
+      display: none;
+      
+    }
+  }
+  
+  &:hover .card-text small {
+    display: inherit;
   }
 }
 
@@ -78,6 +93,11 @@
 
 .cover__img {
   z-index: -1;
+  filter: grayscale(0);
+}
+
+figure > img {
+  filter: grayscale(0);
 }
 
 .interview__profile--box {

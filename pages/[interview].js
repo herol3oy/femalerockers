@@ -1,6 +1,5 @@
 import { useRef } from 'react'
 import Image from 'next/image'
-import Link from 'next/link'
 import _ from 'lodash'
 import sanityClient from '@lib/SanityClient'
 import BlockContent from '@sanity/block-content-to-react'

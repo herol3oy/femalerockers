@@ -14,7 +14,7 @@ import useSWR from 'swr'
 import groq from 'groq'
 
 const urlFor = (source) => imageUrlBuilder(sanityClient).image(source)
-const postsPerPage = 18
+const postsPerPage = 24
 
 export default function Musicians() {
   const [pageIndex, setPageIndex] = useState(postsPerPage)
@@ -24,6 +24,7 @@ export default function Musicians() {
       pageIndex - postsPerPage
     }...${pageIndex}]{
                stageName,
+               title,
                profession,
                country,
                slug,
@@ -67,19 +68,24 @@ export default function Musicians() {
                   width={160}
                   height={240}
                 />
-                <Card.ImgOverlay className='card__img--overlay'>
-                  <Card.Title className='text-light fw-bold'>{`${rocker.stageName} ${rocker.country}`}</Card.Title>
+                <Card.ImgOverlay className='card__img--overlay d-flex flex-column justify-content-between h-100'>
                   <Card.Text>
+                    <small>
+                      <span className='text-danger fw-bolder'>/{` `}</span>
+                      {rocker.title.length > 35
+                        ? `${rocker.title.slice(0, 35)}...`
+                        : rocker.title}
+                    </small>
                     {rocker.profession.map((profession, i) => (
-                      <Badge
-                        key={i}
-                        className='badge border border-danger text-danger rounded-pill style__pills fw-normal'
-                        pill
-                      >
-                        {profession}
-                      </Badge>
+                      <span key={i} className='h5 shadow-sm' aria-label='bassist' role='img'>
+                        {(profession === 'bassist' && `🎸`) ||
+                          (profession === 'drummer' && `🥁`) ||
+                          (profession === 'vocalist' && `🎙️`) ||
+                          (profession === 'guitarist' && `🎸`)}
+                      </span>
                     ))}
                   </Card.Text>
+                  <Card.Title className='text-light fw-bold'>{`${rocker.stageName} ${rocker.country}`}</Card.Title>
                 </Card.ImgOverlay>
               </Card>
             </a>
