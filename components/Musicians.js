@@ -6,7 +6,6 @@ import Container from '@BS/Container'
 import Card from '@BS/Card'
 import Row from '@BS/Row'
 import Button from '@BS/Button'
-import Badge from '@BS/Badge'
 import sanityClient from '@lib/SanityClient'
 import imageUrlBuilder from '@sanity/image-url'
 import CardSkeleton from './skeletons/CardSkeleton'
@@ -70,14 +69,14 @@ export default function Musicians() {
                 />
                 <Card.ImgOverlay className='card__img--overlay d-flex flex-column justify-content-between h-100'>
                   <Card.Text>
-                    <small>
-                      <span className='text-danger fw-bolder'>/{` `}</span>
+                    <small className='h6'>
+                      <span className='h6 text-danger fw-bolder'>/{` `}</span>
                       {rocker.title.length > 35
                         ? `${rocker.title.slice(0, 35)}...`
                         : rocker.title}
                     </small>
                     {rocker.profession.map((profession, i) => (
-                      <span key={i} className='h5 shadow-sm' aria-label='bassist' role='img'>
+                      <span key={i} aria-label='bassist' role='img'>
                         {(profession === 'bassist' && `🎸`) ||
                           (profession === 'drummer' && `🥁`) ||
                           (profession === 'vocalist' && `🎙️`) ||

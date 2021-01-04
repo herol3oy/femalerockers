@@ -16,7 +16,11 @@
 .shimmer {
   width: 50%;
   height: 100%;
-  background: rgba(255, 255, 255, 0.2);
+  background: linear-gradient(
+    90deg,
+    var(--bs-danger) 0%,
+    var(--bs-primary) 100%,
+  );
   transform: skewX(-20deg);
   box-shadow: 0 0 30px 30px rgba(255, 255, 255, 0.2);
 }
