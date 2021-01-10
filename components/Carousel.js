@@ -37,7 +37,7 @@ export default function carousel() {
 
   return (
     <Container className='my-3'>
-      <Carousel className='carousel' prevLabel='' nextLabel=''>
+      <Carousel indicators={false} className='carousel' prevLabel='' nextLabel=''>
         {_.map(carousel, (rocker, i) => {
           return (
             <Carousel.Item key={i}>
