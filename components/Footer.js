@@ -18,10 +18,10 @@ export default function Footer() {
             <small className='text-light fw-light'>
               Our mission is to spread the word for talented musicians and give
               them a stance where they can professionally present their
-              portfolio.
-            </small>
-            <br />
-            <small className='text-light fw-lighter'>
+              portfolio
+            </small> {` `}
+            {/* <br /> */}
+            <small className='badge bg-dark text-light fw-light'>
               <Link href='/privacypolicy'>
                 <a className='text-light'>Privacy Policy</a>
               </Link>
@@ -29,10 +29,7 @@ export default function Footer() {
               <Link href='/terms'>
                 <a className='text-light'>Terms</a>
               </Link>
-              {` `} ©{' '}
-              {new Date().getFullYear() > 2020
-                ? `2020-${new Date().getFullYear()}`
-                : '2020'}
+              {` `} © {`2020 - ${new Date().getFullYear()}`}
             </small>
           </section>
           <section className='col-12 col-lg-3'>
@@ -44,7 +41,7 @@ export default function Footer() {
               <Link href='/page/about'>
                 <a className='fw-bold text-light'>about us</a>
               </Link>
-              {` `} here
+              {` `} here. There are a lot to know about us!
             </small>
           </section>
           <section className='col-12 col-lg-3 mb-md-1'>
