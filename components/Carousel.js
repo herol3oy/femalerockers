@@ -64,10 +64,10 @@ export default function carousel() {
                         />
                       </div>
                       <div className='col-8 text-start align-self-end'>
-                        <h3 className='text-start text-danger fw-bolder m-0'>{`${rocker.stageName} ${rocker.country}`}</h3>
-                        <h4 className='text-start fw-lighter d-lg-block d-none'>
+                        <h5 className='text-start text-danger fw-bolder m-0'>{`${rocker.stageName} ${rocker.country}`}</h5>
+                        <h3 className='text-start fw-lighter d-lg-block d-none'>
                           {rocker.title}
-                        </h4>
+                        </h3>
                         <u>
                           <strong>
                               <small>
