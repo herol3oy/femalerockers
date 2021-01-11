@@ -37,11 +37,11 @@ export default function Footer() {
               ABOUT
             </p>
             <small className='text-light fw-light'>
-              Please read more {` `}
+              Please read {` `}
               <Link href='/page/about'>
                 <a className='fw-bold text-light'>about us</a>
               </Link>
-              {` `} here. There are a lot to know about us!
+              {` `} here and fine out more about our ideas!
             </small>
           </section>
           <section className='col-12 col-lg-3 mb-md-1'>
@@ -49,7 +49,7 @@ export default function Footer() {
               CONTACT
             </p>
             <small className='text-light fw-light'>
-              To reach our editorial team please contact us through our {` `}
+              To reach our editorial team please send your inquiries through our {` `}
               <a
                 className='fw-bold text-light'
                 onClick={() => setModalShow(true)}
