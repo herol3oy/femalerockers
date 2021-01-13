@@ -3,6 +3,7 @@ import Carousel from '@components/Carousel'
 import Musicians from '@components/Musicians'
 import RandomQuote from '@components/RandomQuote'
 import CustomHead from '@components/CustomHead'
+import FeatureCards from 'components/FeatureCards'
 
 export default function Home() {
   
@@ -12,6 +13,7 @@ export default function Home() {
     <>
       <CustomHead />
       <Carousel />
+      <FeatureCards />
       <Musicians />
       <RandomQuote />
     </>
