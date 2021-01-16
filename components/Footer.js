@@ -2,10 +2,9 @@ import { useState } from 'react'
 import Link from 'next/link'
 import Container from '@BS/Container'
 import Row from '@BS/Row'
-// import ContactForm from './ContactForm'
 import dynamic from 'next/dynamic'
-const ContactForm = dynamic(() => import('./ContactForm'))
 
+const ContactForm = dynamic(() => import('./ContactForm'))
 
 export default function Footer() {
   const [modalShow, setModalShow] = useState(false)

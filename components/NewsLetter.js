@@ -3,7 +3,7 @@ export default function NewsLetter() {
         <>
 
             <div className='p-5 bg-dark border-0' id='mc_embed_signup'>
-            <h1 className='text-danger text-center accent-color'>
+            <h1 className='text-danger text-center'>
                 <strong>
                     WHO IS NEXT?
                 </strong>

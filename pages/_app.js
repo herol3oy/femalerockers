@@ -2,8 +2,13 @@ import Link from 'next/link'
 import Navbar from '@components/Navbar'
 import Footer from '@components/Footer'
 import Banner from '@components/Banner'
+// import NewsLetterPopup from '@components/NewsLetterPopup'
 import CookieConsent from 'react-cookie-consent'
 import '@styles/main.scss'
+import dynamic from 'next/dynamic'
+
+const NewsLetterPopup = dynamic(() => import('@components/NewsLetterPopup'))
+
 
 export default function MyApp({ Component, pageProps }) {
   return (
@@ -12,6 +17,7 @@ export default function MyApp({ Component, pageProps }) {
       <Navbar />
       <Component {...pageProps} />
       <Footer />
+      <NewsLetterPopup />
       <CookieConsent
         location='bottom'
         buttonText='Sounds good 😉'
