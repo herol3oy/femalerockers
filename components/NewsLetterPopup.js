@@ -9,7 +9,7 @@ export default function NewsLetterPopup() {
   useEffect(() => {
     setTimeout(() => {
       setDisplayPopup(true)
-    }, 1000 * 90)
+    }, 1000 * 30)
   }, [])
 
   return (
