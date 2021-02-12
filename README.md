@@ -34,3 +34,8 @@ Our mission is to spread the word for talented musicians and give them a stance 
 <p align='center'>
     <img src="./screenshot-01.png">
 </p>
+
+### Lighthouse Performance
+<p align='center'>
+    <img src="./screenshot-lighthouse-2021-02-12 18-49-01.png">
+</p>
