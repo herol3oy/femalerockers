@@ -23,7 +23,7 @@
     "react-dom": "17.0.1",
     "react-icons": "^4.1.0",
     "sass": "^1.32.5",
-    "swr": "^0.4.0"
+    "swr": "^0.4.1"
   },
   "devDependencies": {
     "@sanity/cli": "^2.2.5"
