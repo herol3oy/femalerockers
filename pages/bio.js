@@ -17,7 +17,12 @@ export default function bio({ links }) {
             width={100}
             roundedCircle
           />
-          <p className="text-light fw-bold mb-4 mt-2">@femalerockers_</p>
+          <p
+            className="text-light fw-light mb-4 mt-2"
+            style={{ letterSpacing: "2px" }}
+          >
+            @femalerockers_
+          </p>
         </Col>
         <Col xs={12} md={8}>
           {_.map(links, (link, i) => (
@@ -29,12 +34,17 @@ export default function bio({ links }) {
           ))}
           <Image
             src="/logo.png"
-            className="mt-5"
+            className="my-5"
             width={25}
             style={{ filter: "grayscale(0)" }}
           />
         </Col>
       </Row>
+      <style global jsx>{`
+        body {
+          // background: peru;
+        }
+      `}</style>
     </Container>
   );
 }
