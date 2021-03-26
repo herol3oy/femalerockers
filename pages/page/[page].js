@@ -1,24 +1,24 @@
-import BlockContent from '@sanity/block-content-to-react'
-import Container from '@BS/Container'
-import Row from '@BS/Row'
-import { getPageContent, getAllPages } from '@lib/SanityApi'
+import BlockContent from "@sanity/block-content-to-react";
+import Container from "@BS/Container";
+import Row from "@BS/Row";
+import { getPageContent, getAllPages } from "@lib/SanityApi";
 
 export default function about({ data }) {
-  const { title, excerpt, publishedAt, body } = data[0]
+  const { title, excerpt, publishedAt, body } = data[0];
 
   return (
     <Container>
       <Row>
-        <h1 className='text-danger'>{title}</h1>
-        <p className='text-light'>{excerpt}</p>
-        <small className='text-light'>
-          {new Date(publishedAt).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
+        <h1 className="text-danger">{title}</h1>
+        <p className="text-light">{excerpt}</p>
+        <small className="text-light">
+          {new Date(publishedAt).toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
           })}
         </small>
         <BlockContent
-          className='text-light'
+          className="text-light"
           blocks={body}
           projectId={process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}
           dataset={process.env.NEXT_PUBLIC_SANITY_DATASET}
@@ -26,21 +26,21 @@ export default function about({ data }) {
         />
       </Row>
     </Container>
-  )
+  );
 }
 
 export async function getStaticProps({ params }) {
-  const data = await getPageContent(params.page)
+  const data = await getPageContent(params.page);
   return {
     props: { data },
     revalidate: 1,
-  }
+  };
 }
 
 export async function getStaticPaths() {
-  const content = await getAllPages()
+  const content = await getAllPages();
   const paths = content.map((content) => ({
     params: { page: content.slug.toString() },
-  }))
-  return { paths, fallback: false }
+  }));
+  return { paths, fallback: false };
 }

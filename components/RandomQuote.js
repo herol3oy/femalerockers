@@ -1,9 +1,9 @@
-import Link from 'next/link'
-import _ from 'lodash'
-import Container from '@BS/Container'
-import sanityClient from '@lib/SanityClient'
-import useSWR from 'swr'
-import groq from 'groq'
+import Link from "next/link";
+import _ from "lodash";
+import Container from "@BS/Container";
+import sanityClient from "@lib/SanityClient";
+import useSWR from "swr";
+import groq from "groq";
 
 export default function RandomQuote() {
   const { data, error } = useSWR(
@@ -13,21 +13,21 @@ export default function RandomQuote() {
       quote,
   }`,
     (query) => sanityClient.fetch(query)
-  )
-  if (error) return <div>Failed</div>
-  if (!data) return <div>Loading...</div>
-  const quote = data[_.random(data?.length - 1)]
+  );
+  if (error) return <div>Failed</div>;
+  if (!data) return <div>Loading...</div>;
+  const quote = data[_.random(data?.length - 1)];
 
   return (
-    <Container fluid className='style__pills border-0 mt-5'>
-      <Container className='d-flex flex-column justify-content-center align-items-center p-5'>
-        <p className='homepage__quotation h3 text-center text-light'>
+    <Container fluid className="style__pills border-0 mt-5">
+      <Container className="d-flex flex-column justify-content-center align-items-center p-5">
+        <p className="homepage__quotation h3 text-center text-light">
           {`"${quote.quote}"`}
         </p>
-        <Link href={quote.slug.current || '/'}>
-          <a className='text-light'>{`~ ${quote.stageName || ' '} ~`}</a>
+        <Link href={quote.slug.current || "/"}>
+          <a className="text-light">{`~ ${quote.stageName || " "} ~`}</a>
         </Link>
       </Container>
     </Container>
-  )
+  );
 }

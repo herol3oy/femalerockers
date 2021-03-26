@@ -1,4 +1,3 @@
-import Link from "next/link";
 import Container from "@BS/Container";
 import Row from "@BS/Row";
 import Button from "@BS/Button";

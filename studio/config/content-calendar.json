@@ -1,8 +1,8 @@
 {
-    "types": [
-        {
-            "type": "interview",
-            "field": "date"
-        }
-    ]
+  "types": [
+    {
+      "type": "interview",
+      "field": "date"
+    }
+  ]
 }
