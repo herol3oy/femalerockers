@@ -15,17 +15,22 @@ export default {
           scheme: ["http", "https", "mailto", "tel"],
         }),
     },
+    {
+      name: "queue",
+      type: "number",
+    },
   ],
   preview: {
     select: {
       title: "title",
       url: "url",
+      queue: "queue",
     },
     prepare(selection) {
-      const { title, url } = selection;
+      const { title, queue } = selection;
       return {
         title,
-        subtitle: url,
+        subtitle: queue,
       };
     },
   },
