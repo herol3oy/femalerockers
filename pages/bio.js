@@ -32,7 +32,7 @@ export default function bio() {
           {_.map(LINKS, (link, i) => (
             <a key={link} href={link} target="_blank">
               <Button variant="danger" className="mb-3 p-4 w-100 fw-bold">
-                {i}
+                <div className="h4 m-0">{i}</div>
               </Button>
             </a>
           ))}
