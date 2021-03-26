@@ -1,79 +1,83 @@
-@import 'bootstrap/dist/css/bootstrap.min.css';
+@import "bootstrap/dist/css/bootstrap.min.css";
 
 body {
-    background: #111;
+  background: #111;
 }
 
 body::-webkit-scrollbar {
-    width: 0.15rem;
+  width: 0.15rem;
 }
 
 body::-webkit-scrollbar-thumb {
-    background: #dc3545;
+  background: #dc3545;
 }
 
 body::-webkit-scrollbar-track {
-    background: #111;
+  background: #111;
 }
 
 nav {
-    z-index: 3;
-    // backdrop-filter: blur(5px);
+  z-index: 3;
+  // backdrop-filter: blur(5px);
 }
 
 a {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 p {
-    font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 hr {
-    background: radial-gradient(ellipse at center,hsla(0,0%,100%,.2) 0,hsla(0,0%,100%,0) 75%);
+  background: radial-gradient(
+    ellipse at center,
+    hsla(0, 0%, 100%, 0.2) 0,
+    hsla(0, 0%, 100%, 0) 75%
+  );
 }
 
 dd {
-    font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 dt {
-    position: absolute;
-    margin-left: -75px;
-    @media only screen and (max-width:600px) {
-        position: inherit;
-        margin-left: 0;
-    }
+  position: absolute;
+  margin-left: -75px;
+  @media only screen and (max-width: 600px) {
+    position: inherit;
+    margin-left: 0;
+  }
 }
 
 img {
-    filter: grayscale(100%)
+  filter: grayscale(100%);
 }
 
 dt img {
-    filter: grayscale(0);
+  filter: grayscale(0);
 }
 
 figure img {
-    width: 100%;
+  width: 100%;
 }
 
 blockquote {
-    color: #dc3545;
-    font-family: 'Roboto', sans-serif;
-    font-size: 2em;
-    font-weight: 700;
-    position: relative;
-    margin: 1em 0;
-    line-height: 1.1;
+  color: #dc3545;
+  font-family: "Roboto", sans-serif;
+  font-size: 2em;
+  font-weight: 700;
+  position: relative;
+  margin: 1em 0;
+  line-height: 1.1;
 }
 
 blockquote::before {
-    content: "“";
-    font-size: 3em;
-    line-height: 0;
-    left: -0.2rem;
-    top: .9rem;
-    position: absolute;
-    text-align: center;
+  content: "“";
+  font-size: 3em;
+  line-height: 0;
+  left: -0.2rem;
+  top: 0.9rem;
+  position: absolute;
+  text-align: center;
 }
