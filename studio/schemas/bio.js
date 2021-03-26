@@ -1,6 +1,6 @@
 export default {
   name: "bio",
-  title: "Bio",
+  title: "Bio Links",
   type: "document",
   fields: [
     {
@@ -10,16 +10,22 @@ export default {
     {
       name: "url",
       type: "url",
+      validation: (Rule) =>
+        Rule.uri({
+          scheme: ["http", "https", "mailto", "tel"],
+        }),
     },
   ],
   preview: {
     select: {
       title: "title",
+      url: "url",
     },
     prepare(selection) {
-      const { title } = selection;
+      const { title, url } = selection;
       return {
         title,
+        subtitle: url,
       };
     },
   },

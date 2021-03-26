@@ -5,17 +5,9 @@ import Button from "@BS/Button";
 import Image from "@BS/Image";
 import Col from "@BS/Col";
 import _ from "lodash";
+import { getBioLinks } from "@lib/SanityApi";
 
-const LINKS = {
-  Interviews: "/",
-  "Joe Bonamassa Live 1 April": "https://joeb.me/FemaleRockers",
-  YouTube: "https://www.youtube.com/channel/UCICZhgoW5PCMlAsVarDU1Tw",
-  Twitter: "https://twitter.com/femalerockers_",
-  "About Female Rockers": "https://femalerockers.com/page/about",
-  Instagram: "https://www.instagram.com/femalerockers_/",
-};
-
-export default function bio() {
+export default function bio({ links }) {
   return (
     <Container className="min-vh-100">
       <Row className=" text-center d-flex justify-content-center">
@@ -29,10 +21,10 @@ export default function bio() {
           <p className="text-light fw-bold mb-4 mt-2">@femalerockers_</p>
         </Col>
         <Col xs={12} md={8}>
-          {_.map(LINKS, (link, i) => (
-            <a key={link} href={link} target="_blank">
+          {_.map(links, (link, i) => (
+            <a key={i} href={link.url} target="_blank">
               <Button variant="danger" className="mb-3 p-4 w-100 fw-bold">
-                <div className="h4 m-0">{i}</div>
+                <div className="h4 m-0">{link.title}</div>
               </Button>
             </a>
           ))}
@@ -46,4 +38,13 @@ export default function bio() {
       </Row>
     </Container>
   );
+}
+
+export async function getServerSideProps() {
+  const data = await getBioLinks();
+  return {
+    props: {
+      links: data,
+    },
+  };
 }
