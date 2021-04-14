@@ -15,7 +15,7 @@
     "framer-motion": "^3.2.1",
     "groq": "^2.1.4",
     "lodash": "^4.17.20",
-    "next": "10.0.5",
+    "next": "10.0.7",
     "next-pwa": "^5.0.4",
     "react": "17.0.1",
     "react-bootstrap": "^1.4.3",
