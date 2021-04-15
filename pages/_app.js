@@ -14,6 +14,7 @@ const NewsLetterPopup = dynamic(() => import("@components/NewsLetterPopup"));
 export default function MyApp({ Component, pageProps }) {
   const router = useRouter();
   const isBioPage = router.route === "/bio";
+  const isShredCollabPage = router.route === "/ShredCollab";
 
   useEffect(() => {
     const handleRouteChange = (url) => {
@@ -29,12 +30,12 @@ export default function MyApp({ Component, pageProps }) {
 
   return (
     <>
-      {!isBioPage && <Banner />}
-      <Navbar />
+      {!isBioPage && !isShredCollabPage && <Banner />}
+      {!isShredCollabPage && <Navbar />}
       <Component {...pageProps} />
-      {!isBioPage && <Footer />}
-      {!isBioPage && <NewsLetterPopup />}
-      {!isBioPage && (
+      {!isBioPage && !isShredCollabPage && <Footer />}
+      {!isBioPage && !isShredCollabPage && <NewsLetterPopup />}
+      {!isBioPage && !isShredCollabPage && (
         <CookieConsent
           location="bottom"
           buttonText="Sounds good 😉"
