@@ -14,7 +14,7 @@ const NewsLetterPopup = dynamic(() => import("@components/NewsLetterPopup"));
 export default function MyApp({ Component, pageProps }) {
   const router = useRouter();
   const isBioPage = router.route === "/bio";
-  const isShredCollabPage = router.route === "/ShredCollab";
+  const isShredCollabPage = router.route === "/ShredCollab" || "/shredcollab";
 
   useEffect(() => {
     const handleRouteChange = (url) => {
