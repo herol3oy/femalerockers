@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Container from "@BS/Container";
 import Row from "@BS/Row";
@@ -7,9 +7,7 @@ export default function ShredBanner() {
   const [bgColor, bgColorSet] = useState("#111111");
 
   const mouseOverHandle = () => {
-    setInterval(() => {
-      bgColorSet("red");
-    }, 1000);
+    bgColorSet("black");
   };
 
   return (
