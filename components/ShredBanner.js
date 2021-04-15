@@ -15,10 +15,16 @@ export default function ShredBanner() {
       <Row>
         <a
           href="https://youtu.be/5mf1Hcl3wnQ"
-          className="shred-banner"
+          className="shred-banner position-relative"
           target="_blank"
           onMouseEnter={mouseOverHandle}
         >
+          <h3
+            className="position-absolute fw-bolder text-light"
+            style={{ bottom: "0", zIndex: "-1" }}
+          >
+            BURNING ON <span className="text-danger">YOUTUBE! 🔥🤘</span>
+          </h3>
           <Image
             className="cover__img rounded"
             alt="Female Rockers Shred Collab"
@@ -40,6 +46,16 @@ export default function ShredBanner() {
         .shred-banner:hover {
           transition: transform 0.2s ease-in-out;
           transform: scale(0.95);
+        }
+
+        .shred-banner img {
+          transition: transform 0.1s ease-in-out;
+          transform: rotate(0deg) scale(1);
+        }
+
+        .shred-banner:hover img {
+          transition: transform 0.3s ease-in-out;
+          transform: rotate(5deg) scale(0.85);
         }
 
         .shred-banner:hover ~ .bg {
