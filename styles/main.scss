@@ -45,12 +45,12 @@
   }
   .card-text {
     transition: all 2s ease-in;
-    small {
+    .interview-title {
       display: none;
     }
   }
 
-  &:hover .card-text small {
+  &:hover .card-text .interview-title {
     display: inherit;
   }
 }

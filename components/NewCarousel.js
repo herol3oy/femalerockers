@@ -89,7 +89,7 @@ export default function NewCarousel() {
               )}
               <Link href={rocker.slug.current}>
                 <a>
-                  <Card.Body className=" card-body__description">
+                  <Card.Body className="card-body__description">
                     <div className="position-absolute col-8 text-start align-self-end card-body__wrapper">
                       <h5 className="text-start text-danger fw-bolder m-0">{`${rocker.stageName} ${rocker.country}`}</h5>
                       <h3 className="text-start text-light  d-lg-block d-none card-title">

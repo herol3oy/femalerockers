@@ -69,12 +69,8 @@ export default function Musicians() {
                 />
                 <Card.ImgOverlay className="card__img--overlay d-flex flex-column justify-content-between h-100">
                   <Card.Text>
-                    <small className="h6">
-                      <span className="h6 text-danger fw-bolder">/{` `}</span>
-                      {rocker.title.length > 35
-                        ? `${rocker.title.slice(0, 35)}...`
-                        : rocker.title}
-                    </small>
+                    <Card.Title className="text-light fw-bold interview-title">{`${rocker.stageName} ${rocker.country}`}</Card.Title>
+
                     {rocker.profession.map((profession, i) => (
                       <span key={i} aria-label="bassist" role="img">
                         {(profession === "bassist" && `🎸`) ||
@@ -84,7 +80,12 @@ export default function Musicians() {
                       </span>
                     ))}
                   </Card.Text>
-                  <Card.Title className="text-light fw-bold">{`${rocker.stageName} ${rocker.country}`}</Card.Title>
+                  <small className="h6">
+                    <span className="h6 text-danger fw-bolder">/{` `}</span>
+                    {rocker.title.length > 35
+                      ? `${rocker.title.slice(0, 35)}...`
+                      : rocker.title}
+                  </small>
                 </Card.ImgOverlay>
               </Card>
             </a>
