@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import Container from "@BS/Container";
-import Card from "@BS/Card";
-import { FaLongArrowAltRight } from "react-icons/fa";
+import Link from "next/link";
+import Image from "next/image";
 import sanityClient from "@lib/SanityClient";
 import imageUrlBuilder from "@sanity/image-url";
-import _ from "lodash";
+import Container from "@BS/Container";
+import Card from "@BS/Card";
+import CarouselSkeleton from "./skeletons/CarouselSkeleton";
 import Carousel from "react-multi-carousel";
+import _ from "lodash";
 import "react-multi-carousel/lib/styles.css";
-import Image from "next/image";
-import Link from "next/link";
 
 const urlFor = (source) => imageUrlBuilder(sanityClient).image(source);
 
@@ -90,6 +90,8 @@ export default function NewCarousel() {
       return <CardBodyText {...rocker} />;
     }
   };
+
+  if (!carousel) return <CarouselSkeleton />;
 
   return (
     <Container className="my-3">
