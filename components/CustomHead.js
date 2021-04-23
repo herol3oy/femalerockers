@@ -37,7 +37,7 @@ export default function CustomHead({ slug, stageName, coverImage }) {
         content={
           coverImage
             ? coverImage
-            : "https://femalerockers.com/_next/image?url=%2Fog-thumbnail.png&w=1200&q=75"
+            : "https://res.cloudinary.com/dxu6gcib2/image/upload/v1619175970/Female%20Rockers/og-thumbnail_trmuhd.png"
         }
       />
       <meta
@@ -68,7 +68,7 @@ export default function CustomHead({ slug, stageName, coverImage }) {
         content={
           coverImage
             ? coverImage
-            : "https://femalerockers.com/_next/image?url=%2Fog-thumbnail.png&w=1200&q=75"
+            : "https://res.cloudinary.com/dxu6gcib2/image/upload/v1619175970/Female%20Rockers/og-thumbnail_trmuhd.png"
         }
       />
       <meta

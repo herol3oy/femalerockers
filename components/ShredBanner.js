@@ -28,7 +28,7 @@ export default function ShredBanner() {
           <Image
             className="cover__img rounded"
             alt="Female Rockers Shred Collab"
-            src="/female-shred-collab.jpg"
+            src="https://res.cloudinary.com/dxu6gcib2/image/upload/v1619175748/Female%20Rockers/female-rockers-shred-collab-united-youtube-cover_ke2yuo.jpg"
             layout="responsive"
             width={900}
             height={250}

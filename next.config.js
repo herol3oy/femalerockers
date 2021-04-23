@@ -8,6 +8,6 @@ module.exports = withPWA({
     runtimeCaching,
   },
   images: {
-    domains: ["cdn.sanity.io"],
+    domains: ["cdn.sanity.io", "res.cloudinary.com"],
   },
 });
