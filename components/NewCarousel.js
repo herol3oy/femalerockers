@@ -15,18 +15,15 @@ const urlFor = (source) => imageUrlBuilder(sanityClient).image(source);
 const responsive = {
   superLargeDesktop: {
     breakpoint: { max: 4000, min: 3000 },
-    paritialVisibilityGutter: 20,
     items: 5,
   },
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
-    paritialVisibilityGutter: 30,
     items: 4,
   },
   tablet: {
     breakpoint: { max: 1024, min: 464 },
-    paritialVisibilityGutter: 35,
-    items: 2,
+    items: 3,
   },
   mobile: {
     breakpoint: { max: 464, min: 0 },
@@ -133,11 +130,12 @@ export default function NewCarousel() {
       </section>
       <style global jsx>{`
         .section-wrapper {
-          background-image: url(${sliderBgImg});
+          background-image: linear-gradient(black, black), url(${sliderBgImg});
           background-size: cover;
           background-position: center;
           background-repeat: no-repeat;
           transition: all 0.8s ease-out;
+          background-blend-mode: saturation;
         }
 
         .profile-img {
