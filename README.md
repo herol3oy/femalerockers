@@ -24,7 +24,7 @@ Our mission is to spread the word for talented musicians and give them a stance 
 ```bash
     git clone https://github.com/herol3oy/femalerockers.git
     cd femalerockers
-    npm i && npm run dev
+    yarn install && yarn dev
 ```
 
 ### Screenshots

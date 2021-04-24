@@ -34,7 +34,7 @@ const responsive = {
 
 export default function NewCarousel() {
   const [carousel, setCarousel] = useState(null);
-  const [sliderBgImg, setSliderBgImg] = useState(null);
+  const [sliderBgImg, setSliderBgImg] = useState('');
   const [
     selectedMusicianOnMouseEnter,
     setSelectedMusicianOnMouseEnter,
