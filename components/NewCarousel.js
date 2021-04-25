@@ -34,7 +34,7 @@ const responsive = {
 
 export default function NewCarousel() {
   const [carousel, setCarousel] = useState(null);
-  const [sliderBgImg, setSliderBgImg] = useState('');
+  const [sliderBgImg, setSliderBgImg] = useState("");
   const [
     selectedMusicianOnMouseEnter,
     setSelectedMusicianOnMouseEnter,
@@ -136,8 +136,8 @@ export default function NewCarousel() {
           background-size: cover;
           background-position: center;
           background-repeat: no-repeat;
-          transition: all 0.8s ease-out;
           background-blend-mode: saturation;
+          transition: all 0.8s ease-out;
         }
 
         .profile-img {

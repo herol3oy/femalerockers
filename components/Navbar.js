@@ -6,12 +6,24 @@ export default function navbar() {
   return (
     <Container fluid>
       <Navbar
-        className="container d-flex justify-content-center my-3"
+        className="
+        container
+        d-flex 
+        justify-content-center 
+        my-3"
         expand="lg"
       >
         <section className="text-center">
           <Link href="/">
-            <a className="site__title h5 text-danger fw-bolder text-decoration-none text-uppercase">
+            <a
+              className="
+              site__title 
+              h5 
+              text-danger 
+              fw-bolder 
+              text-decoration-none 
+              text-uppercase"
+            >
               Female Rockers
             </a>
           </Link>

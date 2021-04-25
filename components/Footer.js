@@ -23,7 +23,6 @@ export default function Footer() {
               portfolio
             </small>{" "}
             {` `}
-            {/* <br /> */}
             <small className="badge bg-dark text-light fw-light">
               <Link href="/privacypolicy">
                 <a className="text-light">Privacy Policy</a>
