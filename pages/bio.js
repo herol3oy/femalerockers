@@ -26,7 +26,7 @@ export default function bio({ links }) {
                 className="text-light fw-light mb-4 mt-2"
                 style={{ letterSpacing: "2px" }}
               >
-                @femalerockers_
+                @female_rockers
               </p>
             </a>
           </Link>

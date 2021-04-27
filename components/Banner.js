@@ -13,7 +13,7 @@ export default function Banner() {
         <Row className="py-2">
           <small className="fw-bold text-light text-center">
             📣 Try your chance of being interviewed by tagging us on {` `}
-            <Link href="https://www.instagram.com/femalerockers_/">
+            <Link href="https://www.instagram.com/female_rockers/">
               <a className="link-danger">instagram</a>
             </Link>
             <Button
