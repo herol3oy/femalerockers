@@ -12,29 +12,51 @@ export default function ShredBanner() {
 
   return (
     <Container>
-      <Row>
-        <a
-          href="https://youtu.be/5mf1Hcl3wnQ"
-          className="shred-banner position-relative"
-          target="_blank"
-          onMouseEnter={mouseOverHandle}
-        >
-          <h3
-            className="position-absolute fw-bolder text-light"
-            style={{ bottom: "0", zIndex: "-1" }}
+      <Row className="my-5 g-0">
+        <h3 className="fw-light text-light text-center mb-3">
+          BURNING ON <span className="text-danger">YOUTUBE! 🔥🤘</span>
+        </h3>
+
+        <section className="col-12 col-lg-6">
+          <a
+            href="https://youtu.be/5mf1Hcl3wnQ"
+            className="shred-banner "
+            target="_blank"
+            onMouseEnter={mouseOverHandle}
           >
-            BURNING ON <span className="text-danger">YOUTUBE! 🔥🤘</span>
-          </h3>
-          <Image
-            className="cover__img rounded"
-            alt="Female Rockers Shred Collab"
-            src="https://res.cloudinary.com/dxu6gcib2/image/upload/v1619175748/Female%20Rockers/female-rockers-shred-collab-united-youtube-cover_ke2yuo.jpg"
-            layout="responsive"
-            width={900}
-            height={250}
-            objectFit="cover"
-          />
-        </a>
+            <Image
+              className="cover__img"
+              alt="Female Rockers Shred Collab"
+              src="https://res.cloudinary.com/dxu6gcib2/image/upload/v1619175748/Female%20Rockers/female-rockers-shred-collab-united-youtube-cover_ke2yuo.jpg"
+              layout="responsive"
+              width={900}
+              height={250}
+              objectFit="cover"
+            />
+          </a>
+        </section>
+
+        <section
+          className="mt-3 mt-lg-0 col-12 col-lg-6"
+          // style={{ zIndex: "1" }}
+        >
+          <a
+            href="https://youtu.be/04cnfAICCM4"
+            className="shred-banner position-relative"
+            target="_blank"
+            onMouseEnter={mouseOverHandle}
+          >
+            <Image
+              className="cover__img"
+              alt="Female Rockers - guitar & drum Cover - Muse"
+              src="https://res.cloudinary.com/dxu6gcib2/image/upload/v1619526452/Female%20Rockers/female-rockers-cover-muse-youtube-banner_ynggqc.jpg"
+              layout="responsive"
+              width={900}
+              height={250}
+              objectFit="cover"
+            />
+          </a>
+        </section>
         <div className="bg"></div>
       </Row>
       <style global jsx>{`
@@ -55,16 +77,16 @@ export default function ShredBanner() {
 
         .shred-banner:hover img {
           transition: transform 0.3s ease-in-out;
-          transform: rotate(5deg) scale(0.85);
+          transform: rotate(0deg) scale(0.95);
         }
 
-        .shred-banner:hover ~ .bg {
+        section:hover ~ .bg {
           background-color: ${bgColor};
         }
 
         .bg {
           position: fixed;
-          z-index: -1;
+          z-index: -2;
           top: 0;
           right: 0;
           bottom: 0;

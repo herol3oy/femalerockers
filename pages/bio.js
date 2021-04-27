@@ -18,7 +18,7 @@ export default function bio({ links }) {
             <a style={{ textDecoration: "none" }}>
               <Image
                 src="/femalerocker-profile.jpg"
-                className="border"
+                className="border mt-5"
                 width={100}
                 roundedCircle
               />
