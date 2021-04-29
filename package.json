@@ -29,7 +29,7 @@
     "swr": "^0.4.0"
   },
   "devDependencies": {
-    "@sanity/cli": "^2.2.5",
+    "@sanity/cli": "^2.10.0",
     "prettier": "^2.2.1"
   }
 }

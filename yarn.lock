@@ -1092,10 +1092,10 @@
     "@sanity/block-content-to-hyperscript" "^2.0.10"
     prop-types "^15.6.2"
 
-"@sanity/cli@^2.2.5":
-  version "2.2.5"
-  resolved "https://registry.npmjs.org/@sanity/cli/-/cli-2.2.5.tgz"
-  integrity sha512-5gCLMzw6DE9mYnoYS+q/neNfVlln2bt2epj2AHGpVH0Vzzq32hW5HBqLmbRjYV/R025wrP9sce6+sbnGIr4mag==
+"@sanity/cli@^2.10.0":
+  version "2.10.0"
+  resolved "https://registry.yarnpkg.com/@sanity/cli/-/cli-2.10.0.tgz#f1ea041e112d83af8c00bd678f5f9d29e1d4e7a4"
+  integrity sha512-yXhRtEjwz9MmewRWy6/nR1WWkx5bf5Cb2FCBlwxS6VHexfxf4SxE+MfFOLqoEUqzoXbOL6mDEq+zCg8yqP7bnw==
 
 "@sanity/client@^1.149.13":
   version "1.150.7"
