@@ -62,7 +62,7 @@ export default function Musicians() {
                     .width(160)
                     .height(240)
                     .url()}
-                  alt={`${rocker.stageName}`}
+                  alt={rocker.stageName}
                   layout="responsive"
                   width={160}
                   height={240}
