@@ -5,7 +5,6 @@ import _ from "lodash";
 import Carousel from "@BS/Carousel";
 import Container from "@BS/Container";
 import Row from "@BS/Row";
-import Badge from "@BS/Badge";
 import sanityClient from "@lib/SanityClient";
 import imageUrlBuilder from "@sanity/image-url";
 import { FaLongArrowAltRight } from "react-icons/fa";
