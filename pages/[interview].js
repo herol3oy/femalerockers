@@ -228,7 +228,9 @@ export default function interview({ data }) {
       <Container>
         <Row className="justify-content-center">
           <section className="col-12 col-lg-7 col-md-10">
-            <h2 className="interview__title display-5 fw-bolder">{title}</h2>
+            <h2 className="interview__title display-5 fw-bolder">
+              {info[0][title] || "title"}
+            </h2>
             <p className="h3 lh-base text-light">{excerpt}</p>
             <hr className="my-5 text-light" />
             <BlockContent
