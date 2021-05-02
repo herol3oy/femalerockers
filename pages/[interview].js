@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef } from "react";
 import Image from "next/image";
 import _ from "lodash";
 import sanityClient from "@lib/SanityClient";
@@ -14,6 +14,8 @@ import { FaLink } from "@ICONS/fa";
 import { FaTwitter } from "@ICONS/fa";
 import { FaFacebookF } from "@ICONS/fa";
 import { getInterviewContent } from "@lib/SanityApi";
+import YouTube from "react-youtube";
+import getYouTubeID from "get-youtube-id";
 import {
   motion,
   useSpring,
@@ -23,30 +25,24 @@ import {
 import NewsLetter from "@components/NewsLetter";
 import CustomHead from "@components/CustomHead";
 
-export default function interview({ data }) {
-  const [state, setstate] = useState([]);
-  useEffect(() => {
-    setstate(data);
-  }, [data]);
-  const {
-    title,
-    excerpt,
-    stageName,
-    slug,
-    country,
-    profession,
-    profileImage,
-    coverImage,
-    instagram,
-    spotify,
-    facebook,
-    twitter,
-    youtube,
-    website,
-    date,
-    body,
-  } = state[0] || [];
-  console.log(state);
+export default function interview({
+  title,
+  excerpt,
+  stageName,
+  slug,
+  country,
+  profession,
+  profileImage,
+  coverImage,
+  instagram,
+  spotify,
+  facebook,
+  twitter,
+  youtube,
+  website,
+  date,
+  body,
+}) {
   const ref = useRef(null);
 
   const urlFor = (source) => imageUrlBuilder(sanityClient).image(source);
@@ -90,36 +86,48 @@ export default function interview({ data }) {
     return null;
   };
 
-  if (!data) return <div>Loading...</div>;
+  const youtubeRenderer = ({ node }) => {
+    const { url } = node;
+    const id = getYouTubeID(url);
+    return <YouTube videoId={id} />;
+  };
+
+  if (!body) return <div>Loading...</div>;
 
   return (
     <>
-      <CustomHead
-        slug={slug}
-        stageName={stageName}
-        coverImage={urlFor(coverImage?.asset).url()}
-      />
-      <section className="interview__coverimg">
-        <Image
-          src={urlFor(coverImage?.asset).url() || "/"}
-          alt={stageName}
-          layout="fill"
-          objectFit="cover"
-          className="cover__img"
-        />
-      </section>
+      {coverImage && (
+        <>
+          <CustomHead
+            slug={slug}
+            stageName={stageName}
+            coverImage={urlFor(coverImage?.asset).url()}
+          />
+          <section className="interview__coverimg">
+            <Image
+              src={urlFor(coverImage?.asset).url()}
+              alt={stageName}
+              layout="fill"
+              objectFit="cover"
+              className="cover__img"
+            />
+          </section>
+        </>
+      )}
       <motion.div
         ref={ref}
         style={{ opacity }}
         className="d-flex justify-content-center "
       >
         <section className="interview__profile--box d-flex justify-content-start justify-content-lg-center bg-dark">
-          <Image
-            src={urlFor(profileImage?.asset).url() || "/"}
-            width={160}
-            height={240}
-            alt={stageName}
-          />
+          {profileImage && (
+            <Image
+              src={urlFor(profileImage?.asset).url()}
+              width={160}
+              height={240}
+              alt={stageName}
+            />
+          )}
           <div className="align-self-end p-2">
             {(profession || []).map((profession, i) => {
               return (
@@ -180,13 +188,20 @@ export default function interview({ data }) {
             <h2 className="interview__title display-5 fw-bolder">{title}</h2>
             <p className="h3 lh-base text-light">{excerpt}</p>
             <hr className="my-5 text-light" />
-            <BlockContent
-              className="text-light"
-              blocks={body}
-              projectId={process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}
-              dataset={process.env.NEXT_PUBLIC_SANITY_DATASET}
-              serializers={{ types: { block: BlockRenderer } }}
-            />
+            {body && (
+              <BlockContent
+                className="text-light"
+                blocks={body}
+                projectId={process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}
+                dataset={process.env.NEXT_PUBLIC_SANITY_DATASET}
+                serializers={{
+                  types: {
+                    block: BlockRenderer,
+                    youtube: youtubeRenderer,
+                  },
+                }}
+              />
+            )}
             <NewsLetter />
           </section>
         </Row>
@@ -196,10 +211,10 @@ export default function interview({ data }) {
 }
 
 export async function getServerSideProps({ params }) {
-  const data = await getInterviewContent(params.interview);
+  let data = await getInterviewContent(params.interview);
   return {
     props: {
-      data,
+      ...data[0],
     },
   };
 }

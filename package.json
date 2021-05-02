@@ -13,6 +13,7 @@
     "bootstrap": "^5.0.0-beta1",
     "emailjs-com": "^2.6.4",
     "framer-motion": "^3.2.1",
+    "get-youtube-id": "^1.0.1",
     "groq": "^2.1.4",
     "lodash": "^4.17.20",
     "next": "10.2.0",
@@ -23,6 +24,7 @@
     "react-dom": "17.0.1",
     "react-icons": "^4.1.0",
     "react-multi-carousel": "^2.6.2",
+    "react-youtube": "^7.13.1",
     "sass": "^1.32.5",
     "swr": "^0.4.0"
   },
