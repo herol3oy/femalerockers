@@ -68,7 +68,7 @@ export default function interview({ data }) {
   //   coverImage,
   //   instagram,
   //   info[0]['spotify'],
-  //   facebook,
+  //   info[0]['facebook'],
   //   twitter,
   //   youtube,
   //   website,
@@ -212,13 +212,13 @@ export default function interview({ data }) {
                 <FaLink className="h4 mx-1 text-light" />
               </a>
             )}
-            {twitter && (
-              <a rel="noreferrer" href={twitter} target="_blank">
+            {info[0]["twitter"] && (
+              <a rel="noreferrer" href={info[0]["twitter"]} target="_blank">
                 <FaTwitter className="h4 mx-1 text-light" />
               </a>
             )}
-            {facebook && (
-              <a rel="noreferrer" href={facebook} target="_blank">
+            {info[0]["facebook"] && (
+              <a rel="noreferrer" href={info[0]["facebook"]} target="_blank">
                 <FaFacebookF className="h4 mx-1 text-light" />
               </a>
             )}
