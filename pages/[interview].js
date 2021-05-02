@@ -125,7 +125,7 @@ export default function interview({ data }) {
             alt={stageName}
           />
           <div className="align-self-end p-2">
-            {profession.map((profession, i) => {
+            {(profession || []).map((profession, i) => {
               return (
                 <Badge
                   key={i}
