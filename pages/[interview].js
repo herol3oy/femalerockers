@@ -26,8 +26,24 @@ import NewsLetter from "@components/NewsLetter";
 import CustomHead from "@components/CustomHead";
 
 export default function interview({ data }) {
-  // const title = data[0]["title"];
-  const intervewPost = data[0] || [];
+  const {
+    title,
+    excerpt,
+    stageName,
+    slug,
+    country,
+    profession,
+    profileImage,
+    coverImage,
+    instagram,
+    spotify,
+    facebook,
+    twitter,
+    youtube,
+    website,
+    date,
+    body,
+  } = data[0] || [];
 
   const ref = useRef(null);
 
@@ -83,14 +99,14 @@ export default function interview({ data }) {
   return (
     <>
       <CustomHead
-        slug={intervewPost.slug}
-        stageName={intervewPost.stageName}
-        coverImage={urlFor(intervewPost.coverImage.asset).url()}
+        slug={slug}
+        stageName={stageName}
+        coverImage={urlFor(coverImage.asset).url()}
       />
       <section className="interview__coverimg">
         <Image
-          src={urlFor(intervewPost.coverImage.asset).url()}
-          alt={intervewPost.stageName}
+          src={urlFor(coverImage.asset).url()}
+          alt={stageName}
           layout="fill"
           objectFit="cover"
           className="cover__img"
@@ -103,13 +119,13 @@ export default function interview({ data }) {
       >
         <section className="interview__profile--box d-flex justify-content-start justify-content-lg-center bg-dark">
           <Image
-            src={urlFor(intervewPost.profileImage.asset).url()}
+            src={urlFor(profileImage.asset).url()}
             width={160}
             height={240}
-            alt={intervewPost.stageName}
+            alt={stageName}
           />
           <div className="align-self-end p-2">
-            {intervewPost.profession.map((profession, i) => {
+            {profession.map((profession, i) => {
               return (
                 <Badge
                   key={i}
@@ -121,40 +137,40 @@ export default function interview({ data }) {
                 </Badge>
               );
             })}
-            <h1 className="text-danger fw-bold">{`${intervewPost.stageName} ${intervewPost.country}`}</h1>
+            <h1 className="text-danger fw-bold">{`${stageName} ${country}`}</h1>
             <p className="text-light small">
               {new Date(date).toLocaleDateString("en-US", {
                 year: "numeric",
                 month: "long",
               })}
             </p>
-            {intervewPost.youtube && (
-              <a rel="noreferrer" href={intervewPost.youtube} target="_blank">
+            {youtube && (
+              <a rel="noreferrer" href={youtube} target="_blank">
                 <FaYoutube className="h4 mx-1 text-light" />
               </a>
             )}
-            {intervewPost.spotify && (
-              <a rel="noreferrer" href={intervewPost.spotify} target="_blank">
+            {spotify && (
+              <a rel="noreferrer" href={spotify} target="_blank">
                 <FaSpotify className="h4 mx-1 text-light" />
               </a>
             )}
-            {intervewPost.instagram && (
-              <a rel="noreferrer" href={intervewPost.instagram} target="_blank">
+            {instagram && (
+              <a rel="noreferrer" href={instagram} target="_blank">
                 <FaInstagram className="h4 mx-1 text-light" />
               </a>
             )}
-            {intervewPost.website && (
-              <a rel="noreferrer" href={intervewPost.website} target="_blank">
+            {website && (
+              <a rel="noreferrer" href={website} target="_blank">
                 <FaLink className="h4 mx-1 text-light" />
               </a>
             )}
-            {intervewPost.twitter && (
-              <a rel="noreferrer" href={intervewPost.twitter} target="_blank">
+            {twitter && (
+              <a rel="noreferrer" href={twitter} target="_blank">
                 <FaTwitter className="h4 mx-1 text-light" />
               </a>
             )}
-            {intervewPost.facebook && (
-              <a rel="noreferrer" href={intervewPost.facebook} target="_blank">
+            {facebook && (
+              <a rel="noreferrer" href={facebook} target="_blank">
                 <FaFacebookF className="h4 mx-1 text-light" />
               </a>
             )}
@@ -165,14 +181,12 @@ export default function interview({ data }) {
       <Container>
         <Row className="justify-content-center">
           <section className="col-12 col-lg-7 col-md-10">
-            <h2 className="interview__title display-5 fw-bolder">
-              {intervewPost.title}
-            </h2>
-            <p className="h3 lh-base text-light">{intervewPost.excerpt}</p>
+            <h2 className="interview__title display-5 fw-bolder">{title}</h2>
+            <p className="h3 lh-base text-light">{excerpt}</p>
             <hr className="my-5 text-light" />
             <BlockContent
               className="text-light"
-              blocks={intervewPost.body}
+              blocks={body}
               projectId={process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}
               dataset={process.env.NEXT_PUBLIC_SANITY_DATASET}
               serializers={{
