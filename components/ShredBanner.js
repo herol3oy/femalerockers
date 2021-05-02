@@ -13,10 +13,10 @@ export default function ShredBanner() {
   return (
     <Container>
       <Row className="my-5 g-0">
-        <h3 className="fw-light text-light text-center mb-3">
+        {/* <h3 className="fw-light text-light text-center mb-3">
           BURNING ON{" "}
           <span className="text-danger fw-bold">YOUTUBE! 🔥🎸🤘</span>
-        </h3>
+        </h3> */}
 
         <section className="col-12 col-lg-6">
           <a

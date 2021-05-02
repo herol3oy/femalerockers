@@ -14,7 +14,7 @@ export default function Banner() {
           <small className="fw-bold text-light text-center">
             📣 Try your chance of being interviewed by tagging us on {` `}
             <Link href="https://www.instagram.com/female_rockers/">
-              <a className="link-danger">instagram</a>
+              <a className="link-warning">instagram</a>
             </Link>
             <Button
               size="sm"

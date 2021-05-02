@@ -19,7 +19,7 @@ export default function RandomQuote() {
   const quote = data[_.random(data?.length - 1)];
 
   return (
-    <Container fluid className="style__pills border-0 mt-5">
+    <Container fluid className="accent-red-color border-0 mt-5">
       <Container className="d-flex flex-column justify-content-center align-items-center p-5">
         <p className="homepage__quotation h3 text-center text-light">
           {`"${quote.quote}"`}

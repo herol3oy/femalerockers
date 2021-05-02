@@ -152,15 +152,15 @@ export default function interview({
               return (
                 <Badge
                   key={i}
-                  className="badge rounded-pill bg-danger"
+                  className="accent-red-color rounded-pill"
                   pill
-                  variant="danger"
+                  variant=""
                 >
                   {profession}
                 </Badge>
               );
             })}
-            <h1 className="text-danger fw-bold">{`${stageName} ${country}`}</h1>
+            <h1 className="accent-red-color-text fw-bold">{`${stageName} ${country}`}</h1>
             <p className="text-light small">
               {new Date(date).toLocaleDateString("en-US", {
                 year: "numeric",
@@ -204,7 +204,9 @@ export default function interview({
       <Container>
         <Row className="justify-content-center">
           <section className="col-12 col-lg-7 col-md-10">
-            <h2 className="interview__title display-5 fw-bolder">{title}</h2>
+            <h2 className="accent-red-color-text display-5 fw-bolder">
+              {title}
+            </h2>
             <p className="h3 lh-base text-light">{excerpt}</p>
             <hr className="my-5 text-light" />
             {body && (

@@ -134,7 +134,12 @@ figure > img {
 
 .site__title {
   font-family: "Cinzel", serif;
-  text-shadow: 0px 0px 12px var(--bs-danger);
+  // text-shadow: 0px 0px 12px var(--bs-danger);
+  color: #b93c37;
+
+  &:hover {
+    color: white;
+  }
 
   & ~ p {
     letter-spacing: 3px;
@@ -185,14 +190,18 @@ figure > img {
 }
 
 .banner {
-  background: linear-gradient(
-    90deg,
-    var(--bs-danger) 0%,
-    var(--bs-primary) 100%
-  );
+  background: #b93c37;
   position: relative;
   top: 0;
   z-index: 1;
+}
+
+.accent-red-color {
+  background: #b93c37;
+}
+
+.accent-red-color-text {
+  color: #b93c37;
 }
 
 .btn-close {
@@ -207,4 +216,8 @@ figure > img {
     transform: rotate(360deg);
     transition: all 0.3s ease-in-out;
   }
+}
+
+.border-danger {
+  border-top-color: #b93c37 !important;
 }

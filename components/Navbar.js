@@ -23,7 +23,6 @@ export default function navbar() {
               className="
                 site__title
                 h5
-                text-danger
                 fw-bolder
                 text-decoration-none
                 text-uppercase

@@ -15,7 +15,7 @@ export default function CookiesConsent() {
       }}
       buttonStyle={{
         color: "#fff",
-        backgroundColor: "#dc3545",
+        backgroundColor: "#b93c37",
         fontSize: "13px",
         marginTop: "15px",
         padding: ".6rem",

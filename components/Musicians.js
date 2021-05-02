@@ -81,7 +81,9 @@ export default function Musicians() {
                     ))}
                   </Card.Text>
                   <small className="h6">
-                    <span className="h6 text-danger fw-bolder">/{` `}</span>
+                    <span className="h6 accent-red-color-text fw-bolder">
+                      /{` `}
+                    </span>
                     {rocker.title.length > 35
                       ? `${rocker.title.slice(0, 35)}...`
                       : rocker.title}

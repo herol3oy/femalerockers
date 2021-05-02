@@ -34,7 +34,7 @@ export default function NewsLetterPopup() {
               id="mc_embed_signup_scroll"
             >
               <section className="col-lg-4 text-center text-lg-start mb-2 mb-lg-0">
-                <h4 className="text-danger">
+                <h4 className="accent-red-color-text">
                   <strong>WHO IS NEXT?</strong>
                 </h4>
                 <span className="">Sign up for our newsletter</span>

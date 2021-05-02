@@ -72,7 +72,7 @@ export default function NewCarousel() {
       <a>
         <Card.Body className="card-body__description">
           <div className="position-absolute col-8 text-start align-self-end card-body__wrapper">
-            <h5 className="text-start text-danger fw-bolder m-0">{`${rocker.stageName} ${rocker.country}`}</h5>
+            <h5 className="text-start accent-red-color-text fw-bolder m-0">{`${rocker.stageName} ${rocker.country}`}</h5>
             <h3 className="text-start text-light  card-title">
               {rocker.title}
             </h3>
