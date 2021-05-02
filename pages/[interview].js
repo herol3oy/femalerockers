@@ -30,44 +30,41 @@ import {
 } from "framer-motion";
 
 export default function interview({ data }) {
-  useEffect(() => {
-    const title = "";
-    const excerpt = "";
-    const stageName = "";
-    const slug = {};
-    const country = "";
-    const profession = [];
-    const profileImage = {};
-    const coverImage = {};
-    const instagram = "";
-    const spotify = "";
-    const facebook = "";
-    const twitter = "";
-    const youtube = "";
-    const website = "";
-    const date = "";
-    const body = [];
-  }, []);
-  // const onCLickToTop = () => window.scrollTo({ top: 0 });
+  const onCLickToTop = () => window.scrollTo({ top: 0 });
 
-  const {
-    title,
-    excerpt,
-    stageName,
-    slug,
-    country,
-    profession,
-    profileImage,
-    coverImage,
-    instagram,
-    spotify,
-    facebook,
-    twitter,
-    youtube,
-    website,
-    date,
-    body,
-  } = data[0];
+  let title = "";
+  let excerpt = "";
+  let stageName = "";
+  let slug = {};
+  let country = "";
+  let profession = [];
+  let profileImage = {};
+  let coverImage = {};
+  let instagram = "";
+  let spotify = "";
+  let facebook = "";
+  let twitter = "";
+  let youtube = "";
+  let website = "";
+  let date = "";
+  let body = [];
+
+  title = data[0]["title"];
+  excerpt = data[0]["excerpt"];
+  stageName = data[0]["stageName"];
+  slug = data[0]["slug"];
+  country = data[0]["country"];
+  profession = data[0]["profession"];
+  profileImage = data[0]["profileImage"];
+  coverImage = data[0]["coverImage"];
+  instagram = data[0]["instagram"];
+  spotify = data[0]["spotify"];
+  facebook = data[0]["facebook"];
+  twitter = data[0]["twitter"];
+  youtube = data[0]["youtube"];
+  website = data[0]["website"];
+  date = data[0]["date"];
+  body = data[0]["body"];
 
   const ref = useRef(null);
 
