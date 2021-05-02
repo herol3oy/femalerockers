@@ -108,9 +108,12 @@ export default function interview({ data }) {
   };
 
   const youtubeRenderer = ({ node }) => {
-    const { url } = node;
-    const id = getYouTubeID(url);
-    return <YouTube videoId={id} />;
+    if (node) {
+      const { url } = node;
+      const id = getYouTubeID(url);
+      return <YouTube videoId={id} />;
+    }
+    return null;
   };
 
   if (!data) return <div>Loading...</div>;
