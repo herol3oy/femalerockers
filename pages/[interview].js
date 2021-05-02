@@ -1,6 +1,5 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef } from "react";
 import Image from "next/image";
-// import Link from "next/link";
 import _ from "lodash";
 import sanityClient from "@lib/SanityClient";
 import BlockContent from "@sanity/block-content-to-react";
@@ -8,7 +7,6 @@ import imageUrlBuilder from "@sanity/image-url";
 import Container from "@BS/Container";
 import Row from "@BS/Row";
 import Badge from "@BS/Badge";
-// import Alert from "@BS/Alert";
 import { FaYoutube } from "@ICONS/fa";
 import { FaSpotify } from "@ICONS/fa";
 import { FaInstagram } from "@ICONS/fa";
@@ -18,63 +16,34 @@ import { FaFacebookF } from "@ICONS/fa";
 import { getInterviewContent } from "@lib/SanityApi";
 import YouTube from "react-youtube";
 import getYouTubeID from "get-youtube-id";
-import NewsLetter from "@components/NewsLetter";
-import CustomHead from "@components/CustomHead";
-// import useSWR from "swr";
-// import groq from "groq";
 import {
   motion,
   useSpring,
   useTransform,
   useViewportScroll,
 } from "framer-motion";
+import NewsLetter from "@components/NewsLetter";
+import CustomHead from "@components/CustomHead";
 
 export default function interview({ data }) {
-  const [info, infoSet] = useState({
-    0: {
-      title: "",
-      excerpt: "",
-      stageName: "",
-      slug: {},
-      country: "",
-      profession: [],
-      profileImage: { asset: "image-Tb9Ew8CXIwaY6R1kjMvI0uRR-2000x3000-jpg" },
-      coverImage: { asset: "image-Tb9Ew8CXIwaY6R1kjMvI0uRR-2000x3000-jpg" },
-      instagram: "",
-      spotify: "",
-      facebook: "",
-      twitter: "",
-      youtube: "",
-      website: "",
-      date: "",
-      body: [],
-    },
-  });
-
-  useEffect(() => {
-    infoSet(data);
-  }, [data]);
-
-  const onCLickToTop = () => window.scrollTo({ top: 0 });
-
-  // const {
-  //   title,
-  //   info[0]['excerpt'],
-  //   stageName,
-  //   slug,
-  //   country,
-  //   profession,
-  //   profileImage,
-  //   coverImage,
-  //   instagram,
-  //   info[0]['spotify'],
-  //   info[0]['facebook'],
-  //   twitter,
-  //   youtube,
-  //   website,
-  //   date,
-  //   body,
-  // } = info[0];
+  const {
+    title,
+    excerpt,
+    stageName,
+    slug,
+    country,
+    profession,
+    profileImage,
+    coverImage,
+    instagram,
+    spotify,
+    facebook,
+    twitter,
+    youtube,
+    website,
+    date,
+    body,
+  } = data[0];
 
   const ref = useRef(null);
 
@@ -83,19 +52,6 @@ export default function interview({ data }) {
   const { scrollY } = useViewportScroll();
   const yRange = useTransform(scrollY, [350, 0], [0, 1]);
   const opacity = useSpring(yRange, { stiffness: 400, damping: 40 });
-
-  // const { data, error } = useSWR(
-  //   groq`*[_type == "interview"]{
-  //     title,
-  //     info[0]['excerpt'],
-  //     slug,
-  //     profileImage,
-  // }`,
-  //   (query) => sanityClient.fetch(query)
-  // );
-  // if (error) return <div>Failed</div>;
-  // if (!data) return <div>Loading...</div>;
-  // const randomInterview = data[_.random(data?.length - 1)];
 
   const BlockRenderer = (props) => {
     const { marks, text } = props.node.children[0];
@@ -118,13 +74,12 @@ export default function interview({ data }) {
     }
     if (
       props.node.children[0].marks[0] !== "strong" &&
-      props.node.children[0].text !==
-        info[0]["stageName"].split(" ").shift().toUpperCase()
+      props.node.children[0].text !== stageName.split(" ").shift().toUpperCase()
     ) {
       return (
         <div className="my-4">
           <dt className="fw-bold">
-            {info[0]["stageName"].split(" ").shift().toUpperCase()}
+            {stageName.split(" ").shift().toUpperCase()}
           </dt>
           <dd className="h5 lh-base fw-thin">{props.node.children[0].text}</dd>
         </div>
@@ -134,12 +89,9 @@ export default function interview({ data }) {
   };
 
   const youtubeRenderer = ({ node }) => {
-    if (node) {
-      const { url } = node;
-      const id = getYouTubeID(url);
-      return <YouTube videoId={id} />;
-    }
-    return null;
+    const { url } = node;
+    const id = getYouTubeID(url);
+    return <YouTube videoId={id} />;
   };
 
   if (!data) return <div>Loading...</div>;
@@ -147,14 +99,14 @@ export default function interview({ data }) {
   return (
     <>
       <CustomHead
-        slug={info[0]["slug"]}
-        stageName={info[0]["stageName"]}
-        coverImage={urlFor(info[0]["coverImage"]?.asset).url()}
+        slug={slug}
+        stageName={stageName}
+        coverImage={urlFor(coverImage.asset).url()}
       />
       <section className="interview__coverimg">
         <Image
-          src={urlFor(info[0]["coverImage"]?.asset).url()}
-          alt={info[0]["stageName"]}
+          src={urlFor(coverImage.asset).url()}
+          alt={stageName}
           layout="fill"
           objectFit="cover"
           className="cover__img"
@@ -167,13 +119,13 @@ export default function interview({ data }) {
       >
         <section className="interview__profile--box d-flex justify-content-start justify-content-lg-center bg-dark">
           <Image
-            src={urlFor(info[0]["profileImage"]?.asset).url()}
+            src={urlFor(profileImage.asset).url()}
             width={160}
             height={240}
-            alt={info[0]["stageName"]}
+            alt={stageName}
           />
           <div className="align-self-end p-2">
-            {info[0]["profession"].map((profession, i) => {
+            {profession.map((profession, i) => {
               return (
                 <Badge
                   key={i}
@@ -185,40 +137,40 @@ export default function interview({ data }) {
                 </Badge>
               );
             })}
-            <h1 className="text-danger fw-bold">{`${info[0]["stageName"]} ${info[0]["country"]}`}</h1>
+            <h1 className="text-danger fw-bold">{`${stageName} ${country}`}</h1>
             <p className="text-light small">
-              {new Date(info[0]["date"]).toLocaleDateString("en-US", {
+              {new Date(date).toLocaleDateString("en-US", {
                 year: "numeric",
                 month: "long",
               })}
             </p>
-            {info[0]["youtube"] && (
-              <a rel="noreferrer" href={info[0]["youtube"]} target="_blank">
+            {youtube && (
+              <a rel="noreferrer" href={youtube} target="_blank">
                 <FaYoutube className="h4 mx-1 text-light" />
               </a>
             )}
-            {info[0]["spotify"] && (
-              <a rel="noreferrer" href={info[0]["spotify"]} target="_blank">
+            {spotify && (
+              <a rel="noreferrer" href={spotify} target="_blank">
                 <FaSpotify className="h4 mx-1 text-light" />
               </a>
             )}
-            {info[0]["instagram"] && (
-              <a rel="noreferrer" href={info[0]["instagram"]} target="_blank">
+            {instagram && (
+              <a rel="noreferrer" href={instagram} target="_blank">
                 <FaInstagram className="h4 mx-1 text-light" />
               </a>
             )}
-            {info[0]["website"] && (
-              <a rel="noreferrer" href={info[0]["website"]} target="_blank">
+            {website && (
+              <a rel="noreferrer" href={website} target="_blank">
                 <FaLink className="h4 mx-1 text-light" />
               </a>
             )}
-            {info[0]["twitter"] && (
-              <a rel="noreferrer" href={info[0]["twitter"]} target="_blank">
+            {twitter && (
+              <a rel="noreferrer" href={twitter} target="_blank">
                 <FaTwitter className="h4 mx-1 text-light" />
               </a>
             )}
-            {info[0]["facebook"] && (
-              <a rel="noreferrer" href={info[0]["facebook"]} target="_blank">
+            {facebook && (
+              <a rel="noreferrer" href={facebook} target="_blank">
                 <FaFacebookF className="h4 mx-1 text-light" />
               </a>
             )}
@@ -229,51 +181,21 @@ export default function interview({ data }) {
       <Container>
         <Row className="justify-content-center">
           <section className="col-12 col-lg-7 col-md-10">
-            <h2 className="interview__title display-5 fw-bolder">
-              {info[0][title] || "title"}
-            </h2>
-            <p className="h3 lh-base text-light">{info[0]["excerpt"]}</p>
+            <h2 className="interview__title display-5 fw-bolder">{title}</h2>
+            <p className="h3 lh-base text-light">{excerpt}</p>
             <hr className="my-5 text-light" />
             <BlockContent
               className="text-light"
-              blocks={info[0]["body"]}
+              blocks={body}
               projectId={process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}
               dataset={process.env.NEXT_PUBLIC_SANITY_DATASET}
-              serializers={{ types: { block: BlockRenderer } }}
+              serializers={{
+                types: {
+                  block: BlockRenderer,
+                  youtube: youtubeRenderer,
+                },
+              }}
             />
-            {/* <div className="d-flex justify-content-center align-items-center">
-              <Badge
-                style={{ marginBottom: "-10px", zIndex: "1" }}
-                className="bg-danger"
-                variant="danger"
-              >
-                READ MORE
-              </Badge>
-            </div>
-            <Link href={randomInterview.slug.current}>
-              <a className="text-decoration-none" onClick={onCLickToTop}>
-                <Alert
-                  variant="transparent"
-                  className="row p-2 mx-1 border border-danger text-light"
-                >
-                  <div className="col-4 col-lg-2">
-                    <Image
-                      src={urlFor(randomInterview.profileImage.asset).url()}
-                      width={100}
-                      height={100}
-                      layout="fixed"
-                      objectFit="cover"
-                      quality={100}
-                      alt={randomInterview.stageName}
-                    />
-                  </div>
-                  <div className="col-8 col-lg-10">
-                    <Alert.Heading>{randomInterview.title}</Alert.Heading>
-                    <p className="">{randomInterview.excerpt.slice(0, 80)}</p>
-                  </div>
-                </Alert>
-              </a>
-            </Link> */}
             <NewsLetter />
           </section>
         </Row>
