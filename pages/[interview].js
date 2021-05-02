@@ -239,12 +239,7 @@ export default function interview({ data }) {
               blocks={info[0]["body"]}
               projectId={process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}
               dataset={process.env.NEXT_PUBLIC_SANITY_DATASET}
-              serializers={{
-                types: {
-                  block: BlockRenderer,
-                  youtube: youtubeRenderer,
-                },
-              }}
+              serializers={{ types: { block: BlockRenderer } }}
             />
             {/* <div className="d-flex justify-content-center align-items-center">
               <Badge
