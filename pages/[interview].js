@@ -1,5 +1,6 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import _ from "lodash";
 import sanityClient from "@lib/SanityClient";
 import BlockContent from "@sanity/block-content-to-react";
@@ -7,6 +8,7 @@ import imageUrlBuilder from "@sanity/image-url";
 import Container from "@BS/Container";
 import Row from "@BS/Row";
 import Badge from "@BS/Badge";
+import Alert from "@BS/Alert";
 import { FaYoutube } from "@ICONS/fa";
 import { FaSpotify } from "@ICONS/fa";
 import { FaInstagram } from "@ICONS/fa";
@@ -24,6 +26,8 @@ import {
 } from "framer-motion";
 import NewsLetter from "@components/NewsLetter";
 import CustomHead from "@components/CustomHead";
+import useSWR from "swr";
+import groq from "groq";
 
 export default function interview({
   title,
@@ -45,11 +49,26 @@ export default function interview({
 }) {
   const ref = useRef(null);
 
+  const onCLickToTop = () => window.scrollTo({ top: 0 });
+
   const urlFor = (source) => imageUrlBuilder(sanityClient).image(source);
 
   const { scrollY } = useViewportScroll();
   const yRange = useTransform(scrollY, [350, 0], [0, 1]);
   const opacity = useSpring(yRange, { stiffness: 400, damping: 40 });
+
+  const { data, error } = useSWR(
+    groq`*[_type == "interview"]{
+      title,
+      excerpt,
+      slug,
+      profileImage, 
+  }`,
+    (query) => sanityClient.fetch(query)
+  );
+  if (error) return <div>Failed</div>;
+  if (!data) return <div>Loading...</div>;
+  const randomInterview = data[_.random(data?.length - 1)];
 
   const BlockRenderer = (props) => {
     const { marks, text } = props.node.children[0];
@@ -202,6 +221,39 @@ export default function interview({
                 }}
               />
             )}
+            <div className="d-flex justify-content-center align-items-center">
+              <Badge
+                style={{ marginBottom: "-10px", zIndex: "1" }}
+                className="bg-danger"
+                variant="danger"
+              >
+                READ MORE
+              </Badge>
+            </div>
+            <Link href={randomInterview.slug.current}>
+              <a className="text-decoration-none" onClick={onCLickToTop}>
+                <Alert
+                  variant="transparent"
+                  className="row p-2 mx-1 border border-danger text-light"
+                >
+                  <div className="col-4 col-lg-2">
+                    <Image
+                      src={urlFor(randomInterview.profileImage.asset).url()}
+                      width={100}
+                      height={100}
+                      layout="fixed"
+                      objectFit="cover"
+                      quality={100}
+                      alt={randomInterview.stageName}
+                    />
+                  </div>
+                  <div className="col-8 col-lg-10">
+                    <Alert.Heading>{randomInterview.title}</Alert.Heading>
+                    <p className="">{randomInterview.excerpt.slice(0, 80)}</p>
+                  </div>
+                </Alert>
+              </a>
+            </Link>
             <NewsLetter />
           </section>
         </Row>
