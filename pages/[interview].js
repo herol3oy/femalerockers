@@ -29,7 +29,7 @@ import {
   useViewportScroll,
 } from "framer-motion";
 
-export default function interview({ interview }) {
+export default function interview({ data }) {
   const onCLickToTop = () => window.scrollTo({ top: 0 });
 
   const {
@@ -49,7 +49,7 @@ export default function interview({ interview }) {
     website,
     date,
     body,
-  } = interview[0];
+  } = data[0];
 
   const ref = useRef(null);
 
@@ -59,17 +59,17 @@ export default function interview({ interview }) {
   const yRange = useTransform(scrollY, [350, 0], [0, 1]);
   const opacity = useSpring(yRange, { stiffness: 400, damping: 40 });
 
-  const { data, error } = useSWR(
-    groq`*[_type == "interview"]{
-      title,
-      excerpt,
-      slug,
-      profileImage, 
-  }`,
-    (query) => sanityClient.fetch(query)
-  );
-  if (error) return <div>Failed</div>;
-  if (!data) return <div>Loading...</div>;
+  // const { data, error } = useSWR(
+  //   groq`*[_type == "interview"]{
+  //     title,
+  //     excerpt,
+  //     slug,
+  //     profileImage,
+  // }`,
+  //   (query) => sanityClient.fetch(query)
+  // );
+  // if (error) return <div>Failed</div>;
+  // if (!data) return <div>Loading...</div>;
   const randomInterview = data[_.random(data?.length - 1)];
 
   const BlockRenderer = (props) => {
@@ -113,7 +113,7 @@ export default function interview({ interview }) {
     return <YouTube videoId={id} />;
   };
 
-  if (!interview) return <div>Loading...</div>;
+  if (!data) return <div>Loading...</div>;
 
   return (
     <>
@@ -257,10 +257,10 @@ export default function interview({ interview }) {
 }
 
 export async function getServerSideProps({ params }) {
-  const interview = await getInterviewContent(params.interview);
+  const data = await getInterviewContent(params.interview);
   return {
     props: {
-      interview,
+      data,
     },
   };
 }
