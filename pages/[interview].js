@@ -30,6 +30,24 @@ import {
 } from "framer-motion";
 
 export default function interview({ data }) {
+  useEffect(() => {
+    const title = "";
+    const excerpt = "";
+    const stageName = "";
+    const slug = {};
+    const country = "";
+    const profession = [];
+    const profileImage = {};
+    const coverImage = {};
+    const instagram = "";
+    const spotify = "";
+    const facebook = "";
+    const twitter = "";
+    const youtube = "";
+    const website = "";
+    const date = "";
+    const body = [];
+  }, []);
   // const onCLickToTop = () => window.scrollTo({ top: 0 });
 
   const {
