@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 // import Link from "next/link";
 import _ from "lodash";
@@ -30,41 +30,53 @@ import {
 } from "framer-motion";
 
 export default function interview({ data }) {
+  const [info, infoSet] = useState({
+    0: {
+      title: "",
+      excerpt: "",
+      stageName: "",
+      slug: {},
+      country: "",
+      profession: [],
+      profileImage: { asset: "image-Tb9Ew8CXIwaY6R1kjMvI0uRR-2000x3000-jpg" },
+      coverImage: { asset: "image-Tb9Ew8CXIwaY6R1kjMvI0uRR-2000x3000-jpg" },
+      instagram: "",
+      spotify: "",
+      facebook: "",
+      twitter: "",
+      youtube: "",
+      website: "",
+      date: "",
+      body: [],
+    },
+  });
+
+  useEffect(() => {
+    infoSet(data);
+  }, [data]);
+
   const onCLickToTop = () => window.scrollTo({ top: 0 });
 
-  let title = "";
-  let excerpt = "";
-  let stageName = "";
-  let slug = {};
-  let country = "";
-  let profession = [];
-  let profileImage = {};
-  let coverImage = {};
-  let instagram = "";
-  let spotify = "";
-  let facebook = "";
-  let twitter = "";
-  let youtube = "";
-  let website = "";
-  let date = "";
-  let body = [];
+  const {
+    title,
+    excerpt,
+    stageName,
+    slug,
+    country,
+    profession,
+    profileImage,
+    coverImage,
+    instagram,
+    spotify,
+    facebook,
+    twitter,
+    youtube,
+    website,
+    date,
+    body,
+  } = info[0];
 
-  title = data[0]["title"];
-  excerpt = data[0]["excerpt"];
-  stageName = data[0]["stageName"];
-  slug = data[0]["slug"];
-  country = data[0]["country"];
-  profession = data[0]["profession"];
-  profileImage = data[0]["profileImage"];
-  coverImage = data[0]["coverImage"];
-  instagram = data[0]["instagram"];
-  spotify = data[0]["spotify"];
-  facebook = data[0]["facebook"];
-  twitter = data[0]["twitter"];
-  youtube = data[0]["youtube"];
-  website = data[0]["website"];
-  date = data[0]["date"];
-  body = data[0]["body"];
+  console.log(profileImage.asset);
 
   const ref = useRef(null);
 
@@ -138,11 +150,11 @@ export default function interview({ data }) {
       <CustomHead
         slug={slug}
         stageName={stageName}
-        coverImage={urlFor(coverImage.asset).url()}
+        coverImage={urlFor(coverImage?.asset).url()}
       />
       <section className="interview__coverimg">
         <Image
-          src={urlFor(coverImage.asset).url()}
+          src={urlFor(coverImage?.asset).url()}
           alt={stageName}
           layout="fill"
           objectFit="cover"
@@ -156,7 +168,7 @@ export default function interview({ data }) {
       >
         <section className="interview__profile--box d-flex justify-content-start justify-content-lg-center bg-dark">
           <Image
-            src={urlFor(profileImage.asset).url()}
+            src={urlFor(profileImage?.asset).url()}
             width={160}
             height={240}
             alt={stageName}
