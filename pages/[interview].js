@@ -192,8 +192,8 @@ export default function interview({ data }) {
                 month: "long",
               })}
             </p>
-            {youtube && (
-              <a rel="noreferrer" href={youtube} target="_blank">
+            {info[0]["youtube"] && (
+              <a rel="noreferrer" href={info[0]["youtube"]} target="_blank">
                 <FaYoutube className="h4 mx-1 text-light" />
               </a>
             )}
