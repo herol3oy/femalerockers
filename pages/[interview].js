@@ -58,8 +58,8 @@ export default function interview({ data }) {
   const onCLickToTop = () => window.scrollTo({ top: 0 });
 
   const {
-    title,
     excerpt,
+    title,
     stageName,
     slug,
     country,
@@ -76,7 +76,7 @@ export default function interview({ data }) {
     body,
   } = info[0];
 
-  console.log(profileImage.asset);
+  console.log(excerpt);
 
   const ref = useRef(null);
 
