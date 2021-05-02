@@ -1,6 +1,6 @@
 import { useRef, useEffect } from "react";
 import Image from "next/image";
-import Link from "next/link";
+// import Link from "next/link";
 import _ from "lodash";
 import sanityClient from "@lib/SanityClient";
 import BlockContent from "@sanity/block-content-to-react";
@@ -8,7 +8,7 @@ import imageUrlBuilder from "@sanity/image-url";
 import Container from "@BS/Container";
 import Row from "@BS/Row";
 import Badge from "@BS/Badge";
-import Alert from "@BS/Alert";
+// import Alert from "@BS/Alert";
 import { FaYoutube } from "@ICONS/fa";
 import { FaSpotify } from "@ICONS/fa";
 import { FaInstagram } from "@ICONS/fa";
@@ -20,8 +20,8 @@ import YouTube from "react-youtube";
 import getYouTubeID from "get-youtube-id";
 import NewsLetter from "@components/NewsLetter";
 import CustomHead from "@components/CustomHead";
-import useSWR from "swr";
-import groq from "groq";
+// import useSWR from "swr";
+// import groq from "groq";
 import {
   motion,
   useSpring,
@@ -30,7 +30,7 @@ import {
 } from "framer-motion";
 
 export default function interview({ data }) {
-  const onCLickToTop = () => window.scrollTo({ top: 0 });
+  // const onCLickToTop = () => window.scrollTo({ top: 0 });
 
   const {
     title,

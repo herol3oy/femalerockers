@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-// import Carousel from "@components/Carousel";
 import NewCarousel from "@components/NewCarousel";
 import Musicians from "@components/Musicians";
 import RandomQuote from "@components/RandomQuote";
@@ -12,7 +11,6 @@ export default function Home() {
   return (
     <>
       <CustomHead />
-      {/* <Carousel /> */}
       <NewCarousel />
       <ShredBanner />
       <Musicians />
