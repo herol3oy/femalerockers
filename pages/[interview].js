@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import _ from "lodash";
 import sanityClient from "@lib/SanityClient";
@@ -26,6 +26,10 @@ import NewsLetter from "@components/NewsLetter";
 import CustomHead from "@components/CustomHead";
 
 export default function interview({ data }) {
+  const [state, setstate] = useState([]);
+  useEffect(() => {
+    setstate(data);
+  }, [data]);
   const {
     title,
     excerpt,
@@ -43,8 +47,8 @@ export default function interview({ data }) {
     website,
     date,
     body,
-  } = data[0] || [];
-
+  } = state[0] || [];
+  console.log(state);
   const ref = useRef(null);
 
   const urlFor = (source) => imageUrlBuilder(sanityClient).image(source);
@@ -105,7 +109,7 @@ export default function interview({ data }) {
       />
       <section className="interview__coverimg">
         <Image
-          src={urlFor(coverImage?.asset).url()}
+          src={urlFor(coverImage?.asset).url() || "/"}
           alt={stageName}
           layout="fill"
           objectFit="cover"
@@ -119,7 +123,7 @@ export default function interview({ data }) {
       >
         <section className="interview__profile--box d-flex justify-content-start justify-content-lg-center bg-dark">
           <Image
-            src={urlFor(profileImage?.asset).url()}
+            src={urlFor(profileImage?.asset).url() || "/"}
             width={160}
             height={240}
             alt={stageName}
