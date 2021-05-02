@@ -70,7 +70,7 @@ export default function interview({ data }) {
   // );
   // if (error) return <div>Failed</div>;
   // if (!data) return <div>Loading...</div>;
-  const randomInterview = data[_.random(data?.length - 1)];
+  // const randomInterview = data[_.random(data?.length - 1)];
 
   const BlockRenderer = (props) => {
     const { marks, text } = props.node.children[0];
@@ -215,7 +215,7 @@ export default function interview({ data }) {
                 },
               }}
             />
-            <div className="d-flex justify-content-center align-items-center">
+            {/* <div className="d-flex justify-content-center align-items-center">
               <Badge
                 style={{ marginBottom: "-10px", zIndex: "1" }}
                 className="bg-danger"
@@ -247,7 +247,7 @@ export default function interview({ data }) {
                   </div>
                 </Alert>
               </a>
-            </Link>
+            </Link> */}
             <NewsLetter />
           </section>
         </Row>
