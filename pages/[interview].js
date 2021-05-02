@@ -14,8 +14,6 @@ import { FaLink } from "@ICONS/fa";
 import { FaTwitter } from "@ICONS/fa";
 import { FaFacebookF } from "@ICONS/fa";
 import { getInterviewContent } from "@lib/SanityApi";
-import YouTube from "react-youtube";
-import getYouTubeID from "get-youtube-id";
 import {
   motion,
   useSpring,
@@ -90,12 +88,6 @@ export default function interview({ data }) {
       );
     }
     return null;
-  };
-
-  const youtubeRenderer = ({ node }) => {
-    const { url } = node;
-    const id = getYouTubeID(url);
-    return <YouTube videoId={id} />;
   };
 
   if (!data) return <div>Loading...</div>;
@@ -193,12 +185,7 @@ export default function interview({ data }) {
               blocks={body}
               projectId={process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}
               dataset={process.env.NEXT_PUBLIC_SANITY_DATASET}
-              serializers={{
-                types: {
-                  block: BlockRenderer,
-                  youtube: youtubeRenderer,
-                },
-              }}
+              serializers={{ types: { block: BlockRenderer } }}
             />
             <NewsLetter />
           </section>
