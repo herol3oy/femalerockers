@@ -32,7 +32,7 @@ import {
 export default function interview({ data }) {
   const [info, infoSet] = useState({
     0: {
-      title: "",
+      title: null,
       excerpt: "",
       stageName: "",
       slug: {},
@@ -58,8 +58,8 @@ export default function interview({ data }) {
   const onCLickToTop = () => window.scrollTo({ top: 0 });
 
   const {
-    excerpt,
     title,
+    excerpt,
     stageName,
     slug,
     country,
@@ -75,8 +75,6 @@ export default function interview({ data }) {
     date,
     body,
   } = info[0];
-
-  console.log(excerpt);
 
   const ref = useRef(null);
 
