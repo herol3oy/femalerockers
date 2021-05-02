@@ -32,7 +32,7 @@ import {
 export default function interview({ data }) {
   const [info, infoSet] = useState({
     0: {
-      title: null,
+      title: "",
       excerpt: "",
       stageName: "",
       slug: {},
@@ -57,24 +57,24 @@ export default function interview({ data }) {
 
   const onCLickToTop = () => window.scrollTo({ top: 0 });
 
-  const {
-    title,
-    excerpt,
-    stageName,
-    slug,
-    country,
-    profession,
-    profileImage,
-    coverImage,
-    instagram,
-    spotify,
-    facebook,
-    twitter,
-    youtube,
-    website,
-    date,
-    body,
-  } = info[0];
+  // const {
+  //   title,
+  //   info[0]['excerpt'],
+  //   stageName,
+  //   slug,
+  //   country,
+  //   profession,
+  //   profileImage,
+  //   coverImage,
+  //   instagram,
+  //   info[0]['spotify'],
+  //   facebook,
+  //   twitter,
+  //   youtube,
+  //   website,
+  //   date,
+  //   body,
+  // } = info[0];
 
   const ref = useRef(null);
 
@@ -87,7 +87,7 @@ export default function interview({ data }) {
   // const { data, error } = useSWR(
   //   groq`*[_type == "interview"]{
   //     title,
-  //     excerpt,
+  //     info[0]['excerpt'],
   //     slug,
   //     profileImage,
   // }`,
@@ -118,12 +118,13 @@ export default function interview({ data }) {
     }
     if (
       props.node.children[0].marks[0] !== "strong" &&
-      props.node.children[0].text !== stageName.split(" ").shift().toUpperCase()
+      props.node.children[0].text !==
+        info[0]["stageName"].split(" ").shift().toUpperCase()
     ) {
       return (
         <div className="my-4">
           <dt className="fw-bold">
-            {stageName.split(" ").shift().toUpperCase()}
+            {info[0]["stageName"].split(" ").shift().toUpperCase()}
           </dt>
           <dd className="h5 lh-base fw-thin">{props.node.children[0].text}</dd>
         </div>
@@ -146,14 +147,14 @@ export default function interview({ data }) {
   return (
     <>
       <CustomHead
-        slug={slug}
-        stageName={stageName}
-        coverImage={urlFor(coverImage?.asset).url()}
+        slug={info[0]["slug"]}
+        stageName={info[0]["stageName"]}
+        coverImage={urlFor(info[0]["coverImage"]?.asset).url()}
       />
       <section className="interview__coverimg">
         <Image
-          src={urlFor(coverImage?.asset).url()}
-          alt={stageName}
+          src={urlFor(info[0]["coverImage"]?.asset).url()}
+          alt={info[0]["stageName"]}
           layout="fill"
           objectFit="cover"
           className="cover__img"
@@ -166,13 +167,13 @@ export default function interview({ data }) {
       >
         <section className="interview__profile--box d-flex justify-content-start justify-content-lg-center bg-dark">
           <Image
-            src={urlFor(profileImage?.asset).url()}
+            src={urlFor(info[0]["profileImage"]?.asset).url()}
             width={160}
             height={240}
-            alt={stageName}
+            alt={info[0]["stageName"]}
           />
           <div className="align-self-end p-2">
-            {profession.map((profession, i) => {
+            {info[0]["profession"].map((profession, i) => {
               return (
                 <Badge
                   key={i}
@@ -184,9 +185,9 @@ export default function interview({ data }) {
                 </Badge>
               );
             })}
-            <h1 className="text-danger fw-bold">{`${stageName} ${country}`}</h1>
+            <h1 className="text-danger fw-bold">{`${info[0]["stageName"]} ${info[0]["country"]}`}</h1>
             <p className="text-light small">
-              {new Date(date).toLocaleDateString("en-US", {
+              {new Date(info[0]["date"]).toLocaleDateString("en-US", {
                 year: "numeric",
                 month: "long",
               })}
@@ -196,18 +197,18 @@ export default function interview({ data }) {
                 <FaYoutube className="h4 mx-1 text-light" />
               </a>
             )}
-            {spotify && (
-              <a rel="noreferrer" href={spotify} target="_blank">
+            {info[0]["spotify"] && (
+              <a rel="noreferrer" href={info[0]["spotify"]} target="_blank">
                 <FaSpotify className="h4 mx-1 text-light" />
               </a>
             )}
-            {instagram && (
-              <a rel="noreferrer" href={instagram} target="_blank">
+            {info[0]["instagram"] && (
+              <a rel="noreferrer" href={info[0]["instagram"]} target="_blank">
                 <FaInstagram className="h4 mx-1 text-light" />
               </a>
             )}
-            {website && (
-              <a rel="noreferrer" href={website} target="_blank">
+            {info[0]["website"] && (
+              <a rel="noreferrer" href={info[0]["website"]} target="_blank">
                 <FaLink className="h4 mx-1 text-light" />
               </a>
             )}
@@ -231,11 +232,11 @@ export default function interview({ data }) {
             <h2 className="interview__title display-5 fw-bolder">
               {info[0][title] || "title"}
             </h2>
-            <p className="h3 lh-base text-light">{excerpt}</p>
+            <p className="h3 lh-base text-light">{info[0]["excerpt"]}</p>
             <hr className="my-5 text-light" />
             <BlockContent
               className="text-light"
-              blocks={body}
+              blocks={info[0]["body"]}
               projectId={process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}
               dataset={process.env.NEXT_PUBLIC_SANITY_DATASET}
               serializers={{
