@@ -5,7 +5,15 @@ import Row from "@BS/Row";
 import { getAllArticleContents, getArticleContent } from "@lib/SanityApi";
 
 export default function article({ data }) {
-  const { title, excerpt, publishedAt, body } = data[0];
+  let title = "";
+  let excerpt = "";
+  let publishedAt = "";
+  let body = [];
+
+  title = data[0]["title"];
+  excerpt = data[0]["excerpt"];
+  publishedAt = data[0]["publishedAt"];
+  body = data[0]["body"];
 
   return (
     <Container>
