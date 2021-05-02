@@ -101,11 +101,11 @@ export default function interview({ data }) {
       <CustomHead
         slug={slug}
         stageName={stageName}
-        coverImage={urlFor(coverImage.asset).url()}
+        coverImage={urlFor(coverImage?.asset).url()}
       />
       <section className="interview__coverimg">
         <Image
-          src={urlFor(coverImage.asset).url()}
+          src={urlFor(coverImage?.asset).url()}
           alt={stageName}
           layout="fill"
           objectFit="cover"
@@ -119,7 +119,7 @@ export default function interview({ data }) {
       >
         <section className="interview__profile--box d-flex justify-content-start justify-content-lg-center bg-dark">
           <Image
-            src={urlFor(profileImage.asset).url()}
+            src={urlFor(profileImage?.asset).url()}
             width={160}
             height={240}
             alt={stageName}
