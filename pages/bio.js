@@ -1,35 +1,31 @@
-import Link from "next/link";
-import Container from "@BS/Container";
-import Row from "@BS/Row";
 import Button from "@BS/Button";
-import Image from "@BS/Image";
 import Col from "@BS/Col";
-import _ from "lodash";
+import Container from "@BS/Container";
+import Image from "@BS/Image";
+import Row from "@BS/Row";
+import LogoSvg from "@components/LogoSvg";
 import { getBioLinks } from "@lib/SanityApi";
+import _ from "lodash";
+import Link from "next/link";
 
 const SKILLS = ["🎸", "🎤", "👩‍🎤", "🥁", "🔥", "🤘"];
 
 export default function bio({ links }) {
   return (
     <Container>
-      <Row className="text-center d-flex justify-content-center">
+      <Row className="text-center d-flex justify-content-center mt-5">
         <Col xs={12}>
           <Link href="/">
-            <a style={{ textDecoration: "none" }}>
-              <Image
-                src="/femalerocker-profile.jpg"
-                className="border mt-5"
-                width={100}
-                roundedCircle
-              />
-              <p
-                className="text-light fw-light mb-4 mt-2"
-                style={{ letterSpacing: "2px" }}
-              >
-                @female_rockers
-              </p>
+            <a className="text-decoration-none">
+              <LogoSvg className="logo__svg" />
             </a>
           </Link>
+          <p
+            className="text-light fw-light mb-4 mt-2"
+            style={{ letterSpacing: "2px" }}
+          >
+            @female_rockers
+          </p>
         </Col>
         <Col xs={12} md={8}>
           {_.map(links, (link, i) => (

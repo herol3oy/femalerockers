@@ -2,6 +2,7 @@ import Link from "next/link";
 import Navbar from "@BS/Navbar";
 import Container from "@BS/Container";
 import LogoSvg from "@components/LogoSvg";
+
 export default function navbar() {
   return (
     <Container fluid>
