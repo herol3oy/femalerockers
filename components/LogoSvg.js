@@ -17,7 +17,7 @@ export default function LogoSvg(props) {
       <g id="Layer_2" display="none"></g>
       <g id="_x5F_">
         <g>
-          <circle fill="#B23C37" cx={540} cy={540} r={540} />
+          <circle fill={props.fill} cx={540} cy={540} r={540} />
           <path
             fill="#FFEEDF"
             d="M968.1,457.2c-0.4-2.1-0.9-5-2.1-7.6c0,0,0-0.1,0-0.1c-1.3-3-4.3-5.2-7.8-5.2c-3.4,0-6.3,2-7.7,4.9
@@ -32,3 +32,7 @@ export default function LogoSvg(props) {
     </svg>
   );
 }
+
+LogoSvg.defaultProps = {
+  fill: "#B23C37",
+};

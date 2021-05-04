@@ -9,6 +9,7 @@ import CarouselSkeleton from "./skeletons/CarouselSkeleton";
 import Carousel from "react-multi-carousel";
 import _ from "lodash";
 import "react-multi-carousel/lib/styles.css";
+import LogoSvg from "@components/LogoSvg";
 
 const urlFor = (source) => imageUrlBuilder(sanityClient).image(source);
 
@@ -106,6 +107,15 @@ export default function NewCarousel() {
           responsive={responsive}
           removeArrowOnDeviceType={["mobile"]}
         >
+          <Link href="/page/about">
+            <a className="text-decoration-none">
+              <div className="accent-red-color p-3 h-100 d-flex flex-column justify-content-end align-items-start">
+                <LogoSvg style={{ width: "35px" }} fill={"#1b1b1b"} />
+                <h6 className="fw-lighter text-light mt-auto">READ MORE</h6>
+                <h1 className="fw-bolder link-dark">About Us</h1>
+              </div>
+            </a>
+          </Link>
           {_.map(carousel, (rocker) => (
             <div
               key={rocker.stageName.toString()}
