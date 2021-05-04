@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Navbar from "@BS/Navbar";
 import Container from "@BS/Container";
-import LogoSvg from "@components/LogoSvg";
+import TypeFaceLogo from "@components/TypeFaceLogo";
 
 export default function navbar() {
   return (
@@ -18,28 +18,9 @@ export default function navbar() {
         my-3"
         expand="lg"
       >
-        <div className="text-center text-lg-start text-md-center text-md-start mt-2 mt-lg-0">
-          <Link href="/">
-            <a
-              className="
-                site__title
-                h5
-                fw-bolder
-                text-decoration-none
-                text-uppercase
-                mt-3
-                "
-            >
-              Female Rockers
-            </a>
-          </Link>
-          <p className="small fw-lighter text-light">
-            interviews future sensations in rock music
-          </p>
-        </div>
         <Link href="/">
-          <a className="logo__svg">
-            <LogoSvg />
+          <a className="m-auto mt-2">
+            <TypeFaceLogo style={{ width: "150px" }} />
           </a>
         </Link>
       </Navbar>
