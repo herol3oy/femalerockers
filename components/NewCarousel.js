@@ -73,13 +73,10 @@ export default function NewCarousel() {
       <a>
         <Card.Body className="card-body__description">
           <div className="position-absolute col-8 text-start align-self-end card-body__wrapper">
-            <h5
-              className="
-            text-start 
-            accent-red-color-text 
-            fw-bolder 
-            m-0"
-            >
+            {selectedMusicianOnMouseEnter && (
+              <LogoSvg style={{ width: "35px" }} />
+            )}
+            <h5 className="text-start accent-red-color-text fw-bolder m-0 mt-3">
               <span className="card-stage-name">
                 {rocker.stageName} {rocker.country}
               </span>
@@ -120,7 +117,6 @@ export default function NewCarousel() {
           <Link href="/page/about">
             <a className="text-decoration-none">
               <div className="accent-red-color p-3 h-100 d-flex flex-column justify-content-end align-items-start">
-                <LogoSvg style={{ width: "35px" }} fill={"#1b1b1b"} />
                 <small className="fw-bolder text-light mt-auto">
                   READ MORE
                 </small>
