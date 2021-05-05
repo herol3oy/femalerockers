@@ -1,5 +1,5 @@
 import Link from "next/link";
-import _ from "lodash";
+import random from "lodash/random";
 import Container from "@BS/Container";
 import sanityClient from "@lib/SanityClient";
 import useSWR from "swr";
@@ -16,7 +16,7 @@ export default function RandomQuote() {
   );
   if (error) return <div>Failed</div>;
   if (!data) return <div>Loading...</div>;
-  const quote = data[_.random(data?.length - 1)];
+  const quote = data[random(data?.length - 1)];
 
   return (
     <Container fluid className="accent-red-color border-0 mt-5">

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import _ from "lodash";
+import lodashMap from "lodash/map";
 import Carousel from "@BS/Carousel";
 import Container from "@BS/Container";
 import Row from "@BS/Row";
@@ -42,7 +42,7 @@ export default function carousel() {
         prevLabel=""
         nextLabel=""
       >
-        {_.map(carousel, (rocker, i) => {
+        {lodashMap(carousel, (rocker, i) => {
           return (
             <Carousel.Item key={i}>
               <Image

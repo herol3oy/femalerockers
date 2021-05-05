@@ -1,11 +1,11 @@
 import Button from "@BS/Button";
 import Col from "@BS/Col";
 import Container from "@BS/Container";
-import Image from "@BS/Image";
 import Row from "@BS/Row";
 import LogoSvg from "@components/LogoSvg";
 import { getBioLinks } from "@lib/SanityApi";
-import _ from "lodash";
+import lodashMap from "lodash/map";
+import random from "lodash/random";
 import Link from "next/link";
 
 const SKILLS = ["🎸", "🎤", "👩‍🎤", "🥁", "🔥", "🤘"];
@@ -28,8 +28,8 @@ export default function bio({ links }) {
           </p>
         </Col>
         <Col xs={12} md={8}>
-          {_.map(links, (link, i) => (
-            <a key={i} href={link.url} target="_blank">
+          {lodashMap(links, (link) => (
+            <a key={link.toString()} href={link.url} target="_blank">
               <Button
                 variant="outline-danger"
                 className="mb-3 p-4 w-100 fw-bold"
@@ -38,18 +38,15 @@ export default function bio({ links }) {
               </Button>
             </a>
           ))}
-          <Image
-            src="/logo.png"
-            className="my-5"
-            width={25}
-            style={{ filter: "grayscale(0)" }}
-          />
         </Col>
       </Row>
 
       <article>
-        {SKILLS.map((skill, i) => (
-          <h5 key={i} className={`display-${_.random(1, SKILLS.length - 1)}`}>
+        {SKILLS.map((skill) => (
+          <h5
+            key={skill.toString()}
+            className={`display-${random(1, SKILLS.length - 1)}`}
+          >
             {skill}
           </h5>
         ))}

@@ -1,7 +1,7 @@
 import { useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import _ from "lodash";
+import random from "lodash/random";
 import sanityClient from "@lib/SanityClient";
 import BlockContent from "@sanity/block-content-to-react";
 import imageUrlBuilder from "@sanity/image-url";
@@ -68,7 +68,7 @@ export default function interview({
   );
   if (error) return <div>Failed</div>;
   if (!data) return <div>Loading...</div>;
-  const randomInterview = data[_.random(data?.length - 1)];
+  const randomInterview = data[random(data?.length - 1)];
 
   const BlockRenderer = (props) => {
     const { marks, text } = props.node.children[0];

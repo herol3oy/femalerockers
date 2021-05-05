@@ -82,7 +82,7 @@ export default function NewsLetterPopup() {
                   value="SUBSCRIBE ›"
                   name="subscribe"
                   id="mc-embedded-subscribe"
-                  className="d-flex justify-content-center w-100 button btn btn-sm btn-success"
+                  className="d-flex justify-content-center w-100 button btn btn-sm accent-red-color text-light"
                 />
               </section>
             </div>

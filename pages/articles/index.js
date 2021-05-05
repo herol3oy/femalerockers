@@ -3,7 +3,7 @@ import Link from "next/link";
 import sanityClient from "@lib/SanityClient";
 import Container from "@BS/Container";
 import Row from "@BS/Row";
-import _ from "lodash";
+import lodashMap from "lodash/map";
 
 export default function index() {
   const [articles, setArticles] = useState(null);
@@ -28,7 +28,7 @@ export default function index() {
   return (
     <Container>
       <Row>
-        {_.map(articles, (article, i) => (
+        {lodashMap(articles, (article, i) => (
           <div key={i}>
             <Link href={`/articles/${article.slug.current}`}>
               <a>

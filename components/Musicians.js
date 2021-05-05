@@ -1,7 +1,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import _ from "lodash";
+import lodashMap from "lodash/map";
+import lodashRange from "lodash/range";
 import Container from "@BS/Container";
 import Card from "@BS/Card";
 import Row from "@BS/Row";
@@ -42,7 +43,7 @@ export default function Musicians() {
     return (
       <Container className="overflow-hidden">
         <Row className="g-0 my-3 gy-2">
-          {_.range(18).map((i) => (
+          {lodashRange(18).map((i) => (
             <CardSkeleton key={i} />
           ))}
         </Row>
@@ -52,7 +53,7 @@ export default function Musicians() {
   return (
     <Container className="overflow-hidden">
       <Row className="row-cols-2 row-cols-sm-2 row-cols-lg-6 row-cols-md-4 g-0 my-3 gy-2">
-        {_.map(data, (rocker, i) => (
+        {lodashMap(data, (rocker, i) => (
           <Link key={i} href={rocker.slug.current}>
             <a className="p-0 text-white text-decoration-none">
               <Card className="scale mx-1 bg-transparent border-0 border-top border-danger border-2 rounded-top rounded-bottom">

@@ -7,7 +7,7 @@ import Container from "@BS/Container";
 import Card from "@BS/Card";
 import CarouselSkeleton from "./skeletons/CarouselSkeleton";
 import Carousel from "react-multi-carousel";
-import _ from "lodash";
+import lodashMap from "lodash/map";
 import "react-multi-carousel/lib/styles.css";
 import LogoSvg from "@components/LogoSvg";
 
@@ -73,9 +73,19 @@ export default function NewCarousel() {
       <a>
         <Card.Body className="card-body__description">
           <div className="position-absolute col-8 text-start align-self-end card-body__wrapper">
-            <h5 className="text-start accent-red-color-text fw-bolder m-0">{`${rocker.stageName} ${rocker.country}`}</h5>
-            <h3 className="text-start text-light  card-title">
-              {rocker.title}
+            <h5
+              className="
+            text-start 
+            accent-red-color-text 
+            fw-bolder 
+            m-0"
+            >
+              <span className="card-stage-name">
+                {rocker.stageName} {rocker.country}
+              </span>
+            </h5>
+            <h3 className="text-start text-light card-title mt-1">
+              <span className="card-excerpt">{rocker.title}</span>
             </h3>
           </div>
         </Card.Body>
@@ -111,12 +121,14 @@ export default function NewCarousel() {
             <a className="text-decoration-none">
               <div className="accent-red-color p-3 h-100 d-flex flex-column justify-content-end align-items-start">
                 <LogoSvg style={{ width: "35px" }} fill={"#1b1b1b"} />
-                <h6 className="fw-lighter text-light mt-auto">READ MORE</h6>
+                <small className="fw-bolder text-light mt-auto">
+                  READ MORE
+                </small>
                 <h1 className="fw-bolder link-dark">About Us</h1>
               </div>
             </a>
           </Link>
-          {_.map(carousel, (rocker) => (
+          {lodashMap(carousel, (rocker) => (
             <div
               key={rocker.stageName.toString()}
               className="slider-card__wrapper"
@@ -141,6 +153,24 @@ export default function NewCarousel() {
         </Carousel>
       </section>
       <style global jsx>{`
+        .card-stage-name {
+          position: relative;
+          background-color: #b03c37;
+          -webkit-box-decoration-break: clone;
+          box-decoration-break: clone;
+          padding: 4px 7px;
+          color: #1b1b1b;
+        }
+
+        .card-excerpt {
+          position: relative;
+          background-color: #1b1b1b;
+          -webkit-box-decoration-break: clone;
+          box-decoration-break: clone;
+          padding: 3px 6px;
+          color: #fff;
+        }
+
         .section-wrapper {
           background-image: linear-gradient(black, black), url(${sliderBgImg});
           background-size: cover;
@@ -156,7 +186,7 @@ export default function NewCarousel() {
 
         .slider-card__wrapper {
           border: solid 1px #333 !important;
-          height: 55vh;
+          height: 50vh;
           cursor: pointer;
         }
 
