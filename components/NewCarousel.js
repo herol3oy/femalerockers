@@ -24,12 +24,12 @@ const responsive = {
   },
   tablet: {
     breakpoint: { max: 1024, min: 464 },
-    items: 3,
+    items: 2,
   },
   mobile: {
     breakpoint: { max: 464, min: 0 },
     paritialVisibilityGutter: 20,
-    items: 2,
+    items: 1,
   },
 };
 
@@ -76,7 +76,7 @@ export default function NewCarousel() {
             {selectedMusicianOnMouseEnter && (
               <LogoSvg style={{ width: "35px" }} />
             )}
-            <h5 className="text-start accent-red-color-text fw-bolder m-0 mt-3">
+            <h5 className="small text-start accent-red-color-text fw-bolder m-0 mt-3">
               <span className="card-stage-name">
                 {rocker.stageName} {rocker.country}
               </span>
