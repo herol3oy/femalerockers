@@ -2,13 +2,13 @@ import Button from "@BS/Button";
 import Col from "@BS/Col";
 import Container from "@BS/Container";
 import Row from "@BS/Row";
-import LogoSvg from "@components/LogoSvg";
+import Logo from "@components/svg/Logo";
 import { getBioLinks } from "@lib/SanityApi";
 import lodashMap from "lodash/map";
 import random from "lodash/random";
 import Link from "next/link";
 
-const SKILLS = ["🎸", "🎤", "👩‍🎤", "🥁", "🔥", "🤘"];
+const EMOJIS = ["🎸", "🎤", "👩‍🎤", "🥁", "🔥", "🤘", "💯"];
 
 export default function bio({ links }) {
   return (
@@ -17,7 +17,7 @@ export default function bio({ links }) {
         <Col xs={12}>
           <Link href="/">
             <a className="text-decoration-none">
-              <LogoSvg className="logo__svg" />
+              <Logo className="logo__svg" />
             </a>
           </Link>
           <p
@@ -42,10 +42,10 @@ export default function bio({ links }) {
       </Row>
 
       <article>
-        {SKILLS.map((skill) => (
+        {EMOJIS.map((skill) => (
           <h5
             key={skill.toString()}
-            className={`display-${random(1, SKILLS.length - 1)}`}
+            className={`display-${random(1, EMOJIS.length - 1)}`}
           >
             {skill}
           </h5>

@@ -1,4 +1,4 @@
-export default function TypeFaceLogo(props) {
+export default function TypeFace(props) {
   return (
     <svg
       {...props}

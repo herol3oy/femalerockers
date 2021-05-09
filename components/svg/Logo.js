@@ -1,4 +1,4 @@
-export default function LogoSvg(props) {
+export default function Logo(props) {
   return (
     <svg
       {...props}
@@ -33,6 +33,6 @@ export default function LogoSvg(props) {
   );
 }
 
-LogoSvg.defaultProps = {
+Logo.defaultProps = {
   fill: "#B23C37",
 };

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Navbar from "@BS/Navbar";
 import Container from "@BS/Container";
-import TypeFaceLogo from "@components/TypeFaceLogo";
+import TypeFace from "@components/svg/TypeFace";
 
 export default function navbar() {
   return (
@@ -20,7 +20,7 @@ export default function navbar() {
       >
         <Link href="/">
           <a className="m-auto mt-2">
-            <TypeFaceLogo style={{ width: "150px" }} />
+            <TypeFace style={{ width: "150px" }} />
           </a>
         </Link>
       </Navbar>

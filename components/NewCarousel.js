@@ -9,7 +9,7 @@ import CarouselSkeleton from "./skeletons/CarouselSkeleton";
 import Carousel from "react-multi-carousel";
 import lodashMap from "lodash/map";
 import "react-multi-carousel/lib/styles.css";
-import LogoSvg from "@components/LogoSvg";
+import Logo from "@components/svg/Logo";
 
 const urlFor = (source) => imageUrlBuilder(sanityClient).image(source);
 
@@ -73,9 +73,7 @@ export default function NewCarousel() {
       <a>
         <Card.Body className="card-body__description">
           <div className="position-absolute col-8 text-start align-self-end card-body__wrapper">
-            {selectedMusicianOnMouseEnter && (
-              <LogoSvg style={{ width: "35px" }} />
-            )}
+            {selectedMusicianOnMouseEnter && <Logo style={{ width: "35px" }} />}
             <h5 className="small text-start accent-red-color-text fw-bolder m-0 mt-3">
               <span className="card-stage-name">
                 {rocker.stageName} {rocker.country}
