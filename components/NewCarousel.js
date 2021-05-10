@@ -114,11 +114,20 @@ export default function NewCarousel() {
         >
           <Link href="/page/about">
             <a className="text-decoration-none">
-              <div className="accent-red-color p-3 h-100 d-flex flex-column justify-content-end align-items-start">
-                <small className="fw-bolder text-light mt-auto">
-                  READ MORE
-                </small>
-                <h1 className="fw-bolder link-dark">About Us</h1>
+              <div
+                className=" card-body__description p-3 h-100 d-flex flex-column justify-content-end align-items-start"
+                style={{
+                  backgroundImage:
+                    "url('https://res.cloudinary.com/dxu6gcib2/image/upload/v1620660933/Female%20Rockers/100kSTORY_1_x0byph.jpg')",
+                  backgroundSize: "cover",
+                }}
+              >
+                <div style={{ zIndex: 1 }}>
+                  <small className="fw-bolder text-light mt-auto">
+                    READ MORE
+                  </small>
+                  <h1 className="fw-bolder accent-red-color-text">About Us</h1>
+                </div>
               </div>
             </a>
           </Link>
@@ -206,7 +215,7 @@ export default function NewCarousel() {
           display: inline-block;
           background: linear-gradient(
             to top,
-            #111 0%,
+            #1b1b1b 0%,
             rgba(255, 255, 255, 0) 100%
           );
         }
