@@ -6,11 +6,11 @@ export default class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
-          <script
+          {/* <script
             data-ad-client="ca-pub-4305738680942112"
             async
             src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-          ></script>
+          ></script> */}
 
           {/* Global Site Tag (gtag.js) - Google Analytics */}
           {/* <script
