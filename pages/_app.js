@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useRouter } from "next/router";
-import * as gtag from "../lib/gtag";
+// import * as gtag from "../lib/gtag";
 import Navbar from "@components/Navbar";
 import Footer from "@components/Footer";
 import Banner from "@components/Banner";
@@ -15,17 +15,17 @@ export default function MyApp({ Component, pageProps }) {
   const isBioPage = router.route === "/bio";
   const isShredCollabPage = router.route === "/ShredCollab";
 
-  useEffect(() => {
-    const handleRouteChange = (url) => {
-      gtag.pageview(url);
-    };
+  // useEffect(() => {
+  //   const handleRouteChange = (url) => {
+  //     gtag.pageview(url);
+  //   };
 
-    router.events.on("routeChangeComplete", handleRouteChange);
+  //   router.events.on("routeChangeComplete", handleRouteChange);
 
-    return () => {
-      router.events.off("routeChangeComplete", handleRouteChange);
-    };
-  }, [router.events]);
+  //   return () => {
+  //     router.events.off("routeChangeComplete", handleRouteChange);
+  //   };
+  // }, [router.events]);
 
   return (
     <>
