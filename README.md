@@ -30,18 +30,18 @@ Our mission is to spread the word for talented musicians and give them a stance 
 ### Screenshots
 
 <p align='center'>
-    <img src="./screenshot-02.png" width="300">
-    <img src="./screenshot-03.png" width="300">
+    <img src="./screenshots/screenshot-02.png" width="300">
+    <img src="./screenshots/screenshot-03.png" width="300">
 </p>
 <p align='center'>
-    <img src="./screenshot-04.png">
+    <img src="./screenshots/screenshot-04.png">
 </p>
 <p align='center'>
-    <img src="./screenshot-01.png">
+    <img src="./screenshots/screenshot-01.png">
 </p>
 
 ### Lighthouse Performance
 
 <p align='center'>
-    <img src="./screenshot-lighthouse-2021-02-12 18-49-01.png">
+    <img src="./screenshots/screenshot-lighthouse-2021-02-12 18-49-01.png">
 </p>
