@@ -5,7 +5,7 @@ export default function CookiesConsent() {
   return (
     <CookieConsent
       location="bottom"
-      buttonText="I agree 😉"
+      buttonText="I agree"
       style={{
         background: "#2f2f2f",
         color: "#fff",

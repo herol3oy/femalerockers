@@ -38,8 +38,10 @@ export default function Musicians() {
        }`,
     (query) => sanityClient.fetch(query)
   );
+
   if (error) return <div>Failed</div>;
-  if (!data)
+
+  if (!data) {
     return (
       <Container className="overflow-hidden">
         <Row className="g-0 my-3 gy-2">
@@ -49,6 +51,7 @@ export default function Musicians() {
         </Row>
       </Container>
     );
+  }
 
   return (
     <Container className="overflow-hidden">

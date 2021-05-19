@@ -66,8 +66,10 @@ export default function interview({
   }`,
     (query) => sanityClient.fetch(query)
   );
+
   if (error) return <div>Failed</div>;
   if (!data) return <div>Loading...</div>;
+
   const randomInterview = data[random(data?.length - 1)];
 
   const BlockRenderer = (props) => {
