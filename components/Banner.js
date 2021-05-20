@@ -12,7 +12,7 @@ export default function Banner() {
       <Container fluid className="banner">
         <Row className="py-2">
           <small className="fw-bold text-light text-center">
-            📣 Try your chance of being interviewed by tagging us on {` `}
+            📣 We interview future sensations in rock music -{` `}
             <Link href="https://www.instagram.com/female_rockers/">
               <a className="link-warning">instagram</a>
             </Link>
