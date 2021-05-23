@@ -6,6 +6,8 @@ export default class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
+          <link rel="icon" href="favicon.svg" />
+
           {/* <script
             data-ad-client="ca-pub-4305738680942112"
             async
