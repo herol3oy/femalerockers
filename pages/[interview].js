@@ -81,7 +81,7 @@ export default function interview({
         <div>
           <dt>
             <Image
-              src="/logo.png"
+              src="/favicon.svg"
               width={32}
               height={32}
               alt="Female Rockers Logo"
