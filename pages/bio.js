@@ -34,7 +34,10 @@ export default function bio({ links }) {
                 variant="outline-danger"
                 className="mb-3 p-4 w-100 fw-bold"
               >
-                <div className="h4 m-0">{link.title}</div>
+                <div className="d-flex">
+                  <div className="h4 m-0">{link.title.slice(0, 2)}</div>
+                  <div className="h4 m-0 m-auto">{link.title.slice(2)}</div>
+                </div>
               </Button>
             </a>
           ))}
