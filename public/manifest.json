@@ -1,8 +1,8 @@
 {
   "name": "Female Rockers",
   "short_name": "FR",
-  "theme_color": "#dc3545",
-  "background_color": "#dc3545",
+  "theme_color": "#1B1B1B",
+  "background_color": "#1B1B1B",
   "display": "fullscreen",
   "orientation": "portrait",
   "scope": "/",
