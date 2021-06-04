@@ -28,7 +28,21 @@ export default function bio({ links }) {
           </p>
         </Col>
         <Col xs={12} md={8}>
-          {lodashMap(links, (link) => (
+          {links.slice(0, 1).map((link) => (
+            <a key={link.toString()} href={link.url} target="_blank">
+              <Button
+                variant="outline-danger"
+                className="gradient-btn mb-3 p-4 w-100 fw-bold"
+              >
+                <div className="d-flex">
+                  <div className="h4 m-0">{link.title.slice(0, 2)}</div>
+                  <div className="h4 m-0 m-auto">{link.title.slice(2)}</div>
+                </div>
+              </Button>
+            </a>
+          ))}
+
+          {links.slice(1).map((link) => (
             <a key={link.toString()} href={link.url} target="_blank">
               <Button
                 variant="outline-danger"
@@ -148,6 +162,35 @@ export default function bio({ links }) {
             height: 150px;
             animation-delay: 0s;
             animation-duration: 11s;
+          }
+
+          .gradient-btn {
+            background: linear-gradient(
+              105deg,
+              /* Base gradient stops */ #f6d365,
+              #e81d1d,
+              #e8b71d,
+              /* Repeat your base gradient stops */ #f6d365,
+              #e81d1d,
+              #e8b71d,
+              /* Repeat your first gradient stop */ #f6d365
+            );
+
+            background-size: 200% 200%;
+            animation: rainbow 5s linear infinite;
+            border: 0;
+            padding: 25px;
+            font-size: 40px;
+            color: #fff;
+          }
+
+          @keyframes rainbow {
+            0% {
+              background-position: 100% 100%;
+            }
+            100% {
+              background-position: 0% 0%;
+            }
           }
 
           @keyframes animate {
