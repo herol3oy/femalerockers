@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import sanityClient from "@lib/SanityClient";
-import Container from "@BS/Container";
-import Row from "@BS/Row";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
 import lodashMap from "lodash/map";
 
 export default function index() {

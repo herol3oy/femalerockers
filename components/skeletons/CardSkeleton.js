@@ -1,4 +1,4 @@
-import Card from "@BS/Card";
+import Card from "react-bootstrap/Card";
 import Shimmer from "../skeletons/Shimmer";
 
 export default function CardSkeleton() {

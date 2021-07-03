@@ -1,7 +1,7 @@
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import { useRouter } from "next/router";
 // import * as gtag from "../lib/gtag";
-import Navbar from "@components/Navbar";
+import Navbar from "react-bootstrap/Navbar";
 import Footer from "@components/Footer";
 import Banner from "@components/Banner";
 import CookiesConsent from "@components/CookiesConsent";

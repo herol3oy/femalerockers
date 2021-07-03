@@ -1,8 +1,8 @@
 import { useState } from "react";
 import Link from "next/link";
-import Container from "@BS/Container";
-import Row from "@BS/Row";
-import Button from "@BS/Button";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Button from "react-bootstrap/Button";
 
 export default function Banner() {
   const [banner, setBanner] = useState(true);

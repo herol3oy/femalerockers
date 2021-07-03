@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Link from "next/link";
-import Container from "@BS/Container";
-import Row from "@BS/Row";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
 import dynamic from "next/dynamic";
 
 const ContactForm = dynamic(() => import("./ContactForm"));

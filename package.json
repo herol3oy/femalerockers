@@ -16,7 +16,7 @@
     "get-youtube-id": "^1.0.1",
     "groq": "^2.1.4",
     "lodash": "^4.17.20",
-    "next": "10.2.0",
+    "next": "^11.0.1",
     "next-pwa": "^5.0.4",
     "react": "17.0.1",
     "react-bootstrap": "^1.4.3",

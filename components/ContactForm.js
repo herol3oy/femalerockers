@@ -1,7 +1,7 @@
 import { useState } from "react";
-import Modal from "@BS/Modal";
-import Button from "@BS/Button";
-import Form from "@BS/Form";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 import emailjs from "emailjs-com";
 
 export default function ContactForm(props) {

@@ -1,7 +1,7 @@
-import Button from "@BS/Button";
-import Col from "@BS/Col";
-import Container from "@BS/Container";
-import Row from "@BS/Row";
+import Button from "react-bootstrap/Button";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
 import Logo from "@components/svg/Logo";
 import { getBioLinks } from "@lib/SanityApi";
 import lodashMap from "lodash/map";

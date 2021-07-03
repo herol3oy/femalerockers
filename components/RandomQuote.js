@@ -1,6 +1,6 @@
 import Link from "next/link";
 import random from "lodash/random";
-import Container from "@BS/Container";
+import Container from "react-bootstrap/Container";
 import sanityClient from "@lib/SanityClient";
 import useSWR from "swr";
 import groq from "groq";

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import Container from "@BS/Container";
-import Row from "@BS/Row";
-import Button from "@BS/Button";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Button from "react-bootstrap/Button";
 
 export default function NewsLetterPopup() {
   const [displayPopup, setDisplayPopup] = useState(false);

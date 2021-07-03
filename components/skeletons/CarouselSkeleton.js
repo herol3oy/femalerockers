@@ -1,5 +1,5 @@
-import Carousel from "@BS/Carousel";
-import Container from "@BS/Container";
+import Carousel from "react-bootstrap/Carousel";
+import Container from "react-bootstrap/Container";
 import Shimmer from "../skeletons/Shimmer";
 
 export default function CarouselSkeleton() {

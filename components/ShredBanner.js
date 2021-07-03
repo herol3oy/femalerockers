@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Image from "next/image";
-import Container from "@BS/Container";
-import Row from "@BS/Row";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
 
 export default function ShredBanner() {
   const [bgColor, bgColorSet] = useState("#111111");

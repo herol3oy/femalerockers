@@ -1,6 +1,6 @@
 import Link from "next/link";
-import Navbar from "@BS/Navbar";
-import Container from "@BS/Container";
+import Navbar from "react-bootstrap/Navbar";
+import Container from "react-bootstrap/Container";
 import TypeFace from "@components/svg/TypeFace";
 
 export default function navbar() {

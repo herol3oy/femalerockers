@@ -1,6 +1,6 @@
 import BlockContent from "@sanity/block-content-to-react";
-import Container from "@BS/Container";
-import Row from "@BS/Row";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
 
 import { getAllArticleContents, getArticleContent } from "@lib/SanityApi";
 
