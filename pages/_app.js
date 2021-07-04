@@ -14,6 +14,7 @@ export default function MyApp({ Component, pageProps }) {
   const router = useRouter();
   const isBioPage = router.route === "/bio";
   const isShredCollabPage = router.route === "/ShredCollab";
+  const isFeature = router.route === "/GetFeatured";
 
   // useEffect(() => {
   //   const handleRouteChange = (url) => {
@@ -29,12 +30,12 @@ export default function MyApp({ Component, pageProps }) {
 
   return (
     <>
-      {!isBioPage && !isShredCollabPage && <Banner />}
-      {!isBioPage && !isShredCollabPage && <Navbar />}
+      {!isBioPage && !isShredCollabPage && !isFeature && <Banner />}
+      {!isBioPage && !isShredCollabPage && !isFeature && <Navbar />}
       <Component {...pageProps} />
-      {!isBioPage && !isShredCollabPage && <Footer />}
-      {!isBioPage && !isShredCollabPage && <NewsLetterPopup />}
-      <CookiesConsent />
+      {!isBioPage && !isShredCollabPage && !isFeature && <Footer />}
+      {!isBioPage && !isShredCollabPage && !isFeature && <NewsLetterPopup />}
+      {!isBioPage && !isShredCollabPage && !isFeature && <CookiesConsent />}
     </>
   );
 }
