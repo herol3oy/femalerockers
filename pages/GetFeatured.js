@@ -5,7 +5,7 @@ import Logo from "@components/svg/Logo";
 import Link from "next/link";
 import Toast from "react-bootstrap/Toast";
 import Badge from "react-bootstrap/Badge";
-import Image from "react-bootstrap/Image";
+import GetFeaturedLogo from "../components/svg/GetFeaturedLogo";
 
 export default function GetFeatured() {
   return (
@@ -14,20 +14,20 @@ export default function GetFeatured() {
         <Col xs={12}>
           <Link href="/">
             <a className="text-decoration-none">
-              <Logo className="logo__svg" />
+              {/* <Logo className="logo__svg" /> */}
+              <GetFeaturedLogo width="200" />
             </a>
           </Link>
-          <p
-            className="text-light fw-light  mt-2 mb-0"
-            style={{ letterSpacing: "2px" }}
-          >
-            Get Featured
-          </p>
           <a
             href="https://www.instagram.com/female_rockers/"
-            className="link-danger "
+            className="text-decoration-none"
           >
-            @female_rockers
+            <p
+              className="text-light fw-light  mt-2 mb-0"
+              style={{ letterSpacing: "2px" }}
+            >
+              @female_rockers
+            </p>
           </a>
           <hr />
           <h4 className="text-light fw-bold w-75  m-auto">
