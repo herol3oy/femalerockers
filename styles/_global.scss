@@ -4,16 +4,16 @@ body {
   background: #1b1b1b;
 }
 
-body::-webkit-scrollbar {
+*::-webkit-scrollbar {
   width: 0.15rem;
 }
 
-body::-webkit-scrollbar-thumb {
+*::-webkit-scrollbar-thumb {
   background: #b03c37;
 }
 
-body::-webkit-scrollbar-track {
-  background: #1b1b1b;
+*::-webkit-scrollbar-track {
+  background: gray;
 }
 
 nav {
