@@ -1,13 +1,24 @@
 {
   "name": "Female Rockers",
-  "short_name": "FR",
+  "short_name": "Female Rockers",
   "theme_color": "#1B1B1B",
   "background_color": "#1B1B1B",
-  "display": "fullscreen",
+  "display": "standalone",
   "orientation": "portrait",
   "scope": "./",
   "start_url": "./",
+  "id": "./",
   "icons": [
+    {
+      "type": "image/png",
+      "sizes": "192x192",
+      "src": "icons/icon-192x192.png"
+    },
+    {
+      "type": "image/png",
+      "sizes": "512x512",
+      "src": "icons/icon-512x512.png"
+    },
     {
       "type": "image/svg+xml",
       "sizes": "48x48",
@@ -26,8 +37,7 @@
     {
       "type": "image/svg+xml",
       "sizes": "144x144",
-      "src": "icons/svg/favicon144x144.svg",
-      "purpose": "any maskable"
+      "src": "icons/svg/favicon144x144.svg"
     },
     {
       "type": "image/svg+xml",
