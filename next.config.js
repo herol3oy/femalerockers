@@ -7,6 +7,7 @@ module.exports = withPreact(
     pwa: {
       disable: process.env.NODE_ENV === "development",
       dest: "./public",
+      buildExcludes: [/middleware-manifest.json$/],
       runtimeCaching,
     },
     images: {
