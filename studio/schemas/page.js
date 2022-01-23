@@ -22,26 +22,6 @@ export default {
       },
     },
     {
-      name: "author",
-      title: "Author",
-      type: "reference",
-      to: { type: "author" },
-    },
-    {
-      name: "mainImage",
-      title: "Main image",
-      type: "image",
-      options: {
-        hotspot: true,
-      },
-    },
-    {
-      name: "categories",
-      title: "Categories",
-      type: "array",
-      of: [{ type: "reference", to: { type: "category" } }],
-    },
-    {
       name: "publishedAt",
       title: "Published at",
       type: "datetime",
