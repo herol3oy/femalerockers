@@ -28,8 +28,8 @@ export default function index() {
   return (
     <Container>
       <Row>
-        {lodashMap(articles, (article, i) => (
-          <div key={i}>
+        {lodashMap(articles, (article, index) => (
+          <div key={index.toString()}>
             <Link href={`/articles/${article.slug.current}`}>
               <a>
                 <h1>{article.title}</h1>

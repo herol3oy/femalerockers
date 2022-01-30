@@ -42,9 +42,9 @@ export default function carousel() {
         prevLabel=""
         nextLabel=""
       >
-        {lodashMap(carousel, (rocker, i) => {
+        {lodashMap(carousel, (rocker, index) => {
           return (
-            <Carousel.Item key={i}>
+            <Carousel.Item key={index.toString()}>
               <Image
                 className="d-block"
                 src={urlFor(rocker.coverImage.asset).url()}

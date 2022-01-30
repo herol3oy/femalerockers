@@ -153,10 +153,10 @@ export default function interview({
             />
           )}
           <div className="align-self-end p-2">
-            {(profession || []).map((profession, i) => {
+            {(profession || []).map((profession, index) => {
               return (
                 <Badge
-                  key={i}
+                  key={index.toString()}
                   className="accent-red-color rounded-pill"
                   pill
                   variant=""

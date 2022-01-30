@@ -45,8 +45,8 @@ export default function Musicians() {
     return (
       <Container className="overflow-hidden">
         <Row className="g-0 my-3 gy-2">
-          {lodashRange(18).map((i) => (
-            <CardSkeleton key={i} />
+          {lodashRange(18).map((index) => (
+            <CardSkeleton key={index.toString()} />
           ))}
         </Row>
       </Container>
@@ -56,8 +56,8 @@ export default function Musicians() {
   return (
     <Container className="overflow-hidden">
       <Row className="row-cols-2 row-cols-sm-2 row-cols-lg-6 row-cols-md-4 g-0 my-3 gy-2">
-        {lodashMap(data, (rocker, i) => (
-          <Link key={i} href={rocker.slug.current}>
+        {lodashMap(data, (rocker, index) => (
+          <Link key={index.toString()} href={rocker.slug.current}>
             <a className="p-0 text-white text-decoration-none">
               <Card className="scale mx-1 bg-transparent border-0 border-top border-danger border-2 rounded-top rounded-bottom">
                 <Image
@@ -75,8 +75,12 @@ export default function Musicians() {
                   <Card.Text>
                     <Card.Title className="text-light fw-bold interview-title">{`${rocker.stageName} ${rocker.country}`}</Card.Title>
 
-                    {rocker.profession.map((profession, i) => (
-                      <span key={i} aria-label="bassist" role="img">
+                    {rocker.profession.map((profession, index) => (
+                      <span
+                        key={index.toString()}
+                        aria-label="bassist"
+                        role="img"
+                      >
                         {(profession === "bassist" && `🎸`) ||
                           (profession === "drummer" && `🥁`) ||
                           (profession === "vocalist" && `🎙️`) ||
