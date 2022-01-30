@@ -86,7 +86,9 @@ export default function interview({
               height={32}
               alt="Female Rockers Logo"
             />
-            <div className="stage-name mt-4">{stageName.split(" ").shift().toUpperCase()}</div>
+            <div className="stage-name mt-4">
+              {stageName.split(" ").shift().toUpperCase()}
+            </div>
           </dt>
           <dd className="h5 fw-bold">{text}</dd>
         </div>
@@ -99,7 +101,7 @@ export default function interview({
       return (
         <div className="my-4">
           {/* <dt className="fw-bold"> */}
-            {/* {stageName.split(" ").shift().toUpperCase()} */}
+          {/* {stageName.split(" ").shift().toUpperCase()} */}
           {/* </dt> */}
           <dd className="h5 lh-base fw-thin">{props.node.children[0].text}</dd>
         </div>

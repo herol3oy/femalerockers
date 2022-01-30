@@ -36,10 +36,8 @@ const responsive = {
 export default function NewCarousel() {
   const [carousel, setCarousel] = useState(null);
   const [sliderBgImg, setSliderBgImg] = useState("");
-  const [
-    selectedMusicianOnMouseEnter,
-    setSelectedMusicianOnMouseEnter,
-  ] = useState(null);
+  const [selectedMusicianOnMouseEnter, setSelectedMusicianOnMouseEnter] =
+    useState(null);
 
   useEffect(() => {
     sanityClient
