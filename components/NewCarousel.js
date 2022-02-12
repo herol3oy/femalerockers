@@ -116,7 +116,7 @@ export default function NewCarousel() {
                 className=" card-body__description p-3 h-100 d-flex flex-column justify-content-end align-items-start"
                 style={{
                   backgroundImage:
-                    "url('https://res.cloudinary.com/dxu6gcib2/image/upload/v1620660933/Female%20Rockers/100kSTORY_1_x0byph.jpg')",
+                    "url(https://res.cloudinary.com/dxu6gcib2/image/upload/v1644675426/Female%20Rockers/200k-Story_jj03lh.jpg)",
                   backgroundSize: "cover",
                 }}
               >
