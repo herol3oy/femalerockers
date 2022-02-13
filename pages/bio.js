@@ -1,16 +1,16 @@
+import Logo from "@components/svg/Logo";
+import { getBioLinks } from "@lib/SanityApi";
+import random from "lodash/random";
+import Link from "next/link";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-import Logo from "@components/svg/Logo";
-import { getBioLinks } from "@lib/SanityApi";
-import lodashMap from "lodash/map";
-import random from "lodash/random";
-import Link from "next/link";
 
 const EMOJIS = ["🎸", "🎤", "👩‍🎤", "🥁", "🔥", "🤘", "💯"];
 
 export default function bio({ links }) {
+  const { urls } = links[0];
   return (
     <Container>
       <Row className="text-center d-flex justify-content-center mt-5">
@@ -28,8 +28,8 @@ export default function bio({ links }) {
           </p>
         </Col>
         <Col xs={12} md={8}>
-          {links.slice(0, 1).map((link) => (
-            <a key={link.toString()} href={link.url} target="_blank">
+          {urls.slice(0, 1).map((link) => (
+            <a key={link.url} href={link.url} target="_blank">
               <Button
                 variant="outline-danger"
                 className="gradient-btn mb-3 p-4 w-100 fw-bold"
@@ -42,8 +42,8 @@ export default function bio({ links }) {
             </a>
           ))}
 
-          {links.slice(1).map((link) => (
-            <a key={link.toString()} href={link.url} target="_blank">
+          {urls.slice(1).map((link) => (
+            <a key={link.url} href={link.url} target="_blank">
               <Button
                 variant="outline-danger"
                 className="mb-3 p-4 w-100 fw-bold"

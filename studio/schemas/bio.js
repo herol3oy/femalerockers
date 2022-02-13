@@ -4,33 +4,41 @@ export default {
   type: "document",
   fields: [
     {
-      name: "title",
-      type: "string",
-    },
-    {
-      name: "url",
-      type: "url",
-      validation: (Rule) =>
-        Rule.uri({
-          scheme: ["http", "https", "mailto", "tel"],
-        }),
-    },
-    {
-      name: "queue",
-      type: "number",
+      name: "urls",
+      title: "URL",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          fields: [
+            {
+              name: "title",
+              title: "Title",
+              type: "string",
+            },
+            {
+              name: "url",
+              title: "URL",
+              type: "url",
+              validation: (Rule) =>
+                Rule.uri({
+                  scheme: ["http", "https", "mailto", "tel"],
+                }),
+            },
+          ],
+        },
+      ],
     },
   ],
   preview: {
     select: {
-      title: "title",
-      url: "url",
-      queue: "queue",
+      urls: "urls",
     },
     prepare(selection) {
-      const { title, queue } = selection;
+      const { urls } = selection;
       return {
-        title,
-        subtitle: queue,
+        title: "Link in Bio Page",
+        subtitle: `Number of links: ${urls.length}`,
       };
     },
   },
