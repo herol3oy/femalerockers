@@ -23,7 +23,7 @@
     "preact": "^10.6.0",
     "preact-render-to-string": "^5.1.19",
     "react": "npm:@preact/compat",
-    "react-bootstrap": "^2.0.0",
+    "react-bootstrap": "^2.1.1",
     "react-cookie-consent": "^6.2.2",
     "react-dom": "npm:@preact/compat",
     "react-icons": "^4.1.0",
