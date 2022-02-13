@@ -21,12 +21,12 @@ export default {
         maxLength: 96,
       },
     },
-    {
-      name: "author",
-      title: "Author",
-      type: "reference",
-      to: { type: "author" },
-    },
+    // {
+    //   name: "author",
+    //   title: "Author",
+    //   type: "reference",
+    //   to: { type: "author" },
+    // },
     {
       name: "mainImage",
       title: "Main image",
@@ -35,12 +35,12 @@ export default {
         hotspot: true,
       },
     },
-    {
-      name: "categories",
-      title: "Categories",
-      type: "array",
-      of: [{ type: "reference", to: { type: "category" } }],
-    },
+    // {
+    //   name: "categories",
+    //   title: "Categories",
+    //   type: "array",
+    //   of: [{ type: "reference", to: { type: "category" } }],
+    // },
     {
       name: "publishedAt",
       title: "Published at",
