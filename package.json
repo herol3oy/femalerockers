@@ -31,7 +31,7 @@
     "react-ssr-prepass": "^1.4.0",
     "react-youtube": "^7.13.1",
     "sass": "^1.32.5",
-    "swr": "^1.0.1"
+    "swr": "^1.1.2"
   },
   "devDependencies": {
     "@sanity/cli": "^2.25.0",
