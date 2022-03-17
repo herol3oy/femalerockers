@@ -6,6 +6,7 @@ import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
+import Head from "next/head";
 
 const EMOJIS = ["🎸", "🎤", "👩‍🎤", "🥁", "🔥", "🤘", "💯"];
 
@@ -13,6 +14,10 @@ export default function bio({ links }) {
   const { urls } = links[0];
   return (
     <Container>
+      <Head>
+        <title>Female Rockers of the World | Index</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <Row className="text-center d-flex justify-content-center mt-5">
         <Col xs={12}>
           <Link href="/">
