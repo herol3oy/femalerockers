@@ -12,11 +12,9 @@ export default function GetFeatured() {
     <Container>
       <Row className="text-center d-flex justify-content-center mt-5">
         <Col xs={12}>
-          <Link href="/">
-            <a className="text-decoration-none">
-              {/* <Logo className="logo__svg" /> */}
-              <GetFeaturedLogo width="200" />
-            </a>
+          <Link href="/" className="text-decoration-none">
+            {/* <Logo className="logo__svg" /> */}
+            <GetFeaturedLogo width="200" />
           </Link>
           <a
             href="https://www.instagram.com/female_rockers/"

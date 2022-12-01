@@ -24,12 +24,12 @@ export default function Footer() {
             </small>{" "}
             {` `}
             <small className="badge bg-dark text-light fw-light">
-              <Link href="/privacypolicy">
-                <a className="text-light">Privacy Policy</a>
+              <Link href="/privacypolicy" className="text-light">
+                Privacy Policy
               </Link>
               {` `}and {` `}
-              <Link href="/terms">
-                <a className="text-light">Terms</a>
+              <Link href="/terms" className="text-light">
+                Terms
               </Link>
               {` `} © {`2020 - ${new Date().getFullYear()}`}
             </small>
@@ -40,8 +40,8 @@ export default function Footer() {
             </p>
             <small className="text-light fw-light">
               Please read {` `}
-              <Link href="/page/about">
-                <a className="fw-bold text-light">about us</a>
+              <Link href="/page/about" className="fw-bold text-light">
+                about us
               </Link>
               {` `} here and fine out more about our ideas!
             </small>

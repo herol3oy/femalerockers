@@ -31,9 +31,7 @@ export default function index() {
         {lodashMap(articles, (article, index) => (
           <div key={index.toString()}>
             <Link href={`/articles/${article.slug.current}`}>
-              <a>
-                <h1>{article.title}</h1>
-              </a>
+              <h1>{article.title}</h1>
             </Link>
             <p>{article.excerpt}</p>
             <small>

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import Link from "next/link";
 import lodashMap from "lodash/map";
 import Carousel from "react-bootstrap/Carousel";
@@ -54,37 +54,35 @@ export default function carousel() {
                 quality={100}
               />
               <Link href={rocker.slug.current}>
-                <a>
-                  <Carousel.Caption>
-                    <Row>
-                      <div className="col-4 d-flex justify-content-end">
-                        <Image
-                          src={urlFor(rocker.profileImage.asset).url()}
-                          alt={rocker.stageName}
-                          layout="intrinsic"
-                          objectFit="cover"
-                          width={162}
-                          height={240}
-                        />
-                      </div>
-                      <div className="col-8 text-start align-self-end">
-                        <h5 className="text-start text-danger fw-bolder m-0">
-                          {`${rocker.stageName} ${rocker.country}`}
-                        </h5>
-                        <h3 className="text-start fw-lighter d-lg-block d-none">
-                          {rocker.title}
-                        </h3>
-                        <u>
-                          <strong>
-                            <small>
-                              READ MORE <FaLongArrowAltRight />
-                            </small>
-                          </strong>
-                        </u>
-                      </div>
-                    </Row>
-                  </Carousel.Caption>
-                </a>
+                <Carousel.Caption>
+                  <Row>
+                    <div className="col-4 d-flex justify-content-end">
+                      <Image
+                        src={urlFor(rocker.profileImage.asset).url()}
+                        alt={rocker.stageName}
+                        layout="intrinsic"
+                        objectFit="cover"
+                        width={162}
+                        height={240}
+                      />
+                    </div>
+                    <div className="col-8 text-start align-self-end">
+                      <h5 className="text-start text-danger fw-bolder m-0">
+                        {`${rocker.stageName} ${rocker.country}`}
+                      </h5>
+                      <h3 className="text-start fw-lighter d-lg-block d-none">
+                        {rocker.title}
+                      </h3>
+                      <u>
+                        <strong>
+                          <small>
+                            READ MORE <FaLongArrowAltRight />
+                          </small>
+                        </strong>
+                      </u>
+                    </div>
+                  </Row>
+                </Carousel.Caption>
               </Link>
             </Carousel.Item>
           );

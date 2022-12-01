@@ -1,5 +1,5 @@
 import { useRef, useEffect } from "react";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import Link from "next/link";
 import random from "lodash/random";
 import sanityClient from "@lib/SanityClient";
@@ -237,29 +237,31 @@ export default function interview({
                 READ MORE
               </Badge>
             </div>
-            <Link href={randomInterview.slug.current}>
-              <a className="text-decoration-none" onClick={onCLickToTop}>
-                <Alert
-                  variant="transparent"
-                  className="row p-2 mx-1 border border-danger text-light"
-                >
-                  <div className="col-4 col-lg-2">
-                    <Image
-                      src={urlFor(randomInterview.profileImage.asset).url()}
-                      width={100}
-                      height={100}
-                      layout="fixed"
-                      objectFit="cover"
-                      quality={100}
-                      alt={randomInterview.stageName}
-                    />
-                  </div>
-                  <div className="col-8 col-lg-10">
-                    <Alert.Heading>{randomInterview.title}</Alert.Heading>
-                    <p className="">{randomInterview.excerpt.slice(0, 80)}</p>
-                  </div>
-                </Alert>
-              </a>
+            <Link
+              href={randomInterview.slug.current}
+              className="text-decoration-none"
+              onClick={onCLickToTop}
+            >
+              <Alert
+                variant="transparent"
+                className="row p-2 mx-1 border border-danger text-light"
+              >
+                <div className="col-4 col-lg-2">
+                  <Image
+                    src={urlFor(randomInterview.profileImage.asset).url()}
+                    width={100}
+                    height={100}
+                    layout="fixed"
+                    objectFit="cover"
+                    quality={100}
+                    alt={randomInterview.stageName}
+                  />
+                </div>
+                <div className="col-8 col-lg-10">
+                  <Alert.Heading>{randomInterview.title}</Alert.Heading>
+                  <p className="">{randomInterview.excerpt.slice(0, 80)}</p>
+                </div>
+              </Alert>
             </Link>
             <NewsLetter />
           </section>

@@ -34,15 +34,11 @@ export default function CookiesConsent() {
         We use cookies to give you the best experience possible. Continue
         browsing or review our {` `}
         <Link href="/privacypolicy">
-          <a>
-            <u className="text-light">privacy policy</u>
-          </a>
+          <u className="text-light">privacy policy</u>
         </Link>{" "}
         and{" "}
         <Link className="text-light" href="/terms">
-          <a>
-            <u className="text-light">terms</u>
-          </a>
+          <u className="text-light">terms</u>
         </Link>
         {` `} to learn more.
       </small>

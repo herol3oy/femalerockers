@@ -24,8 +24,8 @@ export default function RandomQuote() {
         <p className="homepage__quotation h3 text-center text-light">
           {`"${quote.quote}"`}
         </p>
-        <Link href={quote.slug.current || "/"}>
-          <a className="text-light">{`~ ${quote.stageName || " "} ~`}</a>
+        <Link href={quote.slug.current || "/"} className="text-light">
+          {`~ ${quote.stageName || " "} ~`}
         </Link>
       </Container>
     </Container>
