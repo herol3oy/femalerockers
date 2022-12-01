@@ -20,7 +20,7 @@ export default function bio({ links }) {
       </Head>
       <Row className="text-center d-flex justify-content-center mt-5">
         <Col xs={12}>
-          <Link href="/">
+          <Link href="/" legacyBehavior>
             <a className="text-decoration-none">
               <Logo className="logo__svg" />
             </a>

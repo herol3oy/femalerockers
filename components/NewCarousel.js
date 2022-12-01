@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import sanityClient from "@lib/SanityClient";
 import imageUrlBuilder from "@sanity/image-url";
 import Container from "react-bootstrap/Container";
@@ -67,7 +67,7 @@ export default function NewCarousel() {
   };
 
   const CardBodyText = (rocker) => (
-    <Link href={rocker.slug.current}>
+    <Link href={rocker.slug.current} legacyBehavior>
       <a>
         <Card.Body className="card-body__description">
           <div className="position-absolute col-8 text-start align-self-end card-body__wrapper">
@@ -110,7 +110,7 @@ export default function NewCarousel() {
           responsive={responsive}
           removeArrowOnDeviceType={["mobile"]}
         >
-          <Link href="/page/about">
+          <Link href="/page/about" legacyBehavior>
             <a className="text-decoration-none">
               <div
                 className=" card-body__description p-3 h-100 d-flex flex-column justify-content-end align-items-start"

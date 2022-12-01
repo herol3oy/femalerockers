@@ -13,8 +13,11 @@ export default function Banner() {
         <Row className="py-2">
           <small className="fw-bold text-light text-center">
             📣 We interview future sensations in rock music -{` `}
-            <Link href="https://www.instagram.com/female_rockers/">
-              <a className="link-warning">instagram</a>
+            <Link
+              href="https://www.instagram.com/female_rockers/"
+              className="link-warning"
+            >
+              instagram
             </Link>
             <Button
               size="sm"

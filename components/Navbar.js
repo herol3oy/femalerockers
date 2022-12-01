@@ -18,10 +18,8 @@ export default function navbar() {
         my-3"
         expand="lg"
       >
-        <Link href="/">
-          <a className="m-auto mt-2">
-            <TypeFace style={{ width: "150px" }} />
-          </a>
+        <Link href="/" className="m-auto mt-2">
+          <TypeFace style={{ width: "150px" }} />
         </Link>
       </Navbar>
     </Container>

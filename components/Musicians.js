@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import lodashMap from "lodash/map";
 import lodashRange from "lodash/range";
 import Container from "react-bootstrap/Container";
@@ -57,48 +57,50 @@ export default function Musicians() {
     <Container className="overflow-hidden">
       <Row className="row-cols-2 row-cols-sm-2 row-cols-lg-6 row-cols-md-4 g-0 my-3 gy-2">
         {lodashMap(data, (rocker, index) => (
-          <Link key={index.toString()} href={rocker.slug.current}>
-            <a className="p-0 text-white text-decoration-none">
-              <Card className="scale mx-1 bg-transparent border-0 border-top border-danger border-2 rounded-top rounded-bottom">
-                <Image
-                  className="d-block rounded-top"
-                  src={urlFor(rocker.profileImage.asset.url)
-                    .width(160)
-                    .height(240)
-                    .url()}
-                  alt={rocker.stageName}
-                  layout="responsive"
-                  width={160}
-                  height={240}
-                />
-                <Card.ImgOverlay className="card__img--overlay d-flex flex-column justify-content-between h-100">
-                  <Card.Text>
-                    <Card.Title className="text-light fw-bold interview-title">{`${rocker.stageName} ${rocker.country}`}</Card.Title>
+          <Link
+            key={index.toString()}
+            href={rocker.slug.current}
+            className="p-0 text-white text-decoration-none"
+          >
+            <Card className="scale mx-1 bg-transparent border-0 border-top border-danger border-2 rounded-top rounded-bottom">
+              <Image
+                className="d-block rounded-top"
+                src={urlFor(rocker.profileImage.asset.url)
+                  .width(160)
+                  .height(240)
+                  .url()}
+                alt={rocker.stageName}
+                layout="responsive"
+                width={160}
+                height={240}
+              />
+              <Card.ImgOverlay className="card__img--overlay d-flex flex-column justify-content-between h-100">
+                <Card.Text>
+                  <Card.Title className="text-light fw-bold interview-title">{`${rocker.stageName} ${rocker.country}`}</Card.Title>
 
-                    {rocker.profession.map((profession, index) => (
-                      <span
-                        key={index.toString()}
-                        aria-label="bassist"
-                        role="img"
-                      >
-                        {(profession === "bassist" && `🎸`) ||
-                          (profession === "drummer" && `🥁`) ||
-                          (profession === "vocalist" && `🎙️`) ||
-                          (profession === "guitarist" && `🎸`)}
-                      </span>
-                    ))}
-                  </Card.Text>
-                  <small className="h6">
-                    <span className="h6 accent-red-color-text fw-bolder">
-                      /{` `}
+                  {rocker.profession.map((profession, index) => (
+                    <span
+                      key={index.toString()}
+                      aria-label="bassist"
+                      role="img"
+                    >
+                      {(profession === "bassist" && `🎸`) ||
+                        (profession === "drummer" && `🥁`) ||
+                        (profession === "vocalist" && `🎙️`) ||
+                        (profession === "guitarist" && `🎸`)}
                     </span>
-                    {rocker.title.length > 35
-                      ? `${rocker.title.slice(0, 35)}...`
-                      : rocker.title}
-                  </small>
-                </Card.ImgOverlay>
-              </Card>
-            </a>
+                  ))}
+                </Card.Text>
+                <small className="h6">
+                  <span className="h6 accent-red-color-text fw-bolder">
+                    /{` `}
+                  </span>
+                  {rocker.title.length > 35
+                    ? `${rocker.title.slice(0, 35)}...`
+                    : rocker.title}
+                </small>
+              </Card.ImgOverlay>
+            </Card>
           </Link>
         ))}
       </Row>
