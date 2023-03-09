@@ -110,7 +110,7 @@ export default function NewCarousel() {
           responsive={responsive}
           removeArrowOnDeviceType={["mobile"]}
         >
-          <Link href="/page/about" legacyBehavior>
+          {/* <Link href="/page/about" legacyBehavior>
             <a className="text-decoration-none">
               <div
                 className=" card-body__description p-3 h-100 d-flex flex-column justify-content-end align-items-start"
@@ -128,7 +128,7 @@ export default function NewCarousel() {
                 </div>
               </div>
             </a>
-          </Link>
+          </Link> */}
           {lodashMap(carousel, (rocker) => (
             <div
               key={rocker.stageName.toString()}
