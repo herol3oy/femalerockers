@@ -14,7 +14,7 @@ export default function MyApp({ Component, pageProps }) {
   const router = useRouter();
   const isBioPage = router.route === "/bio";
   const isShredCollabPage = router.route === "/ShredCollab";
-  const isFeature = router.route === "/GetFeatured";
+  const isFeature = router.route === "/GetFeaturedNow";
 
   // useEffect(() => {
   //   const handleRouteChange = (url) => {
