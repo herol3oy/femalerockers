@@ -1,12 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/legacy/image";
-import lodashMap from "lodash/map";
 import lodashRange from "lodash/range";
 import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
+import Stack from "react-bootstrap/Stack";
 import sanityClient from "@lib/SanityClient";
 import imageUrlBuilder from "@sanity/image-url";
 import CardSkeleton from "./skeletons/CardSkeleton";
@@ -14,15 +14,12 @@ import useSWR from "swr";
 import groq from "groq";
 
 const urlFor = (source) => imageUrlBuilder(sanityClient).image(source);
-const postsPerPage = 24;
 
 export default function Musicians() {
-  const [pageIndex, setPageIndex] = useState(postsPerPage);
+  const [musicians, setMusicians] = useState([]);
 
   const { data, error } = useSWR(
-    groq`*[_type == "interview"] | order(date desc) [${
-      pageIndex - postsPerPage
-    }...${pageIndex}]{
+    groq`*[_type == "interview"] | order(date desc) {
                stageName,
                title,
                profession,
@@ -39,6 +36,12 @@ export default function Musicians() {
     (query) => sanityClient.fetch(query)
   );
 
+  useEffect(() => {
+    if (data) {
+      setMusicians(data);
+    }
+  }, [data]);
+
   if (error) return <div>Failed</div>;
 
   if (!data) {
@@ -53,78 +56,92 @@ export default function Musicians() {
     );
   }
 
+  const filterMusicians = (musicianType) => {
+    const filteredMusicians = data.filter((musician) =>
+      musician.profession.includes(musicianType)
+    );
+    setMusicians(filteredMusicians);
+  };
+
+  const allMusicians = () => setMusicians(data);
+
+  const filterringButtons = [
+    {
+      label: `All (${musicians.length})`,
+      onClick: allMusicians,
+      variant: "secondary",
+    },
+    { label: "Drummers 🥁", onClick: () => filterMusicians("drummer") },
+    { label: "Guitarists 🎸", onClick: () => filterMusicians("guitarist") },
+    { label: "Vocalists 🎙️", onClick: () => filterMusicians("vocalist") },
+    { label: "Bassist 🎸", onClick: () => filterMusicians("bassist") },
+  ];
+
   return (
     <Container className="overflow-hidden">
-      <Row className="row-cols-2 row-cols-sm-2 row-cols-lg-6 row-cols-md-4 g-0 my-3 gy-2">
-        {lodashMap(data, (rocker, index) => (
-          <Link
-            key={index.toString()}
-            href={rocker.slug.current}
-            className="p-0 text-white text-decoration-none"
+      <Stack className="justify-content-center" direction="horizontal" gap={1}>
+        {filterringButtons.map((button) => (
+          <Button
+            key={button.label}
+            size="sm"
+            variant={button.variant || "primary"}
+            onClick={button.onClick}
           >
-            <Card className="scale mx-1 bg-transparent border-0 border-top border-danger border-2 rounded-top rounded-bottom">
-              <Image
-                className="d-block rounded-top"
-                src={urlFor(rocker.profileImage.asset.url)
-                  .width(160)
-                  .height(240)
-                  .url()}
-                alt={rocker.stageName}
-                layout="responsive"
-                width={160}
-                height={240}
-              />
-              <Card.ImgOverlay className="card__img--overlay d-flex flex-column justify-content-between h-100">
-                <Card.Text>
-                  <Card.Title className="text-light fw-bold interview-title">{`${rocker.stageName} ${rocker.country}`}</Card.Title>
-
-                  {rocker.profession.map((profession, index) => (
-                    <span
-                      key={index.toString()}
-                      aria-label="bassist"
-                      role="img"
-                    >
-                      {(profession === "bassist" && `🎸`) ||
-                        (profession === "drummer" && `🥁`) ||
-                        (profession === "vocalist" && `🎙️`) ||
-                        (profession === "guitarist" && `🎸`)}
-                    </span>
-                  ))}
-                </Card.Text>
-                <small className="h6">
-                  <span className="h6 accent-red-color-text fw-bolder">
-                    /{` `}
-                  </span>
-                  {rocker.title.length > 35
-                    ? `${rocker.title.slice(0, 35)}...`
-                    : rocker.title}
-                </small>
-              </Card.ImgOverlay>
-            </Card>
-          </Link>
+            {button.label}
+          </Button>
         ))}
-      </Row>
-      <Row>
-        <section className="d-flex justify-content-center">
-          <Button
-            className="mx-1"
-            disabled={pageIndex <= postsPerPage && "disabled"}
-            variant="dark"
-            size="sm"
-            onClick={() => setPageIndex(pageIndex - postsPerPage)}
-          >
-            👈
-          </Button>
-          <Button
-            className="mx-1"
-            disabled={data.length < postsPerPage && "disabled"}
-            variant="dark"
-            size="sm"
-            onClick={() => setPageIndex(pageIndex + postsPerPage)}
-          >
-            👉
-          </Button>
-        </section>
+      </Stack>
+      <Row className="row-cols-2 row-cols-sm-2 row-cols-lg-6 row-cols-md-4 g-0 my-3 gy-2">
+        {musicians.map((rocker) => {
+          const { stageName, country, profession, title, slug, profileImage } =
+            rocker;
+          const professionIcons = {
+            bassist: "🎸",
+            drummer: "🥁",
+            vocalist: "🎙️",
+            guitarist: "🎸",
+          };
+          const shortenedTitle =
+            title.length > 35 ? `${title.slice(0, 35)}...` : title;
+
+          return (
+            <Link
+              key={stageName}
+              href={slug.current}
+              className="p-0 text-white text-decoration-none"
+            >
+              <Card className="scale mx-1 bg-transparent border-0 border-top border-danger border-2 rounded-top rounded-bottom">
+                <Image
+                  className="d-block rounded-top"
+                  src={urlFor(profileImage.asset.url)
+                    .width(160)
+                    .height(240)
+                    .url()}
+                  alt={stageName}
+                  layout="responsive"
+                  width={160}
+                  height={240}
+                />
+                <Card.ImgOverlay className="card__img--overlay d-flex flex-column justify-content-between h-100">
+                  <Card.Text>
+                    <Card.Title className="text-light fw-bold interview-title">{`${stageName} ${country}`}</Card.Title>
+                    {profession.map((p, index) => (
+                      <span key={index.toString()} aria-label={p} role="img">
+                        {professionIcons[p]}
+                      </span>
+                    ))}
+                  </Card.Text>
+                  <small className="h6">
+                    <span className="h6 accent-red-color-text fw-bolder">
+                      /{" "}
+                    </span>
+                    {shortenedTitle}
+                  </small>
+                </Card.ImgOverlay>
+              </Card>
+            </Link>
+          );
+        })}
       </Row>
     </Container>
   );
