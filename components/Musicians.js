@@ -6,6 +6,7 @@ import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
+import Stack from "react-bootstrap/Stack";
 import sanityClient from "@lib/SanityClient";
 import imageUrlBuilder from "@sanity/image-url";
 import CardSkeleton from "./skeletons/CardSkeleton";
@@ -65,7 +66,11 @@ export default function Musicians() {
   const allMusicians = () => setMusicians(data);
 
   const filterringButtons = [
-    { label: "All", onClick: allMusicians, variant: "secondary" },
+    {
+      label: `All (${musicians.length})`,
+      onClick: allMusicians,
+      variant: "secondary",
+    },
     { label: "Drummers 🥁", onClick: () => filterMusicians("drummer") },
     { label: "Guitarists 🎸", onClick: () => filterMusicians("guitarist") },
     { label: "Vocalists 🎙️", onClick: () => filterMusicians("vocalist") },
@@ -74,7 +79,7 @@ export default function Musicians() {
 
   return (
     <Container className="overflow-hidden">
-      <div className="d-flex justify-content-center gap-2">
+      <Stack className="justify-content-center" direction="horizontal" gap={1}>
         {filterringButtons.map((button) => (
           <Button
             key={button.label}
@@ -85,7 +90,7 @@ export default function Musicians() {
             {button.label}
           </Button>
         ))}
-      </div>
+      </Stack>
       <Row className="row-cols-2 row-cols-sm-2 row-cols-lg-6 row-cols-md-4 g-0 my-3 gy-2">
         {musicians.map((rocker) => {
           const { stageName, country, profession, title, slug, profileImage } =
