@@ -4,6 +4,7 @@ import Musicians from "@components/Musicians";
 import RandomQuote from "@components/RandomQuote";
 import CustomHead from "@components/CustomHead";
 import ShredBanner from "components/ShredBanner";
+import NewsLetterSection from "components/NewsLetterSection";
 
 export default function Home() {
   useEffect(() => window.scrollTo({ top: 0 }), []);
@@ -11,6 +12,7 @@ export default function Home() {
   return (
     <>
       <CustomHead />
+      <NewsLetterSection />
       <NewCarousel />
       <ShredBanner />
       <Musicians />
