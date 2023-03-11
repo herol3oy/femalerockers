@@ -1,5 +1,4 @@
-import { useRef, useEffect } from "react";
-import Image from "next/legacy/image";
+import Image from "next/image";
 import Link from "next/link";
 import random from "lodash/random";
 import sanityClient from "@lib/SanityClient";
@@ -7,6 +6,7 @@ import BlockContent from "@sanity/block-content-to-react";
 import imageUrlBuilder from "@sanity/image-url";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import Badge from "react-bootstrap/Badge";
 import Alert from "react-bootstrap/Alert";
 import { FaYoutube } from "/node_modules/react-icons/fa";
@@ -18,12 +18,6 @@ import { FaFacebookF } from "/node_modules/react-icons/fa";
 import { getInterviewContent } from "@lib/SanityApi";
 import YouTube from "react-youtube";
 import getYouTubeID from "get-youtube-id";
-import {
-  motion,
-  useSpring,
-  useTransform,
-  useViewportScroll,
-} from "framer-motion";
 import NewsLetter from "@components/NewsLetter";
 import CustomHead from "@components/CustomHead";
 import useSWR from "swr";
@@ -47,15 +41,36 @@ export default function interview({
   date,
   body,
 }) {
-  const ref = useRef(null);
-
   const onCLickToTop = () => window.scrollTo({ top: 0 });
 
   const urlFor = (source) => imageUrlBuilder(sanityClient).image(source);
 
-  const { scrollY } = useViewportScroll();
-  const yRange = useTransform(scrollY, [350, 0], [0, 1]);
-  const opacity = useSpring(yRange, { stiffness: 400, damping: 40 });
+  const socialIcons = [
+    {
+      link: youtube,
+      icon: <FaYoutube className="h4 mx-1 text-dark" />,
+    },
+    {
+      link: spotify,
+      icon: <FaSpotify className="h4 mx-1 text-dark" />,
+    },
+    {
+      link: instagram,
+      icon: <FaInstagram className="h4 mx-1 text-dark" />,
+    },
+    {
+      link: website,
+      icon: <FaLink className="h4 mx-1 text-dark" />,
+    },
+    {
+      link: twitter,
+      icon: <FaTwitter className="h4 mx-1 text-dark" />,
+    },
+    {
+      link: facebook,
+      icon: <FaFacebookF className="h4 mx-1 text-dark" />,
+    },
+  ];
 
   const { data, error } = useSWR(
     groq`*[_type == "interview"]{
@@ -74,36 +89,36 @@ export default function interview({
 
   const BlockRenderer = (props) => {
     const { marks, text } = props.node.children[0];
-    if (props.node.style === "blockquote")
-      return <blockquote>{text}</blockquote>;
-    if (marks[0] === "strong") {
+    const blockquote = props.node.style === "blockquote";
+    const question = marks[0] === "strong";
+    const name = stageName.split(" ").shift().toUpperCase();
+
+    if (blockquote)
       return (
-        <div>
-          <dt className="d-flex flex-column align-items-end">
+        <blockquote>
+          <div className="glow-effect">{text}</div>
+        </blockquote>
+      );
+    if (question) {
+      return (
+        <>
+          <dt>
             <Image
               src="/favicon.svg"
               width={32}
               height={32}
               alt="Female Rockers Logo"
             />
-            <div className="stage-name mt-4">
-              {stageName.split(" ").shift().toUpperCase()}
-            </div>
           </dt>
-          <dd className="h5 fw-bold">{text}</dd>
-        </div>
+          <dd className="h5 fw-bold mt-2">{text}</dd>
+        </>
       );
     }
-    if (
-      props.node.children[0].marks[0] !== "strong" &&
-      props.node.children[0].text !== stageName.split(" ").shift().toUpperCase()
-    ) {
+    if (!question) {
       return (
         <div className="my-4">
-          {/* <dt className="fw-bold"> */}
-          {/* {stageName.split(" ").shift().toUpperCase()} */}
-          {/* </dt> */}
-          <dd className="h5 lh-base fw-thin">{props.node.children[0].text}</dd>
+          <dt>{name}</dt>
+          <dd className="h5 lh-base fw-thin mt-1">{text}</dd>
         </div>
       );
     }
@@ -121,98 +136,84 @@ export default function interview({
   return (
     <>
       {coverImage && (
-        <>
-          <CustomHead
-            slug={slug}
-            stageName={stageName}
-            coverImage={urlFor(coverImage?.asset).url()}
-          />
-          <section className="interview__coverimg">
-            <Image
-              src={urlFor(coverImage?.asset).url()}
-              alt={stageName}
-              layout="fill"
-              objectFit="cover"
-              className="cover__img"
-            />
-          </section>
-        </>
+        <CustomHead
+          slug={slug}
+          stageName={stageName}
+          coverImage={urlFor(coverImage?.asset).url()}
+        />
       )}
-      <motion.div
-        ref={ref}
-        style={{ opacity }}
-        className="d-flex justify-content-center "
-      >
-        <section className="interview__profile--box d-flex justify-content-start justify-content-lg-center bg-dark">
-          {profileImage && (
-            <Image
-              src={urlFor(profileImage?.asset).url()}
-              width={160}
-              height={240}
-              alt={stageName}
-            />
-          )}
-          <div className="align-self-end p-2">
-            {(profession || []).map((profession, index) => {
-              return (
-                <Badge
-                  key={index.toString()}
-                  className="accent-red-color rounded-pill"
-                  pill
-                  variant=""
-                >
-                  {profession}
-                </Badge>
-              );
-            })}
-            <h1 className="accent-red-color-text fw-bold">{`${stageName} ${country}`}</h1>
-            <p className="text-light small">
-              {new Date(date).toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "long",
-              })}
-            </p>
-            {youtube && (
-              <a rel="noreferrer" href={youtube} target="_blank">
-                <FaYoutube className="h4 mx-1 text-light" />
-              </a>
-            )}
-            {spotify && (
-              <a rel="noreferrer" href={spotify} target="_blank">
-                <FaSpotify className="h4 mx-1 text-light" />
-              </a>
-            )}
-            {instagram && (
-              <a rel="noreferrer" href={instagram} target="_blank">
-                <FaInstagram className="h4 mx-1 text-light" />
-              </a>
-            )}
-            {website && (
-              <a rel="noreferrer" href={website} target="_blank">
-                <FaLink className="h4 mx-1 text-light" />
-              </a>
-            )}
-            {twitter && (
-              <a rel="noreferrer" href={twitter} target="_blank">
-                <FaTwitter className="h4 mx-1 text-light" />
-              </a>
-            )}
-            {facebook && (
-              <a rel="noreferrer" href={facebook} target="_blank">
-                <FaFacebookF className="h4 mx-1 text-light" />
-              </a>
-            )}
-          </div>
-        </section>
-      </motion.div>
 
       <Container>
         <Row className="justify-content-center">
+          <small
+            className="h6 text-bold text-white text-center mt-5 text-uppercase"
+            style={{ letterSpacing: "5px" }}
+          >
+            {new Date(date).toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+            })}
+          </small>
+          <h2 className="accent-red-color-text text-center display-5 fw-bolder">
+            {title}
+          </h2>
+          <div className="d-flex flex-column justify-content-center ">
+            <Image
+              className="shadow-sm rounded"
+              src={urlFor(coverImage?.asset).url()}
+              alt={stageName}
+              width={800}
+              height={500}
+              style={{ objectFit: "cover", margin: "2rem 0", width: "100%" }}
+            />
+            <Row className="justify-content-center">
+              <Col className="excerpt " xs={12} lg={6}>
+                <p className="h3 lh-base">{excerpt}</p>{" "}
+                <div
+                  className="d-flex gap-3 my-4 alert alert-dark"
+                  role="alert"
+                >
+                  {profileImage && (
+                    <Image
+                      src={urlFor(profileImage?.asset).url()}
+                      width={75}
+                      height={75}
+                      alt={stageName}
+                      className="rounded-5 object-fit-cover"
+                    />
+                  )}
+                  <div>
+                    {(profession || []).map((profession, index) => {
+                      return (
+                        <Badge
+                          key={index.toString()}
+                          className="accent-red-color bg-danger rounded-pill"
+                        >
+                          {profession}
+                        </Badge>
+                      );
+                    })}
+                    <h1 className="fw-bold">{`${stageName} ${country}`}</h1>
+                    {socialIcons.map(
+                      ({ link, icon }, index) =>
+                        link && (
+                          <a
+                            key={index}
+                            rel="noreferrer"
+                            href={link}
+                            target="_blank"
+                          >
+                            {icon}
+                          </a>
+                        )
+                    )}
+                  </div>
+                </div>
+              </Col>
+            </Row>
+          </div>
+
           <section className="col-12 col-lg-7 col-md-10">
-            <h2 className="accent-red-color-text display-5 fw-bolder">
-              {title}
-            </h2>
-            <p className="h3 lh-base text-light">{excerpt}</p>
             <hr className="my-5 text-light" />
             {body && (
               <BlockContent
@@ -251,8 +252,6 @@ export default function interview({
                     src={urlFor(randomInterview.profileImage.asset).url()}
                     width={100}
                     height={100}
-                    layout="fixed"
-                    objectFit="cover"
                     quality={100}
                     alt={randomInterview.stageName}
                   />
@@ -266,6 +265,17 @@ export default function interview({
             <NewsLetter />
           </section>
         </Row>
+
+        <style jsx global>{`
+          .excerpt {
+            margin-top: -8rem !important;
+            z-index: 11;
+            background: #1b1b1b;
+            padding: 2rem;
+            color: white;
+            border-radius: 10px;
+          }
+        `}</style>
       </Container>
     </>
   );

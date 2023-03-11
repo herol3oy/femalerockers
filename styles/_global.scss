@@ -85,7 +85,39 @@ blockquote::before {
   font-size: 3em;
   line-height: 0;
   left: -0.2rem;
-  top: 0.9rem;
+  top: 5rem;
   position: absolute;
   text-align: center;
+}
+
+.glow-effect {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 4rem 0;
+}
+
+.glow-effect::before {
+  background: var(--secondary-glow);
+  border-radius: 50%;
+  width: 480px;
+  height: 360px;
+  margin-left: -400px;
+}
+
+.glow-effect::after {
+  background: var(--primary-glow);
+  width: 240px;
+  height: 180px;
+  z-index: -1111;
+}
+
+.glow-effect::before,
+.glow-effect::after {
+  content: "";
+  left: 50%;
+  position: absolute;
+  filter: blur(45px);
+  transform: translateZ(0);
 }

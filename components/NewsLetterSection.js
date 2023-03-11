@@ -108,38 +108,6 @@ export default function NewsLetterSection() {
           color: black;
           max-width: max-content;
         }
-
-        .glow-effect {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          position: relative;
-          padding: 4rem 0;
-        }
-
-        .glow-effect::before {
-          background: var(--secondary-glow);
-          border-radius: 50%;
-          width: 480px;
-          height: 360px;
-          margin-left: -400px;
-        }
-
-        .glow-effect::after {
-          background: var(--primary-glow);
-          width: 240px;
-          height: 180px;
-          z-index: -1111;
-        }
-
-        .glow-effect::before,
-        .glow-effect::after {
-          content: "";
-          left: 50%;
-          position: absolute;
-          filter: blur(45px);
-          transform: translateZ(0);
-        }
       `}</style>
     </Container>
   );
