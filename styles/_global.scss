@@ -6,6 +6,7 @@
     rgba(1, 65, 255, 0),
     rgba(255, 1, 1, 0.3)
   );
+  --accent-red-color: #b03c37;
 }
 
 body {
@@ -17,7 +18,7 @@ body {
 }
 
 *::-webkit-scrollbar-thumb {
-  background: #b03c37;
+  background: --accent-red-color;
 }
 
 *::-webkit-scrollbar-track {
@@ -71,7 +72,7 @@ figure img {
 }
 
 blockquote {
-  color: #b93c37;
+  color: var(--accent-red-color);
   font-family: "Roboto", sans-serif;
   font-size: 2em;
   font-weight: 700;

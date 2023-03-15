@@ -29,7 +29,10 @@ export default function ShredBanner() {
     <Container>
       <Row className="my-5">
         <div className="col-12 col-lg-2 mt-2">
-          <div className="d-none flex-column text-center d-sm-flex align-items-center justify-content-center bg-danger rounded-2 py-5 text-light">
+          <div
+            style={{ backgroundColor: "var(--accent-red-color)" }}
+            className="d-none flex-column text-center d-sm-flex align-items-center justify-content-center rounded-2 py-5 text-light"
+          >
             <FaYoutube className="display-1" />
           </div>
         </div>
