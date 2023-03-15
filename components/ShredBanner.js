@@ -39,7 +39,7 @@ export default function ShredBanner() {
         {SHRED_BANNERS.map((banner, bannerIndex) => {
           const isHovered = bannerIndex === hoveredBanner;
           return (
-            <div className="col-12 col-lg-5 mt-2">
+            <div className="col-12 col-lg-5 mt-2" key={banner.imgSrc}>
               <section
                 className="banner-overlay overflow-hidden rounded-2 p-5"
                 style={{
