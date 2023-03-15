@@ -7,9 +7,9 @@ import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
 import CarouselSkeleton from "./skeletons/CarouselSkeleton";
 import Carousel from "react-multi-carousel";
-import lodashMap from "lodash/map";
 import "react-multi-carousel/lib/styles.css";
 import Logo from "@components/svg/Logo";
+import { getNewCarouselMusiciansItems } from "@lib/SanityApi";
 
 const urlFor = (source) => imageUrlBuilder(sanityClient).image(source);
 
@@ -40,20 +40,11 @@ export default function NewCarousel() {
     useState(null);
 
   useEffect(() => {
-    sanityClient
-      .fetch(
-        `*[_type == "interview"] | order(date desc) [0..4]{
-                    stageName,
-                    title,
-                    country,
-                    profileImage,
-                    coverImage,
-                    profession,
-                    slug,
-                }`
-      )
-      .then((musician) => setCarousel(musician))
-      .catch(console.error);
+    async function innerEffect() {
+      const items = await getNewCarouselMusiciansItems();
+      setCarousel(items);
+    }
+    innerEffect();
   }, []);
 
   const mouseEnterHandle = (url, stageName) => {
@@ -110,28 +101,9 @@ export default function NewCarousel() {
           responsive={responsive}
           removeArrowOnDeviceType={["mobile"]}
         >
-          {/* <Link href="/page/about" legacyBehavior>
-            <a className="text-decoration-none">
-              <div
-                className=" card-body__description p-3 h-100 d-flex flex-column justify-content-end align-items-start"
-                style={{
-                  backgroundImage:
-                    "url(https://res.cloudinary.com/dxu6gcib2/image/upload/v1644675426/Female%20Rockers/200k-Story_jj03lh.jpg)",
-                  backgroundSize: "cover",
-                }}
-              >
-                <div style={{ zIndex: 1 }}>
-                  <small className="fw-bolder text-light mt-auto">
-                    READ MORE
-                  </small>
-                  <h1 className="fw-bolder accent-red-color-text">About Us</h1>
-                </div>
-              </div>
-            </a>
-          </Link> */}
-          {lodashMap(carousel, (rocker) => (
+          {carousel.map((rocker) => (
             <div
-              key={rocker.stageName.toString()}
+              key={rocker.stageName}
               className="slider-card__wrapper"
               onMouseEnter={() =>
                 mouseEnterHandle(rocker.coverImage.asset, rocker.stageName)
