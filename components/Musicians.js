@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Fragment } from "react";
 import Link from "next/link";
 import Image from "next/legacy/image";
 import lodashRange from "lodash/range";
@@ -17,6 +17,7 @@ const urlFor = (source) => imageUrlBuilder(sanityClient).image(source);
 
 export default function Musicians() {
   const [musicians, setMusicians] = useState([]);
+  const [selectedFilters, setSelectedFilters] = useState([]);
 
   const { data, error } = useSWR(
     groq`*[_type == "interview"] | order(date desc) {
@@ -56,40 +57,85 @@ export default function Musicians() {
     );
   }
 
-  const filterMusicians = (musicianType) => {
-    const filteredMusicians = data.filter((musician) =>
-      musician.profession.includes(musicianType)
-    );
+  const filterMusicians = (filters) => {
+    let filteredMusicians = data;
+
+    if (filters.length > 0) {
+      filteredMusicians = data.filter((musician) =>
+        filters.some((filter) => musician.profession.includes(filter))
+      );
+    }
+
     setMusicians(filteredMusicians);
+    setSelectedFilters(filters);
   };
 
-  const allMusicians = () => setMusicians(data);
+  const resetCheckboxes = () => {
+    setSelectedFilters([]);
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach((checkbox) => (checkbox.checked = false));
+  };
 
-  const filterringButtons = [
-    {
-      label: `All (${musicians.length})`,
-      onClick: allMusicians,
-      variant: "secondary",
-    },
-    { label: "Drummers 🥁", onClick: () => filterMusicians("drummer") },
-    { label: "Guitarists 🎸", onClick: () => filterMusicians("guitarist") },
-    { label: "Vocalists 🎙️", onClick: () => filterMusicians("vocalist") },
-    { label: "Bassist 🎸", onClick: () => filterMusicians("bassist") },
+  const allMusicians = () => {
+    setMusicians(data);
+    setSelectedFilters([]);
+    resetCheckboxes();
+  };
+
+  const filterringCheckboxes = [
+    { label: "D 🥁", value: "drummer" },
+    { label: "G 🎸", value: "guitarist" },
+    { label: "V 🎙️", value: "vocalist" },
+    { label: "B 🎸", value: "bassist" },
   ];
 
   return (
     <Container className="overflow-hidden">
       <Stack className="justify-content-center" direction="horizontal" gap={1}>
-        {filterringButtons.map((button) => (
+        <div
+          className="btn-group"
+          role="group"
+          aria-label="checkbox toggle button group"
+        >
+          <input
+            type="button"
+            className="btn btn-danger"
+            value={musicians.length}
+          />
+
+          {filterringCheckboxes.map((checkbox) => (
+            <Fragment key={checkbox.label}>
+              <input
+                type="checkbox"
+                className="btn-check"
+                id={checkbox.value}
+                autoComplete="off"
+                onChange={(e) => {
+                  const filters = e.target.checked
+                    ? [...selectedFilters, checkbox.value]
+                    : selectedFilters.filter(
+                        (filter) => filter !== checkbox.value
+                      );
+                  filterMusicians(filters);
+                }}
+              />
+              <label
+                className="btn btn-outline-secondary"
+                htmlFor={checkbox.value}
+              >
+                {checkbox.label}
+              </label>
+            </Fragment>
+          ))}
           <Button
-            key={button.label}
             size="sm"
-            variant={button.variant || "primary"}
-            onClick={button.onClick}
+            variant="secondary"
+            onClick={allMusicians}
+            disabled={!selectedFilters.length}
           >
-            {button.label}
+            Reset
           </Button>
-        ))}
+        </div>
       </Stack>
       <Row className="row-cols-2 row-cols-sm-2 row-cols-lg-6 row-cols-md-4 g-0 my-3 gy-2">
         {musicians.map((rocker) => {
