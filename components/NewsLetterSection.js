@@ -10,7 +10,7 @@ export default function NewsLetterSection() {
         <Col>
           <h1>
             <span className="newsletter-title text-white fw-bolder">
-              Unleash the Next Generation of Rock Stars
+              Unleashing the Next Generation of Rock Stars
             </span>
           </h1>
           <p className="text-white fw-light fs-3">
