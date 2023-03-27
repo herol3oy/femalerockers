@@ -9,6 +9,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Badge from "react-bootstrap/Badge";
 import Alert from "react-bootstrap/Alert";
+import Placeholder from "react-bootstrap/Placeholder";
 import { FaYoutube } from "/node_modules/react-icons/fa";
 import { FaSpotify } from "/node_modules/react-icons/fa";
 import { FaInstagram } from "/node_modules/react-icons/fa";
@@ -83,7 +84,28 @@ export default function interview({
   );
 
   if (error) return <div>Failed</div>;
-  if (!data) return <div>Loading...</div>;
+  if (!data) {
+    return (
+      <Container>
+        <Row className="justify-content-center text-center">
+          <Placeholder as="small" animation="wave" className="m-auto">
+            <Placeholder xs={1} />
+          </Placeholder>
+          <Placeholder as="h1" animation="wave">
+            <Placeholder xs={4} />
+          </Placeholder>
+          <Placeholder as="span" animation="wave">
+            <Placeholder xs={10} style={{ height: "250px" }} />
+          </Placeholder>
+          {[...Array(10).keys()].map((_, i) => (
+            <Placeholder as="p" animation="wave" key={i} style={{ margin: 0 }}>
+              <Placeholder xs={6} />
+            </Placeholder>
+          ))}
+        </Row>
+      </Container>
+    );
+  }
 
   const randomInterview = data[random(data?.length - 1)];
 
