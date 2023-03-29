@@ -1,7 +1,6 @@
 import Link from "next/link";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
-import Logo from "@components/svg/Logo";
 import Image from "next/legacy/image";
 
 export default function navbar() {
@@ -20,9 +19,16 @@ export default function navbar() {
         expand="lg"
       >
         <Link href="/" className="m-auto d-flex gap-2">
-          <Logo className="logo__svg" />
           <Image
-            className=""
+            className="logo__svg"
+            style={{ filter: "none" }}
+            src="/female-rockers-logo.svg"
+            alt="Female rockers logo"
+            layout="fixed"
+            width={90}
+            height={170}
+          />
+          <Image
             src="/female-rockers-text-svg.svg"
             alt="Female rockers logo"
             layout="fixed"

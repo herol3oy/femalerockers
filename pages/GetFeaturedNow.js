@@ -4,7 +4,7 @@ import Row from "react-bootstrap/Row";
 import Link from "next/link";
 import Toast from "react-bootstrap/Toast";
 import Badge from "react-bootstrap/Badge";
-import GetFeaturedLogo from "../components/svg/GetFeaturedLogo";
+import Image from "next/legacy/image";
 
 const TOASTS = [
   {
@@ -66,7 +66,14 @@ export default function GetFeatured() {
       <Row className="text-center d-flex justify-content-center mt-5">
         <Col xs={12}>
           <Link href="/" className="text-decoration-none">
-            <GetFeaturedLogo width="200" />
+            <Image
+              style={{ filter: "none" }}
+              src="/female-rockers-logo.svg"
+              alt="Female rockers logo"
+              layout="fixed"
+              width={75}
+              height={75}
+            />
           </Link>
           <a
             href="https://www.instagram.com/female_rockers/"

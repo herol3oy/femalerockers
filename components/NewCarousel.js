@@ -8,7 +8,6 @@ import Card from "react-bootstrap/Card";
 import CarouselSkeleton from "./skeletons/CarouselSkeleton";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import Logo from "@components/svg/Logo";
 import { getNewCarouselMusiciansItems } from "@lib/SanityApi";
 
 const urlFor = (source) => imageUrlBuilder(sanityClient).image(source);
@@ -61,8 +60,17 @@ export default function NewCarousel() {
     <Link href={rocker.slug.current} legacyBehavior>
       <a>
         <Card.Body className="card-body__description">
-          <div className="position-absolute col-8 text-start align-self-end card-body__wrapper">
-            {selectedMusicianOnMouseEnter && <Logo style={{ width: "35px" }} />}
+          <div className="position-absolute col-8 text-start align-self-end card-body__wrapper p-2">
+            {selectedMusicianOnMouseEnter && (
+              <Image
+                style={{ filter: "none" }}
+                src="/female-rockers-logo.svg"
+                alt="Female rockers logo"
+                layout="fixed"
+                width={35}
+                height={35}
+              />
+            )}
             <h5 className="small text-start accent-red-color-text fw-bolder m-0 mt-3">
               <span className="card-stage-name">
                 {rocker.stageName} {rocker.country}

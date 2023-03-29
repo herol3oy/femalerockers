@@ -1,4 +1,3 @@
-import Logo from "@components/svg/Logo";
 import { getBioLinks } from "@lib/SanityApi";
 import random from "lodash/random";
 import Link from "next/link";
@@ -7,6 +6,7 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Head from "next/head";
+import Image from "next/legacy/image";
 
 const EMOJIS = ["🎸", "🎤", "👩‍🎤", "🥁", "🔥", "🤘", "💯"];
 
@@ -22,7 +22,15 @@ export default function bio({ links }) {
         <Col xs={12}>
           <Link href="/" legacyBehavior>
             <a className="text-decoration-none">
-              <Logo className="logo__svg" />
+              <Image
+                className="logo__svg"
+                style={{ filter: "none" }}
+                src="/female-rockers-logo.svg"
+                alt="Female rockers logo"
+                layout="fixed"
+                width={90}
+                height={170}
+              />
             </a>
           </Link>
           <p
