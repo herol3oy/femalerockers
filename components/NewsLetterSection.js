@@ -46,7 +46,7 @@ export default function NewsLetterSection() {
                   name="EMAIL"
                   tabIndex={-1}
                   autoComplete="off"
-                  placeholder="your@email.com"
+                  placeholder="Your Best Email Address"
                   className="d-flex position-relative form-control-lg align-items-stretch rounded-0 border border-danger border border-1 shadow flex-fill w-100 required email"
                   id="mce-EMAIL"
                   required
@@ -81,8 +81,11 @@ export default function NewsLetterSection() {
                   value="Subscribe — it's free!"
                   name="subscribe"
                   id="mc-embedded-subscribe"
-                  className="d-flex position-relative rounded-0 justify-content-center w-100 mt-1 button btn btn-lg btn-danger"
+                  className="d-flex position-relative rounded-0 justify-content-center w-100 mt-1 button btn btn-lg btn-danger fw-bold"
                 />
+                <small className="d-flex justify-content-center text-white mt-2">
+                  Join our newsletter of +10,000 rockers 🤘
+                </small>
               </div>
             </div>
           </form>
