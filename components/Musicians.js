@@ -177,10 +177,8 @@ export default function Musicians() {
                       </span>
                     ))}
                   </Card.Text>
-                  <small className="h6">
-                    <span className="h6 accent-red-color-text fw-bolder">
-                      /{" "}
-                    </span>
+                  <small className="h6 text-light d-inline-block text-truncate">
+                    <span className="h6 text-danger fw-bolder">/ </span>
                     {shortenedTitle}
                   </small>
                 </Card.ImgOverlay>
