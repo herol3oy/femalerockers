@@ -37,6 +37,7 @@
     "prettier-plugin-tailwindcss": "^0.4.1"
   },
   "lint-staged": {
+    "**/*.{ts,tsx}": "eslint --fix",
     "**/*": "prettier --write --ignore-unknown"
   }
 }
