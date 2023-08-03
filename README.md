@@ -6,6 +6,7 @@ Web platform to interview talented female rock musicians
 
 - Next.js
 - React
+- TypeScript
 - Tailwindcss
 
 ### Screenshots
