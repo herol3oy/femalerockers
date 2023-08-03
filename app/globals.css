@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *::-webkit-scrollbar-thumb {
+    @apply bg-red-600;
+  }
+
+  *::-webkit-scrollbar {
+    @apply w-0.5;
+  }
+}
+
+@layer components {
+}
+
+@layer utilities {
+  .primary-dark-color {
+    @apply bg-zinc-900;
+  }
+
+  .primary-light-color {
+    @apply text-red-600;
+  }
+
+  .secondary-light-color {
+    @apply text-white;
+  }
+}
