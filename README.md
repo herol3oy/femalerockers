@@ -1,6 +1,6 @@
 # FemaleRockers 👩‍🎤
 
-Web platform to interview talented female rock musicians
+Web platform to interview talented female rock musicians. My main objective was to craft an eye-catching layout that delivers an engaging user experience.
 
 ### Tech stacks
 
@@ -8,6 +8,7 @@ Web platform to interview talented female rock musicians
 - React
 - TypeScript
 - Tailwindcss
+- Sanity
 
 ### Screenshots
 
