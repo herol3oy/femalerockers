@@ -1,4 +1,4 @@
-import { createClient, groq } from 'next-sanity'
+import { groq } from 'next-sanity'
 
 import { BioUrl } from '@/types/bio-url'
 import { CarouselImage } from '@/types/carousel-image'
@@ -6,10 +6,10 @@ import { InterviewArticle } from '@/types/interview-article'
 import { InterviewCard } from '@/types/interview-card'
 import { PageContent } from '@/types/page-content'
 
-import clientConfig from './config/client-config'
+import { client } from './lib/client'
 
 export async function getInterviews(): Promise<InterviewCard[]> {
-  return createClient(clientConfig).fetch(
+  return client.fetch(
     groq`*[_type == "interview"] | order(date desc) {
         stageName,
         title,
@@ -24,7 +24,7 @@ export async function getInterviews(): Promise<InterviewCard[]> {
 export async function getInterviewContent(
   slug: string,
 ): Promise<InterviewArticle[]> {
-  return await createClient(clientConfig).fetch(
+  return await client.fetch(
     groq`*[_type == 'interview' && slug.current == '${slug}']{
         title,
         excerpt,
@@ -47,7 +47,7 @@ export async function getInterviewContent(
 }
 
 export async function getCarouselImages(): Promise<CarouselImage[]> {
-  return createClient(clientConfig).fetch(
+  return client.fetch(
     groq`*[_type == "interview"] | order(date desc) [0..4] {
         _id,
         title,
@@ -60,7 +60,7 @@ export async function getCarouselImages(): Promise<CarouselImage[]> {
 }
 
 export async function getPageContent(pageName: string): Promise<PageContent[]> {
-  return createClient(clientConfig).fetch(
+  return client.fetch(
     groq`*[_type == 'page' && slug.current == '${pageName}']{
         title,
         slug,
@@ -71,7 +71,7 @@ export async function getPageContent(pageName: string): Promise<PageContent[]> {
 }
 
 export async function getBioUrls(): Promise<BioUrl[]> {
-  return await createClient(clientConfig).fetch(
+  return await client.fetch(
     groq`*[_type == 'bio'] | order(queue){
       urls
     }`,

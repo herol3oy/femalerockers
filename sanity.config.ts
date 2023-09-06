@@ -1,16 +1,14 @@
+import { visionTool } from '@sanity/vision'
 import { defineConfig } from 'sanity'
 import { deskTool } from 'sanity/desk'
 
-import schemas from './sanity/schemas'
+import { apiVersion, dataset, projectId } from './sanity/env'
+import { schema } from './sanity/schema'
 
-const config = defineConfig({
-  projectId: 'ldn05m4o',
-  dataset: 'production',
-  title: 'FemaleRockers',
-  apiVersion: '2023-07-31',
+export default defineConfig({
   basePath: '/dashboard',
-  plugins: [deskTool()],
-  schema: { types: schemas },
+  projectId,
+  dataset,
+  schema,
+  plugins: [deskTool(), visionTool({ defaultApiVersion: apiVersion })],
 })
-
-export default config
