@@ -2,18 +2,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import { InterviewArticle } from '@/types/interview-article'
-type InterviewArticleWithDynamicFields = InterviewArticle & {
-  [key: string]: string
-}
-
-enum SocialMediaPlatforms {
-  Instagram = 'instagram',
-  Spotify = 'spotify',
-  Facebook = 'facebook',
-  Twitter = 'twitter',
-  Youtube = 'youtube',
-  Website = 'website',
-}
+import { InterviewArticleWithDynamicFields } from '@/types/interview-article-with-dynamic-fields'
+import { SocialMediaPlatforms } from '@/types/social-media-platforms'
 
 export default function SocialMediaIcons({
   interview,
