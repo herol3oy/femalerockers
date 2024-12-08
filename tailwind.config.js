@@ -7,6 +7,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        'new-rocker': ['"New Rocker"', 'system-ui'],
+      },
       spacing: {
         128: '32rem',
       },

@@ -11,6 +11,7 @@ import { client } from './lib/client'
 export async function getInterviews(): Promise<InterviewCard[]> {
   return client.fetch(
     groq`*[_type == "interview"] | order(date desc) {
+        _id,
         stageName,
         title,
         profession,

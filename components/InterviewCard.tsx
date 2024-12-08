@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { InterviewCard } from '@/types/interview-card'
 import { InterviewCardProps } from '@/types/interview-card-props'
 import { shimmer, toBase64 } from '@/utils/shimmer'
 
