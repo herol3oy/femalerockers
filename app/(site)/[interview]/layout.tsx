@@ -12,9 +12,9 @@ export async function generateMetadata(
   const previousImages = (await parent)?.openGraph?.images || []
 
   return {
-    title: `Female Rockers | Exclusive Interview With ${interview.stageName}`,
+    title: `Female Rockers | Exclusive Interview With ${interview?.stageName}`,
     openGraph: {
-      images: [interview.coverImage, ...previousImages],
+      images: [interview?.coverImage, ...previousImages],
     },
   }
 }
