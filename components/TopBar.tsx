@@ -41,6 +41,14 @@ export default function TopBar() {
         <li>
           <Link
             className="text-sm font-bold transition hover:text-red-400 lg:text-lg"
+            href="/bio"
+          >
+            bio
+          </Link>
+        </li>
+        <li>
+          <Link
+            className="text-sm font-bold transition hover:text-red-400 lg:text-lg"
             href="/page/contact"
           >
             contact
