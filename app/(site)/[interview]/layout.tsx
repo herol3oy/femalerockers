@@ -8,13 +8,22 @@ export async function generateMetadata(
   parent: ResolvingMetadata,
 ) {
   const slug = params.interview
-  const [interview] = await getInterviewContent(slug)
+  const [interview] = (await getInterviewContent(slug)) || []
   const previousImages = (await parent)?.openGraph?.images || []
 
+  if (!interview) {
+    return {
+      title: 'Female Rockers | Interview Not Found',
+      openGraph: {
+        images: [...previousImages],
+      },
+    }
+  }
+
   return {
-    title: `Female Rockers | Exclusive Interview With ${interview?.stageName}`,
+    title: `Female Rockers | Exclusive Interview With ${interview.stageName}`,
     openGraph: {
-      images: [interview?.coverImage, ...previousImages],
+      images: [interview.coverImage, ...previousImages],
     },
   }
 }
