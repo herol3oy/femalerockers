@@ -1,5 +1,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { New_Rocker } from 'next/font/google'
+
+const newRocker = New_Rocker({ subsets: ['latin'], weight: '400' })
 
 export default function TopBar() {
   return (
@@ -23,7 +26,9 @@ export default function TopBar() {
         />
       </Link>
 
-      <h1 className="w-full text-center font-new-rocker text-3xl font-normal not-italic tracking-wide text-slate-50 shadow-sm lg:w-1/4">
+      <h1
+        className={`w-full text-center text-3xl font-normal not-italic tracking-wide text-slate-50 shadow-sm lg:w-1/4 ${newRocker.className}`}
+      >
         <span className="block lg:inline-block">
           Interviews Future Sensations in Rock Music
         </span>

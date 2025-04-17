@@ -1,5 +1,5 @@
-import HeroCarousel from '@/components/HeroCarousel'
-import InterviewCard from '@/components/InterviewCard'
+import HeroCarousel from '../components/HeroCarousel'
+import InterviewCard from '../components/InterviewCard'
 import { getInterviews } from '@/sanity/sanity-utils'
 
 export default async function Home() {

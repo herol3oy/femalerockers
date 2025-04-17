@@ -1,17 +1,22 @@
 import { ResolvingMetadata } from 'next'
 
 import { getInterviewContent } from '@/sanity/sanity-utils'
-import { InterviewPageProps } from '@/types/interview-page-props'
+
+type Props = {
+  params: Promise<{ interview: string }>
+}
 
 export async function generateMetadata(
-  { params }: InterviewPageProps,
+  { params }: Props,
   parent: ResolvingMetadata,
 ) {
-  const slug = params.interview
-  const [interview] = (await getInterviewContent(slug)) || []
+  const { interview } = await params
+  const slug = interview
+
+  const [singleInterview] = (await getInterviewContent(slug)) || []
   const previousImages = (await parent)?.openGraph?.images || []
 
-  if (!interview) {
+  if (!singleInterview) {
     return {
       title: 'Female Rockers | Interview Not Found',
       openGraph: {
@@ -21,9 +26,9 @@ export async function generateMetadata(
   }
 
   return {
-    title: `Female Rockers | Exclusive Interview With ${interview.stageName}`,
+    title: `Female Rockers | Exclusive Interview With ${singleInterview.stageName}`,
     openGraph: {
-      images: [interview.coverImage, ...previousImages],
+      images: [singleInterview.coverImage, ...previousImages],
     },
   }
 }

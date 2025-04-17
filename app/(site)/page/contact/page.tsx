@@ -63,7 +63,7 @@ export default function ContactPage() {
       </p>
       <label htmlFor="fullName">Full name:</label>
       <input
-        className="text-black"
+        className="text-black bg-white p-2"
         type="text"
         name="fullname"
         placeholder="Full name"
@@ -75,7 +75,7 @@ export default function ContactPage() {
       />
       <label htmlFor="email">Email:</label>
       <input
-        className="text-black"
+        className="text-black bg-white p-2"
         type="email"
         name="email"
         placeholder="Email"
@@ -87,7 +87,7 @@ export default function ContactPage() {
       />
       <label htmlFor="message">Message:</label>
       <textarea
-        className="text-black"
+        className="text-black bg-white p-2"
         placeholder="Your message"
         name="message"
         rows={5}

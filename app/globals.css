@@ -1,8 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=New+Rocker&family=Vazirmatn:wght@100..900&display=swap');
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
 @layer base {
   *::-webkit-scrollbar-thumb {
@@ -14,19 +10,14 @@
   }
 }
 
-@layer components {
+@utility primary-dark-color {
+  @apply bg-zinc-900;
 }
 
-@layer utilities {
-  .primary-dark-color {
-    @apply bg-zinc-900;
-  }
+@utility primary-light-color {
+  @apply text-red-600;
+}
 
-  .primary-light-color {
-    @apply text-red-600;
-  }
-
-  .secondary-light-color {
-    @apply text-white;
-  }
+@utility secondary-light-color {
+  @apply text-white;
 }
