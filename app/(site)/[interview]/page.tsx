@@ -18,7 +18,7 @@ export default async function InterviewPage({
   if (!singleInterview) notFound()
 
   return (
-    <article className="mx-auto w-11/12 md:w-9/12 lg:w-10/12 xl:w-10/12">
+    <article className="container">
       <section className="flex w-full flex-col items-center justify-center gap-8">
         <time
           className="text-md font-light tracking-widest text-white"

@@ -1,15 +1,12 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { New_Rocker } from 'next/font/google'
-
-const newRocker = New_Rocker({ subsets: ['latin'], weight: '400' })
 
 export default function TopBar() {
   return (
     <nav className="my-10 flex w-full flex-col items-center justify-between gap-5 lg:flex-row">
       <Link className="group flex items-center gap-2" href="/">
         <Image
-          className="w-16 cursor-pointer transition-all duration-300 ease-in-out group-hover:-rotate-[360deg] md:w-24"
+          className="w-16 cursor-pointer transition-all duration-300 ease-in-out group-hover:-rotate-[360deg] md:w-16"
           src="/icons/female-rockers-logo.svg"
           alt="Female Rockers logo"
           width={0}
@@ -17,7 +14,7 @@ export default function TopBar() {
           sizes="100vw"
         />
         <Image
-          className="w-16 md:w-24"
+          className="w-16 md:w-16"
           src="/icons/female-rockers-typography.svg"
           alt="Female Rockers logo"
           width={0}
@@ -25,14 +22,6 @@ export default function TopBar() {
           sizes="100vw"
         />
       </Link>
-
-      <h1
-        className={`w-full text-center text-3xl font-normal not-italic tracking-wide text-slate-50 shadow-sm lg:w-1/4 ${newRocker.className}`}
-      >
-        <span className="block lg:inline-block">
-          Interviews Future Sensations in Rock Music
-        </span>
-      </h1>
 
       <ul className="flex gap-8 text-lg text-slate-50">
         <li>
