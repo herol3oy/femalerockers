@@ -88,7 +88,7 @@ export const interview = {
       name: 'body',
       title: 'Body',
       type: 'array',
-      of: [{ type: 'block' }],
+      of: [{ type: 'block' }, { type: 'image', options: { hotspot: true } }],
     },
     {
       title: 'Quote',
@@ -103,6 +103,7 @@ export const interview = {
       date: 'date',
       media: 'profileImage',
     },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     prepare(selection: any) {
       const { title, date, media } = selection
 

@@ -1,11 +1,12 @@
 import Image from 'next/image'
 import { PropsWithChildren } from 'react'
 
-import { urlFor } from './image-builder'
 import { shimmer, toBase64 } from './shimmer'
+import { urlFor } from '@/sanity/lib/image'
 
 export const portableTextComponents = {
   types: {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     image: ({ value }: any) => (
       <Image
         className="my-5 w-full"
