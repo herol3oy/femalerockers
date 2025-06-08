@@ -50,11 +50,14 @@ export default function TopBar() {
         </li>
         <li>
           <Link
-            className="text-sm font-bold transition hover:text-red-400 lg:text-lg"
+            className="relative text-sm font-bold transition hover:text-red-400 lg:text-lg"
             href="https://instagram.com/female_rockers/"
             target="_blank"
           >
             instagram
+            <span className="absolute -top-3 -right-0 text-xs text-red-400">
+              +200K
+            </span>
           </Link>
         </li>
       </ul>
