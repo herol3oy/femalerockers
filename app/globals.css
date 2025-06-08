@@ -2,7 +2,7 @@
 
 @layer base {
   *::-webkit-scrollbar-thumb {
-    @apply bg-red-600;
+    @apply bg-red-400;
   }
 
   *::-webkit-scrollbar {
