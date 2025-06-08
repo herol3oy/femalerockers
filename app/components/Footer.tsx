@@ -4,31 +4,31 @@ const currentYear = new Date().getFullYear()
 
 export default function Footer() {
   return (
-    <footer className="secondary-light-color my-20">
-      <section>
-        <h3 className="w-full pb-1 text-xl font-bold uppercase">
+    <footer className="mt-32 border-t border-zinc-700 bg-zinc-900 text-slate-200">
+      <section className="mx-auto max-w-screen-xl px-6 py-12 sm:px-8 lg:px-12">
+        <h3 className="text-xl font-bold uppercase tracking-widest text-red-300 mb-4">
           Female Rockers
         </h3>
-        <hr className="mb-5 mt-1 border border-l-0 border-r-0 border-t-0 border-b-zinc-100 " />
-        <p className="mb-1 text-sm">
+        <p className="mb-4 text-sm leading-relaxed text-slate-300">
           Our mission is to spread the word for talented musicians and give them
-          a stance where they can professionally present their portfolio
+          a stance where they can professionally present their portfolio.
         </p>
-        <small className="rounded-sm bg-zinc-800 p-1">
+
+        <small className="block text-xs text-zinc-400 mt-4">
           <Link
-            className="underline transition hover:text-red-400"
+            className="underline hover:text-red-400 transition-colors"
             href="/page/privacy-policy-for-female-rockers-blog"
           >
             Privacy Policy
           </Link>
-          {` `} and {` `}
+          {` `}and{` `}
           <Link
-            className="underline transition hover:text-red-400"
+            className="underline hover:text-red-400 transition-colors"
             href="/page/terms-and-conditions"
           >
             Terms
           </Link>{' '}
-          {` `}© 2020 - {currentYear}
+          © 2020 - {currentYear}
         </small>
       </section>
     </footer>
