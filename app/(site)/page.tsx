@@ -1,7 +1,7 @@
-import HeroCarousel from '../components/HeroCarousel'
-import InterviewCard from '../components/InterviewCard'
 import { getInterviews } from '@/sanity/sanity-utils'
 import { New_Rocker } from 'next/font/google'
+import HeroCarousel from '../components/HeroCarousel'
+import InterviewCard from '../components/InterviewCard'
 
 const newRocker = New_Rocker({ subsets: ['latin'], weight: '400' })
 
@@ -14,7 +14,7 @@ export default async function Home() {
 
       <main className="px-4 sm:px-6 lg:px-12 max-w-screen-xl mx-auto">
         <h1
-          className={`text-center my-20 lg:my-28 text-4xl lg:text-6xl font-normal tracking-wide bg-clip-text text-transparent bg-gradient-to-r from-red-400 via-pink-300 to-yellow-200 ${newRocker.className}`}
+          className={`text-center my-20 lg:my-28 text-4xl lg:text-6xl font-normal tracking-wide text-pink-300 ${newRocker.className}`}
         >
           Future Sensations in Rock
           <br />
