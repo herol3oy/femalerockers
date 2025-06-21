@@ -2,7 +2,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import { InterviewCardProps } from '@/types/interview-card-props'
-import { shimmer, toBase64 } from '@/utils/shimmer'
 
 export default function InterviewCard({ interview }: InterviewCardProps) {
   return (
@@ -18,7 +17,7 @@ export default function InterviewCard({ interview }: InterviewCardProps) {
         sizes="100vw"
         alt={interview.stageName}
         placeholder="blur"
-        blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(700, 475))}`}
+        blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mM8/B8AAosBxERSgsYAAAAASUVORK5CYII="
       />
       <h1 className="invisible absolute left-3 top-3 w-full text-xl font-bold text-white blur-0 group-hover:visible">
         {interview.stageName} {interview.country}

@@ -5,7 +5,6 @@ import { notFound } from 'next/navigation'
 import SocialMediaIcons from '../../components/SocialMediaIcons'
 import { getInterviewContent } from '@/sanity/sanity-utils'
 import { portableTextComponents } from '@/utils/portable-text-components'
-import { shimmer, toBase64 } from '@/utils/shimmer'
 
 export default async function InterviewPage({
   params,
@@ -40,9 +39,7 @@ export default async function InterviewPage({
           sizes="100vw"
           alt={singleInterview.stageName}
           placeholder="blur"
-          blurDataURL={`data:image/svg+xml;base64,${toBase64(
-            shimmer(700, 475),
-          )}`}
+          blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mM8/B8AAosBxERSgsYAAAAASUVORK5CYII="
         />
         <div className="md:w-11/12 lg:w-6/12 xl:w-7/12">
           <p className="-mt-0 rounded-md bg-zinc-900 p-1 text-xl font-light text-slate-300 md:-mt-32 md:p-5 md:text-3xl lg:-mt-52">
@@ -56,9 +53,7 @@ export default async function InterviewPage({
               height={100}
               alt={singleInterview.stageName}
               placeholder="blur"
-              blurDataURL={`data:image/svg+xml;base64,${toBase64(
-                shimmer(700, 475),
-              )}`}
+              blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mM8/B8AAosBxERSgsYAAAAASUVORK5CYII="
             />
             <div className="flex w-full flex-col items-start gap-2">
               <div className="flex gap-2">

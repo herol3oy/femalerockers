@@ -10,7 +10,6 @@ import Carousel from 'react-multi-carousel'
 import { getCarouselImages } from '@/sanity/sanity-utils'
 import { CarouselImage } from '@/types/carousel-image'
 import { responsive } from '@/utils/carousel-reponsive-config'
-import { shimmer, toBase64 } from '@/utils/shimmer'
 
 export default function HeroCarousel() {
   const [carouselImages, setCarouselImages] = useState<CarouselImage[]>([])
@@ -49,9 +48,7 @@ export default function HeroCarousel() {
             height={0}
             sizes="100vw"
             placeholder="blur"
-            blurDataURL={`data:image/svg+xml;base64,${toBase64(
-              shimmer(700, 475),
-            )}`}
+            blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mM8/B8AAosBxERSgsYAAAAASUVORK5CYII="
           />
           <div className="absolute bottom-3 left-3 flex flex-col">
             <Image

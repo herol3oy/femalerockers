@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import { PropsWithChildren } from 'react'
 
-import { shimmer, toBase64 } from './shimmer'
 import { urlFor } from '@/sanity/lib/image'
 
 export const portableTextComponents = {
@@ -16,7 +15,7 @@ export const portableTextComponents = {
         sizes="100vw"
         alt="Female Rocker"
         placeholder="blur"
-        blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(700, 475))}`}
+        blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mM8/B8AAosBxERSgsYAAAAASUVORK5CYII="
       />
     ),
   },
