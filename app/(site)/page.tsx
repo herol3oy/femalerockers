@@ -1,7 +1,7 @@
 import { getInterviews } from '@/sanity/sanity-utils'
 import { New_Rocker } from 'next/font/google'
-import HeroCarousel from '../components/HeroCarousel'
-import InterviewCard from '../components/InterviewCard'
+import HeroCarousel from '@/app/components/HeroCarousel'
+import InterviewCard from '@/app/components/InterviewCard'
 
 const newRocker = New_Rocker({ subsets: ['latin'], weight: '400' })
 
@@ -27,7 +27,7 @@ export default async function Home() {
           {interviews.map((interview) => (
             <div
               key={interview._id}
-              className="transform transition duration-300 hover:scale-105 hover:shadow-lg"
+              className="transform transition duration-300 hover:scale-105 hover:shadow-sm"
             >
               <InterviewCard interview={interview} />
             </div>
