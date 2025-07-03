@@ -6,9 +6,9 @@ export default function Footer() {
   return (
     <footer className="mt-32 border-t border-zinc-700 bg-zinc-900 text-slate-200">
       <section className="mx-auto max-w-screen-xl px-6 py-12 sm:px-8 lg:px-12">
-        <h3 className="text-xl font-bold uppercase tracking-widest text-red-300 mb-4">
+        <h2 className="text-xl font-bold uppercase tracking-widest text-red-300 mb-4">
           Female Rockers
-        </h3>
+        </h2>
         <p className="mb-4 text-sm leading-relaxed text-slate-300">
           Our mission is to spread the word for talented musicians and give them
           a stance where they can professionally present their portfolio.
