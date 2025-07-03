@@ -14,7 +14,7 @@ export default async function Home() {
 
       <main className="px-4 sm:px-6 lg:px-12 max-w-screen-xl mx-auto">
         <h1
-          className={`text-center my-20 lg:my-28 text-4xl lg:text-6xl font-normal tracking-wide text-pink-300 ${newRocker.className}`}
+          className={`text-center my-20 lg:my-28 text-4xl lg:text-6xl font-normal tracking-wide bg-linear-to-r from-pink-300 via-purple-400 to-blue-400 text-transparent bg-clip-text ${newRocker.className}`}
         >
           Future Sensations in Rock
           <br />
