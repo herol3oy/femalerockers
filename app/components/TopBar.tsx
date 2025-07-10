@@ -1,6 +1,19 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
+const navItems = [
+  { label: 'about', href: '/page/about' },
+  { label: 'bio', href: '/bio' },
+  { label: 'contact', href: '/page/contact' },
+  { label: 'store', href: 'https://store.femalerockers.com' },
+  {
+    label: 'instagram',
+    href: 'https://instagram.com/female_rockers/',
+    external: true,
+    badge: '+200K',
+  },
+]
+
 export default function TopBar() {
   return (
     <nav className="my-10 flex w-full flex-col items-center justify-between gap-5 lg:flex-row">
@@ -24,42 +37,22 @@ export default function TopBar() {
       </Link>
 
       <ul className="flex gap-8 text-lg text-slate-50">
-        <li>
-          <Link
-            className="text-sm font-bold transition hover:text-red-400 lg:text-lg"
-            href="/page/about"
-          >
-            about
-          </Link>
-        </li>
-        <li>
-          <Link
-            className="text-sm font-bold transition hover:text-red-400 lg:text-lg"
-            href="/bio"
-          >
-            bio
-          </Link>
-        </li>
-        <li>
-          <Link
-            className="text-sm font-bold transition hover:text-red-400 lg:text-lg"
-            href="/page/contact"
-          >
-            contact
-          </Link>
-        </li>
-        <li>
-          <Link
-            className="relative text-sm font-bold transition hover:text-red-400 lg:text-lg"
-            href="https://instagram.com/female_rockers/"
-            target="_blank"
-          >
-            instagram
-            <span className="absolute -top-3 -right-0 text-xs text-red-400">
-              +200K
-            </span>
-          </Link>
-        </li>
+        {navItems.map((item) => (
+          <li key={item.label}>
+            <Link
+              href={item.href}
+              target={item.external ? '_blank' : undefined}
+              className="relative text-sm font-bold transition hover:text-red-400 lg:text-lg"
+            >
+              {item.label}
+              {item.badge && (
+                <span className="absolute -top-3 -right-0 text-xs text-red-400">
+                  {item.badge}
+                </span>
+              )}
+            </Link>
+          </li>
+        ))}
       </ul>
     </nav>
   )
