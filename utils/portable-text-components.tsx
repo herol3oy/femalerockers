@@ -23,7 +23,7 @@ export const portableTextComponents = {
     strong: ({ children }: PropsWithChildren) => (
       <>
         <Image
-          className="mb-2"
+          className="mb-2 mt-20"
           src="/icons/female-rockers-logo.svg"
           alt="Female Rockers logo"
           width={25}
