@@ -13,7 +13,7 @@ export default async function BioPage() {
       </p>
       {urls.map(({ url, title }) => (
         <Link
-          className="hover:secondary-light-color primary-light-color w-full rounded-lg border border-red-700 p-5 transition-all duration-300 ease-in-out hover:bg-red-700"
+          className="text-white w-full border border-red-700 p-5 transition-all duration-300 ease-in-out hover:bg-red-700"
           href={url}
           target="_blank"
           key={url}
