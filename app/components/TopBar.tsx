@@ -7,6 +7,12 @@ const navItems = [
   { label: 'contact', href: '/page/contact' },
   { label: 'store', href: 'https://store.femalerockers.com' },
   {
+    label: 'youtube',
+    href: 'https://youtube.com/@FemaleRockers/',
+    external: true,
+    badge: '+1K',
+  },
+  {
     label: 'instagram',
     href: 'https://instagram.com/female_rockers/',
     external: true,
@@ -36,7 +42,7 @@ export default function TopBar() {
         />
       </Link>
 
-      <ul className="flex gap-8 text-lg text-slate-50">
+      <ul className="flex gap-4 text-lg text-slate-50">
         {navItems.map((item) => (
           <li key={item.label}>
             <Link
