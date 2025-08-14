@@ -45,14 +45,16 @@ export default function TravelFilmAwardsPage() {
           The 2025 edition takes place in{' '}
           <span className="font-semibold">Barcelona from September 26–28</span>,
           showcasing short films from around the globe, from fiction and
-          documentary to experimental and animation—all centered on this year’s
-          theme:
+          documentary to experimental, animation, and AI—all centered on this
+          year’s theme:
           <span className="font-bold text-gray-300">
             {' '}
             Tourism &amp; Sustainable Transformation
           </span>
-          . Alongside screenings, there will be live music, workshops, panels,
-          and cultural events, all free to attend.
+          . Alongside screenings, there will be live music, a masterclass, a
+          panel, and cultural events, all free for anyone who submits a
+          travel-related short film whether or not it’s selected for the
+          Official Selection.
         </p>
 
         <h2 className="text-2xl font-semibold text-gray-100">
