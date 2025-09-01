@@ -12,7 +12,7 @@ export default async function Home() {
     <>
       <HeroCarousel />
 
-      <main className="px-4 sm:px-6 lg:px-12 max-w-screen-xl mx-auto">
+      <main className="px-4 sm:px-6 lg:px-12 max-w-screen-2xl mx-auto">
         <h1
           className={`text-center my-20 lg:my-28 text-4xl lg:text-6xl font-normal tracking-wide bg-linear-to-r from-pink-300 via-purple-400 to-blue-400 text-transparent bg-clip-text ${newRocker.className}`}
         >
@@ -23,14 +23,9 @@ export default async function Home() {
           </span>
         </h1>
 
-        <div className="grid grid-cols-2 gap-5 md:grid-cols-4 lg:grid-cols-6">
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {interviews.map((interview) => (
-            <div
-              key={interview._id}
-              className="transform transition duration-300 hover:scale-105 hover:shadow-sm"
-            >
-              <InterviewCard interview={interview} />
-            </div>
+            <InterviewCard key={interview._id} interview={interview} />
           ))}
         </div>
       </main>
