@@ -2,6 +2,7 @@ import '@/app/globals.css'
 
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import { Analytics } from '@vercel/analytics/next'
 
 import Footer from '@/app/components/Footer'
 import TopBar from '@/app/components/TopBar'
@@ -27,6 +28,7 @@ export default function RootLayout({
         <TopBar />
         {children}
         <Footer />
+        <Analytics />
       </body>
     </html>
   )
