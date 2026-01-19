@@ -1,6 +1,6 @@
 import { getInterviews } from '@/sanity/sanity-utils'
 import { New_Rocker } from 'next/font/google'
-import HeroCarousel from '@/app/components/HeroCarousel'
+import HeroCarouselLazy from '@/app/components/HeroCarouselLazy'
 import InterviewCard from '@/app/components/InterviewCard'
 
 const newRocker = New_Rocker({ subsets: ['latin'], weight: '400' })
@@ -10,7 +10,7 @@ export default async function Home() {
 
   return (
     <>
-      <HeroCarousel />
+      <HeroCarouselLazy />
 
       <main className="px-4 sm:px-6 lg:px-12 max-w-screen-2xl mx-auto">
         <h1
@@ -22,6 +22,16 @@ export default async function Home() {
             Exclusive Interviews
           </span>
         </h1>
+
+        <iframe
+          className="mx-auto my-20 w-full max-w-3xl aspect-video rounded-xl ring-1 ring-white/10"
+          src="https://youtube.com/embed/7-PXCq4VaUc?si=HFCLdhFHO5vPWa83"
+          title="Female Rockers guitar shredders"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerPolicy="strict-origin-when-cross-origin"
+          allowFullScreen
+          loading="lazy"
+        />
 
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {interviews.map((interview) => (
