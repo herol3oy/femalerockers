@@ -1,25 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-
-const navItems = [
-  { label: 'about', href: '/page/about' },
-  { label: 'bio', href: '/bio' },
-  { label: 'contact', href: '/page/contact' },
-  { label: 'store', href: 'https://store.femalerockers.com' },
-  { label: 'donate', href: '/donate' },
-  {
-    label: 'youtube',
-    href: 'https://youtube.com/@FemaleRockers/',
-    external: true,
-    badge: '+1K',
-  },
-  {
-    label: 'instagram',
-    href: 'https://instagram.com/female_rockers/',
-    external: true,
-    badge: '+200K',
-  },
-]
+import { navItems } from '@/utils/nav-items'
 
 export default function TopBar() {
   return (
@@ -43,7 +24,7 @@ export default function TopBar() {
         />
       </Link>
 
-      <ul className="flex gap-3 md:gap-5 text-lg text-slate-50">
+      <ul className="flex gap-3 text-lg text-slate-50 md:gap-5">
         {navItems.map((item) => (
           <li key={item.label}>
             <Link
@@ -53,7 +34,7 @@ export default function TopBar() {
             >
               {item.label}
               {item.badge && (
-                <span className="absolute -top-3 -right-0 text-xs text-red-400">
+                <span className="absolute -right-0 -top-3 text-xs text-red-400">
                   {item.badge}
                 </span>
               )}
