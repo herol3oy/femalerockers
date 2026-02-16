@@ -6,9 +6,9 @@ import { notFound } from 'next/navigation'
 export default async function AboutPage({
   params,
 }: {
-  params: { page: string }
+  params: Promise<{ page: string }>
 }) {
-  const { page } = params
+  const { page } = await params
 
   const content = await getPageContent(page)
 
