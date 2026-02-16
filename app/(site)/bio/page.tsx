@@ -1,31 +1,33 @@
 import Link from 'next/link'
-
 import { getBioUrls } from '@/sanity/sanity-utils'
 
 export default async function BioPage() {
   const [bioUrls] = await getBioUrls()
-  const urls = bioUrls.urls
+  const urls = bioUrls?.urls || []
 
   return (
-    <div className="flex flex-col gap-5">
-      <p className="secondary-light-color text-center font-extralight tracking-widest">
+    <div className="mx-auto mt-16 flex max-w-xl flex-col items-center px-6">
+      <p className="mb-10 text-center text-sm font-light tracking-[0.3em] text-slate-400">
         @female_rockers
       </p>
-      {urls.map(({ url, title }) => (
-        <Link
-          className="text-white w-full border border-red-700 p-5 transition-all duration-300 ease-in-out hover:bg-red-700"
-          href={url}
-          target="_blank"
-          key={url}
-        >
-          <div className="flex">
-            <span>{title.slice(0, 2)}</span>
-            <span className="mx-auto text-center text-sm font-bold md:text-xl">
-              {title.slice(2)}
+
+      <div className="flex w-full flex-col gap-4">
+        {urls.map(({ url, title }) => (
+          <Link
+            key={url}
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group w-full rounded-lg border border-red-700 bg-zinc-900 p-5 text-center text-white transition-all duration-300 hover:-translate-y-1 hover:bg-red-700 hover:shadow-lg hover:shadow-red-700/30"
+          >
+            <span className="text-base font-semibold tracking-wide md:text-lg">
+              {title}
             </span>
-          </div>
-        </Link>
-      ))}
+          </Link>
+        ))}
+      </div>
+
+      <p className="mt-12 text-xs text-zinc-500">Powered by Female Rockers</p>
     </div>
   )
 }
