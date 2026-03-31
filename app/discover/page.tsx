@@ -119,9 +119,6 @@ export async function Discover() {
                 <Button asChild size="lg" className="rounded-full px-6">
                   <Link href="/auth/sign-up">Create your profile</Link>
                 </Button>
-                <Button asChild variant="outline" size="lg" className="rounded-full px-6">
-                  <Link href="/notes">Open notes</Link>
-                </Button>
               </div>
             </div>
 

@@ -37,7 +37,7 @@ async function ProfileContent() {
         <div className="flex items-center gap-4 mb-4">
           <h2 className="font-bold text-2xl">Your profile</h2>
           <Button variant="outline" size="sm" asChild>
-            <Link href="/profile/edit">Edit Profile</Link>
+            <Link href="/profile/edit">Edit</Link>
           </Button>
         </div>
         <dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 text-sm">
