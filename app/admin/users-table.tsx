@@ -8,15 +8,15 @@ import { Button } from "@/components/ui/button";
 
 export function UsersTable({ users }: { users: SelectUser[] }) {
   return (
-    <div className="w-full overflow-x-auto">
-      <table className="w-full text-sm border-collapse">
+    <div className="w-full overflow-x-auto rounded-xl border border-border/70">
+      <table className="w-full text-sm">
         <thead>
-          <tr className="border-b text-left">
-            <th className="p-2">Username</th>
-            <th className="p-2">Artist Name</th>
-            <th className="p-2">Email</th>
-            <th className="p-2">Approved</th>
-            <th className="p-2">Actions</th>
+          <tr className="border-b bg-muted/40 text-left">
+            <th className="px-4 py-3 font-medium">Username</th>
+            <th className="px-4 py-3 font-medium">Artist Name</th>
+            <th className="px-4 py-3 font-medium">Email</th>
+            <th className="px-4 py-3 font-medium">Approved</th>
+            <th className="px-4 py-3 font-medium">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -39,30 +39,31 @@ function UserRow({ user }: { user: SelectUser }) {
   };
 
   return (
-    <tr className="border-b">
-      <td className="p-2">
+    <tr className="border-b border-border/60 transition-colors hover:bg-muted/30">
+      <td className="px-4 py-3">
         <a
           href={`/discover/${user.username}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="underline hover:opacity-70"
+          className="font-medium underline decoration-primary/30 underline-offset-4 hover:decoration-primary"
         >
           {user.username}
         </a>
       </td>
-      <td className="p-2">{user.artistName}</td>
-      <td className="p-2">{user.email}</td>
-      <td className="p-2">
+      <td className="px-4 py-3">{user.artistName}</td>
+      <td className="px-4 py-3 text-muted-foreground">{user.email}</td>
+      <td className="px-4 py-3">
         <Badge variant={user.isApproved ? "default" : "destructive"}>
           {user.isApproved ? "Yes" : "No"}
         </Badge>
       </td>
-      <td className="p-2">
+      <td className="px-4 py-3">
         <Button
           size="sm"
           variant={user.isApproved ? "destructive" : "default"}
           disabled={isPending}
           onClick={handleToggle}
+          className="rounded-full"
         >
           {isPending
             ? "Saving…"
