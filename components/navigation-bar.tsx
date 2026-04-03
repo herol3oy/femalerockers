@@ -6,7 +6,7 @@ import { db } from "@/app/db";
 import { usersTable } from "@/app/db/schema";
 import { Button } from "@/components/ui/button";
 import { LogoutButton } from "@/components/logout-button";
-import { ThemeSwitcher } from "@/components/theme-switcher";
+// import { ThemeSwitcher } from "@/components/theme-switcher";
 import Image from 'next/image'
 
 async function NavLinks() {
@@ -29,25 +29,27 @@ async function NavLinks() {
 
   return (
     <>
+      <div className="flex items-center font-semibold">
+        <Link className="group flex items-center gap-2" href="/">
+          <Image
+            className="w-12 cursor-pointer transition-all duration-300 ease-in-out group-hover:-rotate-[360deg] md:w-12"
+            src="/female-rockers-logo.svg"
+            alt="Female Rockers logo"
+            width={0}
+            height={0}
+            sizes="100vw"
+          />
+          <Image
+            className="w-12 md:w-12"
+            src="/female-rockers-type.svg"
+            alt="Female Rockers logo"
+            width={0}
+            height={0}
+            sizes="100vw"
+          />
+        </Link>
+      </div>
       <div className="flex gap-5 items-center font-semibold">
-      <Link className="group flex items-center gap-2" href="/">
-        <Image
-          className="w-12 cursor-pointer transition-all duration-300 ease-in-out group-hover:-rotate-[360deg] md:w-12"
-          src="/female-rockers-logo.svg"
-          alt="Female Rockers logo"
-          width={0}
-          height={0}
-          sizes="100vw"
-        />
-        <Image
-          className="w-12 md:w-12"
-          src="/female-rockers-type.svg"
-          alt="Female Rockers logo"
-          width={0}
-          height={0}
-          sizes="100vw"
-        />
-      </Link>
         <Link href="/discover">Discover</Link>
         {user && <Link href="/profile">Profile</Link>}
         {username && (
@@ -56,7 +58,7 @@ async function NavLinks() {
         {role === "admin" && <Link href="/admin">Admin</Link>}
       </div>
       <div className="flex items-center gap-4">
-        <ThemeSwitcher />
+        {/* <ThemeSwitcher /> */}
         {user ? (
           <>
             <span className="text-sm">{user.email}</span>
@@ -79,7 +81,7 @@ async function NavLinks() {
 
 export function NavigationBar() {
   return (
-    <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
+    <nav className="sticky top-0 z-50 w-full flex justify-center border-b border-b-foreground/10 h-16 bg-background">
       <div className="w-full flex justify-between items-center p-3 px-5 text-sm">
         <Suspense
           fallback={
