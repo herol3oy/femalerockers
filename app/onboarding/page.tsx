@@ -1,10 +1,10 @@
 "use client";
 
 import { useActionState, useState } from "react";
-import { completeOnboarding } from "./actions";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
+import { completeOnboarding } from "./actions";
 
 const MAX_AVATAR_SIZE = 2 * 1024 * 1024; // 2 MB
 
@@ -60,8 +60,12 @@ export default function OnboardingPage() {
                 className="max-w-64"
               />
             </div>
-            <p className="text-xs text-muted-foreground">Max 2 MB. PNG, JPEG, or WebP.</p>
-            {fileError && <p className="text-sm text-destructive">{fileError}</p>}
+            <p className="text-xs text-muted-foreground">
+              Max 2 MB. PNG, JPEG, or WebP.
+            </p>
+            {fileError && (
+              <p className="text-sm text-destructive">{fileError}</p>
+            )}
           </div>
 
           <div className="flex flex-col gap-2">

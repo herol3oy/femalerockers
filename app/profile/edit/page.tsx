@@ -1,9 +1,7 @@
-import { Suspense } from "react";
-import { redirect } from "next/navigation";
-import { eq } from "drizzle-orm";
 import { PencilIcon } from "@phosphor-icons/react/ssr";
-
-import { createClient } from "@/lib/supabase/server";
+import { eq } from "drizzle-orm";
+import { redirect } from "next/navigation";
+import { Suspense } from "react";
 import { db } from "@/app/db";
 import { usersTable } from "@/app/db/schema";
 import { Badge } from "@/components/ui/badge";
@@ -14,6 +12,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { createClient } from "@/lib/supabase/server";
 import { EditProfileForm } from "../edit-profile-form";
 
 function EditProfileSkeleton() {
@@ -67,13 +66,17 @@ async function EditProfileContent() {
       <div className="mx-auto flex max-w-4xl flex-col gap-6 px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
         <Card className="overflow-hidden border-border/70 bg-background/95 shadow-sm">
           <CardHeader className="border-b border-border/60 bg-[linear-gradient(135deg,_hsl(var(--background))_0%,_hsl(var(--secondary)/0.35)_100%)] pb-8">
-            <Badge variant="secondary" className="w-fit gap-2 rounded-full px-3 py-1 text-xs uppercase tracking-[0.24em]">
+            <Badge
+              variant="secondary"
+              className="w-fit gap-2 rounded-full px-3 py-1 text-xs uppercase tracking-[0.24em]"
+            >
               <PencilIcon className="h-3.5 w-3.5" />
               Edit profile
             </Badge>
             <CardTitle className="text-3xl">Update your profile</CardTitle>
             <CardDescription className="max-w-2xl text-base">
-              Changes will be reflected on your public profile in the discover directory.
+              Changes will be reflected on your public profile in the discover
+              directory.
             </CardDescription>
           </CardHeader>
           <CardContent className="pt-6">

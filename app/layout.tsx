@@ -2,12 +2,15 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Roboto, Space_Grotesk } from "next/font/google";
 import { ThemeProvider } from "next-themes";
-import { cn } from "@/lib/utils";
 import { NavigationBar } from "@/components/navigation-bar";
+import { cn } from "@/lib/utils";
 
-const spaceGroteskHeading = Space_Grotesk({ subsets: ['latin'], variable: '--font-heading' });
+const spaceGroteskHeading = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-heading",
+});
 
-const roboto = Roboto({ subsets: ['latin'], variable: '--font-sans' });
+const roboto = Roboto({ subsets: ["latin"], variable: "--font-sans" });
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -16,7 +19,8 @@ const defaultUrl = process.env.VERCEL_URL
 export const metadata: Metadata = {
   metadataBase: new URL(defaultUrl),
   title: "Female Rockers",
-  description: "A strong, elegant place where female musicians create a public profile and get discovered.",
+  description:
+    "A strong, elegant place where female musicians create a public profile and get discovered.",
 };
 
 export default function RootLayout({
@@ -27,7 +31,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn("h-full antialiased", "font-sans", roboto.variable, spaceGroteskHeading.variable)}
+      className={cn(
+        "h-full antialiased",
+        "font-sans",
+        roboto.variable,
+        spaceGroteskHeading.variable,
+      )}
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col">
@@ -35,7 +44,8 @@ export default function RootLayout({
           attribute="class"
           defaultTheme="dark"
           enableSystem
-          disableTransitionOnChange>
+          disableTransitionOnChange
+        >
           <NavigationBar />
           {children}
         </ThemeProvider>

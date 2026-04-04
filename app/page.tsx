@@ -14,10 +14,7 @@ export default function Home() {
         aria-hidden="true"
       />
 
-      <div
-        className="absolute inset-0 bg-black/50"
-        aria-hidden="true"
-      />
+      <div className="absolute inset-0 bg-black/50" aria-hidden="true" />
 
       <section className="relative z-10 flex h-full items-end pb-24 px-8 md:px-16 lg:px-24">
         <div className="max-w-2xl space-y-6">
@@ -26,8 +23,8 @@ export default function Home() {
               Where Female Musicians Get Discovered
             </h1>
             <p className="text-lg text-white/80 md:text-xl">
-              Create your profile, share your sound, and connect with a community
-              that celebrates women who rock.
+              Create your profile, share your sound, and connect with a
+              community that celebrates women who rock.
             </p>
           </header>
 

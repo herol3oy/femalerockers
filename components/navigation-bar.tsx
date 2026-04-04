@@ -1,13 +1,12 @@
+import { eq } from "drizzle-orm";
+import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
-import { eq } from "drizzle-orm";
-import { createClient } from "@/lib/supabase/server";
 import { db } from "@/app/db";
 import { usersTable } from "@/app/db/schema";
-import { Button } from "@/components/ui/button";
 import { LogoutButton } from "@/components/logout-button";
-// import { ThemeSwitcher } from "@/components/theme-switcher";
-import Image from 'next/image'
+import { Button } from "@/components/ui/button";
+import { createClient } from "@/lib/supabase/server";
 
 async function NavLinks() {
   const supabase = await createClient();

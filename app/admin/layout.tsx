@@ -1,10 +1,9 @@
-import { Suspense } from "react";
-import { redirect } from "next/navigation";
 import { eq } from "drizzle-orm";
-
-import { createClient } from "@/lib/supabase/server";
+import { redirect } from "next/navigation";
+import { Suspense } from "react";
 import { db } from "@/app/db";
 import { usersTable } from "@/app/db/schema";
+import { createClient } from "@/lib/supabase/server";
 
 async function AdminGate({ children }: { children: React.ReactNode }) {
   const supabase = await createClient();

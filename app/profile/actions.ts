@@ -1,10 +1,10 @@
 "use server";
 
-import { createClient } from "@/lib/supabase/server";
+import { and, eq, ne } from "drizzle-orm";
+import { redirect } from "next/navigation";
 import { db } from "@/app/db";
 import { usersTable } from "@/app/db/schema";
-import { redirect } from "next/navigation";
-import { eq, and, ne } from "drizzle-orm";
+import { createClient } from "@/lib/supabase/server";
 
 const ALLOWED_AVATAR_TYPES = ["image/png", "image/jpeg", "image/webp"];
 const MAX_AVATAR_SIZE = 2 * 1024 * 1024; // 2 MB
@@ -17,7 +17,7 @@ const MIME_TO_EXT: Record<string, string> = {
 async function uploadAvatar(
   supabase: Awaited<ReturnType<typeof createClient>>,
   userId: string,
-  file: File
+  file: File,
 ): Promise<{ url?: string; error?: string }> {
   if (!ALLOWED_AVATAR_TYPES.includes(file.type)) {
     return { error: "Avatar must be PNG, JPEG, or WebP." };
@@ -58,7 +58,7 @@ async function uploadAvatar(
 
 export async function updateProfile(
   _prevState: { error?: string; success?: boolean } | null,
-  formData: FormData
+  formData: FormData,
 ) {
   const supabase = await createClient();
   const {
@@ -72,7 +72,8 @@ export async function updateProfile(
   const username = formData.get("username")?.toString().trim();
   const artistName = formData.get("artistName")?.toString().trim();
   const cityCountry = formData.get("cityCountry")?.toString().trim() || null;
-  const mainInstrument = formData.get("mainInstrument")?.toString().trim() || null;
+  const mainInstrument =
+    formData.get("mainInstrument")?.toString().trim() || null;
   const genre = formData.get("genre")?.toString().trim() || null;
   const bio = formData.get("bio")?.toString().trim() || null;
   const instagramUrl = formData.get("instagramUrl")?.toString().trim() || null;

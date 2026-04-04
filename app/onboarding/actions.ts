@@ -1,10 +1,10 @@
 "use server";
 
-import { createClient } from "@/lib/supabase/server";
+import { eq } from "drizzle-orm";
+import { redirect } from "next/navigation";
 import { db } from "@/app/db";
 import { usersTable } from "@/app/db/schema";
-import { redirect } from "next/navigation";
-import { eq } from "drizzle-orm";
+import { createClient } from "@/lib/supabase/server";
 
 const ALLOWED_AVATAR_TYPES = ["image/png", "image/jpeg", "image/webp"];
 const MAX_AVATAR_SIZE = 2 * 1024 * 1024; // 2 MB
@@ -16,7 +16,7 @@ const MIME_TO_EXT: Record<string, string> = {
 
 export async function completeOnboarding(
   _prevState: { error: string } | null,
-  formData: FormData
+  formData: FormData,
 ) {
   const supabase = await createClient();
   const {

@@ -1,8 +1,8 @@
 "use client";
 
 import { useTransition } from "react";
-import type { SelectUser } from "@/app/db/schema";
 import { toggleApproval } from "@/app/admin/actions";
+import type { SelectUser } from "@/app/db/schema";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
@@ -65,11 +65,7 @@ function UserRow({ user }: { user: SelectUser }) {
           onClick={handleToggle}
           className="rounded-full"
         >
-          {isPending
-            ? "Saving…"
-            : user.isApproved
-              ? "Revoke"
-              : "Approve"}
+          {isPending ? "Saving…" : user.isApproved ? "Revoke" : "Approve"}
         </Button>
       </td>
     </tr>

@@ -1,13 +1,13 @@
 "use client";
 
-import { useActionState, useState } from "react";
 import Image from "next/image";
-import { updateProfile } from "./actions";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import Link from "next/link";
+import { useActionState, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import Link from "next/link";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { updateProfile } from "./actions";
 
 type Props = {
   profile: {
@@ -81,7 +81,9 @@ export function EditProfileForm({ profile }: Props) {
             className="max-w-64"
           />
         </div>
-        <p className="text-xs text-muted-foreground">Max 2 MB. PNG, JPEG, or WebP.</p>
+        <p className="text-xs text-muted-foreground">
+          Max 2 MB. PNG, JPEG, or WebP.
+        </p>
         {fileError && <p className="text-sm text-destructive">{fileError}</p>}
       </div>
 
@@ -94,7 +96,9 @@ export function EditProfileForm({ profile }: Props) {
           readOnly
           className="bg-muted cursor-not-allowed"
         />
-        <p className="text-xs text-muted-foreground">Email cannot be changed.</p>
+        <p className="text-xs text-muted-foreground">
+          Email cannot be changed.
+        </p>
       </div>
 
       <div className="flex flex-col gap-2">

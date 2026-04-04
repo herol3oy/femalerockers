@@ -1,8 +1,3 @@
-import { Suspense } from "react";
-import { redirect } from "next/navigation";
-import { eq } from "drizzle-orm";
-import Link from "next/link";
-import Image from "next/image";
 import {
   ArrowUpRightIcon,
   GlobeIcon,
@@ -13,12 +8,15 @@ import {
   SparkleIcon,
   UsersIcon,
 } from "@phosphor-icons/react/ssr";
-
-import { createClient } from "@/lib/supabase/server";
+import { eq } from "drizzle-orm";
+import Image from "next/image";
+import Link from "next/link";
+import { redirect } from "next/navigation";
+import { Suspense } from "react";
 import { db } from "@/app/db";
 import { usersTable } from "@/app/db/schema";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -26,6 +24,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { createClient } from "@/lib/supabase/server";
 
 function getInitials(name: string) {
   return name
@@ -92,12 +91,19 @@ async function ProfileContent() {
         <Card className="overflow-hidden border-border/70 bg-background/95 shadow-sm">
           <CardHeader className="gap-6 border-b border-border/60 bg-[linear-gradient(135deg,_hsl(var(--background))_0%,_hsl(var(--secondary)/0.35)_100%)] pb-8">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-              <Badge variant="secondary" className="w-fit gap-2 rounded-full px-3 py-1 text-xs uppercase tracking-[0.24em]">
+              <Badge
+                variant="secondary"
+                className="w-fit gap-2 rounded-full px-3 py-1 text-xs uppercase tracking-[0.24em]"
+              >
                 <SparkleIcon className="h-3.5 w-3.5" />
                 Your profile
               </Badge>
               <div className="flex flex-col gap-2">
-                <Button asChild variant="outline" className="w-fit rounded-full">
+                <Button
+                  asChild
+                  variant="outline"
+                  className="w-fit rounded-full"
+                >
                   <Link href="/profile/edit">
                     <PencilIcon className="h-4 w-4" />
                     Edit profile
@@ -127,16 +133,24 @@ async function ProfileContent() {
               )}
               <div className="space-y-3">
                 <div className="space-y-2">
-                  <CardTitle className="text-3xl sm:text-4xl">{displayName}</CardTitle>
-                  <CardDescription className="text-base">@{profile.username}</CardDescription>
+                  <CardTitle className="text-3xl sm:text-4xl">
+                    {displayName}
+                  </CardTitle>
+                  <CardDescription className="text-base">
+                    @{profile.username}
+                  </CardDescription>
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {profile.mainInstrument && (
                     <Badge variant="secondary">{profile.mainInstrument}</Badge>
                   )}
-                  {profile.genre && <Badge variant="outline">{profile.genre}</Badge>}
+                  {profile.genre && (
+                    <Badge variant="outline">{profile.genre}</Badge>
+                  )}
                   <Badge variant={profile.collabStatus ? "default" : "outline"}>
-                    {profile.collabStatus ? "Open to collab" : "Not collaborating"}
+                    {profile.collabStatus
+                      ? "Open to collab"
+                      : "Not collaborating"}
                   </Badge>
                 </div>
               </div>
@@ -148,7 +162,8 @@ async function ProfileContent() {
               <div className="space-y-3">
                 <h2 className="text-lg font-semibold">About</h2>
                 <p className="text-sm leading-7 text-foreground/80 sm:text-base">
-                  {profile.bio || "You haven\u2019t added a bio yet. Edit your profile to tell others about yourself."}
+                  {profile.bio ||
+                    "You haven\u2019t added a bio yet. Edit your profile to tell others about yourself."}
                 </p>
               </div>
 
@@ -156,7 +171,11 @@ async function ProfileContent() {
                 <div className="flex flex-wrap gap-3">
                   {profile.instagramUrl && (
                     <Button asChild variant="outline" className="rounded-full">
-                      <a href={profile.instagramUrl} target="_blank" rel="noreferrer">
+                      <a
+                        href={profile.instagramUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
                         <GlobeIcon className="h-4 w-4" />
                         Instagram
                         <ArrowUpRightIcon className="h-4 w-4" />
@@ -165,7 +184,11 @@ async function ProfileContent() {
                   )}
                   {profile.videoLink && (
                     <Button asChild className="rounded-full">
-                      <a href={profile.videoLink} target="_blank" rel="noreferrer">
+                      <a
+                        href={profile.videoLink}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
                         <PlayCircleIcon className="h-4 w-4" />
                         Watch clip
                       </a>
@@ -174,7 +197,8 @@ async function ProfileContent() {
                 </div>
               ) : (
                 <div className="rounded-2xl border border-dashed bg-muted/30 p-4 text-sm text-muted-foreground">
-                  No public links added yet. Edit your profile to add your Instagram or a video link.
+                  No public links added yet. Edit your profile to add your
+                  Instagram or a video link.
                 </div>
               )}
             </div>
@@ -197,7 +221,9 @@ async function ProfileContent() {
                   <div className="flex items-start gap-3">
                     <UsersIcon className="mt-0.5 h-4 w-4 text-foreground" />
                     <div>
-                      <p className="font-medium text-foreground">Collaboration</p>
+                      <p className="font-medium text-foreground">
+                        Collaboration
+                      </p>
                       <p>
                         {profile.collabStatus
                           ? "Open to new projects and collaborations."

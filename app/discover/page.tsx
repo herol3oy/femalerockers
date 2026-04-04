@@ -1,6 +1,3 @@
-import Link from 'next/link'
-import Image from 'next/image'
-import { Suspense } from 'react'
 import {
   ArrowRightIcon,
   ArrowUpRightIcon,
@@ -10,25 +7,27 @@ import {
   PlayCircleIcon,
   SparkleIcon,
   UsersIcon,
-} from '@phosphor-icons/react/ssr'
-
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
+} from "@phosphor-icons/react/ssr";
+import Image from "next/image";
+import Link from "next/link";
+import { Suspense } from "react";
+import {
+  type DiscoverUser,
+  discoverUserSelect,
+  getDiscoverProfileHref,
+  getInitials,
+  getRecentCount,
+} from "@/app/discover/discover-data";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
-import {
-  discoverUserSelect,
-  getDiscoverProfileHref,
-  getInitials,
-  getRecentCount,
-  type DiscoverUser,
-} from '@/app/discover/discover-data'
-import { createClient } from '@/lib/supabase/server'
+} from "@/components/ui/card";
+import { createClient } from "@/lib/supabase/server";
 
 function DiscoverSkeleton() {
   return (
@@ -43,7 +42,10 @@ function DiscoverSkeleton() {
         </div>
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {Array.from({ length: 6 }).map((_, index) => (
-            <Card key={index} className="border-border/70 bg-background/90 shadow-sm">
+            <Card
+              key={index}
+              className="border-border/70 bg-background/90 shadow-sm"
+            >
               <CardHeader className="animate-pulse space-y-4">
                 <div className="h-14 w-14 rounded-2xl bg-muted" />
                 <div className="h-6 w-1/2 rounded-lg bg-muted" />
@@ -59,15 +61,15 @@ function DiscoverSkeleton() {
         </div>
       </div>
     </section>
-  )
+  );
 }
 
 export async function Discover() {
-  const supabase = await createClient()
+  const supabase = await createClient();
   const { data, error } = await supabase
-    .from('users_table')
+    .from("users_table")
     .select(discoverUserSelect)
-    .order('created_at', { ascending: false })
+    .order("created_at", { ascending: false });
 
   if (error) {
     return (
@@ -75,10 +77,15 @@ export async function Discover() {
         <div className="mx-auto flex max-w-4xl flex-col gap-6 px-4 py-10 sm:px-6 lg:px-8 lg:py-16">
           <Card className="overflow-hidden border-destructive/30 bg-background/95 shadow-sm">
             <CardHeader>
-              <Badge variant="destructive" className="w-fit">Directory unavailable</Badge>
-              <CardTitle className="text-3xl">Discover is temporarily offline</CardTitle>
+              <Badge variant="destructive" className="w-fit">
+                Directory unavailable
+              </Badge>
+              <CardTitle className="text-3xl">
+                Discover is temporarily offline
+              </CardTitle>
               <CardDescription className="max-w-2xl text-base">
-                The profile directory could not be loaded right now. Try again shortly or create your own profile while the feed reconnects.
+                The profile directory could not be loaded right now. Try again
+                shortly or create your own profile while the feed reconnects.
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -89,13 +96,15 @@ export async function Discover() {
           </Card>
         </div>
       </section>
-    )
+    );
   }
 
-  const users = ((data ?? []) as DiscoverUser[]).filter((user) => user.is_approved)
-  const openToCollab = users.filter((user) => user.collab_status)
-  const genres = new Set(users.map((user) => user.genre).filter(Boolean))
-  const recentCount = getRecentCount(users)
+  const users = ((data ?? []) as DiscoverUser[]).filter(
+    (user) => user.is_approved,
+  );
+  const openToCollab = users.filter((user) => user.collab_status);
+  const genres = new Set(users.map((user) => user.genre).filter(Boolean));
+  const recentCount = getRecentCount(users);
 
   return (
     <section className="min-h-screen bg-[radial-gradient(circle_at_top,_hsl(var(--secondary))_0%,_transparent_45%),linear-gradient(to_bottom,_hsl(var(--background)),_hsl(var(--muted)/0.35))]">
@@ -104,16 +113,22 @@ export async function Discover() {
           <div className="absolute inset-y-0 right-0 hidden w-1/3 bg-[radial-gradient(circle_at_center,_hsl(var(--primary)/0.12),_transparent_65%)] lg:block" />
           <div className="relative grid gap-8 lg:grid-cols-[minmax(0,1.2fr)_minmax(280px,0.8fr)] lg:items-end">
             <div className="space-y-5">
-              <Badge variant="secondary" className="w-fit gap-2 rounded-full px-3 py-1 text-xs uppercase tracking-[0.24em]">
+              <Badge
+                variant="secondary"
+                className="w-fit gap-2 rounded-full px-3 py-1 text-xs uppercase tracking-[0.24em]"
+              >
                 <SparkleIcon className="h-3.5 w-3.5" />
                 Discover artists
               </Badge>
               <div className="space-y-3">
                 <h1 className="max-w-3xl text-4xl font-semibold tracking-tight sm:text-5xl">
-                  Find women and femme musicians ready to build the next project with you.
+                  Find women and femme musicians ready to build the next project
+                  with you.
                 </h1>
                 <p className="max-w-2xl text-base text-muted-foreground sm:text-lg">
-                  Browse approved community profiles, scan instruments and genres fast, and jump straight into collaboration when someone matches your sound.
+                  Browse approved community profiles, scan instruments and
+                  genres fast, and jump straight into collaboration when someone
+                  matches your sound.
                 </p>
               </div>
               <div className="flex flex-col gap-3 sm:flex-row">
@@ -126,23 +141,35 @@ export async function Discover() {
             <Card className="border-border/70 bg-background/90 shadow-sm backdrop-blur">
               <CardHeader className="pb-4">
                 <CardDescription>Community snapshot</CardDescription>
-                <CardTitle className="text-2xl">A curated, collaboration-first directory</CardTitle>
+                <CardTitle className="text-2xl">
+                  A curated, collaboration-first directory
+                </CardTitle>
               </CardHeader>
               <CardContent className="grid gap-4 sm:grid-cols-2">
                 <div className="rounded-2xl border bg-muted/40 p-4">
-                  <p className="text-sm text-muted-foreground">Approved artists</p>
+                  <p className="text-sm text-muted-foreground">
+                    Approved artists
+                  </p>
                   <p className="mt-2 text-3xl font-semibold">{users.length}</p>
                 </div>
                 <div className="rounded-2xl border bg-muted/40 p-4">
-                  <p className="text-sm text-muted-foreground">Open to collab</p>
-                  <p className="mt-2 text-3xl font-semibold">{openToCollab.length}</p>
+                  <p className="text-sm text-muted-foreground">
+                    Open to collab
+                  </p>
+                  <p className="mt-2 text-3xl font-semibold">
+                    {openToCollab.length}
+                  </p>
                 </div>
                 <div className="rounded-2xl border bg-muted/40 p-4">
-                  <p className="text-sm text-muted-foreground">Genres represented</p>
+                  <p className="text-sm text-muted-foreground">
+                    Genres represented
+                  </p>
                   <p className="mt-2 text-3xl font-semibold">{genres.size}</p>
                 </div>
                 <div className="rounded-2xl border bg-muted/40 p-4">
-                  <p className="text-sm text-muted-foreground">Joined this month</p>
+                  <p className="text-sm text-muted-foreground">
+                    Joined this month
+                  </p>
                   <p className="mt-2 text-3xl font-semibold">{recentCount}</p>
                 </div>
               </CardContent>
@@ -155,7 +182,8 @@ export async function Discover() {
             <CardHeader>
               <CardTitle>No live profiles yet</CardTitle>
               <CardDescription>
-                Once artists are approved, they will appear here as a browsable directory.
+                Once artists are approved, they will appear here as a browsable
+                directory.
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -167,8 +195,10 @@ export async function Discover() {
         ) : (
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             {users.map((user) => {
-              const displayName = user.artist_name || user.username
-              const hasExternalLinks = Boolean(user.instagram_url || user.video_link)
+              const displayName = user.artist_name || user.username;
+              const hasExternalLinks = Boolean(
+                user.instagram_url || user.video_link,
+              );
 
               return (
                 <Card
@@ -198,20 +228,28 @@ export async function Discover() {
                           </div>
                         )}
                         <div className="space-y-1">
-                          <CardTitle className="text-xl">{displayName}</CardTitle>
+                          <CardTitle className="text-xl">
+                            {displayName}
+                          </CardTitle>
                           <CardDescription>@{user.username}</CardDescription>
                         </div>
                       </div>
-                      <Badge variant={user.collab_status ? 'default' : 'outline'}>
-                        {user.collab_status ? 'Open to collab' : 'Profile live'}
+                      <Badge
+                        variant={user.collab_status ? "default" : "outline"}
+                      >
+                        {user.collab_status ? "Open to collab" : "Profile live"}
                       </Badge>
                     </div>
 
                     <div className="flex flex-wrap gap-2">
                       {user.main_instrument ? (
-                        <Badge variant="secondary">{user.main_instrument}</Badge>
+                        <Badge variant="secondary">
+                          {user.main_instrument}
+                        </Badge>
                       ) : null}
-                      {user.genre ? <Badge variant="outline">{user.genre}</Badge> : null}
+                      {user.genre ? (
+                        <Badge variant="outline">{user.genre}</Badge>
+                      ) : null}
                       <Badge variant="outline" className="gap-1.5">
                         <CheckCircleIcon className="h-3.5 w-3.5" />
                         Approved
@@ -231,21 +269,30 @@ export async function Discover() {
                         <UsersIcon className="h-4 w-4" />
                         <span>
                           {user.collab_status
-                            ? 'Currently looking for collaborations'
-                            : 'Profile available for discovery'}
+                            ? "Currently looking for collaborations"
+                            : "Profile available for discovery"}
                         </span>
                       </div>
                     </div>
 
                     <p className="flex-1 text-sm leading-6 text-foreground/80">
-                      {user.bio ?? 'No bio added yet. Check the profile links to get a feel for the artist and their current work.'}
+                      {user.bio ??
+                        "No bio added yet. Check the profile links to get a feel for the artist and their current work."}
                     </p>
 
                     {hasExternalLinks ? (
                       <div className="pointer-events-auto relative z-30 flex flex-wrap gap-3 pt-2">
                         {user.instagram_url ? (
-                          <Button asChild variant="outline" className="rounded-full">
-                            <a href={user.instagram_url} target="_blank" rel="noreferrer">
+                          <Button
+                            asChild
+                            variant="outline"
+                            className="rounded-full"
+                          >
+                            <a
+                              href={user.instagram_url}
+                              target="_blank"
+                              rel="noreferrer"
+                            >
                               <GlobeIcon className="h-4 w-4" />
                               Instagram
                               <ArrowUpRightIcon className="h-4 w-4" />
@@ -254,7 +301,11 @@ export async function Discover() {
                         ) : null}
                         {user.video_link ? (
                           <Button asChild className="rounded-full">
-                            <a href={user.video_link} target="_blank" rel="noreferrer">
+                            <a
+                              href={user.video_link}
+                              target="_blank"
+                              rel="noreferrer"
+                            >
                               <PlayCircleIcon className="h-4 w-4" />
                               Watch clip
                             </a>
@@ -263,7 +314,8 @@ export async function Discover() {
                       </div>
                     ) : (
                       <div className="rounded-2xl border border-dashed bg-muted/30 p-4 text-sm text-muted-foreground">
-                        This artist has not added links yet, but their profile is now visible in the directory.
+                        This artist has not added links yet, but their profile
+                        is now visible in the directory.
                       </div>
                     )}
 
@@ -273,13 +325,13 @@ export async function Discover() {
                     </div>
                   </CardContent>
                 </Card>
-              )
+              );
             })}
           </div>
         )}
       </div>
     </section>
-  )
+  );
 }
 
 export default function Page() {
@@ -287,5 +339,5 @@ export default function Page() {
     <Suspense fallback={<DiscoverSkeleton />}>
       <Discover />
     </Suspense>
-  )
+  );
 }

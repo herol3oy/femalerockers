@@ -2,10 +2,9 @@
 
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
-
-import { createClient } from "@/lib/supabase/server";
 import { db } from "@/app/db";
 import { usersTable } from "@/app/db/schema";
+import { createClient } from "@/lib/supabase/server";
 
 export async function toggleApproval(userId: string, approved: boolean) {
   const supabase = await createClient();

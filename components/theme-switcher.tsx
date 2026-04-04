@@ -1,5 +1,8 @@
 "use client";
 
+import { LaptopIcon, MoonIcon, SunIcon } from "@phosphor-icons/react";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -8,9 +11,6 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { LaptopIcon, MoonIcon, SunIcon } from "@phosphor-icons/react";
-import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
 
 const ThemeSwitcher = () => {
   const [mounted, setMounted] = useState(false);
