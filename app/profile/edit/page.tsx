@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { redirect } from "next/navigation";
 import { eq } from "drizzle-orm";
-import { Pencil } from "lucide-react";
+import { PencilIcon } from "@phosphor-icons/react/ssr";
 
 import { createClient } from "@/lib/supabase/server";
 import { db } from "@/app/db";
@@ -68,7 +68,7 @@ async function EditProfileContent() {
         <Card className="overflow-hidden border-border/70 bg-background/95 shadow-sm">
           <CardHeader className="border-b border-border/60 bg-[linear-gradient(135deg,_hsl(var(--background))_0%,_hsl(var(--secondary)/0.35)_100%)] pb-8">
             <Badge variant="secondary" className="w-fit gap-2 rounded-full px-3 py-1 text-xs uppercase tracking-[0.24em]">
-              <Pencil className="h-3.5 w-3.5" />
+              <PencilIcon className="h-3.5 w-3.5" />
               Edit profile
             </Badge>
             <CardTitle className="text-3xl">Update your profile</CardTitle>

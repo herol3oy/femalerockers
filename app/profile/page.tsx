@@ -4,15 +4,15 @@ import { eq } from "drizzle-orm";
 import Link from "next/link";
 import Image from "next/image";
 import {
-  ArrowUpRight,
-  Globe,
-  MapPin,
-  Music,
-  Pencil,
-  PlayCircle,
-  Sparkles,
-  Users,
-} from "lucide-react";
+  ArrowUpRightIcon,
+  GlobeIcon,
+  MapPinIcon,
+  MusicNoteIcon,
+  PencilIcon,
+  PlayCircleIcon,
+  SparkleIcon,
+  UsersIcon,
+} from "@phosphor-icons/react/ssr";
 
 import { createClient } from "@/lib/supabase/server";
 import { db } from "@/app/db";
@@ -93,19 +93,19 @@ async function ProfileContent() {
           <CardHeader className="gap-6 border-b border-border/60 bg-[linear-gradient(135deg,_hsl(var(--background))_0%,_hsl(var(--secondary)/0.35)_100%)] pb-8">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
               <Badge variant="secondary" className="w-fit gap-2 rounded-full px-3 py-1 text-xs uppercase tracking-[0.24em]">
-                <Sparkles className="h-3.5 w-3.5" />
+                <SparkleIcon className="h-3.5 w-3.5" />
                 Your profile
               </Badge>
               <div className="flex flex-col gap-2">
                 <Button asChild variant="outline" className="w-fit rounded-full">
                   <Link href="/profile/edit">
-                    <Pencil className="h-4 w-4" />
+                    <PencilIcon className="h-4 w-4" />
                     Edit profile
                   </Link>
                 </Button>
                 <Button asChild className="w-fit rounded-full">
                   <Link href={`/discover/${profile.username}`} target="_blank">
-                    <ArrowUpRight className="h-4 w-4" />
+                    <ArrowUpRightIcon className="h-4 w-4" />
                     View profile
                   </Link>
                 </Button>
@@ -157,16 +157,16 @@ async function ProfileContent() {
                   {profile.instagramUrl && (
                     <Button asChild variant="outline" className="rounded-full">
                       <a href={profile.instagramUrl} target="_blank" rel="noreferrer">
-                        <Globe className="h-4 w-4" />
+                        <GlobeIcon className="h-4 w-4" />
                         Instagram
-                        <ArrowUpRight className="h-4 w-4" />
+                        <ArrowUpRightIcon className="h-4 w-4" />
                       </a>
                     </Button>
                   )}
                   {profile.videoLink && (
                     <Button asChild className="rounded-full">
                       <a href={profile.videoLink} target="_blank" rel="noreferrer">
-                        <PlayCircle className="h-4 w-4" />
+                        <PlayCircleIcon className="h-4 w-4" />
                         Watch clip
                       </a>
                     </Button>
@@ -187,7 +187,7 @@ async function ProfileContent() {
                 <CardContent className="space-y-4 text-sm text-muted-foreground">
                   {profile.cityCountry && (
                     <div className="flex items-start gap-3">
-                      <MapPin className="mt-0.5 h-4 w-4 text-foreground" />
+                      <MapPinIcon className="mt-0.5 h-4 w-4 text-foreground" />
                       <div>
                         <p className="font-medium text-foreground">Location</p>
                         <p>{profile.cityCountry}</p>
@@ -195,7 +195,7 @@ async function ProfileContent() {
                     </div>
                   )}
                   <div className="flex items-start gap-3">
-                    <Users className="mt-0.5 h-4 w-4 text-foreground" />
+                    <UsersIcon className="mt-0.5 h-4 w-4 text-foreground" />
                     <div>
                       <p className="font-medium text-foreground">Collaboration</p>
                       <p>
@@ -206,7 +206,7 @@ async function ProfileContent() {
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
-                    <Music className="mt-0.5 h-4 w-4 text-foreground" />
+                    <MusicNoteIcon className="mt-0.5 h-4 w-4 text-foreground" />
                     <div>
                       <p className="font-medium text-foreground">Email</p>
                       <p>{profile.email}</p>

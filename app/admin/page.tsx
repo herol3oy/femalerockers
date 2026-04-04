@@ -1,5 +1,5 @@
 import { asc } from "drizzle-orm";
-import { Shield } from "lucide-react";
+import { Shield } from "@phosphor-icons/react/ssr";
 
 import { db } from "@/app/db";
 import { usersTable } from "@/app/db/schema";

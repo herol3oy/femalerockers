@@ -2,15 +2,15 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Suspense } from 'react'
 import {
-  ArrowRight,
-  ArrowUpRight,
-  CheckCircle2,
-  Globe,
-  MapPin,
-  PlayCircle,
-  Sparkles,
-  Users,
-} from 'lucide-react'
+  ArrowRightIcon,
+  ArrowUpRightIcon,
+  CheckCircleIcon,
+  GlobeIcon,
+  MapPinIcon,
+  PlayCircleIcon,
+  SparkleIcon,
+  UsersIcon,
+} from '@phosphor-icons/react/ssr'
 
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -105,7 +105,7 @@ export async function Discover() {
           <div className="relative grid gap-8 lg:grid-cols-[minmax(0,1.2fr)_minmax(280px,0.8fr)] lg:items-end">
             <div className="space-y-5">
               <Badge variant="secondary" className="w-fit gap-2 rounded-full px-3 py-1 text-xs uppercase tracking-[0.24em]">
-                <Sparkles className="h-3.5 w-3.5" />
+                <SparkleIcon className="h-3.5 w-3.5" />
                 Discover artists
               </Badge>
               <div className="space-y-3">
@@ -213,7 +213,7 @@ export async function Discover() {
                       ) : null}
                       {user.genre ? <Badge variant="outline">{user.genre}</Badge> : null}
                       <Badge variant="outline" className="gap-1.5">
-                        <CheckCircle2 className="h-3.5 w-3.5" />
+                        <CheckCircleIcon className="h-3.5 w-3.5" />
                         Approved
                       </Badge>
                     </div>
@@ -223,12 +223,12 @@ export async function Discover() {
                     <div className="space-y-3 text-sm text-muted-foreground">
                       {user.city_country ? (
                         <div className="flex items-center gap-2">
-                          <MapPin className="h-4 w-4" />
+                          <MapPinIcon className="h-4 w-4" />
                           <span>{user.city_country}</span>
                         </div>
                       ) : null}
                       <div className="flex items-center gap-2">
-                        <Users className="h-4 w-4" />
+                        <UsersIcon className="h-4 w-4" />
                         <span>
                           {user.collab_status
                             ? 'Currently looking for collaborations'
@@ -246,16 +246,16 @@ export async function Discover() {
                         {user.instagram_url ? (
                           <Button asChild variant="outline" className="rounded-full">
                             <a href={user.instagram_url} target="_blank" rel="noreferrer">
-                              <Globe className="h-4 w-4" />
+                              <GlobeIcon className="h-4 w-4" />
                               Instagram
-                              <ArrowUpRight className="h-4 w-4" />
+                              <ArrowUpRightIcon className="h-4 w-4" />
                             </a>
                           </Button>
                         ) : null}
                         {user.video_link ? (
                           <Button asChild className="rounded-full">
                             <a href={user.video_link} target="_blank" rel="noreferrer">
-                              <PlayCircle className="h-4 w-4" />
+                              <PlayCircleIcon className="h-4 w-4" />
                               Watch clip
                             </a>
                           </Button>
@@ -269,7 +269,7 @@ export async function Discover() {
 
                     <div className="relative z-20 flex items-center justify-between border-t border-border/60 pt-4 text-sm text-muted-foreground">
                       <span>Open full profile</span>
-                      <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
+                      <ArrowRightIcon className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
                     </div>
                   </CardContent>
                 </Card>

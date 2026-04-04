@@ -3,15 +3,15 @@ import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { Suspense } from 'react'
 import {
-  ArrowLeft,
-  ArrowUpRight,
-  CheckCircle2,
-  Globe,
-  MapPin,
-  PlayCircle,
-  Sparkles,
-  Users,
-} from 'lucide-react'
+  ArrowLeftIcon,
+  ArrowUpRightIcon,
+  CheckCircleIcon,
+  GlobeIcon,
+  MapPinIcon,
+  PlayCircleIcon,
+  SparkleIcon,
+  UsersIcon,
+} from '@phosphor-icons/react/ssr'
 
 import {
   discoverUserSelect,
@@ -129,12 +129,12 @@ async function DiscoverProfileContent({ params }: DiscoverProfilePageProps) {
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <Button asChild variant="outline" className="w-fit rounded-full">
             <Link href="/discover">
-              <ArrowLeft className="h-4 w-4" />
+              <ArrowLeftIcon className="h-4 w-4" />
               Back to discover
             </Link>
           </Button>
           <Badge variant="secondary" className="w-fit gap-2 rounded-full px-3 py-1 text-xs uppercase tracking-[0.24em]">
-            <Sparkles className="h-3.5 w-3.5" />
+            <SparkleIcon className="h-3.5 w-3.5" />
             Artist profile
           </Badge>
         </div>
@@ -170,7 +170,7 @@ async function DiscoverProfileContent({ params }: DiscoverProfilePageProps) {
                       {user.collab_status ? 'Open to collab' : 'Profile live'}
                     </Badge>
                     <Badge variant="outline" className="gap-1.5">
-                      <CheckCircle2 className="h-3.5 w-3.5" />
+                      <CheckCircleIcon className="h-3.5 w-3.5" />
                       Approved profile
                     </Badge>
                   </div>
@@ -205,16 +205,16 @@ async function DiscoverProfileContent({ params }: DiscoverProfilePageProps) {
                     {user.instagram_url ? (
                       <Button asChild variant="outline" className="rounded-full">
                         <a href={user.instagram_url} target="_blank" rel="noreferrer">
-                          <Globe className="h-4 w-4" />
+                          <GlobeIcon className="h-4 w-4" />
                           Instagram
-                          <ArrowUpRight className="h-4 w-4" />
+                          <ArrowUpRightIcon className="h-4 w-4" />
                         </a>
                       </Button>
                     ) : null}
                     {user.video_link ? (
                       <Button asChild className="rounded-full">
                         <a href={user.video_link} target="_blank" rel="noreferrer">
-                          <PlayCircle className="h-4 w-4" />
+                          <PlayCircleIcon className="h-4 w-4" />
                           Watch clip
                         </a>
                       </Button>
@@ -235,7 +235,7 @@ async function DiscoverProfileContent({ params }: DiscoverProfilePageProps) {
                   <CardContent className="space-y-4 text-sm text-muted-foreground">
                     {user.city_country ? (
                       <div className="flex items-start gap-3">
-                        <MapPin className="mt-0.5 h-4 w-4 text-foreground" />
+                        <MapPinIcon className="mt-0.5 h-4 w-4 text-foreground" />
                         <div>
                           <p className="font-medium text-foreground">Location</p>
                           <p>{user.city_country}</p>
@@ -243,7 +243,7 @@ async function DiscoverProfileContent({ params }: DiscoverProfilePageProps) {
                       </div>
                     ) : null}
                     <div className="flex items-start gap-3">
-                      <Users className="mt-0.5 h-4 w-4 text-foreground" />
+                      <UsersIcon className="mt-0.5 h-4 w-4 text-foreground" />
                       <div>
                         <p className="font-medium text-foreground">Collaboration status</p>
                         <p>
