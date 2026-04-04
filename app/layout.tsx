@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Roboto, Space_Grotesk } from "next/font/google";
+import { ThemeProvider } from "next-themes";
 import { cn } from "@/lib/utils";
 import { NavigationBar } from "@/components/navigation-bar";
 
@@ -27,10 +28,17 @@ export default function RootLayout({
     <html
       lang="en"
       className={cn("h-full antialiased", "font-sans", roboto.variable, spaceGroteskHeading.variable)}
+      suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col">
-        <NavigationBar />
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange>
+          <NavigationBar />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
