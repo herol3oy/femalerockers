@@ -26,7 +26,7 @@ export default async function AdminPage() {
           <CardHeader className="border-b border-border/60 bg-[linear-gradient(135deg,_hsl(var(--background))_0%,_hsl(var(--secondary)/0.35)_100%)] pb-8">
             <Badge
               variant="secondary"
-              className="w-fit gap-2 rounded-full px-3 py-1 text-xs uppercase tracking-[0.24em]"
+              className="w-fit gap-2"
             >
               <ShieldIcon className="h-3.5 w-3.5" />
               Admin panel

@@ -41,7 +41,7 @@ function ProfileSkeleton() {
       <div className="mx-auto flex max-w-4xl flex-col gap-6 px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
         <Card className="overflow-hidden border-border/70 bg-background/95 shadow-sm">
           <CardHeader className="animate-pulse space-y-4 border-b border-border/60 pb-8">
-            <div className="h-6 w-28 rounded-full bg-muted" />
+            <div className="h-6 w-28 rounded-md bg-muted" />
             <div className="flex items-start gap-5">
               <div className="h-20 w-20 rounded-3xl bg-muted" />
               <div className="space-y-3">
@@ -93,7 +93,7 @@ async function ProfileContent() {
             <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
               <Badge
                 variant="secondary"
-                className="w-fit gap-2 rounded-full px-3 py-1 text-xs uppercase tracking-[0.24em]"
+                className="w-fit gap-2"
               >
                 <SparkleIcon className="h-3.5 w-3.5" />
                 Your profile
@@ -102,14 +102,14 @@ async function ProfileContent() {
                 <Button
                   asChild
                   variant="outline"
-                  className="w-fit rounded-full"
+                  className="w-fit"
                 >
                   <Link href="/profile/edit">
                     <PencilIcon className="h-4 w-4" />
                     Edit profile
                   </Link>
                 </Button>
-                <Button asChild className="w-fit rounded-full">
+                <Button asChild className="w-fit">
                   <Link href={`/discover/${profile.username}`} target="_blank">
                     <ArrowUpRightIcon className="h-4 w-4" />
                     View profile
@@ -170,7 +170,7 @@ async function ProfileContent() {
               {hasExternalLinks ? (
                 <div className="flex flex-wrap gap-3">
                   {profile.instagramUrl && (
-                    <Button asChild variant="outline" className="rounded-full">
+                    <Button asChild variant="outline">
                       <a
                         href={profile.instagramUrl}
                         target="_blank"
@@ -183,7 +183,7 @@ async function ProfileContent() {
                     </Button>
                   )}
                   {profile.videoLink && (
-                    <Button asChild className="rounded-full">
+                    <Button asChild>
                       <a
                         href={profile.videoLink}
                         target="_blank"

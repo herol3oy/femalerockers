@@ -35,7 +35,7 @@ function DiscoverSkeleton() {
       <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
         <div className="overflow-hidden rounded-3xl border bg-background/95 p-8 shadow-sm">
           <div className="flex flex-col gap-4 animate-pulse">
-            <div className="h-6 w-32 rounded-full bg-muted" />
+            <div className="h-6 w-32 rounded-md bg-muted" />
             <div className="h-12 w-full max-w-2xl rounded-xl bg-muted" />
             <div className="h-5 w-full max-w-3xl rounded-lg bg-muted" />
           </div>
@@ -115,7 +115,7 @@ export async function Discover() {
             <div className="space-y-5">
               <Badge
                 variant="secondary"
-                className="w-fit gap-2 rounded-full px-3 py-1 text-xs uppercase tracking-[0.24em]"
+                className="w-fit gap-2"
               >
                 <SparkleIcon className="h-3.5 w-3.5" />
                 Discover artists
@@ -132,7 +132,7 @@ export async function Discover() {
                 </p>
               </div>
               <div className="flex flex-col gap-3 sm:flex-row">
-                <Button asChild size="lg" className="rounded-full px-6">
+                <Button asChild size="lg">
                   <Link href="/auth/sign-up">Create your profile</Link>
                 </Button>
               </div>
@@ -286,7 +286,6 @@ export async function Discover() {
                           <Button
                             asChild
                             variant="outline"
-                            className="rounded-full"
                           >
                             <a
                               href={user.instagram_url}
@@ -300,7 +299,7 @@ export async function Discover() {
                           </Button>
                         ) : null}
                         {user.video_link ? (
-                          <Button asChild className="rounded-full">
+                          <Button asChild>
                             <a
                               href={user.video_link}
                               target="_blank"

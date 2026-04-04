@@ -41,8 +41,8 @@ function DiscoverProfileSkeleton() {
     <section className="min-h-screen bg-[radial-gradient(circle_at_top,_hsl(var(--secondary))_0%,_transparent_45%),linear-gradient(to_bottom,_hsl(var(--background)),_hsl(var(--muted)/0.35))]">
       <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div className="h-10 w-40 animate-pulse rounded-full bg-muted" />
-          <div className="h-8 w-32 animate-pulse rounded-full bg-muted" />
+          <div className="h-10 w-40 animate-pulse rounded-md bg-muted" />
+          <div className="h-8 w-32 animate-pulse rounded-md bg-muted" />
         </div>
 
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1.35fr)_320px] lg:items-start">
@@ -54,9 +54,9 @@ function DiscoverProfileSkeleton() {
                   <div className="h-10 w-56 animate-pulse rounded-xl bg-muted" />
                   <div className="h-5 w-32 animate-pulse rounded-lg bg-muted" />
                   <div className="flex flex-wrap gap-2">
-                    <div className="h-6 w-24 animate-pulse rounded-full bg-muted" />
-                    <div className="h-6 w-28 animate-pulse rounded-full bg-muted" />
-                    <div className="h-6 w-32 animate-pulse rounded-full bg-muted" />
+                    <div className="h-6 w-24 animate-pulse rounded-md bg-muted" />
+                    <div className="h-6 w-28 animate-pulse rounded-md bg-muted" />
+                    <div className="h-6 w-32 animate-pulse rounded-md bg-muted" />
                   </div>
                 </div>
               </div>
@@ -71,8 +71,8 @@ function DiscoverProfileSkeleton() {
                 <div className="h-4 w-11/12 animate-pulse rounded-lg bg-muted" />
                 <div className="h-4 w-4/5 animate-pulse rounded-lg bg-muted" />
                 <div className="flex gap-3 pt-2">
-                  <div className="h-10 w-32 animate-pulse rounded-full bg-muted" />
-                  <div className="h-10 w-32 animate-pulse rounded-full bg-muted" />
+                  <div className="h-10 w-32 animate-pulse rounded-md bg-muted" />
+                  <div className="h-10 w-32 animate-pulse rounded-md bg-muted" />
                 </div>
               </div>
 
@@ -96,7 +96,7 @@ function DiscoverProfileSkeleton() {
             <CardContent className="space-y-4">
               <div className="h-4 w-full animate-pulse rounded-lg bg-muted" />
               <div className="h-4 w-5/6 animate-pulse rounded-lg bg-muted" />
-              <div className="h-10 w-full animate-pulse rounded-full bg-muted" />
+              <div className="h-10 w-full animate-pulse rounded-md bg-muted" />
             </CardContent>
           </Card>
         </div>
@@ -127,7 +127,7 @@ async function DiscoverProfileContent({ params }: DiscoverProfilePageProps) {
     <section className="min-h-screen bg-[radial-gradient(circle_at_top,_hsl(var(--secondary))_0%,_transparent_45%),linear-gradient(to_bottom,_hsl(var(--background)),_hsl(var(--muted)/0.35))]">
       <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <Button asChild variant="outline" className="w-fit rounded-full">
+          <Button asChild variant="outline" className="w-fit">
             <Link href="/discover">
               <ArrowLeftIcon className="h-4 w-4" />
               Back to discover
@@ -135,7 +135,7 @@ async function DiscoverProfileContent({ params }: DiscoverProfilePageProps) {
           </Button>
           <Badge
             variant="secondary"
-            className="w-fit gap-2 rounded-full px-3 py-1 text-xs uppercase tracking-[0.24em]"
+            className="w-fit gap-2"
           >
             <SparkleIcon className="h-3.5 w-3.5" />
             Artist profile
@@ -215,7 +215,6 @@ async function DiscoverProfileContent({ params }: DiscoverProfilePageProps) {
                       <Button
                         asChild
                         variant="outline"
-                        className="rounded-full"
                       >
                         <a
                           href={user.instagram_url}
@@ -229,7 +228,7 @@ async function DiscoverProfileContent({ params }: DiscoverProfilePageProps) {
                       </Button>
                     ) : null}
                     {user.video_link ? (
-                      <Button asChild className="rounded-full">
+                      <Button asChild>
                         <a
                           href={user.video_link}
                           target="_blank"
@@ -296,7 +295,7 @@ async function DiscoverProfileContent({ params }: DiscoverProfilePageProps) {
                 Return to discover to keep scanning approved artists by
                 instrument, genre, and collaboration status.
               </p>
-              <Button asChild className="w-full rounded-full">
+              <Button asChild className="w-full">
                 <Link href="/discover">Browse more artists</Link>
               </Button>
             </CardContent>

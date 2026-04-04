@@ -11,7 +11,6 @@ export default function Home() {
         loop
         muted
         playsInline
-        aria-hidden="true"
       />
 
       <div className="absolute inset-0 bg-black/50" aria-hidden="true" />
@@ -32,7 +31,6 @@ export default function Home() {
             <Button
               asChild
               size="lg"
-              className="rounded-full bg-white text-black hover:bg-white/90 px-8 text-base font-semibold"
             >
               <Link href="/auth/sign-up">Get Started</Link>
             </Button>
@@ -41,7 +39,6 @@ export default function Home() {
               asChild
               size="lg"
               variant="outline"
-              className="rounded-full border-white text-white hover:bg-white/10 px-8 text-base font-semibold"
             >
               <Link href="/discover">Discover Artists</Link>
             </Button>

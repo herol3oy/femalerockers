@@ -21,7 +21,7 @@ function EditProfileSkeleton() {
       <div className="mx-auto flex max-w-4xl flex-col gap-6 px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
         <Card className="overflow-hidden border-border/70 bg-background/95 shadow-sm">
           <CardHeader className="animate-pulse space-y-4 border-b border-border/60 pb-8">
-            <div className="h-6 w-28 rounded-full bg-muted" />
+            <div className="h-6 w-28 rounded-md bg-muted" />
             <div className="h-10 w-56 rounded-xl bg-muted" />
             <div className="h-5 w-2/3 rounded-lg bg-muted" />
           </CardHeader>
@@ -68,7 +68,7 @@ async function EditProfileContent() {
           <CardHeader className="border-b border-border/60 bg-[linear-gradient(135deg,_hsl(var(--background))_0%,_hsl(var(--secondary)/0.35)_100%)] pb-8">
             <Badge
               variant="secondary"
-              className="w-fit gap-2 rounded-full px-3 py-1 text-xs uppercase tracking-[0.24em]"
+              className="w-fit gap-2"
             >
               <PencilIcon className="h-3.5 w-3.5" />
               Edit profile

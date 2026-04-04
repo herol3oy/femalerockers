@@ -63,7 +63,6 @@ function UserRow({ user }: { user: SelectUser }) {
           variant={user.isApproved ? "destructive" : "default"}
           disabled={isPending}
           onClick={handleToggle}
-          className="rounded-full"
         >
           {isPending ? "Saving…" : user.isApproved ? "Revoke" : "Approve"}
         </Button>
