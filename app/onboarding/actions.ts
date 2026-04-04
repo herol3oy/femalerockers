@@ -6,6 +6,14 @@ import { usersTable } from "@/app/db/schema";
 import { redirect } from "next/navigation";
 import { eq } from "drizzle-orm";
 
+const ALLOWED_AVATAR_TYPES = ["image/png", "image/jpeg", "image/webp"];
+const MAX_AVATAR_SIZE = 2 * 1024 * 1024; // 2 MB
+const MIME_TO_EXT: Record<string, string> = {
+  "image/png": "png",
+  "image/jpeg": "jpg",
+  "image/webp": "webp",
+};
+
 export async function completeOnboarding(
   _prevState: { error: string } | null,
   formData: FormData
@@ -45,6 +53,36 @@ export async function completeOnboarding(
     return { error: "Username is already taken." };
   }
 
+  // Handle optional avatar upload
+  let avatarUrl: string | undefined;
+  const avatarFile = formData.get("avatar") as File | null;
+  if (avatarFile && avatarFile.size > 0) {
+    if (!ALLOWED_AVATAR_TYPES.includes(avatarFile.type)) {
+      return { error: "Avatar must be PNG, JPEG, or WebP." };
+    }
+    if (avatarFile.size > MAX_AVATAR_SIZE) {
+      return { error: "Avatar must be under 2 MB." };
+    }
+
+    const ext = MIME_TO_EXT[avatarFile.type];
+    const uniqueId = crypto.randomUUID();
+    const path = `${user.id}/fr_avatar_${uniqueId}.${ext}`;
+
+    const { error: uploadError } = await supabase.storage
+      .from("avatars")
+      .upload(path, avatarFile, { contentType: avatarFile.type });
+
+    if (uploadError) {
+      return { error: "Avatar upload failed. Please try again." };
+    }
+
+    const {
+      data: { publicUrl },
+    } = supabase.storage.from("avatars").getPublicUrl(path);
+
+    avatarUrl = publicUrl;
+  }
+
   try {
     await db.insert(usersTable).values({
       id: user.id,
@@ -52,6 +90,7 @@ export async function completeOnboarding(
       username,
       artistName,
       instagramUrl,
+      ...(avatarUrl !== undefined && { avatarUrl }),
     });
   } catch {
     return { error: "Something went wrong. Please try again." };

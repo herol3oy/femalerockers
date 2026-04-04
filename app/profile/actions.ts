@@ -6,6 +6,56 @@ import { usersTable } from "@/app/db/schema";
 import { redirect } from "next/navigation";
 import { eq, and, ne } from "drizzle-orm";
 
+const ALLOWED_AVATAR_TYPES = ["image/png", "image/jpeg", "image/webp"];
+const MAX_AVATAR_SIZE = 2 * 1024 * 1024; // 2 MB
+const MIME_TO_EXT: Record<string, string> = {
+  "image/png": "png",
+  "image/jpeg": "jpg",
+  "image/webp": "webp",
+};
+
+async function uploadAvatar(
+  supabase: Awaited<ReturnType<typeof createClient>>,
+  userId: string,
+  file: File
+): Promise<{ url?: string; error?: string }> {
+  if (!ALLOWED_AVATAR_TYPES.includes(file.type)) {
+    return { error: "Avatar must be PNG, JPEG, or WebP." };
+  }
+  if (file.size > MAX_AVATAR_SIZE) {
+    return { error: "Avatar must be under 2 MB." };
+  }
+
+  const ext = MIME_TO_EXT[file.type];
+  const uniqueId = crypto.randomUUID();
+  const path = `${userId}/fr_avatar_${uniqueId}.${ext}`;
+
+  // Remove old avatar files to avoid orphans
+  const { data: existingFiles } = await supabase.storage
+    .from("avatars")
+    .list(userId, { search: "fr_avatar_" });
+  if (existingFiles?.length) {
+    await supabase.storage
+      .from("avatars")
+      .remove(existingFiles.map((f) => `${userId}/${f.name}`));
+  }
+
+  const { error: uploadError } = await supabase.storage
+    .from("avatars")
+    .upload(path, file, { contentType: file.type });
+
+  if (uploadError) {
+    return { error: "Avatar upload failed. Please try again." };
+  }
+
+  const {
+    data: { publicUrl },
+  } = supabase.storage.from("avatars").getPublicUrl(path);
+
+  // Append cache-busting parameter so browsers/CDNs serve the new image
+  return { url: `${publicUrl}?t=${Date.now()}` };
+}
+
 export async function updateProfile(
   _prevState: { error?: string; success?: boolean } | null,
   formData: FormData
@@ -51,6 +101,15 @@ export async function updateProfile(
     return { error: "Username is already taken." };
   }
 
+  // Handle avatar upload
+  let avatarUrl: string | undefined;
+  const avatarFile = formData.get("avatar") as File | null;
+  if (avatarFile && avatarFile.size > 0) {
+    const result = await uploadAvatar(supabase, user.id, avatarFile);
+    if (result.error) return { error: result.error };
+    avatarUrl = result.url;
+  }
+
   try {
     await db
       .update(usersTable)
@@ -64,6 +123,7 @@ export async function updateProfile(
         instagramUrl,
         videoLink,
         collabStatus,
+        ...(avatarUrl !== undefined && { avatarUrl }),
       })
       .where(eq(usersTable.id, user.id));
   } catch {

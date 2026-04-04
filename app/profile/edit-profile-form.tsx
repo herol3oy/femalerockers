@@ -1,6 +1,7 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
+import Image from "next/image";
 import { updateProfile } from "./actions";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -13,6 +14,7 @@ type Props = {
     email: string;
     username: string;
     artistName: string;
+    avatarUrl: string | null;
     cityCountry: string | null;
     mainInstrument: string | null;
     genre: string | null;
@@ -23,11 +25,66 @@ type Props = {
   };
 };
 
+function getInitials(name: string) {
+  return name
+    .split(" ")
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0]?.toUpperCase() ?? "")
+    .join("");
+}
+
+const MAX_AVATAR_SIZE = 2 * 1024 * 1024; // 2 MB
+
 export function EditProfileForm({ profile }: Props) {
   const [state, formAction, pending] = useActionState(updateProfile, null);
+  const [preview, setPreview] = useState<string | null>(profile.avatarUrl);
+  const [fileError, setFileError] = useState<string | null>(null);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.size > MAX_AVATAR_SIZE) {
+        setFileError("Avatar must be under 2 MB.");
+        e.target.value = "";
+        return;
+      }
+      setFileError(null);
+      setPreview(URL.createObjectURL(file));
+    }
+  };
 
   return (
     <form action={formAction} className="flex flex-col gap-4 w-full max-w-md">
+      <div className="flex flex-col gap-2">
+        <Label htmlFor="avatar">Avatar</Label>
+        <div className="flex items-center gap-4">
+          {preview ? (
+            <Image
+              src={preview}
+              alt="Avatar preview"
+              width={64}
+              height={64}
+              className="h-16 w-16 rounded-2xl object-cover"
+            />
+          ) : (
+            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary text-lg font-semibold text-primary-foreground">
+              {getInitials(profile.artistName)}
+            </div>
+          )}
+          <Input
+            id="avatar"
+            name="avatar"
+            type="file"
+            accept="image/png,image/jpeg,image/webp"
+            onChange={handleFileChange}
+            className="max-w-64"
+          />
+        </div>
+        <p className="text-xs text-muted-foreground">Max 2 MB. PNG, JPEG, or WebP.</p>
+        {fileError && <p className="text-sm text-destructive">{fileError}</p>}
+      </div>
+
       <div className="flex flex-col gap-2">
         <Label htmlFor="email">Email</Label>
         <Input

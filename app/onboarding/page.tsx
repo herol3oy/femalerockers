@@ -1,13 +1,30 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
 import { completeOnboarding } from "./actions";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 
+const MAX_AVATAR_SIZE = 2 * 1024 * 1024; // 2 MB
+
 export default function OnboardingPage() {
   const [state, formAction, pending] = useActionState(completeOnboarding, null);
+  const [preview, setPreview] = useState<string | null>(null);
+  const [fileError, setFileError] = useState<string | null>(null);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.size > MAX_AVATAR_SIZE) {
+        setFileError("Avatar must be under 2 MB.");
+        e.target.value = "";
+        return;
+      }
+      setFileError(null);
+      setPreview(URL.createObjectURL(file));
+    }
+  };
 
   return (
     <main className="min-h-screen flex items-center justify-center">
@@ -20,6 +37,33 @@ export default function OnboardingPage() {
         </div>
 
         <form action={formAction} className="flex flex-col gap-4">
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="avatar">Avatar (optional)</Label>
+            <div className="flex items-center gap-4">
+              {preview ? (
+                <img
+                  src={preview}
+                  alt="Avatar preview"
+                  className="h-16 w-16 rounded-2xl object-cover"
+                />
+              ) : (
+                <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-muted text-sm text-muted-foreground">
+                  Photo
+                </div>
+              )}
+              <Input
+                id="avatar"
+                name="avatar"
+                type="file"
+                accept="image/png,image/jpeg,image/webp"
+                onChange={handleFileChange}
+                className="max-w-64"
+              />
+            </div>
+            <p className="text-xs text-muted-foreground">Max 2 MB. PNG, JPEG, or WebP.</p>
+            {fileError && <p className="text-sm text-destructive">{fileError}</p>}
+          </div>
+
           <div className="flex flex-col gap-2">
             <Label htmlFor="username">Username</Label>
             <Input

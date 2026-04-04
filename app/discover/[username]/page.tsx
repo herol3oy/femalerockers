@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { Suspense } from 'react'
 import {
@@ -142,9 +143,19 @@ async function DiscoverProfileContent({ params }: DiscoverProfilePageProps) {
           <Card className="overflow-hidden border-border/70 bg-background/95 shadow-sm">
             <CardHeader className="gap-6 border-b border-border/60 bg-[linear-gradient(135deg,_hsl(var(--background))_0%,_hsl(var(--secondary)/0.35)_100%)] pb-8 sm:flex-row sm:items-start sm:justify-between">
               <div className="flex items-start gap-5">
-                <div className="flex h-20 w-20 items-center justify-center rounded-3xl bg-primary text-2xl font-semibold text-primary-foreground shadow-sm">
-                  {getInitials(displayName)}
-                </div>
+                {user.avatar_url ? (
+                  <Image
+                    src={user.avatar_url}
+                    alt={displayName}
+                    width={80}
+                    height={80}
+                    className="h-20 w-20 rounded-3xl object-cover shadow-sm"
+                  />
+                ) : (
+                  <div className="flex h-20 w-20 items-center justify-center rounded-3xl bg-primary text-2xl font-semibold text-primary-foreground shadow-sm">
+                    {getInitials(displayName)}
+                  </div>
+                )}
                 <div className="space-y-3">
                   <div className="space-y-2">
                     <CardTitle className="text-3xl sm:text-4xl">{displayName}</CardTitle>

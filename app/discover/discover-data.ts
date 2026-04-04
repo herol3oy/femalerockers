@@ -2,6 +2,7 @@ export type DiscoverUser = {
   id: string
   username: string
   artist_name: string
+  avatar_url: string | null
   city_country: string | null
   main_instrument: string | null
   genre: string | null
@@ -14,7 +15,7 @@ export type DiscoverUser = {
 }
 
 export const discoverUserSelect =
-  'id, username, artist_name, city_country, main_instrument, genre, bio, instagram_url, video_link, collab_status, is_approved, created_at'
+  'id, username, artist_name, avatar_url, city_country, main_instrument, genre, bio, instagram_url, video_link, collab_status, is_approved, created_at'
 
 export function getInitials(name: string) {
   return name

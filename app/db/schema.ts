@@ -5,6 +5,7 @@ export const usersTable = pgTable('users_table', {
     email: text('email').notNull().unique(),
     username: varchar("username", { length: 50 }).unique().notNull(),
     artistName: varchar("artist_name", { length: 100 }).notNull(),
+    avatarUrl: varchar("avatar_url", { length: 500 }),
     cityCountry: varchar("city_country", { length: 100 }),
     mainInstrument: varchar("main_instrument", { length: 50 }),
     genre: varchar("genre", { length: 50 }),

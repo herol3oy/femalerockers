@@ -82,6 +82,7 @@ async function EditProfileContent() {
                 email: profile.email,
                 username: profile.username,
                 artistName: profile.artistName,
+                avatarUrl: profile.avatarUrl,
                 cityCountry: profile.cityCountry,
                 mainInstrument: profile.mainInstrument,
                 genre: profile.genre,

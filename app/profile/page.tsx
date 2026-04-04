@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { redirect } from "next/navigation";
 import { eq } from "drizzle-orm";
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowUpRight,
   Globe,
@@ -95,17 +96,35 @@ async function ProfileContent() {
                 <Sparkles className="h-3.5 w-3.5" />
                 Your profile
               </Badge>
-              <Button asChild variant="outline" className="w-fit rounded-full">
-                <Link href="/profile/edit">
-                  <Pencil className="h-4 w-4" />
-                  Edit profile
-                </Link>
-              </Button>
+              <div className="flex flex-col gap-2">
+                <Button asChild variant="outline" className="w-fit rounded-full">
+                  <Link href="/profile/edit">
+                    <Pencil className="h-4 w-4" />
+                    Edit profile
+                  </Link>
+                </Button>
+                <Button asChild className="w-fit rounded-full">
+                  <Link href={`/discover/${profile.username}`} target="_blank">
+                    <ArrowUpRight className="h-4 w-4" />
+                    View profile
+                  </Link>
+                </Button>
+              </div>
             </div>
             <div className="flex items-start gap-5">
-              <div className="flex h-20 w-20 items-center justify-center rounded-3xl bg-primary text-2xl font-semibold text-primary-foreground shadow-sm">
-                {getInitials(displayName)}
-              </div>
+              {profile.avatarUrl ? (
+                <Image
+                  src={profile.avatarUrl}
+                  alt={displayName}
+                  width={80}
+                  height={80}
+                  className="h-20 w-20 rounded-3xl object-cover shadow-sm"
+                />
+              ) : (
+                <div className="flex h-20 w-20 items-center justify-center rounded-3xl bg-primary text-2xl font-semibold text-primary-foreground shadow-sm">
+                  {getInitials(displayName)}
+                </div>
+              )}
               <div className="space-y-3">
                 <div className="space-y-2">
                   <CardTitle className="text-3xl sm:text-4xl">{displayName}</CardTitle>

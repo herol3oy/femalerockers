@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { Suspense } from 'react'
 import {
   ArrowRight,
@@ -183,9 +184,19 @@ export async function Discover() {
                   <CardHeader className="pointer-events-none relative z-20 space-y-5 pb-4">
                     <div className="flex items-start justify-between gap-4">
                       <div className="flex items-center gap-4">
-                        <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary text-lg font-semibold text-primary-foreground">
-                          {getInitials(displayName)}
-                        </div>
+                        {user.avatar_url ? (
+                          <Image
+                            src={user.avatar_url}
+                            alt={displayName}
+                            width={56}
+                            height={56}
+                            className="h-14 w-14 rounded-2xl object-cover"
+                          />
+                        ) : (
+                          <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary text-lg font-semibold text-primary-foreground">
+                            {getInitials(displayName)}
+                          </div>
+                        )}
                         <div className="space-y-1">
                           <CardTitle className="text-xl">{displayName}</CardTitle>
                           <CardDescription>@{user.username}</CardDescription>
