@@ -23,16 +23,17 @@ export async function completeOnboarding(
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) {
+  if (!user?.email) {
     redirect("/auth/login");
   }
 
   const username = formData.get("username")?.toString().trim();
   const artistName = formData.get("artistName")?.toString().trim();
-  const instagramUrl = formData.get("instagramUrl")?.toString().trim();
+  const mainInstrument = formData.get("mainInstrument")?.toString().trim();
+  const instagramUrl = formData.get("instagramUrl")?.toString().trim() || undefined;
 
-  if (!username || !artistName || !instagramUrl) {
-    return { error: "All fields are required." };
+  if (!username || !artistName || !mainInstrument) {
+    return { error: "Username, artist name, and main instrument are required." };
   }
 
   if (!/^[a-zA-Z0-9_]{3,50}$/.test(username)) {
@@ -86,10 +87,11 @@ export async function completeOnboarding(
   try {
     await db.insert(usersTable).values({
       id: user.id,
-      email: user.email!,
+      email: user.email,
       username,
       artistName,
-      instagramUrl,
+      mainInstrument,
+      ...(instagramUrl !== undefined && { instagramUrl }),
       ...(avatarUrl !== undefined && { avatarUrl }),
     });
   } catch {

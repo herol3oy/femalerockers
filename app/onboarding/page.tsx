@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { completeOnboarding } from "./actions";
 
-const MAX_AVATAR_SIZE = 2 * 1024 * 1024; // 2 MB
+const MAX_AVATAR_SIZE = 2 * 1024 * 1024;
 
 export default function OnboardingPage() {
   const [state, formAction, pending] = useActionState(completeOnboarding, null);
@@ -99,12 +99,22 @@ export default function OnboardingPage() {
           </div>
 
           <div className="flex flex-col gap-2">
-            <Label htmlFor="instagramUrl">Instagram URL <span className="text-destructive">*</span></Label>
+            <Label htmlFor="mainInstrument">Main Instrument <span className="text-destructive">*</span></Label>
+            <Input
+              id="mainInstrument"
+              name="mainInstrument"
+              placeholder="e.g. Guitar, Drums, Vocals"
+              required
+              maxLength={50}
+            />
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="instagramUrl">Instagram URL (optional)</Label>
             <Input
               id="instagramUrl"
               name="instagramUrl"
               placeholder="https://instagram.com/janedoe"
-              required
               maxLength={255}
             />
           </div>
