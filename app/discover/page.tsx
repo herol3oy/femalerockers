@@ -69,6 +69,7 @@ export async function Discover() {
   const { data, error } = await supabase
     .from("users_table")
     .select(discoverUserSelect)
+    .neq("role", "admin")
     .order("created_at", { ascending: false });
 
   if (error) {
@@ -122,7 +123,7 @@ export async function Discover() {
               </Badge>
               <div className="space-y-3">
                 <h1 className="max-w-3xl text-4xl font-semibold tracking-tight sm:text-5xl">
-                  Find women and femme musicians ready to build the next project
+                  Find femme musicians ready to build the next project
                   with you.
                 </h1>
                 <p className="max-w-2xl text-base text-muted-foreground sm:text-lg">

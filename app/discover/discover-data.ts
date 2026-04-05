@@ -11,11 +11,12 @@ export type DiscoverUser = {
   video_link: string | null;
   collab_status: boolean | null;
   is_approved: boolean;
+  role: string;
   created_at: string;
 };
 
 export const discoverUserSelect =
-  "id, username, artist_name, avatar_url, city_country, main_instrument, genre, bio, instagram_url, video_link, collab_status, is_approved, created_at";
+  "id, username, artist_name, avatar_url, city_country, main_instrument, genre, bio, instagram_url, video_link, collab_status, is_approved, role, created_at";
 
 export function getInitials(name: string) {
   return name
