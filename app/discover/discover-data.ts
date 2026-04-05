@@ -36,7 +36,7 @@ export function getRecentCount(users: DiscoverUser[]) {
 }
 
 export function getDiscoverProfileHref(username: string) {
-  return `/discover/${encodeURIComponent(username)}`;
+  return `/${encodeURIComponent(username)}`;
 }
 
 export function formatJoinedDate(createdAt: string) {

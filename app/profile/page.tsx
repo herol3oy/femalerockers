@@ -110,7 +110,7 @@ async function ProfileContent() {
                   </Link>
                 </Button>
                 <Button asChild className="w-fit">
-                  <Link href={`/discover/${profile.username}`} target="_blank">
+                  <Link href={`/${profile.username}`} target="_blank">
                     <ArrowUpRightIcon className="h-4 w-4" />
                     View profile
                   </Link>

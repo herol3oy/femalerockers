@@ -42,7 +42,7 @@ function UserRow({ user }: { user: SelectUser }) {
     <tr className="border-b border-border/60 transition-colors hover:bg-muted/30">
       <td className="px-4 py-3">
         <a
-          href={`/discover/${user.username}`}
+          href={`/${user.username}`}
           target="_blank"
           rel="noopener noreferrer"
           className="font-medium underline decoration-primary/30 underline-offset-4 hover:decoration-primary"
