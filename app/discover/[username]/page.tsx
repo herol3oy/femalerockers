@@ -112,7 +112,6 @@ async function DiscoverProfileContent({ params }: DiscoverProfilePageProps) {
     .from("users_table")
     .select(discoverUserSelect)
     .eq("username", decodeURIComponent(username))
-    .eq("is_approved", true)
     .maybeSingle();
 
   if (error || !data) {
@@ -178,10 +177,12 @@ async function DiscoverProfileContent({ params }: DiscoverProfilePageProps) {
                     <Badge variant={user.collab_status ? "default" : "outline"}>
                       {user.collab_status ? "Open to collab" : "Profile live"}
                     </Badge>
-                    <Badge variant="outline" className="gap-1.5">
-                      <CheckCircleIcon className="h-3.5 w-3.5" />
-                      Approved profile
-                    </Badge>
+                    {user.is_approved ? (
+                      <Badge variant="outline" className="gap-1.5">
+                        <CheckCircleIcon className="h-3.5 w-3.5" />
+                        Approved profile
+                      </Badge>
+                    ) : null}
                   </div>
                 </div>
               </div>
