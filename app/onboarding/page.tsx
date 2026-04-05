@@ -41,11 +41,13 @@ export default function OnboardingPage() {
             <Label htmlFor="avatar">Avatar (optional)</Label>
             <div className="flex items-center gap-4">
               {preview ? (
-                <img
-                  src={preview}
-                  alt="Avatar preview"
-                  className="h-16 w-16 rounded-2xl object-cover"
-                />
+                <picture>
+                  <img
+                    src={preview}
+                    alt="Avatar preview"
+                    className="h-16 w-16 rounded-2xl object-cover"
+                  />
+                </picture>
               ) : (
                 <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-muted text-sm text-muted-foreground">
                   Photo
@@ -69,7 +71,7 @@ export default function OnboardingPage() {
           </div>
 
           <div className="flex flex-col gap-2">
-            <Label htmlFor="username">Username</Label>
+            <Label htmlFor="username">Username <span className="text-destructive">*</span></Label>
             <Input
               id="username"
               name="username"
@@ -86,7 +88,7 @@ export default function OnboardingPage() {
           </div>
 
           <div className="flex flex-col gap-2">
-            <Label htmlFor="artistName">Artist Name</Label>
+            <Label htmlFor="artistName">Artist Name <span className="text-destructive">*</span></Label>
             <Input
               id="artistName"
               name="artistName"
@@ -97,7 +99,7 @@ export default function OnboardingPage() {
           </div>
 
           <div className="flex flex-col gap-2">
-            <Label htmlFor="instagramUrl">Instagram URL</Label>
+            <Label htmlFor="instagramUrl">Instagram URL <span className="text-destructive">*</span></Label>
             <Input
               id="instagramUrl"
               name="instagramUrl"
