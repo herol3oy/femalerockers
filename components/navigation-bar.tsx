@@ -16,14 +16,20 @@ async function NavLinks() {
 
   let role: string | null = null;
   let username: string | null = null;
+  let isApproved = false;
   if (user) {
     const rows = await db
-      .select({ role: usersTable.role, username: usersTable.username })
+      .select({
+        role: usersTable.role,
+        username: usersTable.username,
+        isApproved: usersTable.isApproved,
+      })
       .from(usersTable)
       .where(eq(usersTable.id, user.id))
       .limit(1);
     role = rows[0]?.role ?? null;
     username = rows[0]?.username ?? null;
+    isApproved = rows[0]?.isApproved ?? false;
   }
 
   return (
@@ -51,6 +57,7 @@ async function NavLinks() {
       <div className="flex gap-5 items-center font-semibold">
         <Link href="/discover">Discover</Link>
         {user && username && <Link href={`/${username}`}>My Profile</Link>}
+        {user && isApproved && <Link href="/collab">Collab</Link>}
         {role === "admin" && <Link href="/admin">Admin</Link>}
       </div>
       <div className="flex items-center gap-4">

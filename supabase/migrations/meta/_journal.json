@@ -15,6 +15,13 @@
       "when": 1775245001891,
       "tag": "0001_normal_shaman",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1775481412316,
+      "tag": "0002_daffy_korvac",
+      "breakpoints": true
     }
   ]
 }
