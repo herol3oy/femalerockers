@@ -56,6 +56,7 @@ async function NavLinks() {
       </div>
       <div className="flex gap-5 items-center font-semibold">
         <Link href="/discover">Discover</Link>
+        <Link href="/interviews">Interviews</Link>
         {user && username && <Link href={`/${username}`}>My Profile</Link>}
         {user && isApproved && <Link href="/collab">Collab</Link>}
         {role === "admin" && <Link href="/admin">Admin</Link>}

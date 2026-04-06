@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
   cacheComponents: true,
   experimental: {
     serverActions: {
-      bodySizeLimit: '5mb',
+      bodySizeLimit: "5mb",
     },
     optimizePackageImports: ["@phosphor-icons/react"],
   },
@@ -21,6 +21,10 @@ const nextConfig: NextConfig = {
         hostname: "127.0.0.1",
         port: "54321",
         pathname: "/storage/v1/object/public/**",
+      },
+      {
+        protocol: "https",
+        hostname: "cdn.sanity.io",
       },
     ],
   },
