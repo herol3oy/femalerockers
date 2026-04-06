@@ -4,6 +4,7 @@ import {
   CheckCircleIcon,
   GlobeIcon,
   MapPinIcon,
+  PencilIcon,
   PlayCircleIcon,
   SparkleIcon,
   UsersIcon,
@@ -108,17 +109,22 @@ function DiscoverProfileSkeleton() {
 async function DiscoverProfileContent({ params }: DiscoverProfilePageProps) {
   const { username } = await params;
   const supabase = await createClient();
-  const { data, error } = await supabase
-    .from("users_table")
-    .select(discoverUserSelect)
-    .eq("username", decodeURIComponent(username))
-    .maybeSingle();
+
+  const [{ data, error }, { data: { user: authUser } }] = await Promise.all([
+    supabase
+      .from("users_table")
+      .select(discoverUserSelect)
+      .eq("username", decodeURIComponent(username))
+      .maybeSingle(),
+    supabase.auth.getUser(),
+  ]);
 
   if (error || !data) {
     notFound();
   }
 
   const user = data as DiscoverUser;
+  const isOwner = authUser?.id === user.id;
   const displayName = user.artist_name || user.username;
   const hasExternalLinks = Boolean(user.instagram_url || user.video_link);
 
@@ -132,13 +138,23 @@ async function DiscoverProfileContent({ params }: DiscoverProfilePageProps) {
               Back to discover
             </Link>
           </Button>
-          <Badge
-            variant="secondary"
-            className="w-fit gap-2"
-          >
-            <SparkleIcon className="h-3.5 w-3.5" />
-            Artist profile
-          </Badge>
+          <div className="flex items-center gap-3">
+            {isOwner ? (
+              <Button asChild variant="outline" className="w-fit">
+                <Link href="/profile/edit">
+                  <PencilIcon className="h-4 w-4" />
+                  Edit profile
+                </Link>
+              </Button>
+            ) : null}
+            <Badge
+              variant="secondary"
+              className="w-fit gap-2"
+            >
+              <SparkleIcon className="h-3.5 w-3.5" />
+              Artist profile
+            </Badge>
+          </div>
         </div>
 
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1.35fr)_320px] lg:items-start">

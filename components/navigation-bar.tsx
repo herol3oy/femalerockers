@@ -15,13 +15,15 @@ async function NavLinks() {
   } = await supabase.auth.getUser();
 
   let role: string | null = null;
+  let username: string | null = null;
   if (user) {
     const rows = await db
-      .select({ role: usersTable.role })
+      .select({ role: usersTable.role, username: usersTable.username })
       .from(usersTable)
       .where(eq(usersTable.id, user.id))
       .limit(1);
     role = rows[0]?.role ?? null;
+    username = rows[0]?.username ?? null;
   }
 
   return (
@@ -48,7 +50,7 @@ async function NavLinks() {
       </div>
       <div className="flex gap-5 items-center font-semibold">
         <Link href="/discover">Discover</Link>
-        {user && <Link href="/profile">Profile</Link>}
+        {user && username && <Link href={`/${username}`}>My Profile</Link>}
         {role === "admin" && <Link href="/admin">Admin</Link>}
       </div>
       <div className="flex items-center gap-4">
