@@ -3,6 +3,7 @@ import "./globals.css";
 import { Roboto, Space_Grotesk } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import { NavigationBar } from "@/components/navigation-bar";
+import { Footer } from "@/components/footer";
 import { cn } from "@/lib/utils";
 
 const spaceGroteskHeading = Space_Grotesk({
@@ -48,6 +49,7 @@ export default function RootLayout({
         >
           <NavigationBar />
           {children}
+          <Footer />
         </ThemeProvider>
       </body>
     </html>
