@@ -257,18 +257,6 @@ export default function Home() {
               </div>
             </div>
           </div>
-
-          <footer className="mt-10 flex flex-col gap-3 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
-            <p>© Female Rockers</p>
-            <div className="flex gap-4">
-              <Link className="hover:text-foreground" href="/discover">
-                Discover
-              </Link>
-              <Link className="hover:text-foreground" href="/auth/sign-up">
-                Get started
-              </Link>
-            </div>
-          </footer>
         </div>
       </section>
     </main>

@@ -2,6 +2,7 @@
 
 import { ListIcon, XIcon } from "@phosphor-icons/react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import LogoWithType from "@/components/logo-with-type";
 import { LogoutButton } from "@/components/logout-button";
@@ -21,10 +22,25 @@ export function MobileNav({
   role,
 }: MobileNavProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
 
   const links = [
     { href: "/discover", label: "Discover", show: true },
     { href: "/interviews", label: "Interviews", show: true },
+    { href: "/about", label: "About", show: !user },
+    { href: "/contact", label: "Contact", show: !user },
+    {
+      href: "https://instagram.com/female_rockers",
+      label: "Instagram",
+      show: !user,
+      external: true,
+    },
+    {
+      href: "https://youtube.com/@FemaleRockers",
+      label: "YouTube",
+      show: !user,
+      external: true,
+    },
     { href: `/${username}`, label: "My Profile", show: !!(user && username) },
     { href: "/collab", label: "Collab", show: !!(user && isApproved) },
     { href: "/admin", label: "Admin", show: role === "admin" },
@@ -61,16 +77,44 @@ export function MobileNav({
 
             <div className="flex flex-col gap-2 p-4 flex-1">
               <div className="flex flex-col gap-2 font-semibold text-lg">
-                {links.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    onClick={() => setIsOpen(false)}
-                    className="py-4 px-5 rounded-lg hover:bg-accent transition-colors"
-                  >
-                    {link.label}
-                  </Link>
-                ))}
+                {links.map((link) => {
+                  const isExternal = "external" in link && link.external;
+                  const isActive = !isExternal && pathname === link.href;
+                  const classes = [
+                    "py-4 px-5 rounded-lg transition-colors",
+                    "hover:bg-accent",
+                    isActive ? "bg-accent text-foreground" : undefined,
+                  ]
+                    .filter(Boolean)
+                    .join(" ");
+
+                  if (isExternal) {
+                    return (
+                      <a
+                        key={link.href}
+                        href={link.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        onClick={() => setIsOpen(false)}
+                        className={classes}
+                      >
+                        {link.label}
+                      </a>
+                    );
+                  }
+
+                  return (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      aria-current={isActive ? "page" : undefined}
+                      onClick={() => setIsOpen(false)}
+                      className={classes}
+                    >
+                      {link.label}
+                    </Link>
+                  );
+                })}
               </div>
             </div>
 
