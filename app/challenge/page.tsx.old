@@ -1,0 +1,61 @@
+import { Suspense } from "react";
+import {
+  getActiveChallenge,
+  getChallengeParticipations,
+  getUserParticipation,
+} from "./actions";
+import { ChallengeView } from "./challenge-view";
+
+async function ChallengeContent() {
+  const challenge = await getActiveChallenge();
+
+  if (!challenge) {
+    return (
+      <div className="container mx-auto max-w-4xl space-y-8 p-6">
+        <div className="rounded-xl border border-border/70 bg-card p-12 text-center">
+          <h2 className="text-2xl font-bold">No Active Challenge</h2>
+          <p className="mt-2 text-muted-foreground">
+            Check back soon for upcoming challenges!
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  const [participations, userParticipation] = await Promise.all([
+    getChallengeParticipations(challenge.id),
+    getUserParticipation(challenge.id),
+  ]);
+
+  return (
+    <ChallengeView
+      challenge={challenge}
+      participations={participations}
+      userParticipation={userParticipation}
+    />
+  );
+}
+
+function ChallengeSkeleton() {
+  return (
+    <div className="container mx-auto max-w-4xl space-y-8 p-6">
+      <div className="space-y-4 rounded-xl border border-border/70 bg-card p-6">
+        <div className="h-8 w-3/4 animate-pulse rounded bg-muted" />
+        <div className="h-4 w-1/4 animate-pulse rounded bg-muted" />
+        <div className="space-y-2">
+          <div className="h-4 w-full animate-pulse rounded bg-muted" />
+          <div className="h-4 w-full animate-pulse rounded bg-muted" />
+          <div className="h-4 w-2/3 animate-pulse rounded bg-muted" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function ChallengePage() {
+  return (
+    <Suspense fallback={<ChallengeSkeleton />}>
+      <ChallengeContent />
+    </Suspense>
+  );
+}

@@ -28,6 +28,7 @@ function NavContent({
   const links = [
     { href: "/discover", label: "Discover", show: true },
     { href: "/interviews", label: "Interviews", show: true },
+    { href: "/challenges", label: "Challenges", show: true },
     { href: "/about", label: "About", show: !user },
     { href: "/contact", label: "Contact", show: !user },
     {

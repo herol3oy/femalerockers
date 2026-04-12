@@ -1,4 +1,4 @@
-import { HandshakeIcon, ShieldIcon } from "@phosphor-icons/react/ssr";
+import { HandshakeIcon, ShieldIcon, TrophyIcon } from "@phosphor-icons/react/ssr";
 import { asc, desc, eq } from "drizzle-orm";
 
 import { db } from "@/app/db";
@@ -11,8 +11,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { CollabTable } from "./collab-table";
 import { UsersTable } from "./users-table";
+import Link from "next/link";
 
 export default async function AdminPage() {
   const users = await db
@@ -76,6 +78,24 @@ export default async function AdminPage() {
           </CardHeader>
           <CardContent className="pt-6">
             <CollabTable collabs={collabRows} />
+          </CardContent>
+        </Card>
+
+        <Card className="overflow-hidden border-border/70 bg-background/95 shadow-sm">
+          <CardHeader className="border-b border-border/60 bg-[linear-gradient(135deg,_hsl(var(--background))_0%,_hsl(var(--secondary)/0.35)_100%)] pb-8">
+            <Badge variant="secondary" className="w-fit gap-2">
+              <TrophyIcon className="h-3.5 w-3.5" />
+              Challenges
+            </Badge>
+            <CardTitle className="text-3xl">Challenge Management</CardTitle>
+            <CardDescription className="max-w-2xl text-base">
+              Create and manage challenges for the community.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="pt-6">
+            <Link href="/admin/challenges">
+              <Button>Manage Challenges</Button>
+            </Link>
           </CardContent>
         </Card>
       </div>
