@@ -1,8 +1,8 @@
 import { config } from "dotenv";
 import { defineConfig } from "drizzle-kit";
 
-config({ path: ".env.development.local", quiet: true });
-config({ path: ".env.local", quiet: true });
+const isProd = process.env.DB_ENV === "prod";
+config({ path: isProd ? ".env.local" : ".env.development.local", quiet: true });
 
 export default defineConfig({
   schema: "./app/db/schema.ts",

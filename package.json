@@ -7,8 +7,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "biome check",
-    "format": "biome format --write"
-  },
+    "format": "biome format --write",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:generate:prod": "DB_ENV=prod drizzle-kit generate",
+    "db:migrate:prod": "DB_ENV=prod drizzle-kit migrate"
+    },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",
     "@sanity/image-url": "^2.1.1",
