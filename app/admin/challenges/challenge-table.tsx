@@ -1,9 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import type { ChallengeWithStatus } from "@/app/challenge/actions";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 
 export function ChallengeTable({
   challenges,
@@ -44,7 +44,9 @@ export function ChallengeTable({
               </td>
               <td className="px-4 py-3">
                 <Badge
-                  variant={challenge.status === "live" ? "default" : "secondary"}
+                  variant={
+                    challenge.status === "live" ? "default" : "secondary"
+                  }
                 >
                   {challenge.status}
                 </Badge>
@@ -67,7 +69,7 @@ export function ChallengeTable({
                       Edit
                     </Button>
                   </Link>
-                  <Link href={`/challenges/${challenge.id}`}>
+                  <Link href={`/challenges/${challenge.slug}`}>
                     <Button variant="ghost" size="sm">
                       View
                     </Button>

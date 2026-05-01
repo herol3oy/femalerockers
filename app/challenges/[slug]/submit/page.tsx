@@ -1,19 +1,27 @@
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
-import { getActiveChallenge, getUserParticipation } from "../actions";
+import {
+  getChallengeBySlug,
+  getUserParticipation,
+} from "@/app/challenge/actions";
 import { SubmitEntryForm } from "./submit-entry-form";
 
-async function SubmitEntryContent() {
-  const challenge = await getActiveChallenge();
+async function SubmitEntryContent({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const challenge = await getChallengeBySlug(slug);
 
   if (!challenge || challenge.status === "ended") {
-    redirect("/challenge");
+    redirect(`/challenges/${slug}`);
   }
 
   const userParticipation = await getUserParticipation(challenge.id);
 
   if (!userParticipation || userParticipation.status !== "committed") {
-    redirect("/challenge");
+    redirect(`/challenges/${slug}`);
   }
 
   return (
@@ -42,10 +50,14 @@ function SubmitEntrySkeleton() {
   );
 }
 
-export default function SubmitEntryPage() {
+export default function SubmitEntryPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   return (
     <Suspense fallback={<SubmitEntrySkeleton />}>
-      <SubmitEntryContent />
+      <SubmitEntryContent params={params} />
     </Suspense>
   );
 }

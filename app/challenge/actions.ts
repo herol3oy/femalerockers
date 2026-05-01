@@ -1,20 +1,21 @@
 "use server";
 
-import { db } from "@/app/db";
-import { createClient } from "@/lib/supabase/server";
-import {
-  type InsertChallenge,
-  type InsertChallengeParticipation,
-  challengeParticipationsTable,
-  challengesTable,
-  usersTable,
-} from "@/app/db/schema";
 import { and, desc, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
+import { db } from "@/app/db";
+import {
+  challengeParticipationsTable,
+  challengesTable,
+  type InsertChallenge,
+  usersTable,
+} from "@/app/db/schema";
+import { createClient } from "@/lib/supabase/server";
+import { generateSlug } from "@/lib/utils";
 
 export type ChallengeWithStatus = {
   id: string;
   title: string;
+  slug: string;
   description: string;
   createdAt: Date;
   endsAt: Date;
@@ -40,7 +41,9 @@ function getChallengeStatus(endsAt: Date): "live" | "ended" {
   return new Date() > endsAt ? "ended" : "live";
 }
 
-export async function createChallenge(data: Omit<InsertChallenge, "id" | "createdAt">) {
+export async function createChallenge(
+  data: Omit<InsertChallenge, "id" | "createdAt" | "slug">,
+) {
   const supabase = await createClient();
   const {
     data: { user },
@@ -60,9 +63,10 @@ export async function createChallenge(data: Omit<InsertChallenge, "id" | "create
   }
 
   try {
+    const slug = generateSlug(data.title, data.endsAt);
     const [challenge] = await db
       .insert(challengesTable)
-      .values(data)
+      .values({ ...data, slug })
       .returning();
 
     revalidatePath("/challenge");
@@ -117,10 +121,12 @@ export async function getAllChallenges(): Promise<ChallengeWithStatus[]> {
     orderBy: [desc(challengesTable.createdAt)],
   });
 
-  return challenges.map((challenge) => ({
-    ...challenge,
-    status: getChallengeStatus(challenge.endsAt),
-  }));
+  return challenges
+    .filter((c): c is typeof c & { slug: string } => c.slug !== null)
+    .map((challenge) => ({
+      ...challenge,
+      status: getChallengeStatus(challenge.endsAt),
+    }));
 }
 
 export async function getActiveChallenge(): Promise<ChallengeWithStatus | null> {
@@ -132,21 +138,42 @@ export async function getActiveChallenge(): Promise<ChallengeWithStatus | null> 
   if (challenges.length === 0) return null;
 
   const challenge = challenges[0];
+  if (!challenge.slug) return null;
   return {
     ...challenge,
+    slug: challenge.slug,
     status: getChallengeStatus(challenge.endsAt),
   };
 }
 
-export async function getChallengeById(id: string): Promise<ChallengeWithStatus | null> {
+export async function getChallengeById(
+  id: string,
+): Promise<ChallengeWithStatus | null> {
   const challenge = await db.query.challengesTable.findFirst({
     where: eq(challengesTable.id, id),
   });
 
-  if (!challenge) return null;
+  if (!challenge || !challenge.slug) return null;
 
   return {
     ...challenge,
+    slug: challenge.slug,
+    status: getChallengeStatus(challenge.endsAt),
+  };
+}
+
+export async function getChallengeBySlug(
+  slug: string,
+): Promise<ChallengeWithStatus | null> {
+  const challenge = await db.query.challengesTable.findFirst({
+    where: eq(challengesTable.slug, slug),
+  });
+
+  if (!challenge || !challenge.slug) return null;
+
+  return {
+    ...challenge,
+    slug: challenge.slug,
     status: getChallengeStatus(challenge.endsAt),
   };
 }

@@ -1,7 +1,7 @@
+import Link from "next/link";
 import { Suspense } from "react";
 import { getAllChallenges } from "@/app/challenge/actions";
 import { Badge } from "@/components/ui/badge";
-import Link from "next/link";
 
 async function ChallengesContent() {
   const challenges = await getAllChallenges();
@@ -30,7 +30,7 @@ async function ChallengesContent() {
             {liveChallenges.map((challenge) => (
               <Link
                 key={challenge.id}
-                href={`/challenges/${challenge.id}`}
+                href={`/challenges/${challenge.slug}`}
                 className="group rounded-xl border border-border/70 bg-card p-6 transition-all hover:border-border hover:shadow-md"
               >
                 <div className="space-y-3">
@@ -61,7 +61,7 @@ async function ChallengesContent() {
             {pastChallenges.map((challenge) => (
               <Link
                 key={challenge.id}
-                href={`/challenges/${challenge.id}`}
+                href={`/challenges/${challenge.slug}`}
                 className="group rounded-xl border border-border/70 bg-card p-6 transition-all hover:border-border hover:shadow-md"
               >
                 <div className="space-y-3">
@@ -94,7 +94,10 @@ function ChallengesSkeleton() {
         <div className="h-8 w-48 animate-pulse rounded bg-muted" />
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="rounded-xl border border-border/70 bg-card p-6 space-y-3">
+            <div
+              key={i}
+              className="rounded-xl border border-border/70 bg-card p-6 space-y-3"
+            >
               <div className="h-6 w-3/4 animate-pulse rounded bg-muted" />
               <div className="space-y-2">
                 <div className="h-4 w-full animate-pulse rounded bg-muted" />

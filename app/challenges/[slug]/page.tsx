@@ -1,19 +1,20 @@
+import { notFound } from "next/navigation";
 import { Suspense } from "react";
+
 import {
-  getChallengeById,
+  getChallengeBySlug,
   getChallengeParticipations,
   getUserParticipation,
 } from "@/app/challenge/actions";
 import { ChallengeView } from "./challenge-view";
-import { notFound } from "next/navigation";
 
 async function ChallengeContent({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ slug: string }>;
 }) {
-  const { id } = await params;
-  const challenge = await getChallengeById(id);
+  const { slug } = await params;
+  const challenge = await getChallengeBySlug(slug);
 
   if (!challenge) {
     notFound();
@@ -52,7 +53,7 @@ function ChallengeSkeleton() {
 export default function ChallengePage({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ slug: string }>;
 }) {
   return (
     <Suspense fallback={<ChallengeSkeleton />}>

@@ -1,14 +1,20 @@
 "use client";
 
-import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
+import { useState, useTransition } from "react";
 import { submitEntry } from "@/app/challenge/actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 
-export function SubmitEntryForm({ challengeId }: { challengeId: string }) {
+export function SubmitEntryForm({
+  challengeId,
+  challengeSlug,
+}: {
+  challengeId: string;
+  challengeSlug: string;
+}) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
@@ -33,13 +39,16 @@ export function SubmitEntryForm({ challengeId }: { challengeId: string }) {
       if (result.error) {
         setError(result.error);
       } else {
-        router.push(`/challenges/${challengeId}`);
+        router.push(`/challenges/${challengeSlug}`);
       }
     });
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6 rounded-xl border border-border/70 bg-card p-6">
+    <form
+      onSubmit={handleSubmit}
+      className="space-y-6 rounded-xl border border-border/70 bg-card p-6"
+    >
       {error && (
         <div className="rounded-lg border border-red-500/50 bg-red-500/10 p-4 text-sm text-red-500">
           {error}
@@ -84,7 +93,7 @@ export function SubmitEntryForm({ challengeId }: { challengeId: string }) {
         <Button
           type="button"
           variant="outline"
-          onClick={() => router.push(`/challenges/${challengeId}`)}
+          onClick={() => router.push(`/challenges/${challengeSlug}`)}
         >
           Cancel
         </Button>

@@ -68,25 +68,29 @@ export type SelectCollaboration = typeof collaborationsTable.$inferSelect;
 export const challengesTable = pgTable("challenges_table", {
   id: uuid("id").primaryKey().defaultRandom().notNull(),
   title: varchar("title", { length: 200 }).notNull(),
+  slug: varchar("slug", { length: 100 }).unique(),
   description: text("description").notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   endsAt: timestamp("ends_at").notNull(),
 });
 
-export const challengeParticipationsTable = pgTable("challenge_participations_table", {
-  id: uuid("id").primaryKey().defaultRandom().notNull(),
-  challengeId: uuid("challenge_id")
-    .notNull()
-    .references(() => challengesTable.id, { onDelete: "cascade" }),
-  userId: uuid("user_id")
-    .notNull()
-    .references(() => usersTable.id, { onDelete: "cascade" }),
-  status: varchar("status", { length: 20 }).default("committed").notNull(), // committed, withdrawn, submitted
-  videoUrl: varchar("video_url", { length: 500 }),
-  description: text("description"),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-  updatedAt: timestamp("updated_at").defaultNow().notNull(),
-});
+export const challengeParticipationsTable = pgTable(
+  "challenge_participations_table",
+  {
+    id: uuid("id").primaryKey().defaultRandom().notNull(),
+    challengeId: uuid("challenge_id")
+      .notNull()
+      .references(() => challengesTable.id, { onDelete: "cascade" }),
+    userId: uuid("user_id")
+      .notNull()
+      .references(() => usersTable.id, { onDelete: "cascade" }),
+    status: varchar("status", { length: 20 }).default("committed").notNull(), // committed, withdrawn, submitted
+    videoUrl: varchar("video_url", { length: 500 }),
+    description: text("description"),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  },
+);
 
 export const challengesRelations = relations(challengesTable, ({ many }) => ({
   participations: many(challengeParticipationsTable),
@@ -108,5 +112,7 @@ export const challengeParticipationsRelations = relations(
 
 export type InsertChallenge = typeof challengesTable.$inferInsert;
 export type SelectChallenge = typeof challengesTable.$inferSelect;
-export type InsertChallengeParticipation = typeof challengeParticipationsTable.$inferInsert;
-export type SelectChallengeParticipation = typeof challengeParticipationsTable.$inferSelect;
+export type InsertChallengeParticipation =
+  typeof challengeParticipationsTable.$inferInsert;
+export type SelectChallengeParticipation =
+  typeof challengeParticipationsTable.$inferSelect;
