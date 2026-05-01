@@ -2,6 +2,7 @@
 
 import { useActionState, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { completeOnboarding } from "./actions";
@@ -12,6 +13,7 @@ export default function OnboardingPage() {
   const [state, formAction, pending] = useActionState(completeOnboarding, null);
   const [preview, setPreview] = useState<string | null>(null);
   const [fileError, setFileError] = useState<string | null>(null);
+  const [newsletter, setNewsletter] = useState(false);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -117,6 +119,19 @@ export default function OnboardingPage() {
               placeholder="https://instagram.com/janedoe"
               maxLength={255}
             />
+          </div>
+
+          <div className="flex items-center gap-2">
+            <Checkbox
+              id="newsletterOptIn"
+              name="newsletterOptIn"
+              checked={newsletter}
+              onCheckedChange={(checked) => setNewsletter(checked === true)}
+              value="on"
+            />
+            <Label htmlFor="newsletterOptIn" className="cursor-pointer">
+              I want to receive updates and newsletters via email
+            </Label>
           </div>
 
           {state?.error && (

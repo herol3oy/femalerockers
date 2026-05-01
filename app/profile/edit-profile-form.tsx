@@ -22,6 +22,7 @@ type Props = {
     instagramUrl: string | null;
     videoLink: string | null;
     collabStatus: boolean | null;
+    newsletterOptIn: boolean;
   };
 };
 
@@ -198,6 +199,18 @@ export function EditProfileForm({ profile }: Props) {
         />
         <Label htmlFor="collabStatus" className="cursor-pointer">
           Open to collaborate
+        </Label>
+      </div>
+
+      <div className="flex items-center gap-2">
+        <Checkbox
+          id="newsletterOptIn"
+          name="newsletterOptIn"
+          defaultChecked={profile.newsletterOptIn}
+          value="on"
+        />
+        <Label htmlFor="newsletterOptIn" className="cursor-pointer">
+          I want to receive updates and newsletters via email
         </Label>
       </div>
 

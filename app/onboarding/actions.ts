@@ -31,6 +31,7 @@ export async function completeOnboarding(
   const artistName = formData.get("artistName")?.toString().trim();
   const mainInstrument = formData.get("mainInstrument")?.toString().trim();
   const instagramUrl = formData.get("instagramUrl")?.toString().trim() || undefined;
+  const newsletterOptIn = formData.get("newsletterOptIn") === "on";
 
   if (!username || !artistName || !mainInstrument) {
     return { error: "Username, artist name, and main instrument are required." };
@@ -91,6 +92,8 @@ export async function completeOnboarding(
       username,
       artistName,
       mainInstrument,
+      newsletterOptIn,
+      newsletterOptInAt: newsletterOptIn ? new Date() : null,
       ...(instagramUrl !== undefined && { instagramUrl }),
       ...(avatarUrl !== undefined && { avatarUrl }),
     });

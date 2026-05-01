@@ -21,6 +21,8 @@ export const usersTable = pgTable("users_table", {
   instagramUrl: varchar("instagram_url", { length: 255 }),
   videoLink: varchar("video_link", { length: 255 }),
   collabStatus: boolean("collab_status").default(false),
+  newsletterOptIn: boolean("newsletter_opt_in").default(false).notNull(),
+  newsletterOptInAt: timestamp("newsletter_opt_in_at"),
   isApproved: boolean("is_approved").default(false).notNull(),
   role: varchar("role", { length: 20 }).default("user").notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),

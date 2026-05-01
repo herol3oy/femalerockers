@@ -93,6 +93,7 @@ async function EditProfileContent() {
                 instagramUrl: profile.instagramUrl,
                 videoLink: profile.videoLink,
                 collabStatus: profile.collabStatus,
+                newsletterOptIn: profile.newsletterOptIn,
               }}
             />
           </CardContent>

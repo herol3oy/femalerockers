@@ -79,6 +79,7 @@ export async function updateProfile(
   const instagramUrl = formData.get("instagramUrl")?.toString().trim() || null;
   const videoLink = formData.get("videoLink")?.toString().trim() || null;
   const collabStatus = formData.get("collabStatus") === "on";
+  const newsletterOptIn = formData.get("newsletterOptIn") === "on";
 
   if (!username || !artistName) {
     return { error: "Username and Artist Name are required." };
@@ -124,6 +125,8 @@ export async function updateProfile(
         instagramUrl,
         videoLink,
         collabStatus,
+        newsletterOptIn,
+        newsletterOptInAt: newsletterOptIn ? new Date() : null,
         ...(avatarUrl !== undefined && { avatarUrl }),
       })
       .where(eq(usersTable.id, user.id));
