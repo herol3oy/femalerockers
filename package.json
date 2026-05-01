@@ -10,9 +10,10 @@
     "format": "biome format --write",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
-    "db:generate:prod": "DB_ENV=prod drizzle-kit generate",
-    "db:migrate:prod": "DB_ENV=prod drizzle-kit migrate"
-    },
+    "db:migrate:prod": "DB_ENV=prod drizzle-kit migrate",
+    "db:push": "dotenv -e .env.development.local -- sh -c 'supabase db push --db-url $DATABASE_URL'",
+    "db:push:prod": "dotenv -e .env.local -- sh -c 'supabase db push --db-url $DATABASE_URL'"
+  },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",
     "@sanity/image-url": "^2.1.1",
@@ -20,7 +21,6 @@
     "@supabase/supabase-js": "^2.101.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "dotenv": "^17.4.0",
     "drizzle-orm": "^0.45.2",
     "next": "16.2.2",
     "next-sanity": "^12.2.1",
@@ -40,6 +40,8 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "babel-plugin-react-compiler": "1.0.0",
+    "dotenv": "^17.4.0",
+    "dotenv-cli": "^11.0.0",
     "drizzle-kit": "^0.31.10",
     "supabase": "^2.84.10",
     "tailwindcss": "^4",
