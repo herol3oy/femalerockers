@@ -1,5 +1,23 @@
 <!-- BEGIN:nextjs-agent-rules -->
-# This is NOT the Next.js you know
+# AI Agent Instructions
 
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
+## Next.js
+
+This is NOT the Next.js you know.
+
+## Database & Migrations
+
+This project uses Drizzle ORM.
+
+**Never manually create or edit generated migration files.**
+
+Do not invent migration filenames.
+
+The following files are generated and must not be created or edited manually:
+
+- `migrations/*.sql`
+- `migrations/meta/*.json`
+
+If the CLI cannot be run in the current environment, do **not** fabricate migration files. Instead, explain which command should be executed.
+
 <!-- END:nextjs-agent-rules -->
