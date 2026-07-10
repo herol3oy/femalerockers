@@ -35,3 +35,26 @@ export const interviewDetailQuery = `*[_type == "interview" && slug.current == $
   },
   quote
 }`;
+
+export const songReviewsListQuery = `*[_type == "review"] | order(date desc) {
+  _id,
+  stageName,
+  slug,
+  title,
+  date
+}`;
+
+export const songReviewDetailQuery = `*[_type == "review" && slug.current == $slug][0] {
+  _id,
+  title,
+  stageName,
+  slug,
+  date,
+  body[] {
+    ...,
+    _type == "image" => {
+      ...,
+      asset->
+    }
+  }
+}`;

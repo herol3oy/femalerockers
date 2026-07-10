@@ -29,6 +29,25 @@ export type Interview = {
   quote: string[];
 };
 
+export type SongReview = {
+  _id: string;
+  title: string;
+  stageName: string;
+  slug: { current: string };
+  date: string;
+  body: PortableTextBlock[];
+};
+
+export type SongReviewListItem = Pick<
+  SongReview,
+  | "_id"
+  | "title"
+  | "stageName"
+  | "slug"
+  | "date"
+>;
+
+
 export type InterviewListItem = Pick<
   Interview,
   | "_id"
