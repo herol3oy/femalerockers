@@ -3,7 +3,8 @@
 import { eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
 import { db } from "@/app/db";
-import { usersTable } from "@/app/db/schema";
+import type { UserRole } from "@/app/db/schema";
+import { USER_ROLES, usersTable } from "@/app/db/schema";
 import { createClient } from "@/lib/supabase/server";
 
 const ALLOWED_AVATAR_TYPES = ["image/png", "image/jpeg", "image/webp"];
@@ -27,14 +28,28 @@ export async function completeOnboarding(
     redirect("/auth/login");
   }
 
+  const role = formData.get("role")?.toString().trim();
+
+  if (!role || !USER_ROLES.includes(role as UserRole)) {
+    return { error: "Please select a valid role." };
+  }
+
   const username = formData.get("username")?.toString().trim();
   const artistName = formData.get("artistName")?.toString().trim();
-  const mainInstrument = formData.get("mainInstrument")?.toString().trim();
-  const instagramUrl = formData.get("instagramUrl")?.toString().trim() || undefined;
+  const cityCountry =
+    formData.get("cityCountry")?.toString().trim() || undefined;
+  const mainInstrument =
+    formData.get("mainInstrument")?.toString().trim() || undefined;
+  const genre = formData.get("genre")?.toString().trim() || undefined;
+  const bio = formData.get("bio")?.toString().trim() || undefined;
+  const instagramUrl =
+    formData.get("instagramUrl")?.toString().trim() || undefined;
+  const videoLink = formData.get("videoLink")?.toString().trim() || undefined;
+  const collabStatus = formData.get("collabStatus") === "on";
   const newsletterOptIn = formData.get("newsletterOptIn") === "on";
 
-  if (!username || !artistName || !mainInstrument) {
-    return { error: "Username, artist name, and main instrument are required." };
+  if (!username || !artistName) {
+    return { error: "Username and display name are required." };
   }
 
   if (!/^[a-zA-Z0-9_]{3,50}$/.test(username)) {
@@ -89,13 +104,19 @@ export async function completeOnboarding(
     await db.insert(usersTable).values({
       id: user.id,
       email: user.email,
+      role,
       username,
       artistName,
-      mainInstrument,
       newsletterOptIn,
       newsletterOptInAt: newsletterOptIn ? new Date() : null,
-      ...(instagramUrl !== undefined && { instagramUrl }),
       ...(avatarUrl !== undefined && { avatarUrl }),
+      ...(cityCountry !== undefined && { cityCountry }),
+      ...(mainInstrument !== undefined && { mainInstrument }),
+      ...(genre !== undefined && { genre }),
+      ...(bio !== undefined && { bio }),
+      ...(instagramUrl !== undefined && { instagramUrl }),
+      ...(videoLink !== undefined && { videoLink }),
+      ...(collabStatus !== undefined && { collabStatus }),
     });
   } catch {
     return { error: "Something went wrong. Please try again." };

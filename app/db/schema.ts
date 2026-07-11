@@ -8,6 +8,9 @@ import {
   varchar,
 } from "drizzle-orm/pg-core";
 
+export const USER_ROLES = ["musician", "band", "agent", "music_fan"] as const;
+export type UserRole = (typeof USER_ROLES)[number];
+
 export const usersTable = pgTable("users_table", {
   id: uuid("id").primaryKey().notNull(),
   email: text("email").notNull().unique(),

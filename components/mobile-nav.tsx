@@ -42,7 +42,11 @@ export function MobileNav({
       external: true,
     },
     { href: `/${username}`, label: "My Profile", show: !!(user && username) },
-    { href: "/collab", label: "Collab", show: !!(user && isApproved) },
+    {
+      href: "/collab",
+      label: "Collab",
+      show: !!(user && isApproved && (role === "musician" || role === "band")),
+    },
     { href: "/admin", label: "Admin", show: role === "admin" },
   ].filter((link) => link.show);
 

@@ -16,12 +16,16 @@ async function CollabGate({ children }: { children: React.ReactNode }) {
   }
 
   const rows = await db
-    .select({ isApproved: usersTable.isApproved })
+    .select({ isApproved: usersTable.isApproved, role: usersTable.role })
     .from(usersTable)
     .where(eq(usersTable.id, user.id))
     .limit(1);
 
-  if (rows.length === 0 || !rows[0].isApproved) {
+  if (
+    rows.length === 0 ||
+    !rows[0].isApproved ||
+    (rows[0].role !== "musician" && rows[0].role !== "band")
+  ) {
     redirect("/");
   }
 

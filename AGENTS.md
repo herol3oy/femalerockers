@@ -20,4 +20,5 @@ The following files are generated and must not be created or edited manually:
 
 If the CLI cannot be run in the current environment, do **not** fabricate migration files. Instead, explain which command should be executed.
 
+Do NOT run lint. Always ask me before running it.
 <!-- END:nextjs-agent-rules -->

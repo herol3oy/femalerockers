@@ -27,6 +27,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { getRoleLabel } from "@/lib/roles";
 import { createClient } from "@/lib/supabase/server";
 
 function DiscoverSkeleton() {
@@ -251,6 +252,9 @@ export async function Discover() {
                       {user.genre ? (
                         <Badge variant="outline">{user.genre}</Badge>
                       ) : null}
+                      <Badge variant="secondary">
+                        {getRoleLabel(user.role)}
+                      </Badge>
                       <Badge variant="outline" className="gap-1.5">
                         <CheckCircleIcon className="h-3.5 w-3.5" />
                         Approved
@@ -266,19 +270,20 @@ export async function Discover() {
                           <span>{user.city_country}</span>
                         </div>
                       ) : null}
-                      <div className="flex items-center gap-2">
-                        <UsersIcon className="h-4 w-4" />
-                        <span>
-                          {user.collab_status
-                            ? "Currently looking for collaborations"
-                            : "Profile available for discovery"}
-                        </span>
-                      </div>
+                      {user.role === "musician" || user.role === "band" ? (
+                        <div className="flex items-center gap-2">
+                          <UsersIcon className="h-4 w-4" />
+                          <span>
+                            {user.collab_status
+                              ? "Currently looking for collaborations"
+                              : "Profile available for discovery"}
+                          </span>
+                        </div>
+                      ) : null}
                     </div>
 
                     <p className="flex-1 text-sm leading-6 text-foreground/80">
-                      {user.bio ??
-                        "No bio added yet. Check the profile links to get a feel for the artist and their current work."}
+                      {user.bio ?? "No bio added yet."}
                     </p>
 
                     {hasExternalLinks ? (

@@ -5,6 +5,7 @@ import { toggleApproval } from "@/app/admin/actions";
 import type { SelectUser } from "@/app/db/schema";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { getRoleLabel } from "@/lib/roles";
 
 export function UsersTable({ users }: { users: SelectUser[] }) {
   return (
@@ -14,6 +15,7 @@ export function UsersTable({ users }: { users: SelectUser[] }) {
           <tr className="border-b bg-muted/40 text-left">
             <th className="px-4 py-3 font-medium">Username</th>
             <th className="px-4 py-3 font-medium">Artist Name</th>
+            <th className="px-4 py-3 font-medium">Role</th>
             <th className="px-4 py-3 font-medium">Email</th>
             <th className="px-4 py-3 font-medium">Approved</th>
             <th className="px-4 py-3 font-medium">Actions</th>
@@ -51,6 +53,9 @@ function UserRow({ user }: { user: SelectUser }) {
         </a>
       </td>
       <td className="px-4 py-3">{user.artistName}</td>
+      <td className="px-4 py-3">
+        <Badge variant="secondary">{getRoleLabel(user.role)}</Badge>
+      </td>
       <td className="px-4 py-3 text-muted-foreground">{user.email}</td>
       <td className="px-4 py-3">
         <Badge variant={user.isApproved ? "default" : "destructive"}>

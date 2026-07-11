@@ -29,6 +29,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { getRoleLabel } from "@/lib/roles";
 import { createClient } from "@/lib/supabase/server";
 
 type DiscoverProfilePageProps = {
@@ -110,7 +111,12 @@ async function DiscoverProfileContent({ params }: DiscoverProfilePageProps) {
   const { username } = await params;
   const supabase = await createClient();
 
-  const [{ data, error }, { data: { user: authUser } }] = await Promise.all([
+  const [
+    { data, error },
+    {
+      data: { user: authUser },
+    },
+  ] = await Promise.all([
     supabase
       .from("users_table")
       .select(discoverUserSelect)
@@ -127,6 +133,7 @@ async function DiscoverProfileContent({ params }: DiscoverProfilePageProps) {
   const isOwner = authUser?.id === user.id;
   const displayName = user.artist_name || user.username;
   const hasExternalLinks = Boolean(user.instagram_url || user.video_link);
+  const isCollabRelevant = user.role === "musician" || user.role === "band";
 
   return (
     <section className="min-h-screen bg-[radial-gradient(circle_at_top,_hsl(var(--secondary))_0%,_transparent_45%),linear-gradient(to_bottom,_hsl(var(--background)),_hsl(var(--muted)/0.35))]">
@@ -147,12 +154,9 @@ async function DiscoverProfileContent({ params }: DiscoverProfilePageProps) {
                 </Link>
               </Button>
             ) : null}
-            <Badge
-              variant="secondary"
-              className="w-fit gap-2"
-            >
+            <Badge variant="secondary" className="w-fit gap-2">
               <SparkleIcon className="h-3.5 w-3.5" />
-              Artist profile
+              {getRoleLabel(user.role)}
             </Badge>
           </div>
         </div>
@@ -190,9 +194,13 @@ async function DiscoverProfileContent({ params }: DiscoverProfilePageProps) {
                     {user.genre ? (
                       <Badge variant="outline">{user.genre}</Badge>
                     ) : null}
-                    <Badge variant={user.collab_status ? "default" : "outline"}>
-                      {user.collab_status ? "Open to collab" : "Profile live"}
-                    </Badge>
+                    {isCollabRelevant ? (
+                      <Badge
+                        variant={user.collab_status ? "default" : "outline"}
+                      >
+                        {user.collab_status ? "Open to collab" : "Profile live"}
+                      </Badge>
+                    ) : null}
                     {user.is_approved ? (
                       <Badge variant="outline" className="gap-1.5">
                         <CheckCircleIcon className="h-3.5 w-3.5" />
@@ -209,9 +217,11 @@ async function DiscoverProfileContent({ params }: DiscoverProfilePageProps) {
                   {formatJoinedDate(user.created_at)}
                 </p>
                 <p className="mt-1">
-                  {user.collab_status
-                    ? "Currently looking for new musical collaborations."
-                    : "Visible in the directory and available to discover."}
+                  {isCollabRelevant
+                    ? user.collab_status
+                      ? "Currently looking for new musical collaborations."
+                      : "Visible in the directory and available to discover."
+                    : "Member of the Female Rockers community."}
                 </p>
               </div>
             </CardHeader>
@@ -221,18 +231,14 @@ async function DiscoverProfileContent({ params }: DiscoverProfilePageProps) {
                 <div className="space-y-3">
                   <h2 className="text-lg font-semibold">About</h2>
                   <p className="text-sm leading-7 text-foreground/80 sm:text-base">
-                    {user.bio ??
-                      "This artist has not added a bio yet. Use the available links to hear more of their work and get a feel for their sound."}
+                    {user.bio ?? "This profile has not added a bio yet."}
                   </p>
                 </div>
 
                 {hasExternalLinks ? (
                   <div className="flex flex-wrap gap-3">
                     {user.instagram_url ? (
-                      <Button
-                        asChild
-                        variant="outline"
-                      >
+                      <Button asChild variant="outline">
                         <a
                           href={user.instagram_url}
                           target="_blank"
@@ -281,19 +287,21 @@ async function DiscoverProfileContent({ params }: DiscoverProfilePageProps) {
                         </div>
                       </div>
                     ) : null}
-                    <div className="flex items-start gap-3">
-                      <UsersIcon className="mt-0.5 h-4 w-4 text-foreground" />
-                      <div>
-                        <p className="font-medium text-foreground">
-                          Collaboration status
-                        </p>
-                        <p>
-                          {user.collab_status
-                            ? "Open to new projects and active collaborations."
-                            : "Listed in the directory for discovery."}
-                        </p>
+                    {isCollabRelevant ? (
+                      <div className="flex items-start gap-3">
+                        <UsersIcon className="mt-0.5 h-4 w-4 text-foreground" />
+                        <div>
+                          <p className="font-medium text-foreground">
+                            Collaboration status
+                          </p>
+                          <p>
+                            {user.collab_status
+                              ? "Open to new projects and active collaborations."
+                              : "Listed in the directory for discovery."}
+                          </p>
+                        </div>
                       </div>
-                    </div>
+                    ) : null}
                   </CardContent>
                 </Card>
               </div>
