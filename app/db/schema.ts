@@ -4,6 +4,7 @@ import {
   pgTable,
   text,
   timestamp,
+  unique,
   uuid,
   varchar,
 } from "drizzle-orm/pg-core";
@@ -31,6 +32,24 @@ export const usersTable = pgTable("users_table", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
+export const songReviewLikesTable = pgTable(
+  "song_review_likes_table",
+  {
+    id: uuid("id").primaryKey().defaultRandom().notNull(),
+    userId: uuid("user_id")
+      .notNull()
+      .references(() => usersTable.id, { onDelete: "cascade" }),
+    reviewId: text("review_id").notNull(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  (t) => ({
+    uniqueLike: unique().on(t.userId, t.reviewId),
+  }),
+);
+
+export type InsertSongReviewLike = typeof songReviewLikesTable.$inferInsert;
+export type SelectSongReviewLike = typeof songReviewLikesTable.$inferSelect;
+
 export type InsertUser = typeof usersTable.$inferInsert;
 export type SelectUser = typeof usersTable.$inferSelect;
 
@@ -55,6 +74,7 @@ export const collaborationsTable = pgTable("collaborations_table", {
 export const usersRelations = relations(usersTable, ({ many }) => ({
   collaborations: many(collaborationsTable),
   challengeParticipations: many(challengeParticipationsTable),
+  songReviewLikes: many(songReviewLikesTable),
 }));
 
 export const collaborationsRelations = relations(

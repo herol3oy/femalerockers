@@ -7,6 +7,8 @@ import { songReviewDetailQuery } from "@/app/interviews/queries";
 import type { SongReview } from "@/app/interviews/types";
 import { sanityClient } from "@/lib/sanity/client";
 import { urlFor } from "@/lib/sanity/image";
+import { LikeButton } from "../like-button";
+import { getReviewLikes } from "../like-data";
 
 type Params = Promise<{ slug: string }>;
 
@@ -21,6 +23,8 @@ async function SongReviewsContent({ params }: { params: Params }) {
     notFound();
   }
 
+  const likeData = await getReviewLikes(songReview._id);
+
   return (
     <section className="min-h-screen bg-[radial-gradient(circle_at_top,hsl(var(--secondary))_0%,transparent_45%),linear-gradient(to_bottom,hsl(var(--background)),hsl(var(--muted)/0.35))]">
       <div className="mx-auto flex max-w-4xl flex-col gap-8 px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
@@ -34,22 +38,31 @@ async function SongReviewsContent({ params }: { params: Params }) {
         </div>
 
         <div className="relative overflow-hidden border shadow-sm rounded-3xl bg-background/95 p-8 lg:p-10">
-          <div className="space-y-3">
-            <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-              {songReview.title}
-            </h1>
-            <p className="text-lg text-muted-foreground">
-              {songReview.stageName}
-            </p>
-            {songReview.date && (
-              <p className="text-sm text-muted-foreground">
-                {new Date(songReview.date).toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+            <div className="space-y-3">
+              <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
+                {songReview.title}
+              </h1>
+              <p className="text-lg text-muted-foreground">
+                {songReview.stageName}
               </p>
-            )}
+              {songReview.date && (
+                <p className="text-sm text-muted-foreground">
+                  {new Date(songReview.date).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </p>
+              )}
+            </div>
+
+            <LikeButton
+              reviewId={songReview._id}
+              slug={slug}
+              initialCount={likeData.count}
+              initialLiked={likeData.isLiked}
+            />
           </div>
         </div>
 

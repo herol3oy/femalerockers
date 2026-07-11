@@ -10,6 +10,7 @@ import {
 import { sanityClient } from "@/lib/sanity/client";
 import { songReviewsListQuery } from "../interviews/queries";
 import type { SongReviewListItem } from "../interviews/types";
+import { getReviewsLikeCounts } from "./like-data";
 
 function SongReviewsSkeleton() {
   return (
@@ -41,6 +42,9 @@ function SongReviewsSkeleton() {
 async function SongReviewsList() {
   const songReviews =
     await sanityClient.fetch<SongReviewListItem[]>(songReviewsListQuery);
+
+  const reviewIds = songReviews.map((r) => r._id);
+  const likeCounts = await getReviewsLikeCounts(reviewIds);
 
   return (
     <section className="min-h-screen bg-[radial-gradient(circle_at_top,hsl(var(--secondary))_0%,transparent_45%),linear-gradient(to_bottom,hsl(var(--background)),hsl(var(--muted)/0.35))]">
@@ -90,14 +94,29 @@ async function SongReviewsList() {
                     <p className="text-sm font-medium text-muted-foreground">
                       {review.stageName}
                     </p>
-                    {review.date && (
-                      <p className="text-xs text-muted-foreground/70">
-                        {new Date(review.date).toLocaleDateString("en-US", {
-                          year: "numeric",
-                          month: "long",
-                        })}
-                      </p>
-                    )}
+                    <div className="flex items-center gap-3 text-xs text-muted-foreground/70">
+                      {review.date && (
+                        <span>
+                          {new Date(review.date).toLocaleDateString("en-US", {
+                            year: "numeric",
+                            month: "long",
+                          })}
+                        </span>
+                      )}
+                      <span className="flex items-center gap-1">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                          className="h-3 w-3 text-muted-foreground/50"
+                          aria-label="likes"
+                        >
+                          <title>Likes</title>
+                          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                        </svg>
+                        {likeCounts[review._id] ?? 0}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </Card>
