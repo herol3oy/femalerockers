@@ -11,6 +11,7 @@ import { sanityClient } from "@/lib/sanity/client";
 import { songReviewsListQuery } from "../interviews/queries";
 import type { SongReviewListItem } from "../interviews/types";
 import { getReviewsLikeCounts } from "./like-data";
+import { getReviewsRatingData } from "./rating-data";
 
 function SongReviewsSkeleton() {
   return (
@@ -44,7 +45,10 @@ async function SongReviewsList() {
     await sanityClient.fetch<SongReviewListItem[]>(songReviewsListQuery);
 
   const reviewIds = songReviews.map((r) => r._id);
-  const likeCounts = await getReviewsLikeCounts(reviewIds);
+  const [likeCounts, ratingData] = await Promise.all([
+    getReviewsLikeCounts(reviewIds),
+    getReviewsRatingData(reviewIds),
+  ]);
 
   return (
     <section className="min-h-screen bg-[radial-gradient(circle_at_top,hsl(var(--secondary))_0%,transparent_45%),linear-gradient(to_bottom,hsl(var(--background)),hsl(var(--muted)/0.35))]">
@@ -116,6 +120,24 @@ async function SongReviewsList() {
                         </svg>
                         {likeCounts[review._id] ?? 0}
                       </span>
+                      {ratingData[review._id] && (
+                        <span className="flex items-center gap-1">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                            className="h-3 w-3 text-amber-400"
+                            aria-label="rating"
+                          >
+                            <title>Rating</title>
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                          </svg>
+                          {ratingData[review._id].average}
+                          <span className="text-muted-foreground/50">
+                            ({ratingData[review._id].count})
+                          </span>
+                        </span>
+                      )}
                     </div>
                   </div>
                 </div>

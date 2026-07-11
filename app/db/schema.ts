@@ -1,6 +1,7 @@
 import { relations } from "drizzle-orm";
 import {
   boolean,
+  integer,
   pgTable,
   text,
   timestamp,
@@ -47,6 +48,26 @@ export const songReviewLikesTable = pgTable(
   }),
 );
 
+export const songReviewRatingsTable = pgTable(
+  "song_review_ratings_table",
+  {
+    id: uuid("id").primaryKey().defaultRandom().notNull(),
+    userId: uuid("user_id")
+      .notNull()
+      .references(() => usersTable.id, { onDelete: "cascade" }),
+    reviewId: text("review_id").notNull(),
+    rating: integer("rating").notNull(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  },
+  (t) => ({
+    uniqueRating: unique().on(t.userId, t.reviewId),
+  }),
+);
+
+export type InsertSongReviewRating = typeof songReviewRatingsTable.$inferInsert;
+export type SelectSongReviewRating = typeof songReviewRatingsTable.$inferSelect;
+
 export type InsertSongReviewLike = typeof songReviewLikesTable.$inferInsert;
 export type SelectSongReviewLike = typeof songReviewLikesTable.$inferSelect;
 
@@ -75,6 +96,7 @@ export const usersRelations = relations(usersTable, ({ many }) => ({
   collaborations: many(collaborationsTable),
   challengeParticipations: many(challengeParticipationsTable),
   songReviewLikes: many(songReviewLikesTable),
+  songReviewRatings: many(songReviewRatingsTable),
 }));
 
 export const collaborationsRelations = relations(

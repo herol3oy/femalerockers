@@ -9,6 +9,8 @@ import { sanityClient } from "@/lib/sanity/client";
 import { urlFor } from "@/lib/sanity/image";
 import { LikeButton } from "../like-button";
 import { getReviewLikes } from "../like-data";
+import { getReviewRating } from "../rating-data";
+import { StarRating } from "../star-rating";
 
 type Params = Promise<{ slug: string }>;
 
@@ -23,7 +25,10 @@ async function SongReviewsContent({ params }: { params: Params }) {
     notFound();
   }
 
-  const likeData = await getReviewLikes(songReview._id);
+  const [likeData, ratingData] = await Promise.all([
+    getReviewLikes(songReview._id),
+    getReviewRating(songReview._id),
+  ]);
 
   return (
     <section className="min-h-screen bg-[radial-gradient(circle_at_top,hsl(var(--secondary))_0%,transparent_45%),linear-gradient(to_bottom,hsl(var(--background)),hsl(var(--muted)/0.35))]">
@@ -57,12 +62,21 @@ async function SongReviewsContent({ params }: { params: Params }) {
               )}
             </div>
 
-            <LikeButton
-              reviewId={songReview._id}
-              slug={slug}
-              initialCount={likeData.count}
-              initialLiked={likeData.isLiked}
-            />
+            <div className="flex items-center gap-4">
+              <StarRating
+                reviewId={songReview._id}
+                slug={slug}
+                initialAverage={ratingData.average}
+                initialCount={ratingData.count}
+                initialUserRating={ratingData.userRating}
+              />
+              <LikeButton
+                reviewId={songReview._id}
+                slug={slug}
+                initialCount={likeData.count}
+                initialLiked={likeData.isLiked}
+              />
+            </div>
           </div>
         </div>
 
