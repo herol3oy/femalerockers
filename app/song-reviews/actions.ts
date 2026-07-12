@@ -3,7 +3,11 @@
 import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { db } from "@/app/db";
-import { songReviewLikesTable, songReviewRatingsTable } from "@/app/db/schema";
+import {
+  songReviewCommentsTable,
+  songReviewLikesTable,
+  songReviewRatingsTable,
+} from "@/app/db/schema";
 import { createClient } from "@/lib/supabase/server";
 
 export async function toggleLike(reviewId: string, slug: string) {
@@ -121,4 +125,72 @@ export async function removeRating(reviewId: string, slug: string) {
   revalidatePath(`/song-reviews/${slug}`);
   revalidatePath("/song-reviews");
   return { removed: true };
+}
+
+export async function addComment(reviewId: string, slug: string, body: string) {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return { error: "You must be logged in." };
+  }
+
+  if (!body || body.trim().length === 0) {
+    return { error: "Comment cannot be empty." };
+  }
+
+  if (body.length > 2000) {
+    return { error: "Comment is too long (max 2000 characters)." };
+  }
+
+  const [comment] = await db
+    .insert(songReviewCommentsTable)
+    .values({
+      reviewId,
+      userId: user.id,
+      body: body.trim(),
+    })
+    .returning({ id: songReviewCommentsTable.id });
+
+  revalidatePath(`/song-reviews/${slug}`);
+  revalidatePath("/song-reviews");
+  return { comment };
+}
+
+export async function deleteComment(commentId: string, slug: string) {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return { error: "You must be logged in." };
+  }
+
+  const existing = await db
+    .select({
+      id: songReviewCommentsTable.id,
+      userId: songReviewCommentsTable.userId,
+    })
+    .from(songReviewCommentsTable)
+    .where(eq(songReviewCommentsTable.id, commentId))
+    .limit(1);
+
+  if (existing.length === 0) {
+    return { error: "Comment not found." };
+  }
+
+  if (existing[0].userId !== user.id) {
+    return { error: "You can only delete your own comments." };
+  }
+
+  await db
+    .delete(songReviewCommentsTable)
+    .where(eq(songReviewCommentsTable.id, commentId));
+
+  revalidatePath(`/song-reviews/${slug}`);
+  revalidatePath("/song-reviews");
+  return { deleted: true };
 }

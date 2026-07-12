@@ -7,6 +7,10 @@ import { songReviewDetailQuery } from "@/app/interviews/queries";
 import type { SongReview } from "@/app/interviews/types";
 import { sanityClient } from "@/lib/sanity/client";
 import { urlFor } from "@/lib/sanity/image";
+import { createClient } from "@/lib/supabase/server";
+import { getReviewComments } from "../comment-data";
+import { CommentForm } from "../comment-form";
+import { CommentList } from "../comment-list";
 import { LikeButton } from "../like-button";
 import { getReviewLikes } from "../like-data";
 import { getReviewRating } from "../rating-data";
@@ -25,9 +29,15 @@ async function SongReviewsContent({ params }: { params: Params }) {
     notFound();
   }
 
-  const [likeData, ratingData] = await Promise.all([
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const [likeData, ratingData, comments] = await Promise.all([
     getReviewLikes(songReview._id),
     getReviewRating(songReview._id),
+    getReviewComments(songReview._id),
   ]);
 
   return (
@@ -133,6 +143,17 @@ async function SongReviewsContent({ params }: { params: Params }) {
             </div>
           </article>
         )}
+
+        <div className="border shadow-sm rounded-3xl bg-background/95 p-8 lg:p-12">
+          <div className="space-y-8">
+            <CommentList
+              comments={comments}
+              currentUserId={user?.id ?? null}
+              slug={slug}
+            />
+            <CommentForm reviewId={songReview._id} slug={slug} />
+          </div>
+        </div>
       </div>
     </section>
   );

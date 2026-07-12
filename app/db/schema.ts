@@ -48,6 +48,22 @@ export const songReviewLikesTable = pgTable(
   }),
 );
 
+export const songReviewCommentsTable = pgTable("song_review_comments_table", {
+  id: uuid("id").primaryKey().defaultRandom().notNull(),
+  userId: uuid("user_id")
+    .notNull()
+    .references(() => usersTable.id, { onDelete: "cascade" }),
+  reviewId: text("review_id").notNull(),
+  body: text("body").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+export type InsertSongReviewComment =
+  typeof songReviewCommentsTable.$inferInsert;
+export type SelectSongReviewComment =
+  typeof songReviewCommentsTable.$inferSelect;
+
 export const songReviewRatingsTable = pgTable(
   "song_review_ratings_table",
   {
@@ -97,6 +113,7 @@ export const usersRelations = relations(usersTable, ({ many }) => ({
   challengeParticipations: many(challengeParticipationsTable),
   songReviewLikes: many(songReviewLikesTable),
   songReviewRatings: many(songReviewRatingsTable),
+  songReviewComments: many(songReviewCommentsTable),
 }));
 
 export const collaborationsRelations = relations(

@@ -10,6 +10,7 @@ import {
 import { sanityClient } from "@/lib/sanity/client";
 import { songReviewsListQuery } from "../interviews/queries";
 import type { SongReviewListItem } from "../interviews/types";
+import { getReviewsCommentCounts } from "./comment-data";
 import { getReviewsLikeCounts } from "./like-data";
 import { getReviewsRatingData } from "./rating-data";
 
@@ -45,9 +46,10 @@ async function SongReviewsList() {
     await sanityClient.fetch<SongReviewListItem[]>(songReviewsListQuery);
 
   const reviewIds = songReviews.map((r) => r._id);
-  const [likeCounts, ratingData] = await Promise.all([
+  const [likeCounts, ratingData, commentCounts] = await Promise.all([
     getReviewsLikeCounts(reviewIds),
     getReviewsRatingData(reviewIds),
+    getReviewsCommentCounts(reviewIds),
   ]);
 
   return (
@@ -136,6 +138,21 @@ async function SongReviewsList() {
                           <span className="text-muted-foreground/50">
                             ({ratingData[review._id].count})
                           </span>
+                        </span>
+                      )}
+                      {commentCounts[review._id] > 0 && (
+                        <span className="flex items-center gap-1">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                            className="h-3 w-3 text-muted-foreground/50"
+                            aria-label="comments"
+                          >
+                            <title>Comments</title>
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10z" />
+                          </svg>
+                          {commentCounts[review._id]}
                         </span>
                       )}
                     </div>
