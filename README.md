@@ -119,3 +119,35 @@ npm run db:push:prod
 - Never use `drizzle-kit push` on prod — it skips writing migration history and breaks `migrate`.
 - Always run `db:migrate` locally before `db:migrate:prod`.
 - Drizzle and Supabase CLI each track which migrations have been applied — re-running any push/migrate command is safe.
+
+---
+
+## Google OAuth (Login / Sign-up with Google)
+
+Google sign-in is implemented via Supabase Auth's Google provider using the PKCE flow (`signInWithOAuth` → Supabase callback → `/auth/callback`).
+
+### Google Cloud Console setup
+
+In the [Auth Platform → Clients](https://console.cloud.google.com/auth/clients) console, configure the OAuth client with:
+
+**Authorized redirect URIs:**
+```
+http://127.0.0.1:54321/auth/v1/callback    # local dev
+https://<supabase-project-ref>.supabase.co/auth/v1/callback  # production
+```
+
+**Authorized JavaScript origins:**
+```
+http://localhost:3000         # local dev
+https://your-production-domain.com  # production
+```
+
+> ⚠️ A mismatch between the redirect URI in the OAuth request and the list above causes Google to return *"Access blocked: This app's request is invalid."*
+
+### Local development
+
+The Google provider is configured in `supabase/config.toml` with the client ID and secret loaded from `SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_SECRET` in `.env.development.local`. Nonce check is skipped locally (`skip_nonce_check = true`).
+
+### Production
+
+The same Google OAuth client ID is used for both environments. Make sure both local and production redirect URIs are registered in the Google Cloud Console as shown above.
