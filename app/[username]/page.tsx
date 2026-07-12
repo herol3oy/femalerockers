@@ -9,17 +9,14 @@ import {
   SparkleIcon,
   UsersIcon,
 } from "@phosphor-icons/react/ssr";
+import { eq } from "drizzle-orm";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
-
-import {
-  type DiscoverUser,
-  discoverUserSelect,
-  formatJoinedDate,
-  getInitials,
-} from "@/app/discover/discover-data";
+import { db } from "@/app/db";
+import { usersTable } from "@/app/db/schema";
+import { formatJoinedDate, getInitials } from "@/app/discover/discover-data";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -111,28 +108,24 @@ async function DiscoverProfileContent({ params }: DiscoverProfilePageProps) {
   const { username } = await params;
   const supabase = await createClient();
 
-  const [
-    { data, error },
-    {
-      data: { user: authUser },
-    },
-  ] = await Promise.all([
-    supabase
-      .from("users_table")
-      .select(discoverUserSelect)
-      .eq("username", decodeURIComponent(username))
-      .maybeSingle(),
+  const [user, { data: authData }] = await Promise.all([
+    db
+      .select()
+      .from(usersTable)
+      .where(eq(usersTable.username, decodeURIComponent(username)))
+      .limit(1)
+      .then((r) => r[0] ?? null),
     supabase.auth.getUser(),
   ]);
 
-  if (error || !data) {
+  if (!user) {
     notFound();
   }
 
-  const user = data as DiscoverUser;
+  const authUser = authData.user;
   const isOwner = authUser?.id === user.id;
-  const displayName = user.artist_name || user.username;
-  const hasExternalLinks = Boolean(user.instagram_url || user.video_link);
+  const displayName = user.artistName || user.username;
+  const hasExternalLinks = Boolean(user.instagramUrl || user.videoLink);
   const isCollabRelevant = user.role === "musician" || user.role === "band";
 
   return (
@@ -165,9 +158,9 @@ async function DiscoverProfileContent({ params }: DiscoverProfilePageProps) {
           <Card className="overflow-hidden border-border/70 bg-background/95 shadow-sm">
             <CardHeader className="gap-6 border-b border-border/60 bg-[linear-gradient(135deg,_hsl(var(--background))_0%,_hsl(var(--secondary)/0.35)_100%)] pb-8 sm:flex-row sm:items-start sm:justify-between">
               <div className="flex items-start gap-5">
-                {user.avatar_url ? (
+                {user.avatarUrl ? (
                   <Image
-                    src={user.avatar_url}
+                    src={user.avatarUrl}
                     alt={displayName}
                     width={80}
                     height={80}
@@ -188,20 +181,20 @@ async function DiscoverProfileContent({ params }: DiscoverProfilePageProps) {
                     </CardDescription>
                   </div>
                   <div className="flex flex-wrap gap-2">
-                    {user.main_instrument ? (
-                      <Badge variant="secondary">{user.main_instrument}</Badge>
+                    {user.mainInstrument ? (
+                      <Badge variant="secondary">{user.mainInstrument}</Badge>
                     ) : null}
                     {user.genre ? (
                       <Badge variant="outline">{user.genre}</Badge>
                     ) : null}
                     {isCollabRelevant ? (
                       <Badge
-                        variant={user.collab_status ? "default" : "outline"}
+                        variant={user.collabStatus ? "default" : "outline"}
                       >
-                        {user.collab_status ? "Open to collab" : "Profile live"}
+                        {user.collabStatus ? "Open to collab" : "Profile live"}
                       </Badge>
                     ) : null}
-                    {user.is_approved ? (
+                    {user.isApproved ? (
                       <Badge variant="outline" className="gap-1.5">
                         <CheckCircleIcon className="h-3.5 w-3.5" />
                         Approved profile
@@ -214,11 +207,11 @@ async function DiscoverProfileContent({ params }: DiscoverProfilePageProps) {
               <div className="rounded-2xl border bg-background/80 p-4 text-sm text-muted-foreground backdrop-blur sm:min-w-56">
                 <p className="font-medium text-foreground">Member since</p>
                 <p className="mt-2 text-lg font-semibold text-foreground">
-                  {formatJoinedDate(user.created_at)}
+                  {formatJoinedDate(user.createdAt as unknown as string)}
                 </p>
                 <p className="mt-1">
                   {isCollabRelevant
-                    ? user.collab_status
+                    ? user.collabStatus
                       ? "Currently looking for new musical collaborations."
                       : "Visible in the directory and available to discover."
                     : "Member of the Female Rockers community."}
@@ -237,10 +230,10 @@ async function DiscoverProfileContent({ params }: DiscoverProfilePageProps) {
 
                 {hasExternalLinks ? (
                   <div className="flex flex-wrap gap-3">
-                    {user.instagram_url ? (
+                    {user.instagramUrl ? (
                       <Button asChild variant="outline">
                         <a
-                          href={user.instagram_url}
+                          href={user.instagramUrl}
                           target="_blank"
                           rel="noreferrer"
                         >
@@ -250,10 +243,10 @@ async function DiscoverProfileContent({ params }: DiscoverProfilePageProps) {
                         </a>
                       </Button>
                     ) : null}
-                    {user.video_link ? (
+                    {user.videoLink ? (
                       <Button asChild>
                         <a
-                          href={user.video_link}
+                          href={user.videoLink}
                           target="_blank"
                           rel="noreferrer"
                         >
@@ -276,14 +269,14 @@ async function DiscoverProfileContent({ params }: DiscoverProfilePageProps) {
                     <CardTitle className="text-base">Profile details</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4 text-sm text-muted-foreground">
-                    {user.city_country ? (
+                    {user.cityCountry ? (
                       <div className="flex items-start gap-3">
                         <MapPinIcon className="mt-0.5 h-4 w-4 text-foreground" />
                         <div>
                           <p className="font-medium text-foreground">
                             Location
                           </p>
-                          <p>{user.city_country}</p>
+                          <p>{user.cityCountry}</p>
                         </div>
                       </div>
                     ) : null}
@@ -295,7 +288,7 @@ async function DiscoverProfileContent({ params }: DiscoverProfilePageProps) {
                             Collaboration status
                           </p>
                           <p>
-                            {user.collab_status
+                            {user.collabStatus
                               ? "Open to new projects and active collaborations."
                               : "Listed in the directory for discovery."}
                           </p>
