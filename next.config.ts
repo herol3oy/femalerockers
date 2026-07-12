@@ -9,6 +9,7 @@ const nextConfig: NextConfig = {
     },
     optimizePackageImports: ["@phosphor-icons/react"],
   },
+  allowedDevOrigins: ['127.0.0.1'],
   images: {
     dangerouslyAllowLocalIP: process.env.NODE_ENV === "development",
     remotePatterns: [
