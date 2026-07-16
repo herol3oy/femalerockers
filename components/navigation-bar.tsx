@@ -4,9 +4,9 @@ import { Suspense } from "react";
 import { db } from "@/app/db";
 import { usersTable } from "@/app/db/schema";
 import LogoWithType from "@/components/logo-with-type";
-import { NavLinks } from "@/components/nav-links";
 import { LogoutButton } from "@/components/logout-button";
 import { MobileNav } from "@/components/mobile-nav";
+import { NavLinks } from "@/components/nav-links";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/server";
 
@@ -156,7 +156,11 @@ function NavbarFallback() {
         >
           Instagram
         </a>
-        <a href="https://youtube.com/@FemaleRockers" target="_blank" rel="noreferrer">
+        <a
+          href="https://youtube.com/@FemaleRockers"
+          target="_blank"
+          rel="noreferrer"
+        >
           YouTube
         </a>
       </div>

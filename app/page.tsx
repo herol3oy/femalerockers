@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -29,15 +29,18 @@ export default function Home() {
 
         <div className="relative z-10 mx-auto w-full max-w-6xl px-6 pb-16 pt-12 sm:px-8 sm:pb-20 sm:pt-16 lg:pb-28">
           <div className="max-w-2xl space-y-6">
-            <Badge variant="secondary" className="bg-white/10 text-white ring-1 ring-white/15">
+            <Badge
+              variant="secondary"
+              className="bg-white/10 text-white ring-1 ring-white/15"
+            >
               Built for women who rock
             </Badge>
             <h1 className="font-heading text-4xl font-semibold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
               Where Female Musicians Get Discovered.
             </h1>
             <p className="max-w-xl text-base leading-relaxed text-white/80 sm:text-lg">
-              Create a standout artist profile, share your music, and connect with fans,
-              collaborators.
+              Create a standout artist profile, share your music, and connect
+              with fans, collaborators.
             </p>
 
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -57,7 +60,9 @@ export default function Home() {
             <dl className="grid max-w-xl grid-cols-3 gap-4 pt-6 text-white">
               <div className="rounded-2xl bg-white/5 px-4 py-3 ring-1 ring-white/10 backdrop-blur">
                 <dt className="text-xs text-white/70">Profiles</dt>
-                <dd className="font-heading text-lg font-semibold">Beautiful</dd>
+                <dd className="font-heading text-lg font-semibold">
+                  Beautiful
+                </dd>
               </div>
               <div className="rounded-2xl bg-white/5 px-4 py-3 ring-1 ring-white/10 backdrop-blur">
                 <dt className="text-xs text-white/70">Discovery</dt>
@@ -65,7 +70,9 @@ export default function Home() {
               </div>
               <div className="rounded-2xl bg-white/5 px-4 py-3 ring-1 ring-white/10 backdrop-blur">
                 <dt className="text-xs text-white/70">Community</dt>
-                <dd className="font-heading text-lg font-semibold">Supportive</dd>
+                <dd className="font-heading text-lg font-semibold">
+                  Supportive
+                </dd>
               </div>
             </dl>
           </div>
@@ -81,8 +88,8 @@ export default function Home() {
             Everything you need to show up like a headliner
           </h2>
           <p className="max-w-2xl text-muted-foreground">
-            A fast, modern home for your artist identity—built to help you be found and
-            remembered.
+            A fast, modern home for your artist identity—built to help you be
+            found and remembered.
           </p>
         </div>
 
@@ -91,12 +98,13 @@ export default function Home() {
             <CardHeader>
               <CardTitle>Press-kit ready profiles</CardTitle>
               <CardDescription>
-                Links, photos, embeds, and highlights in one clean page you can share.
+                Links, photos, embeds, and highlights in one clean page you can
+                share.
               </CardDescription>
             </CardHeader>
             <CardContent className="text-muted-foreground">
-              Add your genre tags, location, availability, and a short story that actually
-              sounds like you.
+              Add your genre tags, location, availability, and a short story
+              that actually sounds like you.
             </CardContent>
             <CardFooter className="border-t">
               <Button asChild variant="link" className="px-0">
@@ -113,8 +121,8 @@ export default function Home() {
               </CardDescription>
             </CardHeader>
             <CardContent className="text-muted-foreground">
-              Find collaborators, openers, and new favorites with curated browsing and
-              spotlighted creators.
+              Find collaborators, openers, and new favorites with curated
+              browsing and spotlighted creators.
             </CardContent>
             <CardFooter className="border-t">
               <Button asChild variant="link" className="px-0">
@@ -127,7 +135,8 @@ export default function Home() {
             <CardHeader>
               <CardTitle>Community, not competition</CardTitle>
               <CardDescription>
-                Connect with people who support women musicians—on and off stage.
+                Connect with people who support women musicians—on and off
+                stage.
               </CardDescription>
             </CardHeader>
             <CardContent className="text-muted-foreground">
@@ -153,8 +162,8 @@ export default function Home() {
                 From profile to playbook in minutes
               </h2>
               <p className="text-muted-foreground">
-                Set up once, then share everywhere—venues, collaborators, playlists, and
-                fans.
+                Set up once, then share everywhere—venues, collaborators,
+                playlists, and fans.
               </p>
             </div>
 
@@ -184,8 +193,12 @@ export default function Home() {
                       </span>
                     </div>
                     <div className="space-y-1">
-                      <p className="font-heading text-base font-medium">{step.title}</p>
-                      <p className="text-sm text-muted-foreground">{step.body}</p>
+                      <p className="font-heading text-base font-medium">
+                        {step.title}
+                      </p>
+                      <p className="text-sm text-muted-foreground">
+                        {step.body}
+                      </p>
                     </div>
                   </div>
                 </li>
@@ -205,7 +218,8 @@ export default function Home() {
               Find your next favorite artist
             </h2>
             <p className="max-w-2xl text-muted-foreground">
-              Browse by genre, mood, or location—then follow and share what moves you.
+              Browse by genre, mood, or location—then follow and share what
+              moves you.
             </p>
           </div>
           <Button asChild variant="outline">
@@ -223,7 +237,9 @@ export default function Home() {
             <Card key={item.title} size="sm" className="bg-card">
               <CardHeader className="gap-1">
                 <CardTitle className="text-sm">{item.title}</CardTitle>
-                <CardDescription className="text-xs">{item.desc}</CardDescription>
+                <CardDescription className="text-xs">
+                  {item.desc}
+                </CardDescription>
               </CardHeader>
             </Card>
           ))}
@@ -239,7 +255,8 @@ export default function Home() {
                   Ready to be discovered?
                 </h2>
                 <p className="max-w-2xl text-primary-foreground/80">
-                  Join Female Rockers and publish a profile you’ll be proud to share.
+                  Join Female Rockers and publish a profile you’ll be proud to
+                  share.
                 </p>
               </div>
               <div className="flex flex-col gap-3 sm:flex-row">

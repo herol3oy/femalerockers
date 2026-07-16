@@ -1,17 +1,17 @@
 "use client";
 
+import Link from "next/link";
 import { useState, useTransition } from "react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import type { SelectChallengeParticipation } from "../db/schema";
 import {
   type ChallengeWithStatus,
-  type ParticipationWithUser,
   joinChallenge,
   leaveChallenge,
+  type ParticipationWithUser,
 } from "./actions";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import Link from "next/link";
-import type { SelectChallengeParticipation } from "../db/schema";
 
 export function ChallengeView({
   challenge,
@@ -135,7 +135,8 @@ export function ChallengeView({
         {isEnded && (
           <div className="rounded-lg border border-border/70 bg-muted/30 p-4">
             <p className="text-sm text-muted-foreground">
-              This challenge has ended. You can view participants but cannot join or submit entries.
+              This challenge has ended. You can view participants but cannot
+              join or submit entries.
             </p>
           </div>
         )}
@@ -160,7 +161,9 @@ export function ChallengeView({
                 className="flex items-center gap-3 rounded-lg border border-border/50 p-3 transition-colors hover:bg-muted/30"
               >
                 <Avatar>
-                  <AvatarImage src={participation.user.avatarUrl || undefined} />
+                  <AvatarImage
+                    src={participation.user.avatarUrl || undefined}
+                  />
                   <AvatarFallback>
                     {participation.user.artistName[0]}
                   </AvatarFallback>

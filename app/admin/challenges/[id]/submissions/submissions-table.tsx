@@ -1,11 +1,11 @@
 "use client";
 
-import type { ParticipationWithUser } from "@/app/challenge/actions";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
 import { useState } from "react";
+import type { ParticipationWithUser } from "@/app/challenge/actions";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 
 function SubmissionDetailModal({
   participation,
@@ -27,10 +27,14 @@ function SubmissionDetailModal({
           <div className="flex items-center gap-3">
             <Avatar className="h-12 w-12">
               <AvatarImage src={participation.user.avatarUrl || undefined} />
-              <AvatarFallback>{participation.user.artistName[0]}</AvatarFallback>
+              <AvatarFallback>
+                {participation.user.artistName[0]}
+              </AvatarFallback>
             </Avatar>
             <div>
-              <h3 className="text-xl font-bold">{participation.user.artistName}</h3>
+              <h3 className="text-xl font-bold">
+                {participation.user.artistName}
+              </h3>
               <p className="text-sm text-muted-foreground">
                 @{participation.user.username}
               </p>
@@ -43,15 +47,23 @@ function SubmissionDetailModal({
 
         <div className="space-y-4">
           <div>
-            <div className="text-sm font-medium text-muted-foreground mb-1">Status</div>
-            <Badge variant={participation.status === "submitted" ? "default" : "secondary"}>
+            <div className="text-sm font-medium text-muted-foreground mb-1">
+              Status
+            </div>
+            <Badge
+              variant={
+                participation.status === "submitted" ? "default" : "secondary"
+              }
+            >
               {participation.status}
             </Badge>
           </div>
 
           {participation.videoUrl && (
             <div>
-              <div className="text-sm font-medium text-muted-foreground mb-1">Video URL</div>
+              <div className="text-sm font-medium text-muted-foreground mb-1">
+                Video URL
+              </div>
               <a
                 href={participation.videoUrl}
                 target="_blank"
@@ -65,20 +77,28 @@ function SubmissionDetailModal({
 
           {participation.description && (
             <div>
-              <div className="text-sm font-medium text-muted-foreground mb-1">Description</div>
-              <p className="text-sm whitespace-pre-wrap">{participation.description}</p>
+              <div className="text-sm font-medium text-muted-foreground mb-1">
+                Description
+              </div>
+              <p className="text-sm whitespace-pre-wrap">
+                {participation.description}
+              </p>
             </div>
           )}
 
           <div className="grid grid-cols-2 gap-4 pt-4 border-t">
             <div>
-              <div className="text-sm font-medium text-muted-foreground mb-1">Joined</div>
+              <div className="text-sm font-medium text-muted-foreground mb-1">
+                Joined
+              </div>
               <p className="text-sm">
                 {new Date(participation.createdAt).toLocaleString()}
               </p>
             </div>
             <div>
-              <div className="text-sm font-medium text-muted-foreground mb-1">Last Updated</div>
+              <div className="text-sm font-medium text-muted-foreground mb-1">
+                Last Updated
+              </div>
               <p className="text-sm">
                 {new Date(participation.updatedAt).toLocaleString()}
               </p>
@@ -95,7 +115,8 @@ export function SubmissionsTable({
 }: {
   participations: ParticipationWithUser[];
 }) {
-  const [selectedParticipation, setSelectedParticipation] = useState<ParticipationWithUser | null>(null);
+  const [selectedParticipation, setSelectedParticipation] =
+    useState<ParticipationWithUser | null>(null);
 
   if (participations.length === 0) {
     return (
@@ -127,13 +148,17 @@ export function SubmissionsTable({
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-3">
                     <Avatar className="h-8 w-8">
-                      <AvatarImage src={participation.user.avatarUrl || undefined} />
+                      <AvatarImage
+                        src={participation.user.avatarUrl || undefined}
+                      />
                       <AvatarFallback>
                         {participation.user.artistName[0]}
                       </AvatarFallback>
                     </Avatar>
                     <div>
-                      <div className="font-medium">{participation.user.artistName}</div>
+                      <div className="font-medium">
+                        {participation.user.artistName}
+                      </div>
                       <div className="text-xs text-muted-foreground">
                         @{participation.user.username}
                       </div>
@@ -142,7 +167,11 @@ export function SubmissionsTable({
                 </td>
                 <td className="px-4 py-3">
                   <Badge
-                    variant={participation.status === "submitted" ? "default" : "secondary"}
+                    variant={
+                      participation.status === "submitted"
+                        ? "default"
+                        : "secondary"
+                    }
                   >
                     {participation.status}
                   </Badge>

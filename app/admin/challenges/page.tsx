@@ -1,6 +1,6 @@
+import Link from "next/link";
 import { getAllChallenges } from "@/app/challenge/actions";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import { ChallengeTable } from "./challenge-table";
 
 export default async function AdminChallengesPage() {

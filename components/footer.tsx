@@ -12,8 +12,9 @@ export function Footer() {
               Female Rockers
             </p>
             <p className="max-w-md text-sm leading-relaxed text-muted-foreground">
-              Our mission is to spread the word for talented musicians and give them a
-              platform where they can professionally present their portfolio.
+              Our mission is to spread the word for talented musicians and give
+              them a platform where they can professionally present their
+              portfolio.
             </p>
           </div>
 
@@ -85,4 +86,3 @@ export function Footer() {
     </footer>
   );
 }
-

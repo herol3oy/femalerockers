@@ -1,6 +1,6 @@
+import { notFound } from "next/navigation";
 import { getChallengeById } from "@/app/challenge/actions";
 import { ChallengeForm } from "../challenge-form";
-import { notFound } from "next/navigation";
 
 export default async function EditChallengePage({
   params,

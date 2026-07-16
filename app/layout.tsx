@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Roboto, Space_Grotesk } from "next/font/google";
 import { ThemeProvider } from "next-themes";
-import { NavigationBar } from "@/components/navigation-bar";
 import { Footer } from "@/components/footer";
+import { NavigationBar } from "@/components/navigation-bar";
 import { cn } from "@/lib/utils";
 
 const spaceGroteskHeading = Space_Grotesk({

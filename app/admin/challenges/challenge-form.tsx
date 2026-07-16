@@ -1,8 +1,12 @@
 "use client";
 
-import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { createChallenge, updateChallenge, type ChallengeWithStatus } from "@/app/challenge/actions";
+import { useState, useTransition } from "react";
+import {
+  type ChallengeWithStatus,
+  createChallenge,
+  updateChallenge,
+} from "@/app/challenge/actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -66,9 +70,7 @@ export function ChallengeForm({
         <Input
           id="title"
           value={formData.title}
-          onChange={(e) =>
-            setFormData({ ...formData, title: e.target.value })
-          }
+          onChange={(e) => setFormData({ ...formData, title: e.target.value })}
           placeholder="Enter challenge title"
           required
         />
@@ -94,9 +96,7 @@ export function ChallengeForm({
           id="endsAt"
           type="datetime-local"
           value={formData.endsAt}
-          onChange={(e) =>
-            setFormData({ ...formData, endsAt: e.target.value })
-          }
+          onChange={(e) => setFormData({ ...formData, endsAt: e.target.value })}
           required
         />
         <p className="text-xs text-muted-foreground">

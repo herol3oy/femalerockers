@@ -40,13 +40,8 @@ export type SongReview = {
 
 export type SongReviewListItem = Pick<
   SongReview,
-  | "_id"
-  | "title"
-  | "stageName"
-  | "slug"
-  | "date"
+  "_id" | "title" | "stageName" | "slug" | "date"
 >;
-
 
 export type InterviewListItem = Pick<
   Interview,

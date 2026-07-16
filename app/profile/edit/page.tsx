@@ -66,10 +66,7 @@ async function EditProfileContent() {
       <div className="mx-auto flex max-w-4xl flex-col gap-6 px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
         <Card className="overflow-hidden border-border/70 bg-background/95 shadow-sm">
           <CardHeader className="border-b border-border/60 bg-[linear-gradient(135deg,_hsl(var(--background))_0%,_hsl(var(--secondary)/0.35)_100%)] pb-8">
-            <Badge
-              variant="secondary"
-              className="w-fit gap-2"
-            >
+            <Badge variant="secondary" className="w-fit gap-2">
               <PencilIcon className="h-3.5 w-3.5" />
               Edit profile
             </Badge>

@@ -226,8 +226,8 @@ function ApprovalNotice() {
       <div>
         <h3 className="font-semibold">Previous Submission Approved</h3>
         <p className="text-sm text-muted-foreground mt-1">
-          Congratulations! Your last submission was approved. Feel free to submit
-          a new one.
+          Congratulations! Your last submission was approved. Feel free to
+          submit a new one.
         </p>
       </div>
     </div>
@@ -248,12 +248,29 @@ function HistoryItem({
   };
 }) {
   const statusConfig = {
-    approved: { icon: CheckCircleIcon, color: "text-green-500", label: "Approved", variant: "default" as const },
-    rejected: { icon: XCircleIcon, color: "text-destructive", label: "Rejected", variant: "destructive" as const },
-    pending: { icon: ClockIcon, color: "text-yellow-500", label: "Pending", variant: "secondary" as const },
+    approved: {
+      icon: CheckCircleIcon,
+      color: "text-green-500",
+      label: "Approved",
+      variant: "default" as const,
+    },
+    rejected: {
+      icon: XCircleIcon,
+      color: "text-destructive",
+      label: "Rejected",
+      variant: "destructive" as const,
+    },
+    pending: {
+      icon: ClockIcon,
+      color: "text-yellow-500",
+      label: "Pending",
+      variant: "secondary" as const,
+    },
   };
 
-  const config = statusConfig[collab.status as keyof typeof statusConfig] ?? statusConfig.pending;
+  const config =
+    statusConfig[collab.status as keyof typeof statusConfig] ??
+    statusConfig.pending;
   const Icon = config.icon;
 
   return (

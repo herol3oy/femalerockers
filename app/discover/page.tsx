@@ -115,17 +115,13 @@ export async function Discover() {
           <div className="absolute inset-y-0 right-0 hidden w-1/3 bg-[radial-gradient(circle_at_center,_hsl(var(--primary)/0.12),_transparent_65%)] lg:block" />
           <div className="relative grid gap-8 lg:grid-cols-[minmax(0,1.2fr)_minmax(280px,0.8fr)] lg:items-end">
             <div className="space-y-5">
-              <Badge
-                variant="secondary"
-                className="w-fit gap-2"
-              >
+              <Badge variant="secondary" className="w-fit gap-2">
                 <SparkleIcon className="h-3.5 w-3.5" />
                 Discover artists
               </Badge>
               <div className="space-y-3">
                 <h1 className="max-w-3xl text-4xl font-semibold tracking-tight sm:text-5xl">
-                  Find femme musicians ready to build the next project
-                  with you.
+                  Find femme musicians ready to build the next project with you.
                 </h1>
                 <p className="max-w-2xl text-base text-muted-foreground sm:text-lg">
                   Browse approved community profiles, scan instruments and
@@ -289,10 +285,7 @@ export async function Discover() {
                     {hasExternalLinks ? (
                       <div className="pointer-events-auto relative z-30 flex flex-wrap gap-3 pt-2">
                         {user.instagram_url ? (
-                          <Button
-                            asChild
-                            variant="outline"
-                          >
+                          <Button asChild variant="outline">
                             <a
                               href={user.instagram_url}
                               target="_blank"
