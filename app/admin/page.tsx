@@ -1,9 +1,15 @@
-import { HandshakeIcon, ShieldIcon, TrophyIcon } from "@phosphor-icons/react/ssr";
+import {
+  EnvelopeIcon,
+  HandshakeIcon,
+  ShieldIcon,
+  TrophyIcon,
+} from "@phosphor-icons/react/ssr";
 import { asc, desc, eq } from "drizzle-orm";
-
+import Link from "next/link";
 import { db } from "@/app/db";
 import { collaborationsTable, usersTable } from "@/app/db/schema";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -11,10 +17,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { CollabTable } from "./collab-table";
 import { UsersTable } from "./users-table";
-import Link from "next/link";
 
 export default async function AdminPage() {
   const users = await db
@@ -95,6 +99,24 @@ export default async function AdminPage() {
           <CardContent className="pt-6">
             <Link href="/admin/challenges">
               <Button>Manage Challenges</Button>
+            </Link>
+          </CardContent>
+        </Card>
+
+        <Card className="overflow-hidden border-border/70 bg-background/95 shadow-sm">
+          <CardHeader className="border-b border-border/60 bg-[linear-gradient(135deg,_hsl(var(--background))_0%,_hsl(var(--secondary)/0.35)_100%)] pb-8">
+            <Badge variant="secondary" className="w-fit gap-2">
+              <EnvelopeIcon className="h-3.5 w-3.5" />
+              Waitlist
+            </Badge>
+            <CardTitle className="text-3xl">Waitlist Management</CardTitle>
+            <CardDescription className="max-w-2xl text-base">
+              Send invitations and track waitlist signups.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="pt-6">
+            <Link href="/admin/waitlist">
+              <Button>Manage Waitlist</Button>
             </Link>
           </CardContent>
         </Card>

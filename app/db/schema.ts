@@ -180,3 +180,44 @@ export type InsertChallengeParticipation =
   typeof challengeParticipationsTable.$inferInsert;
 export type SelectChallengeParticipation =
   typeof challengeParticipationsTable.$inferSelect;
+
+export const waitlistInvitationsTable = pgTable("waitlist_invitations", {
+  id: uuid("id").primaryKey().defaultRandom().notNull(),
+  email: text("email").notNull(),
+  token: varchar("token", { length: 64 }).notNull().unique(),
+  source: varchar("source", { length: 20 }).notNull(), // 'admin' | 'referral'
+  referrerId: uuid("referrer_id"),
+  status: varchar("status", { length: 20 }).default("pending").notNull(), // pending | sent | failed | confirmed
+  sentAt: timestamp("sent_at"),
+  confirmedAt: timestamp("confirmed_at"),
+  errorMessage: text("error_message"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const waitlistEntriesTable = pgTable("waitlist_entries", {
+  id: uuid("id").primaryKey().defaultRandom().notNull(),
+  email: text("email").notNull().unique(),
+  referralCode: varchar("referral_code", { length: 64 }).notNull().unique(),
+  acceptedTos: boolean("accepted_tos").notNull(),
+  invitationId: uuid("invitation_id")
+    .notNull()
+    .references(() => waitlistInvitationsTable.id),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const waitlistEntriesRelations = relations(
+  waitlistEntriesTable,
+  ({ one }) => ({
+    invitation: one(waitlistInvitationsTable, {
+      fields: [waitlistEntriesTable.invitationId],
+      references: [waitlistInvitationsTable.id],
+    }),
+  }),
+);
+
+export type InsertWaitlistEntry = typeof waitlistEntriesTable.$inferInsert;
+export type SelectWaitlistEntry = typeof waitlistEntriesTable.$inferSelect;
+export type InsertWaitlistInvitation =
+  typeof waitlistInvitationsTable.$inferInsert;
+export type SelectWaitlistInvitation =
+  typeof waitlistInvitationsTable.$inferSelect;
