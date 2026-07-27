@@ -232,11 +232,15 @@ export async function Discover() {
                           <CardDescription>@{user.username}</CardDescription>
                         </div>
                       </div>
-                      <Badge
-                        variant={user.collab_status ? "default" : "outline"}
-                      >
-                        {user.collab_status ? "Open to collab" : "Profile live"}
-                      </Badge>
+                      <div className="flex flex-wrap justify-end gap-2">
+                        {user.collab_status ? (
+                          <Badge variant="secondary">Open to collab</Badge>
+                        ) : null}
+                        <Badge className="gap-1.5">
+                          <CheckCircleIcon className="h-3.5 w-3.5" />
+                          Verified
+                        </Badge>
+                      </div>
                     </div>
 
                     <div className="flex flex-wrap gap-2">
@@ -250,10 +254,6 @@ export async function Discover() {
                       ) : null}
                       <Badge variant="secondary">
                         {getRoleLabel(user.role)}
-                      </Badge>
-                      <Badge variant="outline" className="gap-1.5">
-                        <CheckCircleIcon className="h-3.5 w-3.5" />
-                        Approved
                       </Badge>
                     </div>
                   </CardHeader>
