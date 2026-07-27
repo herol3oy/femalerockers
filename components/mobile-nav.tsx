@@ -43,6 +43,11 @@ export function MobileNav({
     },
     { href: `/${username}`, label: "My Profile", show: !!(user && username) },
     {
+      href: "/invite-friends",
+      label: "Invite Friends",
+      show: !!(user && username),
+    },
+    {
       href: "/collab",
       label: "Collab",
       show: !!(user && isApproved && (role === "musician" || role === "band")),
@@ -133,28 +138,16 @@ export function MobileNav({
                   </div>
                 </>
               ) : (
-                <>
-                  <Link href="/auth/login" className="w-full">
-                    <Button
-                      size="lg"
-                      variant="outline"
-                      className="w-full text-base"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      Login
-                    </Button>
-                  </Link>
-                  <Link href="/auth/sign-up" className="w-full">
-                    <Button
-                      size="lg"
-                      variant="default"
-                      className="w-full text-base"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      Sign up
-                    </Button>
-                  </Link>
-                </>
+                <Link href="/auth/login" className="w-full">
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="w-full text-base"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Login
+                  </Button>
+                </Link>
               )}
             </div>
           </div>

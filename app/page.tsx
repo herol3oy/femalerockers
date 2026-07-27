@@ -45,7 +45,7 @@ export default function Home() {
 
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
               <Button asChild size="lg">
-                <Link href="/auth/sign-up">Create your profile</Link>
+                <Link href="/auth/login">Member login</Link>
               </Button>
               <Button
                 asChild
@@ -108,7 +108,7 @@ export default function Home() {
             </CardContent>
             <CardFooter className="border-t">
               <Button asChild variant="link" className="px-0">
-                <Link href="/auth/sign-up">Build yours</Link>
+                <Link href="/auth/login">Member login</Link>
               </Button>
             </CardFooter>
           </Card>
@@ -144,7 +144,7 @@ export default function Home() {
             </CardContent>
             <CardFooter className="border-t">
               <Button asChild variant="link" className="px-0">
-                <Link href="/auth/sign-up">Join the community</Link>
+                <Link href="/auth/login">Member login</Link>
               </Button>
             </CardFooter>
           </Card>
@@ -261,7 +261,7 @@ export default function Home() {
               </div>
               <div className="flex flex-col gap-3 sm:flex-row">
                 <Button asChild size="lg" variant="secondary">
-                  <Link href="/auth/sign-up">Create your profile</Link>
+                  <Link href="/auth/login">Member login</Link>
                 </Button>
                 <Button
                   asChild

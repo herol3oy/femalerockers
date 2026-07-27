@@ -17,9 +17,10 @@ import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
 
 export function SignUpForm({
+  referralCode,
   className,
   ...props
-}: React.ComponentPropsWithoutRef<"div">) {
+}: React.ComponentPropsWithoutRef<"div"> & { referralCode: string }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
@@ -44,7 +45,10 @@ export function SignUpForm({
         email,
         password,
         options: {
-          emailRedirectTo: `${window.location.origin}/profile`,
+          data: {
+            referral_code: referralCode,
+          },
+          emailRedirectTo: `${window.location.origin}/onboarding?ref=${encodeURIComponent(referralCode)}`,
         },
       });
       if (error) throw error;
@@ -58,10 +62,11 @@ export function SignUpForm({
 
   const handleGoogleSignUp = async () => {
     const supabase = createClient();
+    const next = `/onboarding?ref=${encodeURIComponent(referralCode)}`;
     await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
+        redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}`,
         queryParams: {
           prompt: "select_account",
         },
@@ -74,7 +79,9 @@ export function SignUpForm({
       <Card>
         <CardHeader>
           <CardTitle className="text-2xl">Sign up</CardTitle>
-          <CardDescription>Create a new account</CardDescription>
+          <CardDescription>
+            You&apos;ve been invited to join Female Rockers
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSignUp}>
