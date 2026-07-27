@@ -45,6 +45,11 @@ function NavContent({
       external: true,
     },
     { href: `/${username}`, label: "My Profile", show: !!(user && username) },
+    {
+      href: "/invite-friends",
+      label: "Invite Friends",
+      show: !!(user && username),
+    },
     { href: "/collab", label: "Collab", show: !!(user && isApproved) },
     { href: "/admin", label: "Admin", show: role === "admin" },
   ].filter((link) => link.show);
@@ -86,18 +91,11 @@ function NavContent({
               </div>
             </>
           ) : (
-            <>
-              <Link href="/auth/login" className="w-full">
-                <Button size="sm" variant="outline" className="w-full">
-                  Login
-                </Button>
-              </Link>
-              <Link href="/auth/sign-up" className="w-full">
-                <Button size="sm" variant="default" className="w-full">
-                  Sign up
-                </Button>
-              </Link>
-            </>
+            <Link href="/auth/login" className="w-full">
+              <Button size="sm" variant="outline" className="w-full">
+                Login
+              </Button>
+            </Link>
           )}
         </div>
       </div>
@@ -124,14 +122,9 @@ function NavContent({
             <LogoutButton />
           </>
         ) : (
-          <>
-            <Button asChild size="sm" variant="outline">
-              <Link href="/auth/login">Login</Link>
-            </Button>
-            <Button asChild size="sm" variant="default">
-              <Link href="/auth/sign-up">Sign up</Link>
-            </Button>
-          </>
+          <Button asChild size="sm" variant="outline">
+            <Link href="/auth/login">Login</Link>
+          </Button>
         )}
       </div>
     </>
@@ -167,9 +160,6 @@ function NavbarFallback() {
       <div className="hidden md:flex items-center gap-4">
         <Button asChild size="sm" variant="outline">
           <Link href="/auth/login">Login</Link>
-        </Button>
-        <Button asChild size="sm" variant="default">
-          <Link href="/auth/sign-up">Sign up</Link>
         </Button>
       </div>
     </>

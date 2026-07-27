@@ -1,7 +1,9 @@
-import { relations } from "drizzle-orm";
+import { relations, sql } from "drizzle-orm";
 import {
   boolean,
+  index,
   integer,
+  pgPolicy,
   pgTable,
   text,
   timestamp,
@@ -30,8 +32,39 @@ export const usersTable = pgTable("users_table", {
   newsletterOptInAt: timestamp("newsletter_opt_in_at"),
   isApproved: boolean("is_approved").default(false).notNull(),
   role: varchar("role", { length: 20 }).default("user").notNull(),
+  referralCode: varchar("referral_code", { length: 10 })
+    .default(
+      sql`upper(substr(replace(gen_random_uuid()::text, '-', ''), 1, 10))`,
+    )
+    .notNull()
+    .unique(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
+
+export const referralsTable = pgTable(
+  "referrals_table",
+  {
+    id: uuid("id").primaryKey().defaultRandom().notNull(),
+    referrerId: uuid("referrer_id")
+      .notNull()
+      .references(() => usersTable.id, { onDelete: "cascade" }),
+    referredUserId: uuid("referred_user_id")
+      .notNull()
+      .unique()
+      .references(() => usersTable.id, { onDelete: "cascade" }),
+    completedAt: timestamp("completed_at").defaultNow().notNull(),
+  },
+  (t) => [
+    index("referrals_referrer_id_idx").on(t.referrerId),
+    pgPolicy("referrals_select_admin", {
+      for: "select",
+      using: sql`public.is_admin()`,
+    }),
+  ],
+).enableRLS();
+
+export type InsertReferral = typeof referralsTable.$inferInsert;
+export type SelectReferral = typeof referralsTable.$inferSelect;
 
 export const songReviewLikesTable = pgTable(
   "song_review_likes_table",

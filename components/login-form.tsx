@@ -145,15 +145,9 @@ export function LoginForm({
                 Sign in with Google
               </Button>
             </div>
-            <div className="mt-4 text-center text-sm">
-              Don&apos;t have an account?{" "}
-              <Link
-                href="/auth/sign-up"
-                className="underline underline-offset-4"
-              >
-                Sign up
-              </Link>
-            </div>
+            <p className="mt-4 text-center text-sm text-muted-foreground">
+              New accounts are available by referral invitation only.
+            </p>
           </form>
         </CardContent>
       </Card>

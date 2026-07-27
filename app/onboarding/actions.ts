@@ -4,7 +4,7 @@ import { eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
 import { db } from "@/app/db";
 import type { UserRole } from "@/app/db/schema";
-import { USER_ROLES, usersTable } from "@/app/db/schema";
+import { referralsTable, USER_ROLES, usersTable } from "@/app/db/schema";
 import { createClient } from "@/lib/supabase/server";
 
 const ALLOWED_AVATAR_TYPES = ["image/png", "image/jpeg", "image/webp"];
@@ -28,10 +28,31 @@ export async function completeOnboarding(
     redirect("/auth/login");
   }
 
+  const userId = user.id;
+  const userEmail = user.email;
   const role = formData.get("role")?.toString().trim();
+  const referralCode = formData
+    .get("referralCode")
+    ?.toString()
+    .trim()
+    .toUpperCase();
 
   if (!role || !USER_ROLES.includes(role as UserRole)) {
     return { error: "Please select a valid role." };
+  }
+
+  if (!referralCode) {
+    return { error: "A valid referral invitation is required." };
+  }
+
+  const [referrer] = await db
+    .select({ id: usersTable.id })
+    .from(usersTable)
+    .where(eq(usersTable.referralCode, referralCode))
+    .limit(1);
+
+  if (!referrer || referrer.id === userId) {
+    return { error: "This referral invitation is invalid." };
   }
 
   const username = formData.get("username")?.toString().trim();
@@ -83,7 +104,7 @@ export async function completeOnboarding(
 
     const ext = MIME_TO_EXT[avatarFile.type];
     const uniqueId = crypto.randomUUID();
-    const path = `${user.id}/fr_avatar_${uniqueId}.${ext}`;
+    const path = `${userId}/fr_avatar_${uniqueId}.${ext}`;
 
     const { error: uploadError } = await supabase.storage
       .from("avatars")
@@ -101,22 +122,29 @@ export async function completeOnboarding(
   }
 
   try {
-    await db.insert(usersTable).values({
-      id: user.id,
-      email: user.email,
-      role,
-      username,
-      artistName,
-      newsletterOptIn,
-      newsletterOptInAt: newsletterOptIn ? new Date() : null,
-      ...(avatarUrl !== undefined && { avatarUrl }),
-      ...(cityCountry !== undefined && { cityCountry }),
-      ...(mainInstrument !== undefined && { mainInstrument }),
-      ...(genre !== undefined && { genre }),
-      ...(bio !== undefined && { bio }),
-      ...(instagramUrl !== undefined && { instagramUrl }),
-      ...(videoLink !== undefined && { videoLink }),
-      ...(collabStatus !== undefined && { collabStatus }),
+    await db.transaction(async (tx) => {
+      await tx.insert(usersTable).values({
+        id: userId,
+        email: userEmail,
+        role,
+        username,
+        artistName,
+        newsletterOptIn,
+        newsletterOptInAt: newsletterOptIn ? new Date() : null,
+        ...(avatarUrl !== undefined && { avatarUrl }),
+        ...(cityCountry !== undefined && { cityCountry }),
+        ...(mainInstrument !== undefined && { mainInstrument }),
+        ...(genre !== undefined && { genre }),
+        ...(bio !== undefined && { bio }),
+        ...(instagramUrl !== undefined && { instagramUrl }),
+        ...(videoLink !== undefined && { videoLink }),
+        ...(collabStatus !== undefined && { collabStatus }),
+      });
+
+      await tx.insert(referralsTable).values({
+        referrerId: referrer.id,
+        referredUserId: userId,
+      });
     });
   } catch {
     return { error: "Something went wrong. Please try again." };

@@ -92,7 +92,7 @@ export async function Discover() {
             </CardHeader>
             <CardContent>
               <Button asChild>
-                <Link href="/auth/sign-up">Create your profile</Link>
+                <Link href="/auth/login">Member login</Link>
               </Button>
             </CardContent>
           </Card>
@@ -131,7 +131,7 @@ export async function Discover() {
               </div>
               <div className="flex flex-col gap-3 sm:flex-row">
                 <Button asChild size="lg">
-                  <Link href="/auth/sign-up">Create your profile</Link>
+                  <Link href="/auth/login">Member login</Link>
                 </Button>
               </div>
             </div>
@@ -186,7 +186,7 @@ export async function Discover() {
             </CardHeader>
             <CardContent>
               <Button asChild>
-                <Link href="/auth/sign-up">Be the first profile</Link>
+                <Link href="/auth/login">Member login</Link>
               </Button>
             </CardContent>
           </Card>

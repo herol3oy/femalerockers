@@ -71,6 +71,13 @@
       "when": 1783935222066,
       "tag": "0009_pink_stardust",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1785157986188,
+      "tag": "0010_glorious_nehzno",
+      "breakpoints": true
     }
   ]
 }
