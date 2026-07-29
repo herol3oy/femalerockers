@@ -148,6 +148,18 @@ https://your-production-domain.com  # production
 
 The Google provider is configured in `supabase/config.toml` with the client ID and secret loaded from `SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_SECRET` in `.env.development.local`. Nonce check is skipped locally (`skip_nonce_check = true`).
 
+### Local Auth emails
+
+Supabase does not deliver sign-up, magic-link, or password-reset emails to real inboxes in local development. It captures them in the Supabase CLI's local inbox:
+
+```text
+http://127.0.0.1:54324
+```
+
+For password recovery, request a reset at `http://localhost:3000/auth/forgot-password`, open the captured message at the URL above, and click its reset link in the same browser. The flow uses PKCE, so the browser that requested the email holds the verifier needed by `/auth/callback`.
+
+This Auth inbox is separate from the Mailpit container in `docker-compose.dev.yml`, which captures application emails sent through `lib/brevo.ts` at `http://localhost:8025`.
+
 ### Production
 
 The same Google OAuth client ID is used for both environments. Make sure both local and production redirect URIs are registered in the Google Cloud Console as shown above.
