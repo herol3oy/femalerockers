@@ -13,6 +13,7 @@ interface MobileNavProps {
   username: string | null;
   isApproved: boolean;
   role: string | null;
+  invitationIssuingEnabled: boolean;
 }
 
 export function MobileNav({
@@ -20,6 +21,7 @@ export function MobileNav({
   username,
   isApproved,
   role,
+  invitationIssuingEnabled,
 }: MobileNavProps) {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
@@ -43,9 +45,15 @@ export function MobileNav({
     },
     { href: `/${username}`, label: "My Profile", show: !!(user && username) },
     {
-      href: "/invite-friends",
+      href: "/invite",
       label: "Invite Friends",
-      show: !!(user && username),
+      show: !!(
+        user &&
+        username &&
+        isApproved &&
+        role !== "admin" &&
+        invitationIssuingEnabled
+      ),
     },
     {
       href: "/collab",

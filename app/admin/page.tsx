@@ -23,12 +23,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { isInvitationIssuingEnabled } from "@/lib/invitations/config";
 import { CollabTable } from "./collab-table";
 import { ReferralsTable } from "./referrals-table";
 import { UsersTable } from "./users-table";
 
 export default async function AdminPage() {
   const referredUsers = alias(usersTable, "referred_users");
+  const invitationIssuingEnabled = isInvitationIssuingEnabled();
 
   const users = await db
     .select()
@@ -106,8 +108,8 @@ export default async function AdminPage() {
             <CardTitle className="text-3xl">Referral Tracking</CardTitle>
             <CardDescription className="max-w-2xl text-base">
               {referrals.length} completed{" "}
-              {referrals.length === 1 ? "referral" : "referrals"}. A referral
-              is completed when the invited member finishes onboarding.
+              {referrals.length === 1 ? "referral" : "referrals"}. A referral is
+              completed when the invited member finishes onboarding.
             </CardDescription>
           </CardHeader>
           <CardContent className="pt-6">
@@ -148,6 +150,28 @@ export default async function AdminPage() {
             </Link>
           </CardContent>
         </Card>
+
+        {invitationIssuingEnabled ? (
+          <Card className="overflow-hidden border-border/70 bg-background/95 shadow-sm">
+            <CardHeader className="border-b border-border/60 bg-[linear-gradient(135deg,_hsl(var(--background))_0%,_hsl(var(--secondary)/0.35)_100%)] pb-8">
+              <Badge variant="secondary" className="w-fit gap-2">
+                <EnvelopeIcon className="h-3.5 w-3.5" />
+                Invitations
+              </Badge>
+              <CardTitle className="text-3xl">
+                Registration Invitations
+              </CardTitle>
+              <CardDescription className="max-w-2xl text-base">
+                Send temporary registration links and track their lifecycle.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="pt-6">
+              <Link href="/admin/invitations">
+                <Button>Manage Invitations</Button>
+              </Link>
+            </CardContent>
+          </Card>
+        ) : null}
       </div>
     </section>
   );

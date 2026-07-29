@@ -1,6 +1,7 @@
 import { relations, sql } from "drizzle-orm";
 import {
   boolean,
+  check,
   index,
   integer,
   pgPolicy,
@@ -8,6 +9,7 @@ import {
   text,
   timestamp,
   unique,
+  uniqueIndex,
   uuid,
   varchar,
 } from "drizzle-orm/pg-core";
@@ -123,6 +125,127 @@ export const referralsTable = pgTable(
 
 export type InsertReferral = typeof referralsTable.$inferInsert;
 export type SelectReferral = typeof referralsTable.$inferSelect;
+
+export const INVITATION_SOURCES = ["admin", "member"] as const;
+export type InvitationSource = (typeof INVITATION_SOURCES)[number];
+
+export const INVITATION_STATUSES = [
+  "pending",
+  "accepted",
+  "expired",
+  "revoked",
+  "failed",
+] as const;
+export type InvitationStatus = (typeof INVITATION_STATUSES)[number];
+
+export const registrationInvitationsTable = pgTable(
+  "registration_invitations",
+  {
+    id: uuid("id").primaryKey().defaultRandom().notNull(),
+    recipientEmail: text("recipient_email").notNull(),
+    tokenHash: varchar("token_hash", { length: 64 }).notNull().unique(),
+    source: varchar("source", { length: 20 })
+      .$type<InvitationSource>()
+      .notNull(),
+    inviterId: uuid("inviter_id")
+      .notNull()
+      .references(() => usersTable.id, { onDelete: "restrict" }),
+    memberSlot: integer("member_slot"),
+    status: varchar("status", { length: 20 })
+      .$type<InvitationStatus>()
+      .default("pending")
+      .notNull(),
+    acceptedUserId: uuid("accepted_user_id").references(() => usersTable.id, {
+      onDelete: "restrict",
+    }),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    sentAt: timestamp("sent_at"),
+    expiresAt: timestamp("expires_at").notNull(),
+    acceptedAt: timestamp("accepted_at"),
+    revokedAt: timestamp("revoked_at"),
+    deliveryError: text("delivery_error"),
+  },
+  (t) => [
+    index("registration_invitations_inviter_id_idx").on(t.inviterId),
+    index("registration_invitations_accepted_user_id_idx").on(t.acceptedUserId),
+    index("registration_invitations_status_expires_at_idx").on(
+      t.status,
+      t.expiresAt,
+    ),
+    index("registration_invitations_inviter_created_at_idx").on(
+      t.inviterId,
+      t.createdAt,
+    ),
+    uniqueIndex("registration_invitations_active_recipient_email_unique")
+      .on(t.recipientEmail)
+      .where(sql`${t.status} = 'pending'`),
+    uniqueIndex("registration_invitations_member_slot_unique")
+      .on(t.inviterId, t.memberSlot)
+      .where(
+        sql`${t.source} = 'member' AND ${t.memberSlot} IS NOT NULL AND ${t.status} <> 'failed'`,
+      ),
+    uniqueIndex("registration_invitations_accepted_user_unique")
+      .on(t.acceptedUserId)
+      .where(sql`${t.acceptedUserId} IS NOT NULL`),
+    check(
+      "registration_invitations_recipient_email_normalized_check",
+      sql`${t.recipientEmail} = lower(btrim(${t.recipientEmail}))`,
+    ),
+    check(
+      "registration_invitations_token_hash_check",
+      sql`${t.tokenHash} ~ '^[0-9a-f]{64}$'`,
+    ),
+    check(
+      "registration_invitations_source_check",
+      sql`${t.source} IN ('admin', 'member')`,
+    ),
+    check(
+      "registration_invitations_status_check",
+      sql`${t.status} IN ('pending', 'accepted', 'expired', 'revoked', 'failed')`,
+    ),
+    check(
+      "registration_invitations_member_slot_check",
+      sql`(
+        (${t.source} = 'admin' AND ${t.memberSlot} IS NULL)
+        OR
+        (${t.source} = 'member' AND ${t.memberSlot} BETWEEN 1 AND 3)
+      )`,
+    ),
+    check(
+      "registration_invitations_expiration_check",
+      sql`${t.expiresAt} > ${t.createdAt}`,
+    ),
+    check(
+      "registration_invitations_acceptance_check",
+      sql`(
+        (${t.status} = 'accepted' AND ${t.acceptedUserId} IS NOT NULL AND ${t.acceptedAt} IS NOT NULL)
+        OR
+        (${t.status} <> 'accepted' AND ${t.acceptedUserId} IS NULL AND ${t.acceptedAt} IS NULL)
+      )`,
+    ),
+    check(
+      "registration_invitations_revocation_check",
+      sql`(
+        (${t.status} = 'revoked' AND ${t.revokedAt} IS NOT NULL)
+        OR
+        (${t.status} <> 'revoked' AND ${t.revokedAt} IS NULL)
+      )`,
+    ),
+    check(
+      "registration_invitations_failure_check",
+      sql`(
+        (${t.status} = 'failed' AND ${t.deliveryError} IS NOT NULL)
+        OR
+        (${t.status} <> 'failed' AND ${t.deliveryError} IS NULL)
+      )`,
+    ),
+  ],
+).enableRLS();
+
+export type InsertRegistrationInvitation =
+  typeof registrationInvitationsTable.$inferInsert;
+export type SelectRegistrationInvitation =
+  typeof registrationInvitationsTable.$inferSelect;
 
 export const songReviewLikesTable = pgTable(
   "song_review_likes_table",

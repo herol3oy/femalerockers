@@ -8,6 +8,7 @@ import { LogoutButton } from "@/components/logout-button";
 import { MobileNav } from "@/components/mobile-nav";
 import { NavLinks } from "@/components/nav-links";
 import { Button } from "@/components/ui/button";
+import { isInvitationIssuingEnabled } from "@/lib/invitations/config";
 import { createClient } from "@/lib/supabase/server";
 
 interface NavContentProps {
@@ -15,6 +16,7 @@ interface NavContentProps {
   username: string | null;
   isApproved: boolean;
   role: string | null;
+  invitationIssuingEnabled: boolean;
   isMobile?: boolean;
 }
 
@@ -23,6 +25,7 @@ function NavContent({
   username,
   isApproved,
   role,
+  invitationIssuingEnabled,
   isMobile = false,
 }: NavContentProps) {
   const links = [
@@ -46,9 +49,15 @@ function NavContent({
     },
     { href: `/${username}`, label: "My Profile", show: !!(user && username) },
     {
-      href: "/invite-friends",
+      href: "/invite",
       label: "Invite Friends",
-      show: !!(user && username),
+      show: !!(
+        user &&
+        username &&
+        isApproved &&
+        role !== "admin" &&
+        invitationIssuingEnabled
+      ),
     },
     { href: "/collab", label: "Collab", show: !!(user && isApproved) },
     { href: "/admin", label: "Admin", show: role === "admin" },
@@ -179,6 +188,7 @@ export function NavigationBar() {
 }
 
 async function NavLinksWithMobile() {
+  const invitationIssuingEnabled = isInvitationIssuingEnabled();
   const supabase = await createClient();
   const {
     data: { user },
@@ -212,12 +222,14 @@ async function NavLinksWithMobile() {
         username={username}
         isApproved={isApproved}
         role={role}
+        invitationIssuingEnabled={invitationIssuingEnabled}
       />
       <MobileNav
         user={userData}
         username={username}
         isApproved={isApproved}
         role={role}
+        invitationIssuingEnabled={invitationIssuingEnabled}
       />
     </>
   );

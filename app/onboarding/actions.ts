@@ -1,10 +1,17 @@
 "use server";
 
-import { and, eq, isNull } from "drizzle-orm";
+import { eq } from "drizzle-orm";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { db } from "@/app/db";
 import type { UserRole } from "@/app/db/schema";
 import { referralsTable, USER_ROLES, usersTable } from "@/app/db/schema";
+import { InvitationError } from "@/lib/invitations/errors";
+import {
+  acceptLockedInvitation,
+  assertInvitationMatchesEmail,
+  lockInvitationForOnboarding,
+} from "@/lib/invitations/redemption";
 import { createClient } from "@/lib/supabase/server";
 
 const ALLOWED_AVATAR_TYPES = ["image/png", "image/jpeg", "image/webp"];
@@ -31,33 +38,25 @@ export async function completeOnboarding(
   const userId = user.id;
   const userEmail = user.email;
   const role = formData.get("role")?.toString().trim();
-  const referralCode = formData
-    .get("referralCode")
-    ?.toString()
-    .trim()
-    .toUpperCase();
+  const invitationToken = formData.get("invitationToken")?.toString().trim();
 
   if (!role || !USER_ROLES.includes(role as UserRole)) {
     return { error: "Please select a valid role." };
   }
 
-  if (!referralCode) {
-    return { error: "A valid referral invitation is required." };
+  if (!invitationToken) {
+    return { error: "A valid registration invitation is required." };
   }
 
-  const [referrer] = await db
-    .select({ id: usersTable.id })
-    .from(usersTable)
-    .where(
-      and(
-        eq(usersTable.referralCode, referralCode),
-        isNull(usersTable.deactivatedAt),
-      ),
-    )
-    .limit(1);
-
-  if (!referrer || referrer.id === userId) {
-    return { error: "This referral invitation is invalid." };
+  try {
+    await assertInvitationMatchesEmail(invitationToken, userEmail);
+  } catch (error) {
+    return {
+      error:
+        error instanceof InvitationError
+          ? error.message
+          : "Could not verify this invitation.",
+    };
   }
 
   const username = formData.get("username")?.toString().trim();
@@ -128,6 +127,12 @@ export async function completeOnboarding(
 
   try {
     await db.transaction(async (tx) => {
+      const invitation = await lockInvitationForOnboarding(
+        tx,
+        invitationToken,
+        userEmail,
+      );
+
       await tx.insert(usersTable).values({
         id: userId,
         email: userEmail,
@@ -147,13 +152,21 @@ export async function completeOnboarding(
       });
 
       await tx.insert(referralsTable).values({
-        referrerId: referrer.id,
+        referrerId: invitation.inviterId,
         referredUserId: userId,
       });
+
+      await acceptLockedInvitation(tx, invitation.id, userId);
     });
-  } catch {
-    return { error: "Something went wrong. Please try again." };
+  } catch (error) {
+    return {
+      error:
+        error instanceof InvitationError
+          ? error.message
+          : "Something went wrong. Please try again.",
+    };
   }
 
+  revalidatePath("/", "layout");
   redirect("/profile");
 }

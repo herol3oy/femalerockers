@@ -83,6 +83,7 @@ export async function updateSession(request: NextRequest) {
     "/profile",
     "/admin",
     "/onboarding",
+    "/invite",
     "/invite-friends",
   ];
   const isProtected = protectedPaths.some((path) =>
