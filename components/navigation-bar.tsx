@@ -3,21 +3,26 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { db } from "@/app/db";
 import { usersTable } from "@/app/db/schema";
+import { AvatarDropdown } from "@/components/avatar-dropdown";
 import LogoWithType from "@/components/logo-with-type";
-import { LogoutButton } from "@/components/logout-button";
 import { MobileNav } from "@/components/mobile-nav";
 import { NavLinks } from "@/components/nav-links";
 import { Button } from "@/components/ui/button";
 import { isInvitationIssuingEnabled } from "@/lib/invitations/config";
 import { createClient } from "@/lib/supabase/server";
 
+interface NavigationUser {
+  email: string;
+  artistName: string | null;
+  avatarUrl: string | null;
+}
+
 interface NavContentProps {
-  user: { email?: string } | null;
+  user: NavigationUser | null;
   username: string | null;
   isApproved: boolean;
   role: string | null;
   invitationIssuingEnabled: boolean;
-  isMobile?: boolean;
 }
 
 function NavContent({
@@ -26,7 +31,6 @@ function NavContent({
   isApproved,
   role,
   invitationIssuingEnabled,
-  isMobile = false,
 }: NavContentProps) {
   const links = [
     { href: "/discover", label: "Discover", show: true },
@@ -47,7 +51,6 @@ function NavContent({
       show: !user,
       external: true,
     },
-    { href: `/${username}`, label: "My Profile", show: !!(user && username) },
     {
       href: "/invite",
       label: "Invite Friends",
@@ -62,54 +65,6 @@ function NavContent({
     { href: "/collab", label: "Collab", show: !!(user && isApproved) },
     { href: "/admin", label: "Admin", show: role === "admin" },
   ].filter((link) => link.show);
-
-  if (isMobile) {
-    return (
-      <div className="flex flex-col gap-4">
-        <div className="flex flex-col gap-3 font-semibold">
-          {links.map((link) =>
-            link.external ? (
-              <a
-                key={link.href}
-                href={link.href}
-                target="_blank"
-                rel="noreferrer"
-                className="py-3 px-4 rounded-lg hover:bg-accent transition-colors"
-              >
-                {link.label}
-              </a>
-            ) : (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="py-3 px-4 rounded-lg hover:bg-accent transition-colors"
-              >
-                {link.label}
-              </Link>
-            ),
-          )}
-        </div>
-        <div className="flex flex-col gap-3 pt-4 border-t border-border">
-          {user ? (
-            <>
-              <span className="text-sm text-muted-foreground px-4">
-                {user.email}
-              </span>
-              <div className="px-4">
-                <LogoutButton />
-              </div>
-            </>
-          ) : (
-            <Link href="/auth/login" className="w-full">
-              <Button size="sm" variant="outline" className="w-full">
-                Login
-              </Button>
-            </Link>
-          )}
-        </div>
-      </div>
-    );
-  }
 
   return (
     <>
@@ -126,10 +81,11 @@ function NavContent({
 
       <div className="hidden md:flex items-center gap-4">
         {user ? (
-          <>
-            <span className="text-sm">{user.email}</span>
-            <LogoutButton />
-          </>
+          <AvatarDropdown
+            email={user.email}
+            artistName={user.artistName}
+            avatarUrl={user.avatarUrl}
+          />
         ) : (
           <Button asChild size="sm" variant="outline">
             <Link href="/auth/login">Login</Link>
@@ -197,6 +153,9 @@ async function NavLinksWithMobile() {
   let role: string | null = null;
   let username: string | null = null;
   let isApproved = false;
+  let artistName: string | null = null;
+  let avatarUrl: string | null = null;
+  let profileEmail: string | null = null;
 
   if (user) {
     const rows = await db
@@ -204,6 +163,9 @@ async function NavLinksWithMobile() {
         role: usersTable.role,
         username: usersTable.username,
         isApproved: usersTable.isApproved,
+        artistName: usersTable.artistName,
+        avatarUrl: usersTable.avatarUrl,
+        email: usersTable.email,
       })
       .from(usersTable)
       .where(eq(usersTable.id, user.id))
@@ -211,9 +173,18 @@ async function NavLinksWithMobile() {
     role = rows[0]?.role ?? null;
     username = rows[0]?.username ?? null;
     isApproved = rows[0]?.isApproved ?? false;
+    artistName = rows[0]?.artistName ?? null;
+    avatarUrl = rows[0]?.avatarUrl ?? null;
+    profileEmail = rows[0]?.email ?? null;
   }
 
-  const userData = user ? { email: user.email } : null;
+  const userData = user
+    ? {
+        email: profileEmail ?? user.email ?? "",
+        artistName,
+        avatarUrl,
+      }
+    : null;
 
   return (
     <>
@@ -224,13 +195,22 @@ async function NavLinksWithMobile() {
         role={role}
         invitationIssuingEnabled={invitationIssuingEnabled}
       />
-      <MobileNav
-        user={userData}
-        username={username}
-        isApproved={isApproved}
-        role={role}
-        invitationIssuingEnabled={invitationIssuingEnabled}
-      />
+      <div className="flex items-center gap-1 md:hidden">
+        {userData ? (
+          <AvatarDropdown
+            email={userData.email}
+            artistName={userData.artistName}
+            avatarUrl={userData.avatarUrl}
+          />
+        ) : null}
+        <MobileNav
+          isAuthenticated={Boolean(userData)}
+          username={username}
+          isApproved={isApproved}
+          role={role}
+          invitationIssuingEnabled={invitationIssuingEnabled}
+        />
+      </div>
     </>
   );
 }

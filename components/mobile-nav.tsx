@@ -5,11 +5,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import LogoWithType from "@/components/logo-with-type";
-import { LogoutButton } from "@/components/logout-button";
 import { Button } from "@/components/ui/button";
 
 interface MobileNavProps {
-  user: { email?: string } | null;
+  isAuthenticated: boolean;
   username: string | null;
   isApproved: boolean;
   role: string | null;
@@ -17,7 +16,7 @@ interface MobileNavProps {
 }
 
 export function MobileNav({
-  user,
+  isAuthenticated,
   username,
   isApproved,
   role,
@@ -29,26 +28,25 @@ export function MobileNav({
   const links = [
     { href: "/discover", label: "Discover", show: true },
     { href: "/interviews", label: "Interviews", show: true },
-    { href: "/about", label: "About", show: !user },
-    { href: "/contact", label: "Contact", show: !user },
+    { href: "/about", label: "About", show: !isAuthenticated },
+    { href: "/contact", label: "Contact", show: !isAuthenticated },
     {
       href: "https://instagram.com/female_rockers",
       label: "Instagram",
-      show: !user,
+      show: !isAuthenticated,
       external: true,
     },
     {
       href: "https://youtube.com/@FemaleRockers",
       label: "YouTube",
-      show: !user,
+      show: !isAuthenticated,
       external: true,
     },
-    { href: `/${username}`, label: "My Profile", show: !!(user && username) },
     {
       href: "/invite",
       label: "Invite Friends",
       show: !!(
-        user &&
+        isAuthenticated &&
         username &&
         isApproved &&
         role !== "admin" &&
@@ -58,7 +56,11 @@ export function MobileNav({
     {
       href: "/collab",
       label: "Collab",
-      show: !!(user && isApproved && (role === "musician" || role === "band")),
+      show: !!(
+        isAuthenticated &&
+        isApproved &&
+        (role === "musician" || role === "band")
+      ),
     },
     { href: "/admin", label: "Admin", show: role === "admin" },
   ].filter((link) => link.show);
@@ -135,17 +137,8 @@ export function MobileNav({
               </div>
             </div>
 
-            <div className="flex flex-col gap-4 p-4 border-t">
-              {user ? (
-                <>
-                  <span className="text-base text-muted-foreground px-4">
-                    {user.email}
-                  </span>
-                  <div className="px-4">
-                    <LogoutButton />
-                  </div>
-                </>
-              ) : (
+            {!isAuthenticated ? (
+              <div className="flex flex-col gap-4 p-4 border-t">
                 <Link href="/auth/login" className="w-full">
                   <Button
                     size="lg"
@@ -156,8 +149,8 @@ export function MobileNav({
                     Login
                   </Button>
                 </Link>
-              )}
-            </div>
+              </div>
+            ) : null}
           </div>
         </div>
       )}
