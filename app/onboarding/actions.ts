@@ -1,6 +1,6 @@
 "use server";
 
-import { eq } from "drizzle-orm";
+import { and, eq, isNull } from "drizzle-orm";
 import { redirect } from "next/navigation";
 import { db } from "@/app/db";
 import type { UserRole } from "@/app/db/schema";
@@ -48,7 +48,12 @@ export async function completeOnboarding(
   const [referrer] = await db
     .select({ id: usersTable.id })
     .from(usersTable)
-    .where(eq(usersTable.referralCode, referralCode))
+    .where(
+      and(
+        eq(usersTable.referralCode, referralCode),
+        isNull(usersTable.deactivatedAt),
+      ),
+    )
     .limit(1);
 
   if (!referrer || referrer.id === userId) {

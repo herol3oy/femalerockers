@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { and, eq, isNull } from "drizzle-orm";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { db } from "@/app/db";
@@ -49,7 +49,12 @@ async function OnboardingContent({
   const [referrer] = await db
     .select({ id: usersTable.id })
     .from(usersTable)
-    .where(eq(usersTable.referralCode, referralCode))
+    .where(
+      and(
+        eq(usersTable.referralCode, referralCode),
+        isNull(usersTable.deactivatedAt),
+      ),
+    )
     .limit(1);
 
   if (!referrer || referrer.id === user.id) {

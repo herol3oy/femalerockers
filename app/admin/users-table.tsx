@@ -17,6 +17,7 @@ export function UsersTable({ users }: { users: SelectUser[] }) {
             <th className="px-4 py-3 font-medium">Artist Name</th>
             <th className="px-4 py-3 font-medium">Role</th>
             <th className="px-4 py-3 font-medium">Email</th>
+            <th className="px-4 py-3 font-medium">Status</th>
             <th className="px-4 py-3 font-medium">Approved</th>
             <th className="px-4 py-3 font-medium">Actions</th>
           </tr>
@@ -43,20 +44,29 @@ function UserRow({ user }: { user: SelectUser }) {
   return (
     <tr className="border-b border-border/60 transition-colors hover:bg-muted/30">
       <td className="px-4 py-3">
-        <a
-          href={`/${user.username}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="font-medium underline decoration-primary/30 underline-offset-4 hover:decoration-primary"
-        >
-          {user.username}
-        </a>
+        {user.deactivatedAt ? (
+          <span className="font-medium">{user.username}</span>
+        ) : (
+          <a
+            href={`/${user.username}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-medium underline decoration-primary/30 underline-offset-4 hover:decoration-primary"
+          >
+            {user.username}
+          </a>
+        )}
       </td>
       <td className="px-4 py-3">{user.artistName}</td>
       <td className="px-4 py-3">
         <Badge variant="secondary">{getRoleLabel(user.role)}</Badge>
       </td>
       <td className="px-4 py-3 text-muted-foreground">{user.email}</td>
+      <td className="px-4 py-3">
+        <Badge variant={user.deactivatedAt ? "outline" : "secondary"}>
+          {user.deactivatedAt ? "Deactivated" : "Active"}
+        </Badge>
+      </td>
       <td className="px-4 py-3">
         <Badge variant={user.isApproved ? "default" : "destructive"}>
           {user.isApproved ? "Yes" : "No"}

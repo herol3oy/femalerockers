@@ -9,6 +9,7 @@ import {
   type InsertChallenge,
   usersTable,
 } from "@/app/db/schema";
+import { isActiveAccount } from "@/lib/auth/active-account";
 import { createClient } from "@/lib/supabase/server";
 import { generateSlug } from "@/lib/utils";
 
@@ -34,6 +35,7 @@ export type ParticipationWithUser = {
     username: string;
     artistName: string;
     avatarUrl: string | null;
+    deactivatedAt: Date | null;
   };
 };
 
@@ -51,6 +53,10 @@ export async function createChallenge(
 
   if (!user) {
     return { error: "Unauthorized" };
+  }
+
+  if (!(await isActiveAccount(user.id))) {
+    return { error: "Reactivate your account before making changes." };
   }
 
   // Check if user is admin
@@ -89,6 +95,10 @@ export async function updateChallenge(
 
   if (!user) {
     return { error: "Unauthorized" };
+  }
+
+  if (!(await isActiveAccount(user.id))) {
+    return { error: "Reactivate your account before making changes." };
   }
 
   // Check if user is admin
@@ -180,6 +190,7 @@ export async function getChallengeBySlug(
 
 export async function getChallengeParticipations(
   challengeId: string,
+  includeDeactivated = false,
 ): Promise<ParticipationWithUser[]> {
   const participations = await db.query.challengeParticipationsTable.findMany({
     where: eq(challengeParticipationsTable.challengeId, challengeId),
@@ -190,6 +201,7 @@ export async function getChallengeParticipations(
           username: true,
           artistName: true,
           avatarUrl: true,
+          deactivatedAt: true,
         },
       },
     },
@@ -197,7 +209,11 @@ export async function getChallengeParticipations(
 
   // Filter to only show committed and submitted participations
   return participations
-    .filter((p) => p.status === "committed" || p.status === "submitted")
+    .filter(
+      (p) =>
+        (p.status === "committed" || p.status === "submitted") &&
+        (includeDeactivated || !p.user.deactivatedAt),
+    )
     .map((p) => ({
       id: p.id,
       status: p.status,
@@ -217,6 +233,10 @@ export async function joinChallenge(challengeId: string) {
 
   if (!user) {
     return { error: "Unauthorized" };
+  }
+
+  if (!(await isActiveAccount(user.id))) {
+    return { error: "Reactivate your account before joining a challenge." };
   }
 
   // Check if challenge exists and is live
@@ -275,6 +295,10 @@ export async function leaveChallenge(challengeId: string) {
     return { error: "Unauthorized" };
   }
 
+  if (!(await isActiveAccount(user.id))) {
+    return { error: "Reactivate your account before making changes." };
+  }
+
   // Check if challenge exists and is live
   const challenge = await getChallengeById(challengeId);
   if (!challenge) {
@@ -322,6 +346,10 @@ export async function submitEntry(
 
   if (!user) {
     return { error: "Unauthorized" };
+  }
+
+  if (!(await isActiveAccount(user.id))) {
+    return { error: "Reactivate your account before submitting." };
   }
 
   // Check if challenge exists and is live

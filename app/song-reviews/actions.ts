@@ -8,6 +8,7 @@ import {
   songReviewLikesTable,
   songReviewRatingsTable,
 } from "@/app/db/schema";
+import { isActiveAccount } from "@/lib/auth/active-account";
 import { createClient } from "@/lib/supabase/server";
 
 export async function toggleLike(reviewId: string, slug: string) {
@@ -18,6 +19,10 @@ export async function toggleLike(reviewId: string, slug: string) {
 
   if (!user) {
     return { error: "You must be logged in." };
+  }
+
+  if (!(await isActiveAccount(user.id))) {
+    return { error: "Reactivate your account before interacting." };
   }
 
   const existing = await db
@@ -59,6 +64,10 @@ export async function rateReview(
 
   if (!user) {
     return { error: "You must be logged in." };
+  }
+
+  if (!(await isActiveAccount(user.id))) {
+    return { error: "Reactivate your account before interacting." };
   }
 
   if (rating < 1 || rating > 5 || !Number.isInteger(rating)) {
@@ -105,6 +114,10 @@ export async function removeRating(reviewId: string, slug: string) {
     return { error: "You must be logged in." };
   }
 
+  if (!(await isActiveAccount(user.id))) {
+    return { error: "Reactivate your account before interacting." };
+  }
+
   const existing = await db
     .select({ id: songReviewRatingsTable.id })
     .from(songReviewRatingsTable)
@@ -137,6 +150,10 @@ export async function addComment(reviewId: string, slug: string, body: string) {
     return { error: "You must be logged in." };
   }
 
+  if (!(await isActiveAccount(user.id))) {
+    return { error: "Reactivate your account before interacting." };
+  }
+
   if (!body || body.trim().length === 0) {
     return { error: "Comment cannot be empty." };
   }
@@ -167,6 +184,10 @@ export async function deleteComment(commentId: string, slug: string) {
 
   if (!user) {
     return { error: "You must be logged in." };
+  }
+
+  if (!(await isActiveAccount(user.id))) {
+    return { error: "Reactivate your account before interacting." };
   }
 
   const existing = await db

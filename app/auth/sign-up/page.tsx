@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { and, eq, isNull } from "drizzle-orm";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { db } from "@/app/db";
@@ -23,7 +23,12 @@ async function SignUpContent({
   const [referrer] = await db
     .select({ referralCode: usersTable.referralCode })
     .from(usersTable)
-    .where(eq(usersTable.referralCode, referralCode))
+    .where(
+      and(
+        eq(usersTable.referralCode, referralCode),
+        isNull(usersTable.deactivatedAt),
+      ),
+    )
     .limit(1);
 
   if (!referrer) {

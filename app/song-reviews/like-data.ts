@@ -1,6 +1,6 @@
-import { and, count, eq, inArray } from "drizzle-orm";
+import { and, count, eq, inArray, isNull } from "drizzle-orm";
 import { db } from "@/app/db";
-import { songReviewLikesTable } from "@/app/db/schema";
+import { songReviewLikesTable, usersTable } from "@/app/db/schema";
 import { createClient } from "@/lib/supabase/server";
 
 export async function getReviewsLikeCounts(reviewIds: string[]) {
@@ -12,7 +12,13 @@ export async function getReviewsLikeCounts(reviewIds: string[]) {
       total: count(),
     })
     .from(songReviewLikesTable)
-    .where(inArray(songReviewLikesTable.reviewId, reviewIds))
+    .innerJoin(usersTable, eq(songReviewLikesTable.userId, usersTable.id))
+    .where(
+      and(
+        inArray(songReviewLikesTable.reviewId, reviewIds),
+        isNull(usersTable.deactivatedAt),
+      ),
+    )
     .groupBy(songReviewLikesTable.reviewId);
 
   const counts: Record<string, number> = {};
@@ -31,7 +37,13 @@ export async function getReviewLikes(reviewId: string) {
   const [result] = await db
     .select({ total: count() })
     .from(songReviewLikesTable)
-    .where(eq(songReviewLikesTable.reviewId, reviewId));
+    .innerJoin(usersTable, eq(songReviewLikesTable.userId, usersTable.id))
+    .where(
+      and(
+        eq(songReviewLikesTable.reviewId, reviewId),
+        isNull(usersTable.deactivatedAt),
+      ),
+    );
 
   const likeCount = Number(result?.total ?? 0);
 

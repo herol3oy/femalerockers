@@ -71,6 +71,7 @@ export async function Discover() {
     .from("users_table")
     .select(discoverUserSelect)
     .neq("role", "admin")
+    .is("deactivated_at", null)
     .order("created_at", { ascending: false });
 
   if (error) {

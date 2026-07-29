@@ -15,31 +15,89 @@ import {
 export const USER_ROLES = ["musician", "band", "agent", "music_fan"] as const;
 export type UserRole = (typeof USER_ROLES)[number];
 
-export const usersTable = pgTable("users_table", {
-  id: uuid("id").primaryKey().notNull(),
-  email: text("email").notNull().unique(),
-  username: varchar("username", { length: 50 }).unique().notNull(),
-  artistName: varchar("artist_name", { length: 100 }).notNull(),
-  avatarUrl: varchar("avatar_url", { length: 500 }),
-  cityCountry: varchar("city_country", { length: 100 }),
-  mainInstrument: varchar("main_instrument", { length: 50 }),
-  genre: varchar("genre", { length: 50 }),
-  bio: text("bio"),
-  instagramUrl: varchar("instagram_url", { length: 255 }),
-  videoLink: varchar("video_link", { length: 255 }),
-  collabStatus: boolean("collab_status").default(false),
-  newsletterOptIn: boolean("newsletter_opt_in").default(false).notNull(),
-  newsletterOptInAt: timestamp("newsletter_opt_in_at"),
-  isApproved: boolean("is_approved").default(false).notNull(),
-  role: varchar("role", { length: 20 }).default("user").notNull(),
-  referralCode: varchar("referral_code", { length: 10 })
-    .default(
-      sql`upper(substr(replace(gen_random_uuid()::text, '-', ''), 1, 10))`,
-    )
-    .notNull()
-    .unique(),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-});
+export const ACCOUNT_DELETION_REASONS = [
+  "privacy_concerns",
+  "not_useful",
+  "not_enough_activity",
+  "too_many_messages",
+  "technical_issues",
+  "taking_a_break",
+  "other",
+] as const;
+export type AccountDeletionReason = (typeof ACCOUNT_DELETION_REASONS)[number];
+
+export const usersTable = pgTable(
+  "users_table",
+  {
+    id: uuid("id").primaryKey().notNull(),
+    email: text("email").notNull().unique(),
+    username: varchar("username", { length: 50 }).unique().notNull(),
+    artistName: varchar("artist_name", { length: 100 }).notNull(),
+    avatarUrl: varchar("avatar_url", { length: 500 }),
+    cityCountry: varchar("city_country", { length: 100 }),
+    mainInstrument: varchar("main_instrument", { length: 50 }),
+    genre: varchar("genre", { length: 50 }),
+    bio: text("bio"),
+    instagramUrl: varchar("instagram_url", { length: 255 }),
+    videoLink: varchar("video_link", { length: 255 }),
+    collabStatus: boolean("collab_status").default(false),
+    newsletterOptIn: boolean("newsletter_opt_in").default(false).notNull(),
+    newsletterOptInAt: timestamp("newsletter_opt_in_at"),
+    isApproved: boolean("is_approved").default(false).notNull(),
+    role: varchar("role", { length: 20 }).default("user").notNull(),
+    referralCode: varchar("referral_code", { length: 10 })
+      .default(
+        sql`upper(substr(replace(gen_random_uuid()::text, '-', ''), 1, 10))`,
+      )
+      .notNull()
+      .unique(),
+    deactivatedAt: timestamp("deactivated_at"),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  () => [
+    pgPolicy("users_active_public_select", {
+      as: "restrictive",
+      for: "select",
+      using: sql`
+        deactivated_at IS NULL
+        OR (select auth.uid()) = id
+      `,
+    }),
+    pgPolicy("users_active_owner_update", {
+      as: "restrictive",
+      for: "update",
+      using: sql`
+        deactivated_at IS NULL
+      `,
+      withCheck: sql`
+        deactivated_at IS NULL
+      `,
+    }),
+    pgPolicy("users_active_owner_delete", {
+      as: "restrictive",
+      for: "delete",
+      using: sql`
+        deactivated_at IS NULL
+      `,
+    }),
+  ],
+).enableRLS();
+
+export const accountDeletionFeedbackTable = pgTable(
+  "account_deletion_feedback",
+  {
+    id: uuid("id").primaryKey().defaultRandom().notNull(),
+    reason: varchar("reason", { length: 50 }).notNull(),
+    details: varchar("details", { length: 500 }),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  () => [],
+).enableRLS();
+
+export type InsertAccountDeletionFeedback =
+  typeof accountDeletionFeedbackTable.$inferInsert;
+export type SelectAccountDeletionFeedback =
+  typeof accountDeletionFeedbackTable.$inferSelect;
 
 export const referralsTable = pgTable(
   "referrals_table",
@@ -76,21 +134,110 @@ export const songReviewLikesTable = pgTable(
     reviewId: text("review_id").notNull(),
     createdAt: timestamp("created_at").defaultNow().notNull(),
   },
-  (t) => ({
-    uniqueLike: unique().on(t.userId, t.reviewId),
-  }),
-);
+  (t) => [
+    unique().on(t.userId, t.reviewId),
+    pgPolicy("song_review_likes_active_owner_select", {
+      as: "restrictive",
+      for: "select",
+      using: sql`
+        EXISTS (
+          SELECT 1 FROM users_table
+          WHERE users_table.id = user_id
+            AND users_table.deactivated_at IS NULL
+        )
+      `,
+    }),
+    pgPolicy("song_review_likes_active_owner_insert", {
+      as: "restrictive",
+      for: "insert",
+      withCheck: sql`
+        EXISTS (
+          SELECT 1 FROM users_table
+          WHERE users_table.id = user_id
+            AND users_table.deactivated_at IS NULL
+        )
+      `,
+    }),
+    pgPolicy("song_review_likes_active_owner_delete", {
+      as: "restrictive",
+      for: "delete",
+      using: sql`
+        EXISTS (
+          SELECT 1 FROM users_table
+          WHERE users_table.id = user_id
+            AND users_table.deactivated_at IS NULL
+        )
+      `,
+    }),
+  ],
+).enableRLS();
 
-export const songReviewCommentsTable = pgTable("song_review_comments_table", {
-  id: uuid("id").primaryKey().defaultRandom().notNull(),
-  userId: uuid("user_id")
-    .notNull()
-    .references(() => usersTable.id, { onDelete: "cascade" }),
-  reviewId: text("review_id").notNull(),
-  body: text("body").notNull(),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-  updatedAt: timestamp("updated_at").defaultNow().notNull(),
-});
+export const songReviewCommentsTable = pgTable(
+  "song_review_comments_table",
+  {
+    id: uuid("id").primaryKey().defaultRandom().notNull(),
+    userId: uuid("user_id")
+      .notNull()
+      .references(() => usersTable.id, { onDelete: "cascade" }),
+    reviewId: text("review_id").notNull(),
+    body: text("body").notNull(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  },
+  () => [
+    pgPolicy("song_review_comments_active_owner_select", {
+      as: "restrictive",
+      for: "select",
+      using: sql`
+        EXISTS (
+          SELECT 1 FROM users_table
+          WHERE users_table.id = user_id
+            AND users_table.deactivated_at IS NULL
+        )
+      `,
+    }),
+    pgPolicy("song_review_comments_active_owner_insert", {
+      as: "restrictive",
+      for: "insert",
+      withCheck: sql`
+        EXISTS (
+          SELECT 1 FROM users_table
+          WHERE users_table.id = user_id
+            AND users_table.deactivated_at IS NULL
+        )
+      `,
+    }),
+    pgPolicy("song_review_comments_active_owner_update", {
+      as: "restrictive",
+      for: "update",
+      using: sql`
+        EXISTS (
+          SELECT 1 FROM users_table
+          WHERE users_table.id = user_id
+            AND users_table.deactivated_at IS NULL
+        )
+      `,
+      withCheck: sql`
+        EXISTS (
+          SELECT 1 FROM users_table
+          WHERE users_table.id = user_id
+            AND users_table.deactivated_at IS NULL
+        )
+      `,
+    }),
+    pgPolicy("song_review_comments_active_owner_delete", {
+      as: "restrictive",
+      for: "delete",
+      using: sql`
+        EXISTS (
+          SELECT 1 FROM users_table
+          WHERE users_table.id = user_id
+            AND users_table.deactivated_at IS NULL
+        )
+      `,
+    }),
+  ],
+).enableRLS();
 
 export type InsertSongReviewComment =
   typeof songReviewCommentsTable.$inferInsert;
@@ -109,10 +256,61 @@ export const songReviewRatingsTable = pgTable(
     createdAt: timestamp("created_at").defaultNow().notNull(),
     updatedAt: timestamp("updated_at").defaultNow().notNull(),
   },
-  (t) => ({
-    uniqueRating: unique().on(t.userId, t.reviewId),
-  }),
-);
+  (t) => [
+    unique().on(t.userId, t.reviewId),
+    pgPolicy("song_review_ratings_active_owner_select", {
+      as: "restrictive",
+      for: "select",
+      using: sql`
+        EXISTS (
+          SELECT 1 FROM users_table
+          WHERE users_table.id = user_id
+            AND users_table.deactivated_at IS NULL
+        )
+      `,
+    }),
+    pgPolicy("song_review_ratings_active_owner_insert", {
+      as: "restrictive",
+      for: "insert",
+      withCheck: sql`
+        EXISTS (
+          SELECT 1 FROM users_table
+          WHERE users_table.id = user_id
+            AND users_table.deactivated_at IS NULL
+        )
+      `,
+    }),
+    pgPolicy("song_review_ratings_active_owner_update", {
+      as: "restrictive",
+      for: "update",
+      using: sql`
+        EXISTS (
+          SELECT 1 FROM users_table
+          WHERE users_table.id = user_id
+            AND users_table.deactivated_at IS NULL
+        )
+      `,
+      withCheck: sql`
+        EXISTS (
+          SELECT 1 FROM users_table
+          WHERE users_table.id = user_id
+            AND users_table.deactivated_at IS NULL
+        )
+      `,
+    }),
+    pgPolicy("song_review_ratings_active_owner_delete", {
+      as: "restrictive",
+      for: "delete",
+      using: sql`
+        EXISTS (
+          SELECT 1 FROM users_table
+          WHERE users_table.id = user_id
+            AND users_table.deactivated_at IS NULL
+        )
+      `,
+    }),
+  ],
+).enableRLS();
 
 export type InsertSongReviewRating = typeof songReviewRatingsTable.$inferInsert;
 export type SelectSongReviewRating = typeof songReviewRatingsTable.$inferSelect;
@@ -123,23 +321,79 @@ export type SelectSongReviewLike = typeof songReviewLikesTable.$inferSelect;
 export type InsertUser = typeof usersTable.$inferInsert;
 export type SelectUser = typeof usersTable.$inferSelect;
 
-export const collaborationsTable = pgTable("collaborations_table", {
-  id: uuid("id").primaryKey().defaultRandom().notNull(),
-  userId: uuid("user_id")
-    .notNull()
-    .references(() => usersTable.id),
-  status: varchar("status", { length: 20 }).default("pending").notNull(),
-  bio: text("bio").notNull(),
-  pieceType: varchar("piece_type", { length: 20 }).notNull(),
-  songTitle: varchar("song_title", { length: 200 }).notNull(),
-  bandName: varchar("band_name", { length: 200 }),
-  videoUrl: varchar("video_url", { length: 500 }).notNull(),
-  coverPhotoUrl: varchar("cover_photo_url", { length: 500 }),
-  upcomingNews: text("upcoming_news"),
-  adminNotes: text("admin_notes"),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-  updatedAt: timestamp("updated_at").defaultNow().notNull(),
-});
+export const collaborationsTable = pgTable(
+  "collaborations_table",
+  {
+    id: uuid("id").primaryKey().defaultRandom().notNull(),
+    userId: uuid("user_id")
+      .notNull()
+      .references(() => usersTable.id, { onDelete: "cascade" }),
+    status: varchar("status", { length: 20 }).default("pending").notNull(),
+    bio: text("bio").notNull(),
+    pieceType: varchar("piece_type", { length: 20 }).notNull(),
+    songTitle: varchar("song_title", { length: 200 }).notNull(),
+    bandName: varchar("band_name", { length: 200 }),
+    videoUrl: varchar("video_url", { length: 500 }).notNull(),
+    coverPhotoUrl: varchar("cover_photo_url", { length: 500 }),
+    upcomingNews: text("upcoming_news"),
+    adminNotes: text("admin_notes"),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  },
+  () => [
+    pgPolicy("collaborations_active_owner_select", {
+      as: "restrictive",
+      for: "select",
+      using: sql`
+        EXISTS (
+          SELECT 1 FROM users_table
+          WHERE users_table.id = user_id
+            AND users_table.deactivated_at IS NULL
+        )
+      `,
+    }),
+    pgPolicy("collaborations_active_owner_insert", {
+      as: "restrictive",
+      for: "insert",
+      withCheck: sql`
+        EXISTS (
+          SELECT 1 FROM users_table
+          WHERE users_table.id = user_id
+            AND users_table.deactivated_at IS NULL
+        )
+      `,
+    }),
+    pgPolicy("collaborations_active_owner_update", {
+      as: "restrictive",
+      for: "update",
+      using: sql`
+        EXISTS (
+          SELECT 1 FROM users_table
+          WHERE users_table.id = user_id
+            AND users_table.deactivated_at IS NULL
+        )
+      `,
+      withCheck: sql`
+        EXISTS (
+          SELECT 1 FROM users_table
+          WHERE users_table.id = user_id
+            AND users_table.deactivated_at IS NULL
+        )
+      `,
+    }),
+    pgPolicy("collaborations_active_owner_delete", {
+      as: "restrictive",
+      for: "delete",
+      using: sql`
+        EXISTS (
+          SELECT 1 FROM users_table
+          WHERE users_table.id = user_id
+            AND users_table.deactivated_at IS NULL
+        )
+      `,
+    }),
+  ],
+).enableRLS();
 
 export const usersRelations = relations(usersTable, ({ many }) => ({
   collaborations: many(collaborationsTable),
@@ -187,7 +441,60 @@ export const challengeParticipationsTable = pgTable(
     createdAt: timestamp("created_at").defaultNow().notNull(),
     updatedAt: timestamp("updated_at").defaultNow().notNull(),
   },
-);
+  () => [
+    pgPolicy("challenge_participations_active_owner_select", {
+      as: "restrictive",
+      for: "select",
+      using: sql`
+        EXISTS (
+          SELECT 1 FROM users_table
+          WHERE users_table.id = user_id
+            AND users_table.deactivated_at IS NULL
+        )
+      `,
+    }),
+    pgPolicy("challenge_participations_active_owner_insert", {
+      as: "restrictive",
+      for: "insert",
+      withCheck: sql`
+        EXISTS (
+          SELECT 1 FROM users_table
+          WHERE users_table.id = user_id
+            AND users_table.deactivated_at IS NULL
+        )
+      `,
+    }),
+    pgPolicy("challenge_participations_active_owner_update", {
+      as: "restrictive",
+      for: "update",
+      using: sql`
+        EXISTS (
+          SELECT 1 FROM users_table
+          WHERE users_table.id = user_id
+            AND users_table.deactivated_at IS NULL
+        )
+      `,
+      withCheck: sql`
+        EXISTS (
+          SELECT 1 FROM users_table
+          WHERE users_table.id = user_id
+            AND users_table.deactivated_at IS NULL
+        )
+      `,
+    }),
+    pgPolicy("challenge_participations_active_owner_delete", {
+      as: "restrictive",
+      for: "delete",
+      using: sql`
+        EXISTS (
+          SELECT 1 FROM users_table
+          WHERE users_table.id = user_id
+            AND users_table.deactivated_at IS NULL
+        )
+      `,
+    }),
+  ],
+).enableRLS();
 
 export const challengesRelations = relations(challengesTable, ({ many }) => ({
   participations: many(challengeParticipationsTable),

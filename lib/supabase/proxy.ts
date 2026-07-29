@@ -47,6 +47,38 @@ export async function updateSession(request: NextRequest) {
   const { data } = await supabase.auth.getClaims();
   const user = data?.claims;
 
+  const redirectWithCookies = (pathname: string) => {
+    const url = request.nextUrl.clone();
+    url.pathname = pathname;
+    url.search = "";
+    const redirectResponse = NextResponse.redirect(url);
+    supabaseResponse.cookies.getAll().forEach((cookie) => {
+      redirectResponse.cookies.set(cookie);
+    });
+    return redirectResponse;
+  };
+
+  if (user && typeof user.sub === "string") {
+    const { data: account } = await supabase
+      .from("users_table")
+      .select("deactivated_at")
+      .eq("id", user.sub)
+      .maybeSingle();
+
+    const isReactivationRoute = request.nextUrl.pathname.startsWith(
+      "/account/reactivate",
+    );
+    const isAuthRoute = request.nextUrl.pathname.startsWith("/auth/");
+
+    if (account?.deactivated_at && !isReactivationRoute && !isAuthRoute) {
+      return redirectWithCookies("/account/reactivate");
+    }
+
+    if (account && !account.deactivated_at && isReactivationRoute) {
+      return redirectWithCookies("/profile");
+    }
+  }
+
   const protectedPaths = [
     "/profile",
     "/admin",
@@ -59,9 +91,7 @@ export async function updateSession(request: NextRequest) {
 
   if (!user && isProtected) {
     // no user, redirect to the login page for protected routes
-    const url = request.nextUrl.clone();
-    url.pathname = "/auth/login";
-    return NextResponse.redirect(url);
+    return redirectWithCookies("/auth/login");
   }
 
   // Authenticated user trying to access /onboarding — allow it

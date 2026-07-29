@@ -17,12 +17,19 @@ async function requireAdmin() {
   }
 
   const adminRows = await db
-    .select({ role: usersTable.role })
+    .select({
+      role: usersTable.role,
+      deactivatedAt: usersTable.deactivatedAt,
+    })
     .from(usersTable)
     .where(eq(usersTable.id, user.id))
     .limit(1);
 
-  if (adminRows.length === 0 || adminRows[0].role !== "admin") {
+  if (
+    adminRows.length === 0 ||
+    adminRows[0].role !== "admin" ||
+    adminRows[0].deactivatedAt
+  ) {
     return { error: "Forbidden" } as const;
   }
 

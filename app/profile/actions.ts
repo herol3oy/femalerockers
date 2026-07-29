@@ -4,6 +4,7 @@ import { and, eq, ne } from "drizzle-orm";
 import { redirect } from "next/navigation";
 import { db } from "@/app/db";
 import { usersTable } from "@/app/db/schema";
+import { isActiveAccount } from "@/lib/auth/active-account";
 import { createClient } from "@/lib/supabase/server";
 
 const ALLOWED_AVATAR_TYPES = ["image/png", "image/jpeg", "image/webp"];
@@ -67,6 +68,10 @@ export async function updateProfile(
 
   if (!user) {
     redirect("/auth/login");
+  }
+
+  if (!(await isActiveAccount(user.id))) {
+    redirect("/account/reactivate");
   }
 
   const username = formData.get("username")?.toString().trim();

@@ -9,7 +9,7 @@ import {
   SparkleIcon,
   UsersIcon,
 } from "@phosphor-icons/react/ssr";
-import { eq } from "drizzle-orm";
+import { and, eq, isNull } from "drizzle-orm";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -112,7 +112,12 @@ async function DiscoverProfileContent({ params }: DiscoverProfilePageProps) {
     db
       .select()
       .from(usersTable)
-      .where(eq(usersTable.username, decodeURIComponent(username)))
+      .where(
+        and(
+          eq(usersTable.username, decodeURIComponent(username)),
+          isNull(usersTable.deactivatedAt),
+        ),
+      )
       .limit(1)
       .then((r) => r[0] ?? null),
     supabase.auth.getUser(),
