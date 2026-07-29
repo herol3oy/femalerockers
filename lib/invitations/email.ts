@@ -14,57 +14,98 @@ function escapeHtml(value: string): string {
 export async function sendRegistrationInvitation(
   to: string,
   token: string,
-  expiresAt: Date,
-  inviterName?: string,
+  _expiresAt: Date,
+  _inviterName?: string,
 ) {
   const baseUrl = (
     process.env.NEXT_PUBLIC_SITE_URL || "https://femalerockers.com"
   ).replace(/\/+$/, "");
   const invitationUrl = `${baseUrl}/auth/sign-up?invite=${encodeURIComponent(token)}`;
-  const subjectInviter = inviterName?.replace(/[\r\n]+/g, " ").trim();
-  const safeInviter = subjectInviter ? escapeHtml(subjectInviter) : null;
-  const heading = safeInviter
-    ? `${safeInviter} invited you to Female Rockers`
-    : "You're invited to Female Rockers";
-  const expiration = new Intl.DateTimeFormat("en", {
-    dateStyle: "long",
-    timeStyle: "short",
-    timeZone: "UTC",
-  }).format(expiresAt);
+  const safeInvitationUrl = escapeHtml(invitationUrl);
+  const text = `You're invited to Female Rockers
+
+We’re building the next chapter of Female Rockers, and we’d love you to be part of its first professional community.
+
+Female Rockers started as a platform for interviews, artist features, and music discovery. We’re now developing it into a curated network where musicians can present their work, connect with others, join challenges, and be discovered by fans and music industry professionals.
+
+Before opening registration publicly, we’re inviting a selected group of professional musicians whose work we know and respect.
+
+As an invited member, you’ll receive:
+
+* A professional profile for your music, biography, photos, and links
+* Eligibility for a manually approved Female Rockers Pro badge
+* Inclusion in our professional musician directory
+* Access to future challenges and community features
+* Opportunities to be considered for interviews, song reviews, stories, and other features
+* Three personal invitations to share with musicians you trust
+
+Female Rockers has never charged musicians, amateur or professional, and never will.
+
+We are not building this platform by monetizing artists. Musicians have already paid their dues through years of lessons, practice, equipment, sacrifice, and hard work. Being seen and discovered should not require another fee.
+
+Registration is currently available by invitation only, and every Pro badge is reviewed manually.
+
+Create your account using your private invitation link:
+
+${invitationUrl}
+
+We’d be genuinely happy to have you among the musicians helping shape the future of Female Rockers.
+
+Female Rockers
+Where Female Musicians Get Discovered
+
+https://femalerockers.com`;
 
   return sendTransactionalEmail(
     to,
-    safeInviter
-      ? `${subjectInviter} invited you to Female Rockers`
-      : "You're invited to Female Rockers",
+    "You're invited to Female Rockers",
     `<!DOCTYPE html>
 <html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
-<body style="margin:0;padding:0;background:#0a0a0a;font-family:Arial,Helvetica,sans-serif;color:#e5e5e5;">
-<table width="100%" cellpadding="0" cellspacing="0" style="padding:48px 24px;">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="x-apple-disable-message-reformatting">
+  <title>You're invited to Female Rockers</title>
+</head>
+<body bgcolor="#0a0a0a" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<table role="presentation" border="0" width="100%" cellpadding="0" cellspacing="0" bgcolor="#0a0a0a">
 <tr><td align="center">
-<table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">
-  <tr><td style="padding:0 0 32px;">
-    <h1 style="margin:0;font-size:28px;font-weight:700;color:#ffffff;">${heading}</h1>
+<table role="presentation" border="0" width="100%" cellpadding="0" cellspacing="0">
+<tr><td align="center" style="padding:48px 24px;">
+<table role="presentation" border="0" width="600" cellpadding="0" cellspacing="0" align="center" style="width:100%;max-width:600px;">
+  <tr><td role="heading" aria-level="1" style="padding:0 0 32px;font-family:Arial,Helvetica,sans-serif;font-size:28px;line-height:34px;color:#ffffff;mso-line-height-rule:exactly;">
+    <strong>You're invited to Female Rockers</strong>
   </td></tr>
-  <tr><td style="padding:0 0 24px;font-size:16px;line-height:1.6;color:#a3a3a3;">
-    <p style="margin:0 0 16px;">Create your Female Rockers account and member profile using the private link below.</p>
-    <p style="margin:0 0 16px;">This invitation is for <strong style="color:#ffffff;">${escapeHtml(to)}</strong>, can be used once, and expires on ${expiration} UTC.</p>
+  <tr><td style="padding:0 0 24px;font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:26px;color:#a3a3a3;mso-line-height-rule:exactly;">
+    We’re building the next chapter of Female Rockers, and we’d love you to be part of its first professional community.<br><br>
+    Female Rockers started as a platform for interviews, artist features, and music discovery. We’re now developing it into a curated network where musicians can present their work, connect with others, join challenges, and be discovered by fans and music industry professionals.<br><br>
+    Before opening registration publicly, we’re inviting a selected group of professional musicians whose work we know and respect.<br><br>
+    As an invited member, you’ll receive:<br><br>
+    &bull;&nbsp; A professional profile for your music, biography, photos, and links<br>
+    &bull;&nbsp; Eligibility for a manually approved Female Rockers Pro badge<br>
+    &bull;&nbsp; Inclusion in our professional musician directory<br>
+    &bull;&nbsp; Access to future challenges and community features<br>
+    &bull;&nbsp; Opportunities to be considered for interviews, song reviews, stories, and other features<br>
+    &bull;&nbsp; Three personal invitations to share with musicians you trust<br><br>
+    Female Rockers has never charged musicians, amateur or professional, and never will.<br><br>
+    We are not building this platform by monetizing artists. Musicians have already paid their dues through years of lessons, practice, equipment, sacrifice, and hard work. Being seen and discovered should not require another fee.<br><br>
+    Registration is currently available by invitation only, and every Pro badge is reviewed manually.<br><br>
+    Create your account using your private invitation link:<br><br>
+    <a href="${safeInvitationUrl}" style="color:#fb7185;"><strong>Create your account</strong></a><br><br>
+    We’d be genuinely happy to have you among the musicians helping shape the future of Female Rockers.<br><br>
+    Female Rockers<br>
+    Where Female Musicians Get Discovered
   </td></tr>
-  <tr><td style="padding:0 0 32px;">
-    <a href="${invitationUrl}" style="display:inline-block;padding:14px 32px;background:#e11d48;color:#ffffff;font-size:16px;font-weight:600;text-decoration:none;border-radius:12px;">Create your account</a>
+  <tr><td style="padding:24px 0 0;border-top:1px solid #262626;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:20px;color:#525252;mso-line-height-rule:exactly;">
+    <a href="https://femalerockers.com" style="color:#737373;">femalerockers.com</a>
   </td></tr>
-  <tr><td style="padding:0 0 24px;font-size:14px;line-height:1.6;color:#737373;">
-    <p style="margin:0;">If the button does not work, copy and paste this link into your browser:</p>
-    <p style="margin:8px 0 0;"><a href="${invitationUrl}" style="color:#e11d48;word-break:break-all;">${invitationUrl}</a></p>
-  </td></tr>
-  <tr><td style="padding:24px 0 0;border-top:1px solid #262626;font-size:13px;color:#525252;">
-    <p style="margin:0;">Female Rockers &mdash; Where Female Musicians Get Discovered.</p>
-  </td></tr>
+</table>
+</td></tr>
 </table>
 </td></tr>
 </table>
 </body>
 </html>`,
+    text,
   );
 }

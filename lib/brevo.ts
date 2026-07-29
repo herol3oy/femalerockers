@@ -32,6 +32,7 @@ export async function sendTransactionalEmail(
   to: string,
   subject: string,
   html: string,
+  text?: string,
 ): Promise<SendEmailResult> {
   try {
     if (smtpTransport) {
@@ -40,6 +41,7 @@ export async function sendTransactionalEmail(
         to,
         subject,
         html,
+        text,
       });
     } else {
       await brevo!.transactionalEmails.sendTransacEmail({
@@ -47,6 +49,7 @@ export async function sendTransactionalEmail(
         sender: { email: senderEmail(), name: senderName() },
         to: [{ email: to }],
         htmlContent: html,
+        textContent: text,
       });
     }
     return { success: true };
