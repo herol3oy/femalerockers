@@ -13,15 +13,20 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { validateInvitationRegistration } from "@/lib/invitations/registration-actions";
 import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
 
 export function SignUpForm({
-  referralCode,
+  invitationToken,
+  recipientEmail,
   className,
   ...props
-}: React.ComponentPropsWithoutRef<"div"> & { referralCode: string }) {
-  const [email, setEmail] = useState("");
+}: React.ComponentPropsWithoutRef<"div"> & {
+  invitationToken: string;
+  recipientEmail: string;
+}) {
+  const [email] = useState(recipientEmail);
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -41,18 +46,27 @@ export function SignUpForm({
     }
 
     try {
-      const { error } = await supabase.auth.signUp({
+      const validation = await validateInvitationRegistration(
+        invitationToken,
+        email,
+      );
+      if (!validation.success) {
+        throw new Error(validation.error);
+      }
+
+      const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
-          data: {
-            referral_code: referralCode,
-          },
-          emailRedirectTo: `${window.location.origin}/onboarding?ref=${encodeURIComponent(referralCode)}`,
+          emailRedirectTo: `${window.location.origin}/onboarding?invite=${encodeURIComponent(invitationToken)}`,
         },
       });
       if (error) throw error;
-      router.push("/auth/sign-up-success");
+      router.push(
+        data.session
+          ? `/onboarding?invite=${encodeURIComponent(invitationToken)}`
+          : "/auth/sign-up-success",
+      );
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : "An error occurred");
     } finally {
@@ -62,16 +76,33 @@ export function SignUpForm({
 
   const handleGoogleSignUp = async () => {
     const supabase = createClient();
-    const next = `/onboarding?ref=${encodeURIComponent(referralCode)}`;
-    await supabase.auth.signInWithOAuth({
-      provider: "google",
-      options: {
-        redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}`,
-        queryParams: {
-          prompt: "select_account",
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const validation = await validateInvitationRegistration(
+        invitationToken,
+        email,
+      );
+      if (!validation.success) {
+        throw new Error(validation.error);
+      }
+
+      const next = `/onboarding?invite=${encodeURIComponent(invitationToken)}`;
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}`,
+          queryParams: {
+            prompt: "select_account",
+          },
         },
-      },
-    });
+      });
+      if (error) throw error;
+    } catch (error: unknown) {
+      setError(error instanceof Error ? error.message : "An error occurred");
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -94,7 +125,8 @@ export function SignUpForm({
                   placeholder="m@example.com"
                   required
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  readOnly
+                  aria-readonly="true"
                 />
               </div>
               <div className="grid gap-2">
@@ -137,6 +169,7 @@ export function SignUpForm({
                 variant="outline"
                 className="w-full"
                 onClick={handleGoogleSignUp}
+                disabled={isLoading}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

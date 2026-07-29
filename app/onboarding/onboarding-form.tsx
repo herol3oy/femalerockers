@@ -12,7 +12,11 @@ import { completeOnboarding } from "./actions";
 
 const MAX_AVATAR_SIZE = 2 * 1024 * 1024;
 
-export function OnboardingForm({ referralCode }: { referralCode: string }) {
+export function OnboardingForm({
+  invitationToken,
+}: {
+  invitationToken: string;
+}) {
   const [state, formAction, pending] = useActionState(completeOnboarding, null);
   const [preview, setPreview] = useState<string | null>(null);
   const [fileError, setFileError] = useState<string | null>(null);
@@ -48,7 +52,7 @@ export function OnboardingForm({ referralCode }: { referralCode: string }) {
         </div>
 
         <form action={formAction} className="flex flex-col gap-4">
-          <input type="hidden" name="referralCode" value={referralCode} />
+          <input type="hidden" name="invitationToken" value={invitationToken} />
           <div className="flex flex-col gap-3">
             <Label className="text-base font-semibold">
               I am a… <span className="text-destructive">*</span>

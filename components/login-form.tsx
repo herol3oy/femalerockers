@@ -17,9 +17,10 @@ import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
 
 export function LoginForm({
+  notice,
   className,
   ...props
-}: React.ComponentPropsWithoutRef<"div">) {
+}: React.ComponentPropsWithoutRef<"div"> & { notice?: string }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -70,6 +71,11 @@ export function LoginForm({
           </CardDescription>
         </CardHeader>
         <CardContent>
+          {notice ? (
+            <p className="mb-5 rounded-xl border border-border/70 bg-muted/30 p-3 text-sm leading-6 text-muted-foreground">
+              {notice}
+            </p>
+          ) : null}
           <form onSubmit={handleLogin}>
             <div className="flex flex-col gap-6">
               <div className="grid gap-2">

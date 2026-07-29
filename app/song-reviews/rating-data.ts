@@ -1,6 +1,6 @@
-import { and, avg, count, eq, inArray } from "drizzle-orm";
+import { and, avg, count, eq, inArray, isNull } from "drizzle-orm";
 import { db } from "@/app/db";
-import { songReviewRatingsTable } from "@/app/db/schema";
+import { songReviewRatingsTable, usersTable } from "@/app/db/schema";
 import { createClient } from "@/lib/supabase/server";
 
 export async function getReviewsRatingData(reviewIds: string[]) {
@@ -13,7 +13,13 @@ export async function getReviewsRatingData(reviewIds: string[]) {
       total: count(),
     })
     .from(songReviewRatingsTable)
-    .where(inArray(songReviewRatingsTable.reviewId, reviewIds))
+    .innerJoin(usersTable, eq(songReviewRatingsTable.userId, usersTable.id))
+    .where(
+      and(
+        inArray(songReviewRatingsTable.reviewId, reviewIds),
+        isNull(usersTable.deactivatedAt),
+      ),
+    )
     .groupBy(songReviewRatingsTable.reviewId);
 
   const result: Record<string, { average: number; count: number }> = {};
@@ -38,7 +44,13 @@ export async function getReviewRating(reviewId: string) {
       total: count().mapWith(Number),
     })
     .from(songReviewRatingsTable)
-    .where(eq(songReviewRatingsTable.reviewId, reviewId));
+    .innerJoin(usersTable, eq(songReviewRatingsTable.userId, usersTable.id))
+    .where(
+      and(
+        eq(songReviewRatingsTable.reviewId, reviewId),
+        isNull(usersTable.deactivatedAt),
+      ),
+    );
 
   const ratingAverage = aggregate?.average
     ? Number(aggregate.average.toFixed(1))

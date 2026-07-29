@@ -20,7 +20,7 @@ export default async function ChallengeSubmissionsPage({
     notFound();
   }
 
-  const participations = await getChallengeParticipations(id);
+  const participations = await getChallengeParticipations(id, true);
 
   const committedCount = participations.filter(
     (p) => p.status === "committed",

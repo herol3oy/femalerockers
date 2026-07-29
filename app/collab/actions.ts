@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { db } from "@/app/db";
 import { collaborationsTable, usersTable } from "@/app/db/schema";
+import { isActiveAccount } from "@/lib/auth/active-account";
 import { createClient } from "@/lib/supabase/server";
 
 const ALLOWED_COVER_TYPES = ["image/png", "image/jpeg", "image/webp"];
@@ -66,6 +67,10 @@ export async function submitCollab(
 
   if (!user) {
     redirect("/auth/login");
+  }
+
+  if (!(await isActiveAccount(user.id))) {
+    return { error: "Reactivate your account before submitting." };
   }
 
   // Verify user is approved
@@ -153,6 +158,10 @@ export async function withdrawCollab(
 
   if (!user) {
     redirect("/auth/login");
+  }
+
+  if (!(await isActiveAccount(user.id))) {
+    return { error: "Reactivate your account before making changes." };
   }
 
   const collabId = formData.get("collabId")?.toString();

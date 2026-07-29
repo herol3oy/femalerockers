@@ -35,6 +35,11 @@ function SubmissionDetailModal({
               <h3 className="text-xl font-bold">
                 {participation.user.artistName}
               </h3>
+              {participation.user.deactivatedAt ? (
+                <Badge variant="outline" className="mt-1">
+                  Deactivated
+                </Badge>
+              ) : null}
               <p className="text-sm text-muted-foreground">
                 @{participation.user.username}
               </p>
@@ -162,6 +167,11 @@ export function SubmissionsTable({
                       <div className="text-xs text-muted-foreground">
                         @{participation.user.username}
                       </div>
+                      {participation.user.deactivatedAt ? (
+                        <Badge variant="outline" className="mt-1 text-xs">
+                          Deactivated
+                        </Badge>
+                      ) : null}
                     </div>
                   </div>
                 </td>
@@ -193,11 +203,13 @@ export function SubmissionsTable({
                         View Details
                       </Button>
                     )}
-                    <Link href={`/${participation.user.username}`}>
-                      <Button variant="ghost" size="sm">
-                        Profile
-                      </Button>
-                    </Link>
+                    {!participation.user.deactivatedAt ? (
+                      <Link href={`/${participation.user.username}`}>
+                        <Button variant="ghost" size="sm">
+                          Profile
+                        </Button>
+                      </Link>
+                    ) : null}
                   </div>
                 </td>
               </tr>

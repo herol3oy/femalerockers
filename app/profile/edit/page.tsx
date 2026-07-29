@@ -1,5 +1,6 @@
-import { PencilIcon } from "@phosphor-icons/react/ssr";
+import { GearIcon, PencilIcon } from "@phosphor-icons/react/ssr";
 import { eq } from "drizzle-orm";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { db } from "@/app/db";
@@ -34,6 +35,13 @@ function EditProfileSkeleton() {
             ))}
           </CardContent>
         </Card>
+        <Link
+          href="/profile/settings"
+          className="mx-auto flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
+        >
+          <GearIcon className="size-4" />
+          Account settings
+        </Link>
       </div>
     </section>
   );
