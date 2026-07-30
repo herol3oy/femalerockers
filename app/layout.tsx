@@ -33,18 +33,20 @@ export default function RootLayout({
     <html
       lang="en"
       className={cn(
+        "dark",
         "h-full antialiased",
         "font-sans",
         roboto.variable,
         spaceGroteskHeading.variable,
       )}
+      style={{ colorScheme: "dark" }}
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col">
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
-          enableSystem
+          forcedTheme="dark"
+          enableSystem={false}
           disableTransitionOnChange
         >
           <NavigationBar />
