@@ -100,12 +100,22 @@ export function CollabForm({ defaultBio }: Props) {
           required
           type="url"
           maxLength={500}
-          placeholder="https://wetransfer.com/… or Google Drive link"
+          placeholder="https://drive.google.com/..."
+          aria-describedby="video-url-requirements"
         />
-        <p className="text-xs text-muted-foreground">
-          Upload your video to WeTransfer, Google Drive, or similar and paste
-          the link here.
-        </p>
+        <div
+          id="video-url-requirements"
+          className="rounded-xl border border-primary/25 bg-primary/5 p-4 text-sm leading-6"
+        >
+          <p className="font-semibold text-foreground">
+            A permanent, publicly accessible link is required
+          </p>
+          <p className="mt-1 text-muted-foreground">
+            Upload your video to Google Drive, Dropbox, MEGA, or similar cloud
+            storage, and enable access for anyone with the link. Temporary
+            links such as WeTransfer or SwissTransfer are not accepted.
+          </p>
+        </div>
       </div>
 
       <div className="flex flex-col gap-2">
@@ -130,7 +140,7 @@ export function CollabForm({ defaultBio }: Props) {
           />
         </div>
         <p className="text-xs text-muted-foreground">
-          Vertical image to announce the reel. Max 5 MB. PNG, JPEG, or WebP.
+          Vertical image to announce the Instagram reel. Max 5 MB. PNG, JPEG, or WebP.
         </p>
         {fileError && <p className="text-sm text-destructive">{fileError}</p>}
       </div>

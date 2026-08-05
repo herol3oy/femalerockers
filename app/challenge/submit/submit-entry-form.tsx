@@ -64,12 +64,23 @@ export function SubmitEntryForm({
           onChange={(e) =>
             setFormData({ ...formData, videoUrl: e.target.value })
           }
-          placeholder="https://youtube.com/watch?v=..."
+          placeholder="https://drive.google.com/..."
+          aria-describedby="video-url-requirements"
           required
         />
-        <p className="text-xs text-muted-foreground">
-          YouTube, Vimeo, or other video platform link
-        </p>
+        <div
+          id="video-url-requirements"
+          className="rounded-xl border border-primary/25 bg-primary/5 p-4 text-sm leading-6"
+        >
+          <p className="font-semibold text-foreground">
+            A permanent, publicly accessible link is required
+          </p>
+          <p className="mt-1 text-muted-foreground">
+            Upload your video to Google Drive, Dropbox, MEGA, or similar cloud
+            storage, and enable access for anyone with the link. Temporary
+            links such as WeTransfer or SwissTransfer are not accepted.
+          </p>
+        </div>
       </div>
 
       <div className="space-y-2">
