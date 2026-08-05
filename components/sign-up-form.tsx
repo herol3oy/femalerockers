@@ -11,6 +11,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { validateInvitationRegistration } from "@/lib/invitations/registration-actions";
@@ -29,6 +30,7 @@ export function SignUpForm({
   const [email] = useState(recipientEmail);
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
+  const [acceptedLegal, setAcceptedLegal] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -38,6 +40,12 @@ export function SignUpForm({
     const supabase = createClient();
     setIsLoading(true);
     setError(null);
+
+    if (!acceptedLegal) {
+      setError("You must confirm your age and accept the legal terms.");
+      setIsLoading(false);
+      return;
+    }
 
     if (password !== repeatPassword) {
       setError("Passwords do not match");
@@ -78,6 +86,12 @@ export function SignUpForm({
     const supabase = createClient();
     setIsLoading(true);
     setError(null);
+
+    if (!acceptedLegal) {
+      setError("You must confirm your age and accept the legal terms.");
+      setIsLoading(false);
+      return;
+    }
 
     try {
       const validation = await validateInvitationRegistration(
@@ -153,8 +167,50 @@ export function SignUpForm({
                   onChange={(e) => setRepeatPassword(e.target.value)}
                 />
               </div>
+              <div className="flex items-start gap-3 rounded-xl border border-border/70 bg-muted/20 p-4">
+                <Checkbox
+                  id="legal-acceptance"
+                  name="legalAcceptance"
+                  checked={acceptedLegal}
+                  onCheckedChange={(checked) =>
+                    setAcceptedLegal(checked === true)
+                  }
+                  required
+                  aria-required="true"
+                  aria-labelledby="legal-acceptance-label"
+                  className="mt-0.5"
+                />
+                <p
+                  id="legal-acceptance-label"
+                  className="text-sm leading-5 text-muted-foreground"
+                >
+                  I confirm that I am at least 18 years old, agree to the{" "}
+                  <Link
+                    href="/terms"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="font-medium text-foreground underline underline-offset-4 hover:text-foreground/80"
+                  >
+                    Terms &amp; Conditions
+                  </Link>
+                  , and acknowledge the{" "}
+                  <Link
+                    href="/privacy"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="font-medium text-foreground underline underline-offset-4 hover:text-foreground/80"
+                  >
+                    Privacy Policy
+                  </Link>
+                  .
+                </p>
+              </div>
               {error && <p className="text-sm text-red-500">{error}</p>}
-              <Button type="submit" className="w-full" disabled={isLoading}>
+              <Button
+                type="submit"
+                className="w-full"
+                disabled={isLoading || !acceptedLegal}
+              >
                 {isLoading ? "Creating an account..." : "Sign up"}
               </Button>
               <div className="relative flex items-center gap-4">
@@ -169,7 +225,7 @@ export function SignUpForm({
                 variant="outline"
                 className="w-full"
                 onClick={handleGoogleSignUp}
-                disabled={isLoading}
+                disabled={isLoading || !acceptedLegal}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

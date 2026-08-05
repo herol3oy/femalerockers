@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useId, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -130,6 +131,18 @@ export default function ContactPage() {
             className="min-h-[140px] w-full resize-y rounded-2xl border border-border bg-background px-3 py-2 text-sm outline-none ring-offset-background placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           />
         </div>
+
+        <p className="text-sm leading-6 text-muted-foreground">
+          We use the information you provide to respond to your message. Learn
+          more in our{" "}
+          <Link
+            href="/privacy"
+            className="font-medium text-foreground underline underline-offset-4 hover:text-foreground/80"
+          >
+            Privacy Policy
+          </Link>
+          .
+        </p>
 
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <Button type="submit" disabled={state.status === "submitting"}>
