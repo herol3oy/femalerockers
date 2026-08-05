@@ -58,19 +58,41 @@ export async function updateSession(request: NextRequest) {
     return redirectResponse;
   };
 
-  if (user && typeof user.sub === "string") {
-    const { data: account } = await supabase
+  const unavailableWithCookies = () => {
+    const unavailableResponse = new NextResponse(
+      "Account status is temporarily unavailable. Please try again.",
+      {
+        status: 503,
+        headers: {
+          "Cache-Control": "no-store",
+          "Retry-After": "5",
+        },
+      },
+    );
+    supabaseResponse.cookies.getAll().forEach((cookie) => {
+      unavailableResponse.cookies.set(cookie);
+    });
+    return unavailableResponse;
+  };
+
+  const isReactivationRoute = request.nextUrl.pathname.startsWith(
+    "/account/reactivate",
+  );
+  const isAuthRoute = request.nextUrl.pathname.startsWith("/auth/");
+
+  if (user && typeof user.sub === "string" && !isAuthRoute) {
+    const { data: account, error: accountError } = await supabase
       .from("users_table")
       .select("deactivated_at")
       .eq("id", user.sub)
       .maybeSingle();
 
-    const isReactivationRoute = request.nextUrl.pathname.startsWith(
-      "/account/reactivate",
-    );
-    const isAuthRoute = request.nextUrl.pathname.startsWith("/auth/");
+    if (accountError) {
+      console.error("Failed to verify account status", accountError);
+      return unavailableWithCookies();
+    }
 
-    if (account?.deactivated_at && !isReactivationRoute && !isAuthRoute) {
+    if (account?.deactivated_at && !isReactivationRoute) {
       return redirectWithCookies("/account/reactivate");
     }
 

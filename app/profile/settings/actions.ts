@@ -171,27 +171,9 @@ export async function deleteAccount(
   }
 
   try {
-    await Promise.all([
-      removeStorageFolder(admin, "avatars", user.id),
-      removeStorageFolder(admin, "collab-covers", user.id),
-    ]);
-
-    const { error: signOutError } = await supabase.auth.signOut({
-      scope: "global",
-    });
-    if (signOutError) {
-      throw signOutError;
-    }
-
-    const { error: deleteUserError } = await admin.auth.admin.deleteUser(
-      user.id,
-      false,
-    );
-    if (deleteUserError) {
-      throw deleteUserError;
-    }
-
     await db.transaction(async (tx) => {
+      // Surface database constraint failures before removing external data, and
+      // keep the database changes rollbackable until Storage/Auth cleanup ends.
       await tx.insert(accountDeletionFeedbackTable).values({
         reason,
         details,
@@ -199,7 +181,28 @@ export async function deleteAccount(
       await tx
         .delete(collaborationsTable)
         .where(eq(collaborationsTable.userId, user.id));
-      await tx.delete(usersTable).where(eq(usersTable.id, user.id));
+
+      const [deletedAccount] = await tx
+        .delete(usersTable)
+        .where(eq(usersTable.id, user.id))
+        .returning({ id: usersTable.id });
+
+      if (!deletedAccount) {
+        throw new Error("Account disappeared during deletion.");
+      }
+
+      await Promise.all([
+        removeStorageFolder(admin, "avatars", user.id),
+        removeStorageFolder(admin, "collab-covers", user.id),
+      ]);
+
+      const { error: deleteUserError } = await admin.auth.admin.deleteUser(
+        user.id,
+        false,
+      );
+      if (deleteUserError) {
+        throw deleteUserError;
+      }
     });
   } catch (error) {
     console.error(`Account deletion failed for user ${user.id}`, error);
@@ -207,6 +210,13 @@ export async function deleteAccount(
       error:
         "We could not finish deleting your account. It remains hidden; please retry or contact support.",
     };
+  }
+
+  const { error: signOutError } = await supabase.auth.signOut({
+    scope: "global",
+  });
+  if (signOutError) {
+    console.error("Failed to clear the deleted account session", signOutError);
   }
 
   revalidatePath("/");

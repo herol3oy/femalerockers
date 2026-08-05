@@ -149,14 +149,14 @@ export const registrationInvitationsTable = pgTable(
       .notNull(),
     inviterId: uuid("inviter_id")
       .notNull()
-      .references(() => usersTable.id, { onDelete: "restrict" }),
+      .references(() => usersTable.id, { onDelete: "cascade" }),
     memberSlot: integer("member_slot"),
     status: varchar("status", { length: 20 })
       .$type<InvitationStatus>()
       .default("pending")
       .notNull(),
     acceptedUserId: uuid("accepted_user_id").references(() => usersTable.id, {
-      onDelete: "restrict",
+      onDelete: "cascade",
     }),
     createdAt: timestamp("created_at").defaultNow().notNull(),
     sentAt: timestamp("sent_at"),
