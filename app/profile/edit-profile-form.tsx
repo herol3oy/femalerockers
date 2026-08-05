@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useActionState, useState } from "react";
+import { CityCountryCombobox } from "@/components/city-country-combobox";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
@@ -131,11 +132,9 @@ export function EditProfileForm({ profile }: Props) {
 
       <div className="flex flex-col gap-2">
         <Label htmlFor="cityCountry">City / Country</Label>
-        <Input
-          id="cityCountry"
-          name="cityCountry"
-          defaultValue={profile.cityCountry ?? ""}
-          maxLength={100}
+        <CityCountryCombobox
+          defaultValue={profile.cityCountry}
+          placeholder="Search city..."
         />
       </div>
 

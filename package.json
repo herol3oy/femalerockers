@@ -16,6 +16,7 @@
     "db:push:prod": "dotenv -e .env.local -- sh -c 'supabase db push --db-url \"$MIGRATION_DATABASE_URL\" --include-all \"$@\"' --"
   },
   "dependencies": {
+    "@countrystatecity/countries": "^1.0.7",
     "@getbrevo/brevo": "^6.0.2",
     "@phosphor-icons/react": "^2.1.10",
     "@sanity/image-url": "^2.1.1",

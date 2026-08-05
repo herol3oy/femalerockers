@@ -2,6 +2,7 @@
 
 import { useActionState, useState } from "react";
 import { USER_ROLES } from "@/app/db/schema";
+import { CityCountryCombobox } from "@/components/city-country-combobox";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
@@ -174,6 +175,24 @@ export function OnboardingForm({
                         required={field.required}
                         rows={4}
                         className="flex w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                      />
+                    </div>
+                  );
+                }
+
+                if (field.type === "combobox") {
+                  return (
+                    <div key={field.id} className="flex flex-col gap-2">
+                      <Label htmlFor={field.id}>
+                        {field.label}
+                        {field.required && (
+                          <span className="text-destructive"> *</span>
+                        )}
+                      </Label>
+                      <CityCountryCombobox
+                        name={field.id}
+                        placeholder={field.placeholder}
+                        required={field.required}
                       />
                     </div>
                   );

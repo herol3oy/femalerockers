@@ -12,7 +12,7 @@ export type RoleFieldId =
 
 export type RoleFieldConfig = {
   id: RoleFieldId;
-  type: "text" | "textarea" | "checkbox";
+  type: "text" | "textarea" | "checkbox" | "combobox";
   label: string;
   placeholder?: string;
   required?: boolean;
@@ -40,7 +40,7 @@ export const ROLE_CONFIGS: Record<UserRole, RoleConfig> = {
       },
       {
         id: "cityCountry",
-        type: "text",
+        type: "combobox",
         label: "City / Country",
         placeholder: "e.g. Austin, USA",
       },
@@ -95,7 +95,7 @@ export const ROLE_CONFIGS: Record<UserRole, RoleConfig> = {
       },
       {
         id: "cityCountry",
-        type: "text",
+        type: "combobox",
         label: "City / Country",
         placeholder: "e.g. London, UK",
       },
@@ -144,7 +144,7 @@ export const ROLE_CONFIGS: Record<UserRole, RoleConfig> = {
       },
       {
         id: "cityCountry",
-        type: "text",
+        type: "combobox",
         label: "City / Country",
         placeholder: "e.g. Nashville, USA",
       },

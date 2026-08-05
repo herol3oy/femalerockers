@@ -49,6 +49,7 @@ const interviewSlugs = [
 const nextConfig: NextConfig = {
   reactCompiler: true,
   cacheComponents: true,
+  serverExternalPackages: ["@countrystatecity/countries"],
 
   async redirects() {
     return interviewSlugs.map((slug) => ({
