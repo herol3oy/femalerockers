@@ -35,6 +35,15 @@ type DiscoverProfilePageProps = {
   }>;
 };
 
+function parseTags(value: string | null | undefined) {
+  if (!value) return [];
+
+  return value
+    .split(",")
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
 function DiscoverProfileSkeleton() {
   return (
     <section className="min-h-screen bg-[radial-gradient(circle_at_top,_hsl(var(--secondary))_0%,_transparent_45%),linear-gradient(to_bottom,_hsl(var(--background)),_hsl(var(--muted)/0.35))]">
@@ -186,12 +195,16 @@ async function DiscoverProfileContent({ params }: DiscoverProfilePageProps) {
                     </CardDescription>
                   </div>
                   <div className="flex flex-wrap gap-2">
-                    {user.mainInstrument ? (
-                      <Badge variant="secondary">{user.mainInstrument}</Badge>
-                    ) : null}
-                    {user.genre ? (
-                      <Badge variant="outline">{user.genre}</Badge>
-                    ) : null}
+                    {parseTags(user.mainInstrument).map((value) => (
+                      <Badge key={value} variant="secondary">
+                        {value}
+                      </Badge>
+                    ))}
+                    {parseTags(user.genre).map((value) => (
+                      <Badge key={value} variant="outline">
+                        {value}
+                      </Badge>
+                    ))}
                     {isCollabRelevant ? (
                       <Badge
                         variant={user.collabStatus ? "default" : "outline"}

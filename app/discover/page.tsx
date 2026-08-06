@@ -30,9 +30,18 @@ import {
 import { getRoleLabel } from "@/lib/roles";
 import { createClient } from "@/lib/supabase/server";
 
+function parseTags(value: string | null | undefined) {
+  if (!value) return [];
+
+  return value
+    .split(",")
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
 function DiscoverSkeleton() {
   return (
-    <section className="min-h-screen bg-[radial-gradient(circle_at_top,_hsl(var(--secondary))_0%,_transparent_45%),linear-gradient(to_bottom,_hsl(var(--background)),_hsl(var(--muted)/0.35))]">
+    <section className="min-h-screen bg-[radial-gradient(circle_at_top,hsl(var(--secondary))_0%,transparent_45%),linear-gradient(to_bottom,hsl(var(--background)),hsl(var(--muted)/0.35))]">
       <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
         <div className="overflow-hidden rounded-3xl border bg-background/95 p-8 shadow-sm">
           <div className="flex flex-col gap-4 animate-pulse">
@@ -76,7 +85,7 @@ export async function Discover() {
 
   if (error) {
     return (
-      <section className="min-h-screen bg-[radial-gradient(circle_at_top,_hsl(var(--secondary))_0%,_transparent_45%),linear-gradient(to_bottom,_hsl(var(--background)),_hsl(var(--muted)/0.35))]">
+      <section className="min-h-screen bg-[radial-gradient(circle_at_top,hsl(var(--secondary))_0%,transparent_45%),linear-gradient(to_bottom,hsl(var(--background)),hsl(var(--muted)/0.35))]">
         <div className="mx-auto flex max-w-4xl flex-col gap-6 px-4 py-10 sm:px-6 lg:px-8 lg:py-16">
           <Card className="overflow-hidden border-destructive/30 bg-background/95 shadow-sm">
             <CardHeader>
@@ -110,10 +119,10 @@ export async function Discover() {
   const recentCount = getRecentCount(users);
 
   return (
-    <section className="min-h-screen bg-[radial-gradient(circle_at_top,_hsl(var(--secondary))_0%,_transparent_45%),linear-gradient(to_bottom,_hsl(var(--background)),_hsl(var(--muted)/0.35))]">
+    <section className="min-h-screen bg-[radial-gradient(circle_at_top,hsl(var(--secondary))_0%,transparent_45%),linear-gradient(to_bottom,hsl(var(--background)),hsl(var(--muted)/0.35))]">
       <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
         <div className="relative overflow-hidden rounded-3xl border bg-background/95 p-8 shadow-sm lg:p-10">
-          <div className="absolute inset-y-0 right-0 hidden w-1/3 bg-[radial-gradient(circle_at_center,_hsl(var(--primary)/0.12),_transparent_65%)] lg:block" />
+          <div className="absolute inset-y-0 right-0 hidden w-1/3 bg-[radial-gradient(circle_at_center,hsl(var(--primary)/0.12),transparent_65%)] lg:block" />
           <div className="relative grid gap-8 lg:grid-cols-[minmax(0,1.2fr)_minmax(280px,0.8fr)] lg:items-end">
             <div className="space-y-5">
               <Badge variant="secondary" className="w-fit gap-2">
@@ -245,14 +254,16 @@ export async function Discover() {
                     </div>
 
                     <div className="flex flex-wrap gap-2">
-                      {user.main_instrument ? (
-                        <Badge variant="secondary">
-                          {user.main_instrument}
+                      {parseTags(user.main_instrument).map((value) => (
+                        <Badge key={value} variant="secondary">
+                          {value}
                         </Badge>
-                      ) : null}
-                      {user.genre ? (
-                        <Badge variant="outline">{user.genre}</Badge>
-                      ) : null}
+                      ))}
+                      {parseTags(user.genre).map((value) => (
+                        <Badge key={value} variant="outline">
+                          {value}
+                        </Badge>
+                      ))}
                       <Badge variant="secondary">
                         {getRoleLabel(user.role)}
                       </Badge>
@@ -279,7 +290,7 @@ export async function Discover() {
                       ) : null}
                     </div>
 
-                    <p className="flex-1 text-sm leading-6 text-foreground/80">
+                    <p className="line-clamp-2 flex-1 text-sm leading-6 text-foreground/80">
                       {user.bio ?? "No bio added yet."}
                     </p>
 

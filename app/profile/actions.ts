@@ -87,8 +87,27 @@ export async function updateProfile(
   const artistName = formData.get("artistName")?.toString().trim();
   const cityCountry = formData.get("cityCountry")?.toString().trim() || null;
   const mainInstrument =
-    formData.get("mainInstrument")?.toString().trim() || null;
-  const genre = formData.get("genre")?.toString().trim() || null;
+    formData
+      .getAll("mainInstrument")
+      .flatMap((value) =>
+        value
+          .toString()
+          .split(",")
+          .map((item) => item.trim()),
+      )
+      .filter(Boolean)
+      .join(",") || null;
+  const genre =
+    formData
+      .getAll("genre")
+      .flatMap((value) =>
+        value
+          .toString()
+          .split(",")
+          .map((item) => item.trim()),
+      )
+      .filter(Boolean)
+      .join(",") || null;
   const bio = formData.get("bio")?.toString().trim() || null;
   const instagramUrl = formData.get("instagramUrl")?.toString().trim() || null;
   const videoLink = formData.get("videoLink")?.toString().trim() || null;

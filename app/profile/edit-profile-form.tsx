@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { MultiSelectCombobox } from "@/components/ui/combobox";
 import { updateProfile } from "./actions";
 
 type Props = {
@@ -37,6 +38,47 @@ function getInitials(name: string) {
 }
 
 const MAX_AVATAR_SIZE = 2 * 1024 * 1024; // 2 MB
+const MAIN_INSTRUMENT_OPTIONS = [
+  "Electric guitar",
+  "Bass guitar",
+  "Drums",
+  "Keyboard",
+  "Piano",
+  "Synthesizer",
+  "Acoustic guitar",
+] as const;
+const GENRE_OPTIONS = [
+  "Classic Rock",
+  "Alternative Rock",
+  "Hard Rock",
+  "Indie Rock",
+  "Punk Rock",
+  "Progressive Rock",
+  "Grunge",
+  "Garage Rock",
+  "Psychedelic Rock",
+  "Pop Rock",
+  "Metal",
+  "Heavy Metal",
+  "Thrash Metal",
+  "Death Metal",
+  "Black Metal",
+  "Power Metal",
+  "Doom Metal",
+  "Progressive Metal",
+  "Nu Metal",
+  "Metalcore",
+  "Symphonic Metal",
+] as const;
+
+function parseValues(value: string | null | undefined) {
+  if (!value) return [];
+
+  return value
+    .split(",")
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
 
 export function EditProfileForm({ profile }: Props) {
   const [state, formAction, pending] = useActionState(updateProfile, null);
@@ -47,6 +89,12 @@ export function EditProfileForm({ profile }: Props) {
   );
   const [newsletterOptIn, setNewsletterOptIn] = useState(
     profile.newsletterOptIn,
+  );
+  const [selectedInstruments, setSelectedInstruments] = useState<string[]>(() =>
+    parseValues(profile.mainInstrument),
+  );
+  const [selectedGenres, setSelectedGenres] = useState<string[]>(() =>
+    parseValues(profile.genre),
   );
 
   useEffect(() => {
@@ -151,21 +199,29 @@ export function EditProfileForm({ profile }: Props) {
 
       <div className="flex flex-col gap-2">
         <Label htmlFor="mainInstrument">Main Instrument</Label>
-        <Input
+        <MultiSelectCombobox
           id="mainInstrument"
           name="mainInstrument"
-          defaultValue={profile.mainInstrument ?? ""}
-          maxLength={50}
+          options={[...MAIN_INSTRUMENT_OPTIONS]}
+          placeholder="Search instruments..."
+          value={selectedInstruments}
+          onChange={setSelectedInstruments}
+          maxSelections={5}
+          emptyText="No matching instruments found."
         />
       </div>
 
       <div className="flex flex-col gap-2">
         <Label htmlFor="genre">Genre</Label>
-        <Input
+        <MultiSelectCombobox
           id="genre"
           name="genre"
-          defaultValue={profile.genre ?? ""}
-          maxLength={50}
+          options={[...GENRE_OPTIONS]}
+          placeholder="Search genres..."
+          value={selectedGenres}
+          onChange={setSelectedGenres}
+          maxSelections={5}
+          emptyText="No matching genres found."
         />
       </div>
 
@@ -176,6 +232,7 @@ export function EditProfileForm({ profile }: Props) {
           name="bio"
           defaultValue={profile.bio ?? ""}
           rows={4}
+          maxLength={500}
           className="flex w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
         />
       </div>
