@@ -60,6 +60,7 @@ export async function completeOnboarding(_prevState: { error: string } | null, f
   const genre = formData.get("genre")?.toString().trim() || undefined;
   const bio = formData.get("bio")?.toString().trim() || undefined;
   const instagramUrl = formData.get("instagramUrl")?.toString().trim() || undefined;
+  const websiteUrl = formData.get("websiteUrl")?.toString().trim() || undefined;
   const videoLink = formData.get("videoLink")?.toString().trim() || undefined;
   const collabStatus = formData.get("collabStatus") === "on";
   const newsletterOptIn = formData.get("newsletterOptIn") === "on";
@@ -133,6 +134,7 @@ export async function completeOnboarding(_prevState: { error: string } | null, f
         ...(genre !== undefined && { genre }),
         ...(bio !== undefined && { bio }),
         ...(instagramUrl !== undefined && { instagramUrl }),
+        ...(websiteUrl !== undefined && { websiteUrl }),
         ...(videoLink !== undefined && { videoLink }),
         ...(collabStatus !== undefined && { collabStatus }),
       });

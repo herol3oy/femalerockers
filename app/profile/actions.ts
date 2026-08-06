@@ -108,7 +108,12 @@ export async function updateProfile(
       .join(",") || null;
   const bio = formData.get("bio")?.toString().trim() || null;
   const instagramUrl = formData.get("instagramUrl")?.toString().trim() || null;
+  const websiteUrl = formData.get("websiteUrl")?.toString().trim() || null;
   const videoLink = formData.get("videoLink")?.toString().trim() || null;
+
+  if (websiteUrl && !websiteUrl.match(/^https?:\/\//)) {
+    return { error: "Website URL must start with http:// or https://" };
+  }
   const collabStatus = formData.get("collabStatus") === "true";
   const newsletterOptIn = formData.get("newsletterOptIn") === "true";
 
@@ -137,6 +142,7 @@ export async function updateProfile(
         genre,
         bio,
         instagramUrl,
+        websiteUrl,
         videoLink,
         collabStatus,
         newsletterOptIn,

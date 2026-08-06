@@ -7,6 +7,7 @@ export type RoleFieldId =
   | "genre"
   | "bio"
   | "instagramUrl"
+  | "websiteUrl"
   | "videoLink"
   | "collabStatus";
 
@@ -69,6 +70,12 @@ export const ROLE_CONFIGS: Record<UserRole, RoleConfig> = {
         placeholder: "https://instagram.com/yourhandle",
       },
       {
+        id: "websiteUrl",
+        type: "text",
+        label: "Website URL",
+        placeholder: "https://yourwebsite.com",
+      },
+      {
         id: "videoLink",
         type: "text",
         label: "Video Link",
@@ -118,6 +125,12 @@ export const ROLE_CONFIGS: Record<UserRole, RoleConfig> = {
         placeholder: "https://instagram.com/yourband",
       },
       {
+        id: "websiteUrl",
+        type: "text",
+        label: "Website URL",
+        placeholder: "https://yourband.com",
+      },
+      {
         id: "videoLink",
         type: "text",
         label: "Video Link",
@@ -159,6 +172,12 @@ export const ROLE_CONFIGS: Record<UserRole, RoleConfig> = {
         type: "text",
         label: "Instagram URL",
         placeholder: "https://instagram.com/youragency",
+      },
+      {
+        id: "websiteUrl",
+        type: "text",
+        label: "Website URL",
+        placeholder: "https://youragency.com",
       },
     ],
   },

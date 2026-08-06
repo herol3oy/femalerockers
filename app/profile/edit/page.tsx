@@ -86,6 +86,7 @@ async function EditProfileContent() {
                 genre: profile.genre,
                 bio: profile.bio,
                 instagramUrl: profile.instagramUrl,
+                websiteUrl: profile.websiteUrl,
                 videoLink: profile.videoLink,
                 collabStatus: profile.collabStatus,
                 newsletterOptIn: profile.newsletterOptIn,

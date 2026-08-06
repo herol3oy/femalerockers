@@ -22,6 +22,7 @@ type Props = {
     genre: string | null;
     bio: string | null;
     instagramUrl: string | null;
+    websiteUrl: string | null;
     videoLink: string | null;
     collabStatus: boolean | null;
     newsletterOptIn: boolean;
@@ -229,6 +230,18 @@ export function EditProfileForm({ profile }: Props) {
           name="instagramUrl"
           defaultValue={profile.instagramUrl ?? ""}
           maxLength={255}
+        />
+      </div>
+
+      <div className="flex flex-col gap-2">
+        <Label htmlFor="websiteUrl">Website URL</Label>
+        <Input
+          id="websiteUrl"
+          name="websiteUrl"
+          type="url"
+          defaultValue={profile.websiteUrl ?? ""}
+          maxLength={255}
+          placeholder="https://yourwebsite.com"
         />
       </div>
 

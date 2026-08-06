@@ -134,7 +134,7 @@ async function DiscoverProfileContent({ params }: DiscoverProfilePageProps) {
   const authUser = authData.user;
   const isOwner = authUser?.id === user.id;
   const displayName = user.artistName || user.username;
-  const hasExternalLinks = Boolean(user.instagramUrl || user.videoLink);
+  const hasExternalLinks = Boolean(user.instagramUrl || user.websiteUrl || user.videoLink);
   const isCollabRelevant = user.role === "musician" || user.role === "band";
 
   return (
@@ -242,6 +242,15 @@ async function DiscoverProfileContent({ params }: DiscoverProfilePageProps) {
                         <a href={user.instagramUrl} target="_blank" rel="noreferrer">
                           <GlobeIcon className="h-4 w-4" />
                           Instagram
+                          <ArrowUpRightIcon className="h-4 w-4" />
+                        </a>
+                      </Button>
+                    ) : null}
+                    {user.websiteUrl && user.websiteUrl.match(/^https?:\/\//) ? (
+                      <Button asChild variant="outline">
+                        <a href={user.websiteUrl} target="_blank" rel="noreferrer">
+                          <GlobeIcon className="h-4 w-4" />
+                          Website
                           <ArrowUpRightIcon className="h-4 w-4" />
                         </a>
                       </Button>

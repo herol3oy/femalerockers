@@ -41,6 +41,7 @@ export const usersTable = pgTable(
     genre: text("genre"),
     bio: text("bio"),
     instagramUrl: varchar("instagram_url", { length: 255 }),
+    websiteUrl: varchar("website_url", { length: 255 }),
     videoLink: varchar("video_link", { length: 255 }),
     collabStatus: boolean("collab_status").default(false),
     newsletterOptIn: boolean("newsletter_opt_in").default(false).notNull(),
