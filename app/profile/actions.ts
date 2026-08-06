@@ -1,6 +1,6 @@
 "use server";
 
-import { and, eq, ne } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { db } from "@/app/db";
@@ -84,7 +84,6 @@ export async function updateProfile(
     redirect("/account/reactivate");
   }
 
-  const username = formData.get("username")?.toString().trim();
   const artistName = formData.get("artistName")?.toString().trim();
   const cityCountry = formData.get("cityCountry")?.toString().trim() || null;
   const mainInstrument =
@@ -96,33 +95,8 @@ export async function updateProfile(
   const collabStatus = formData.get("collabStatus") === "true";
   const newsletterOptIn = formData.get("newsletterOptIn") === "true";
 
-  if (!username || !artistName) {
-    return { error: "Username and Artist Name are required." };
-  }
-
-  if (!/^[a-zA-Z0-9_]{3,50}$/.test(username)) {
-    return {
-      error:
-        "Username must be 3–50 characters and contain only letters, numbers, or underscores.",
-    };
-  }
-
-  // Check if username is taken and retain the old path for cache invalidation.
-  const [existing, currentProfile] = await Promise.all([
-    db
-      .select({ id: usersTable.id })
-      .from(usersTable)
-      .where(and(eq(usersTable.username, username), ne(usersTable.id, user.id)))
-      .limit(1),
-    db
-      .select({ username: usersTable.username })
-      .from(usersTable)
-      .where(eq(usersTable.id, user.id))
-      .limit(1),
-  ]);
-
-  if (existing.length > 0) {
-    return { error: "Username is already taken." };
+  if (!artistName) {
+    return { error: "Artist Name is required." };
   }
 
   // Handle avatar upload
@@ -140,7 +114,6 @@ export async function updateProfile(
     const [updatedProfile] = await db
       .update(usersTable)
       .set({
-        username,
         artistName,
         cityCountry,
         mainInstrument,
@@ -173,12 +146,6 @@ export async function updateProfile(
 
   revalidatePath("/profile");
   revalidatePath("/discover");
-  revalidatePath(`/${username}`);
-
-  const previousUsername = currentProfile[0]?.username;
-  if (previousUsername && previousUsername !== username) {
-    revalidatePath(`/${previousUsername}`);
-  }
 
   return { success: true, preferences: savedPreferences };
 }

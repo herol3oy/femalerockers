@@ -122,13 +122,11 @@ export function EditProfileForm({ profile }: Props) {
           id="username"
           name="username"
           defaultValue={profile.username}
-          required
-          minLength={3}
-          maxLength={50}
-          pattern="^[a-zA-Z0-9_]+$"
+          readOnly
+          className="bg-muted cursor-not-allowed"
         />
         <p className="text-xs text-muted-foreground">
-          Letters, numbers, and underscores only.
+          Username cannot be changed.
         </p>
       </div>
 

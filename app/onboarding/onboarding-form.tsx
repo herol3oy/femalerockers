@@ -143,7 +143,7 @@ export function OnboardingForm({
                 />
                 <p className="text-xs text-muted-foreground">
                   Letters, numbers, and underscores only. This will be your
-                  public URL.
+                  public URL and cannot be changed later.
                 </p>
               </div>
 
