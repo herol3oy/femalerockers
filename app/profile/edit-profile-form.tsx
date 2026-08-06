@@ -238,7 +238,6 @@ export function EditProfileForm({ profile }: Props) {
         <Input
           id="websiteUrl"
           name="websiteUrl"
-          type="url"
           defaultValue={profile.websiteUrl ?? ""}
           maxLength={255}
           placeholder="https://yourwebsite.com"
