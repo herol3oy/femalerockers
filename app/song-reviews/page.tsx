@@ -1,12 +1,7 @@
 import Link from "next/link";
 import { Suspense } from "react";
 import { Badge } from "@/components/ui/badge";
-import {
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { sanityClient } from "@/lib/sanity/client";
 import { songReviewsListQuery } from "../interviews/queries";
@@ -43,8 +38,7 @@ function SongReviewsSkeleton() {
 }
 
 async function SongReviewsList() {
-  const songReviews =
-    await sanityClient.fetch<SongReviewListItem[]>(songReviewsListQuery);
+  const songReviews = await sanityClient.fetch<SongReviewListItem[]>(songReviewsListQuery);
 
   const reviewIds = songReviews.map((r) => r._id);
   const [likeCounts, ratingData, commentCounts] = await Promise.all([
@@ -65,8 +59,8 @@ async function SongReviewsList() {
               Women Who Rock: Song Reviews.
             </h1>
             <p className="max-w-2xl text-base text-muted-foreground sm:text-lg">
-              Discover what our community thinks about the latest releases from
-              artists around the world.
+              Discover what our community thinks about the latest releases from artists around the
+              world.
             </p>
           </div>
         </div>
@@ -98,9 +92,7 @@ async function SongReviewsList() {
                     <CardTitle className="text-xl leading-snug line-clamp-2">
                       {review.title}
                     </CardTitle>
-                    <p className="text-sm font-medium text-muted-foreground">
-                      {review.stageName}
-                    </p>
+                    <p className="text-sm font-medium text-muted-foreground">{review.stageName}</p>
                     <div className="flex items-center gap-3 text-xs text-muted-foreground/70">
                       {review.date && (
                         <span>

@@ -28,11 +28,7 @@ async function AdminGate({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }
 
-export default function AdminLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
     <Suspense fallback={<div>Loading…</div>}>
       <AdminGate>{children}</AdminGate>

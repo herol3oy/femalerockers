@@ -6,13 +6,7 @@ import {
 } from "@phosphor-icons/react/ssr";
 import { AdminInvitationHistory } from "@/components/invitations/invitation-history";
 import { Badge } from "@/components/ui/badge";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { getAdminInvitationData } from "@/lib/invitations/queries";
 import { AdminInvitationForm } from "./invitation-form";
 
@@ -27,8 +21,8 @@ export default async function AdminInvitationsPage() {
             <CardHeader>
               <CardTitle>Invitation issuing is unavailable</CardTitle>
               <CardDescription>
-                New invitations have been paused. Existing links follow the
-                separately configured redemption window.
+                New invitations have been paused. Existing links follow the separately configured
+                redemption window.
               </CardDescription>
             </CardHeader>
           </Card>
@@ -48,29 +42,16 @@ export default async function AdminInvitationsPage() {
             </Badge>
             <CardTitle className="text-3xl">Invitation management</CardTitle>
             <CardDescription>
-              Send private, single-use registration links that expire
-              automatically.
+              Send private, single-use registration links that expire automatically.
             </CardDescription>
           </CardHeader>
           <CardContent className="grid gap-4 sm:grid-cols-3">
-            <Stat
-              icon={HourglassIcon}
-              label="Pending"
-              value={data.statuses.pending}
-            />
-            <Stat
-              icon={UserPlusIcon}
-              label="Accepted"
-              value={data.statuses.accepted}
-            />
+            <Stat icon={HourglassIcon} label="Pending" value={data.statuses.pending} />
+            <Stat icon={UserPlusIcon} label="Accepted" value={data.statuses.accepted} />
             <Stat
               icon={UsersThreeIcon}
               label="Closed"
-              value={
-                data.statuses.expired +
-                data.statuses.revoked +
-                data.statuses.failed
-              }
+              value={data.statuses.expired + data.statuses.revoked + data.statuses.failed}
             />
           </CardContent>
         </Card>

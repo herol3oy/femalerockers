@@ -1,17 +1,10 @@
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
-import {
-  getChallengeBySlug,
-  getUserParticipation,
-} from "@/app/challenge/actions";
+import { getChallengeBySlug, getUserParticipation } from "@/app/challenge/actions";
 import { Skeleton } from "@/components/ui/skeleton";
 import { SubmitEntryForm } from "./submit-entry-form";
 
-async function SubmitEntryContent({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+async function SubmitEntryContent({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const challenge = await getChallengeBySlug(slug);
 
@@ -29,15 +22,10 @@ async function SubmitEntryContent({
     <div className="container mx-auto max-w-2xl space-y-8 p-6">
       <div>
         <h1 className="text-3xl font-bold">Submit Your Entry</h1>
-        <p className="mt-2 text-muted-foreground">
-          Challenge: {challenge.title}
-        </p>
+        <p className="mt-2 text-muted-foreground">Challenge: {challenge.title}</p>
       </div>
 
-      <SubmitEntryForm
-        challengeId={challenge.id}
-        challengeSlug={challenge.slug}
-      />
+      <SubmitEntryForm challengeId={challenge.id} challengeSlug={challenge.slug} />
     </div>
   );
 }
@@ -51,11 +39,7 @@ function SubmitEntrySkeleton() {
   );
 }
 
-export default function SubmitEntryPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+export default function SubmitEntryPage({ params }: { params: Promise<{ slug: string }> }) {
   return (
     <Suspense fallback={<SubmitEntrySkeleton />}>
       <SubmitEntryContent params={params} />

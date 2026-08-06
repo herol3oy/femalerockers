@@ -46,9 +46,7 @@ async function uploadAvatar(
     .from("avatars")
     .list(userId, { search: "fr_avatar_" });
   if (existingFiles?.length) {
-    await supabase.storage
-      .from("avatars")
-      .remove(existingFiles.map((f) => `${userId}/${f.name}`));
+    await supabase.storage.from("avatars").remove(existingFiles.map((f) => `${userId}/${f.name}`));
   }
 
   const { error: uploadError } = await supabase.storage

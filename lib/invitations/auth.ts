@@ -58,9 +58,7 @@ export async function requireInvitationMember(): Promise<InvitationActor> {
   const actor = await requireActor();
 
   if (actor.role === "admin" || !actor.isApproved) {
-    throw new InvitationError(
-      "Invitations are available to approved members only.",
-    );
+    throw new InvitationError("Invitations are available to approved members only.");
   }
 
   return actor;

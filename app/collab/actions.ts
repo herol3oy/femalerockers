@@ -56,10 +56,7 @@ function isValidUrl(str: string): boolean {
   }
 }
 
-export async function submitCollab(
-  _prevState: { error?: string } | null,
-  formData: FormData,
-) {
+export async function submitCollab(_prevState: { error?: string } | null, formData: FormData) {
   const supabase = await createClient();
   const {
     data: { user },
@@ -88,12 +85,7 @@ export async function submitCollab(
   const existing = await db
     .select({ id: collaborationsTable.id })
     .from(collaborationsTable)
-    .where(
-      and(
-        eq(collaborationsTable.userId, user.id),
-        eq(collaborationsTable.status, "pending"),
-      ),
-    )
+    .where(and(eq(collaborationsTable.userId, user.id), eq(collaborationsTable.status, "pending")))
     .limit(1);
 
   if (existing.length > 0) {
@@ -147,10 +139,7 @@ export async function submitCollab(
   redirect("/collab");
 }
 
-export async function withdrawCollab(
-  _prevState: { error?: string } | null,
-  formData: FormData,
-) {
+export async function withdrawCollab(_prevState: { error?: string } | null, formData: FormData) {
   const supabase = await createClient();
   const {
     data: { user },
@@ -203,9 +192,7 @@ export async function withdrawCollab(
     }
   }
 
-  await db
-    .delete(collaborationsTable)
-    .where(eq(collaborationsTable.id, collabId));
+  await db.delete(collaborationsTable).where(eq(collaborationsTable.id, collabId));
 
   revalidatePath("/collab");
   redirect("/collab");

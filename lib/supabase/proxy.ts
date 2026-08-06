@@ -24,9 +24,7 @@ export async function updateSession(request: NextRequest) {
           return request.cookies.getAll();
         },
         setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value }) =>
-            request.cookies.set(name, value),
-          );
+          cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
           supabaseResponse = NextResponse.next({
             request,
           });
@@ -75,9 +73,7 @@ export async function updateSession(request: NextRequest) {
     return unavailableResponse;
   };
 
-  const isReactivationRoute = request.nextUrl.pathname.startsWith(
-    "/account/reactivate",
-  );
+  const isReactivationRoute = request.nextUrl.pathname.startsWith("/account/reactivate");
   const isAuthRoute = request.nextUrl.pathname.startsWith("/auth/");
 
   if (user && typeof user.sub === "string" && !isAuthRoute) {
@@ -101,16 +97,8 @@ export async function updateSession(request: NextRequest) {
     }
   }
 
-  const protectedPaths = [
-    "/profile",
-    "/admin",
-    "/onboarding",
-    "/invite",
-    "/invite-friends",
-  ];
-  const isProtected = protectedPaths.some((path) =>
-    request.nextUrl.pathname.startsWith(path),
-  );
+  const protectedPaths = ["/profile", "/admin", "/onboarding", "/invite", "/invite-friends"];
+  const isProtected = protectedPaths.some((path) => request.nextUrl.pathname.startsWith(path));
 
   if (!user && isProtected) {
     // no user, redirect to the login page for protected routes

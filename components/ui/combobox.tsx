@@ -66,8 +66,7 @@ export function MultiSelectCombobox({
 
     return options.filter((option) => {
       const matchesQuery =
-        normalizedQuery.length === 0 ||
-        option.toLowerCase().includes(normalizedQuery);
+        normalizedQuery.length === 0 || option.toLowerCase().includes(normalizedQuery);
       const isSelected = selectedValues.includes(option);
 
       return matchesQuery && !isSelected;
@@ -104,9 +103,7 @@ export function MultiSelectCombobox({
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "ArrowDown") {
       event.preventDefault();
-      setActiveIndex((prev) =>
-        Math.min(prev + 1, Math.max(filteredOptions.length - 1, 0)),
-      );
+      setActiveIndex((prev) => Math.min(prev + 1, Math.max(filteredOptions.length - 1, 0)));
       setOpen(true);
       return;
     }
@@ -222,9 +219,7 @@ export function MultiSelectCombobox({
                   </button>
                 ))
               ) : (
-                <div className="px-2 py-1.5 text-sm text-muted-foreground">
-                  {emptyText}
-                </div>
+                <div className="px-2 py-1.5 text-sm text-muted-foreground">{emptyText}</div>
               )}
             </div>
           </Popover.Content>
@@ -233,9 +228,7 @@ export function MultiSelectCombobox({
       {error ? (
         <p className="mt-1 text-sm text-destructive">{error}</p>
       ) : (
-        <p className="mt-1 text-xs text-muted-foreground">
-          Select up to {maxSelections} options.
-        </p>
+        <p className="mt-1 text-xs text-muted-foreground">Select up to {maxSelections} options.</p>
       )}
     </div>
   );

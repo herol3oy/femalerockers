@@ -12,9 +12,7 @@ export async function GET(request: NextRequest) {
   const code = searchParams.get("code");
   const requestedNext = searchParams.get("next") ?? "/profile";
   const next =
-    requestedNext.startsWith("/") && !requestedNext.startsWith("//")
-      ? requestedNext
-      : "/profile";
+    requestedNext.startsWith("/") && !requestedNext.startsWith("//") ? requestedNext : "/profile";
 
   if (code) {
     const supabase = await createClient();
@@ -22,15 +20,12 @@ export async function GET(request: NextRequest) {
     if (!error) {
       const nextUrl = new URL(next, request.nextUrl.origin);
       const invitationToken =
-        nextUrl.pathname === "/onboarding"
-          ? nextUrl.searchParams.get("invite")
-          : null;
+        nextUrl.pathname === "/onboarding" ? nextUrl.searchParams.get("invite") : null;
 
       if (invitationToken) {
         const email = data.user?.email;
         try {
-          if (!email)
-            throw new InvitationError("No verified email was returned.");
+          if (!email) throw new InvitationError("No verified email was returned.");
           await assertInvitationMatchesEmail(invitationToken, email);
         } catch (invitationError) {
           await supabase.auth.signOut();

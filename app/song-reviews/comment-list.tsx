@@ -51,20 +51,15 @@ export function CommentList({ comments, currentUserId, slug }: Props) {
                   </div>
                 )}
                 <div>
-                  <p className="text-sm font-medium leading-tight">
-                    {comment.artistName}
-                  </p>
-                  <p className="text-xs leading-tight text-muted-foreground">
-                    @{comment.username}
-                  </p>
+                  <p className="text-sm font-medium leading-tight">{comment.artistName}</p>
+                  <p className="text-xs leading-tight text-muted-foreground">@{comment.username}</p>
                 </div>
                 <span className="ml-1 text-xs text-muted-foreground/50">
                   {new Date(comment.createdAt).toLocaleDateString("en-US", {
                     month: "short",
                     day: "numeric",
                     year:
-                      comment.createdAt.getFullYear() !==
-                      new Date().getFullYear()
+                      comment.createdAt.getFullYear() !== new Date().getFullYear()
                         ? "numeric"
                         : undefined,
                   })}
@@ -86,9 +81,7 @@ export function CommentList({ comments, currentUserId, slug }: Props) {
                 </button>
               )}
             </div>
-            <p className="text-sm text-foreground/85 whitespace-pre-wrap">
-              {comment.body}
-            </p>
+            <p className="text-sm text-foreground/85 whitespace-pre-wrap">{comment.body}</p>
           </div>
         ))}
       </div>

@@ -32,11 +32,7 @@ async function CollabGate({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }
 
-export default function CollabLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function CollabLayout({ children }: { children: React.ReactNode }) {
   return (
     <Suspense fallback={<div>Loading…</div>}>
       <CollabGate>{children}</CollabGate>

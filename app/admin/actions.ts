@@ -25,11 +25,7 @@ async function requireAdmin() {
     .where(eq(usersTable.id, user.id))
     .limit(1);
 
-  if (
-    adminRows.length === 0 ||
-    adminRows[0].role !== "admin" ||
-    adminRows[0].deactivatedAt
-  ) {
+  if (adminRows.length === 0 || adminRows[0].role !== "admin" || adminRows[0].deactivatedAt) {
     return { error: "Forbidden" } as const;
   }
 
@@ -40,10 +36,7 @@ export async function toggleApproval(userId: string, approved: boolean) {
   const result = await requireAdmin();
   if ("error" in result) return { error: result.error };
 
-  await db
-    .update(usersTable)
-    .set({ isApproved: approved })
-    .where(eq(usersTable.id, userId));
+  await db.update(usersTable).set({ isApproved: approved }).where(eq(usersTable.id, userId));
 
   revalidatePath("/admin");
   return { success: true };
@@ -63,10 +56,7 @@ export async function approveCollab(collabId: string) {
   return { success: true };
 }
 
-export async function rejectCollab(
-  collabId: string,
-  adminNotes: string | null,
-) {
+export async function rejectCollab(collabId: string, adminNotes: string | null) {
   const result = await requireAdmin();
   if ("error" in result) return { error: result.error };
 

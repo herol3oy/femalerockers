@@ -21,10 +21,7 @@ type Params = Promise<{ slug: string }>;
 
 async function SongReviewsContent({ params }: { params: Params }) {
   const { slug } = await params;
-  const songReview = await sanityClient.fetch<SongReview | null>(
-    songReviewDetailQuery,
-    { slug },
-  );
+  const songReview = await sanityClient.fetch<SongReview | null>(songReviewDetailQuery, { slug });
 
   if (!songReview) {
     notFound();
@@ -59,9 +56,7 @@ async function SongReviewsContent({ params }: { params: Params }) {
               <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
                 {songReview.title}
               </h1>
-              <p className="text-lg text-muted-foreground">
-                {songReview.stageName}
-              </p>
+              <p className="text-lg text-muted-foreground">{songReview.stageName}</p>
               {songReview.date && (
                 <p className="text-sm text-muted-foreground">
                   {new Date(songReview.date).toLocaleDateString("en-US", {
@@ -121,9 +116,7 @@ async function SongReviewsContent({ params }: { params: Params }) {
                         </p>
                       </blockquote>
                     ),
-                    normal: ({ children }) => (
-                      <p className="mb-6">{children}</p>
-                    ),
+                    normal: ({ children }) => <p className="mb-6">{children}</p>,
                   },
                   marks: {
                     strong: ({ children }) => (
@@ -147,11 +140,7 @@ async function SongReviewsContent({ params }: { params: Params }) {
 
         <div className="border shadow-sm rounded-3xl bg-background/95 p-8 lg:p-12">
           <div className="space-y-8">
-            <CommentList
-              comments={comments}
-              currentUserId={user?.id ?? null}
-              slug={slug}
-            />
+            <CommentList comments={comments} currentUserId={user?.id ?? null} slug={slug} />
             <CommentForm reviewId={songReview._id} slug={slug} />
           </div>
         </div>

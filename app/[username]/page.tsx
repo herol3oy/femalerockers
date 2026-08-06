@@ -20,13 +20,7 @@ import { formatJoinedDate, getInitials } from "@/app/discover/discover-data";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { getRoleLabel } from "@/lib/roles";
 import { createClient } from "@/lib/supabase/server";
 
@@ -188,12 +182,8 @@ async function DiscoverProfileContent({ params }: DiscoverProfilePageProps) {
                 )}
                 <div className="space-y-3">
                   <div className="space-y-2">
-                    <CardTitle className="text-3xl sm:text-4xl">
-                      {displayName}
-                    </CardTitle>
-                    <CardDescription className="text-base">
-                      @{user.username}
-                    </CardDescription>
+                    <CardTitle className="text-3xl sm:text-4xl">{displayName}</CardTitle>
+                    <CardDescription className="text-base">@{user.username}</CardDescription>
                   </div>
                   <div className="flex flex-wrap gap-2">
                     {parseTags(user.mainInstrument).map((value) => (
@@ -207,9 +197,7 @@ async function DiscoverProfileContent({ params }: DiscoverProfilePageProps) {
                       </Badge>
                     ))}
                     {isCollabRelevant ? (
-                      <Badge
-                        variant={user.collabStatus ? "default" : "outline"}
-                      >
+                      <Badge variant={user.collabStatus ? "default" : "outline"}>
                         {user.collabStatus ? "Open to collab" : "Profile live"}
                       </Badge>
                     ) : null}
@@ -251,11 +239,7 @@ async function DiscoverProfileContent({ params }: DiscoverProfilePageProps) {
                   <div className="flex flex-wrap gap-3">
                     {user.instagramUrl ? (
                       <Button asChild variant="outline">
-                        <a
-                          href={user.instagramUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                        >
+                        <a href={user.instagramUrl} target="_blank" rel="noreferrer">
                           <GlobeIcon className="h-4 w-4" />
                           Instagram
                           <ArrowUpRightIcon className="h-4 w-4" />
@@ -264,11 +248,7 @@ async function DiscoverProfileContent({ params }: DiscoverProfilePageProps) {
                     ) : null}
                     {user.videoLink ? (
                       <Button asChild>
-                        <a
-                          href={user.videoLink}
-                          target="_blank"
-                          rel="noreferrer"
-                        >
+                        <a href={user.videoLink} target="_blank" rel="noreferrer">
                           <PlayCircleIcon className="h-4 w-4" />
                           Watch clip
                         </a>
@@ -292,9 +272,7 @@ async function DiscoverProfileContent({ params }: DiscoverProfilePageProps) {
                       <div className="flex items-start gap-3">
                         <MapPinIcon className="mt-0.5 h-4 w-4 text-foreground" />
                         <div>
-                          <p className="font-medium text-foreground">
-                            Location
-                          </p>
+                          <p className="font-medium text-foreground">Location</p>
                           <p>{user.cityCountry}</p>
                         </div>
                       </div>
@@ -303,9 +281,7 @@ async function DiscoverProfileContent({ params }: DiscoverProfilePageProps) {
                       <div className="flex items-start gap-3">
                         <UsersIcon className="mt-0.5 h-4 w-4 text-foreground" />
                         <div>
-                          <p className="font-medium text-foreground">
-                            Collaboration status
-                          </p>
+                          <p className="font-medium text-foreground">Collaboration status</p>
                           <p>
                             {user.collabStatus
                               ? "Open to new projects and active collaborations."
@@ -323,14 +299,12 @@ async function DiscoverProfileContent({ params }: DiscoverProfilePageProps) {
           <Card className="border-border/70 bg-background/90 shadow-sm">
             <CardHeader>
               <CardDescription>Explore more</CardDescription>
-              <CardTitle className="text-2xl">
-                Keep browsing the directory
-              </CardTitle>
+              <CardTitle className="text-2xl">Keep browsing the directory</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4 text-sm text-muted-foreground">
               <p>
-                Return to discover to keep scanning approved artists by
-                instrument, genre, and collaboration status.
+                Return to discover to keep scanning approved artists by instrument, genre, and
+                collaboration status.
               </p>
               <Button asChild className="w-full">
                 <Link href="/discover">Browse more artists</Link>
@@ -343,9 +317,7 @@ async function DiscoverProfileContent({ params }: DiscoverProfilePageProps) {
   );
 }
 
-export default function DiscoverProfilePage({
-  params,
-}: DiscoverProfilePageProps) {
+export default function DiscoverProfilePage({ params }: DiscoverProfilePageProps) {
   return (
     <Suspense fallback={<DiscoverProfileSkeleton />}>
       <DiscoverProfileContent params={params} />

@@ -1,22 +1,11 @@
-import {
-  EnvelopeIcon,
-  HandshakeIcon,
-  ShieldIcon,
-  TrophyIcon,
-} from "@phosphor-icons/react/ssr";
+import { EnvelopeIcon, HandshakeIcon, ShieldIcon, TrophyIcon } from "@phosphor-icons/react/ssr";
 import { asc, desc, eq } from "drizzle-orm";
 import Link from "next/link";
 import { db } from "@/app/db";
 import { collaborationsTable, usersTable } from "@/app/db/schema";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { isInvitationIssuingEnabled } from "@/lib/invitations/config";
 import { CollabTable } from "./collab-table";
 import { UsersTable } from "./users-table";
@@ -24,10 +13,7 @@ import { UsersTable } from "./users-table";
 export default async function AdminPage() {
   const invitationIssuingEnabled = isInvitationIssuingEnabled();
 
-  const users = await db
-    .select()
-    .from(usersTable)
-    .orderBy(asc(usersTable.isApproved));
+  const users = await db.select().from(usersTable).orderBy(asc(usersTable.isApproved));
 
   const collabRows = await db
     .select({
@@ -113,9 +99,7 @@ export default async function AdminPage() {
                 <EnvelopeIcon className="h-3.5 w-3.5" />
                 Invitations
               </Badge>
-              <CardTitle className="text-3xl">
-                Registration Invitations
-              </CardTitle>
+              <CardTitle className="text-3xl">Registration Invitations</CardTitle>
               <CardDescription className="max-w-2xl text-base">
                 Send temporary registration links and track their lifecycle.
               </CardDescription>

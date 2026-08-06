@@ -111,9 +111,9 @@ export function CollabForm({ defaultBio }: Props) {
             A permanent, publicly accessible link is required
           </p>
           <p className="mt-1 text-muted-foreground">
-            Upload your video to Google Drive, Dropbox, MEGA, or similar cloud
-            storage, and enable access for anyone with the link. Temporary
-            links such as WeTransfer or SwissTransfer are not accepted.
+            Upload your video to Google Drive, Dropbox, MEGA, or similar cloud storage, and enable
+            access for anyone with the link. Temporary links such as WeTransfer or SwissTransfer are
+            not accepted.
           </p>
         </div>
       </div>
@@ -156,9 +156,7 @@ export function CollabForm({ defaultBio }: Props) {
         />
       </div>
 
-      {state?.error && (
-        <p className="text-sm text-destructive">{state.error}</p>
-      )}
+      {state?.error && <p className="text-sm text-destructive">{state.error}</p>}
 
       <Button type="submit" disabled={pending}>
         {pending ? "Submitting…" : "Submit Application"}

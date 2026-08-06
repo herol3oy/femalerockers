@@ -5,13 +5,7 @@ import Link from "next/link";
 import { db } from "@/app/db";
 import { usersTable } from "@/app/db/schema";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { createClient } from "@/lib/supabase/server";
 import { CollabForm } from "../collab-form";
 
@@ -38,8 +32,8 @@ export default async function CollabSubmitPage() {
           <CardHeader className="border-b border-border/60 bg-[linear-gradient(135deg,hsl(var(--background))_0%,hsl(var(--secondary)/0.35)_100%)] pb-8">
             <CardTitle className="text-3xl">New Collab Submission</CardTitle>
             <CardDescription className="max-w-2xl text-base">
-              Fill out the form below with your performance details. We&apos;ll
-              review your submission and get back to you.
+              Fill out the form below with your performance details. We&apos;ll review your
+              submission and get back to you.
             </CardDescription>
           </CardHeader>
           <CardContent className="pt-6 flex flex-col gap-6">
@@ -49,13 +43,11 @@ export default async function CollabSubmitPage() {
                   <CalendarCheckIcon className="size-6" weight="duotone" />
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-foreground">
-                    Recommended rhythm
-                  </p>
+                  <p className="text-sm font-semibold text-foreground">Recommended rhythm</p>
                   <p className="mt-1 text-sm leading-6 text-muted-foreground">
-                    For the best experience, we recommend submitting one
-                    collaboration each month. Staying consistent helps keep
-                    your profile active and your opportunities growing.
+                    For the best experience, we recommend submitting one collaboration each month.
+                    Staying consistent helps keep your profile active and your opportunities
+                    growing.
                   </p>
                 </div>
               </div>

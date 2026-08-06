@@ -9,11 +9,7 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { ChallengeView } from "./challenge-view";
 
-async function ChallengeContent({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+async function ChallengeContent({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const challenge = await getChallengeBySlug(slug);
 
@@ -51,11 +47,7 @@ function ChallengeSkeleton() {
   );
 }
 
-export default function ChallengePage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+export default function ChallengePage({ params }: { params: Promise<{ slug: string }> }) {
   return (
     <Suspense fallback={<ChallengeSkeleton />}>
       <ChallengeContent params={params} />

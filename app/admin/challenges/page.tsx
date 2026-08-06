@@ -11,9 +11,7 @@ export default async function AdminChallengesPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold">Challenge Management</h1>
-          <p className="text-muted-foreground">
-            Create and manage challenges for the community
-          </p>
+          <p className="text-muted-foreground">Create and manage challenges for the community</p>
         </div>
         <Link href="/admin/challenges/new">
           <Button>Create Challenge</Button>

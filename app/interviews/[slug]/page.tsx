@@ -23,10 +23,7 @@ type Params = Promise<{ slug: string }>;
 
 async function InterviewContent({ params }: { params: Params }) {
   const { slug } = await params;
-  const interview = await sanityClient.fetch<Interview | null>(
-    interviewDetailQuery,
-    { slug },
-  );
+  const interview = await sanityClient.fetch<Interview | null>(interviewDetailQuery, { slug });
 
   if (!interview) {
     notFound();
@@ -70,10 +67,7 @@ async function InterviewContent({ params }: { params: Params }) {
           <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:gap-8">
             {interview.profileImage && (
               <Image
-                src={urlFor(interview.profileImage)
-                  .width(192)
-                  .height(192)
-                  .url()}
+                src={urlFor(interview.profileImage).width(192).height(192).url()}
                 alt={interview.stageName}
                 width={96}
                 height={96}
@@ -129,10 +123,7 @@ async function InterviewContent({ params }: { params: Params }) {
         {interview.quote && interview.quote.length > 0 && (
           <blockquote className="border shadow-sm rounded-3xl bg-background/95 p-8 lg:p-10">
             {interview.quote.map((q) => (
-              <p
-                key={q}
-                className="text-xl italic leading-relaxed text-foreground/80"
-              >
+              <p key={q} className="text-xl italic leading-relaxed text-foreground/80">
                 &ldquo;{q}&rdquo;
               </p>
             ))}
@@ -169,9 +160,7 @@ async function InterviewContent({ params }: { params: Params }) {
                         </p>
                       </blockquote>
                     ),
-                    normal: ({ children }) => (
-                      <p className="mb-6">{children}</p>
-                    ),
+                    normal: ({ children }) => <p className="mb-6">{children}</p>,
                   },
                   marks: {
                     strong: ({ children }) => (

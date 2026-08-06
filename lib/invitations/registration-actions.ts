@@ -14,10 +14,7 @@ export async function validateInvitationRegistration(
   } catch (error) {
     return {
       success: false,
-      error:
-        error instanceof InvitationError
-          ? error.message
-          : "Could not verify this invitation.",
+      error: error instanceof InvitationError ? error.message : "Could not verify this invitation.",
     };
   }
 }

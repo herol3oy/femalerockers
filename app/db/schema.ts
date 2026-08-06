@@ -48,9 +48,7 @@ export const usersTable = pgTable(
     isApproved: boolean("is_approved").default(false).notNull(),
     role: varchar("role", { length: 20 }).default("user").notNull(),
     referralCode: varchar("referral_code", { length: 10 })
-      .default(
-        sql`upper(substr(replace(gen_random_uuid()::text, '-', ''), 1, 10))`,
-      )
+      .default(sql`upper(substr(replace(gen_random_uuid()::text, '-', ''), 1, 10))`)
       .notNull()
       .unique(),
     deactivatedAt: timestamp("deactivated_at"),
@@ -96,10 +94,8 @@ export const accountDeletionFeedbackTable = pgTable(
   () => [],
 ).enableRLS();
 
-export type InsertAccountDeletionFeedback =
-  typeof accountDeletionFeedbackTable.$inferInsert;
-export type SelectAccountDeletionFeedback =
-  typeof accountDeletionFeedbackTable.$inferSelect;
+export type InsertAccountDeletionFeedback = typeof accountDeletionFeedbackTable.$inferInsert;
+export type SelectAccountDeletionFeedback = typeof accountDeletionFeedbackTable.$inferSelect;
 
 export const referralsTable = pgTable(
   "referrals_table",
@@ -129,13 +125,7 @@ export type SelectReferral = typeof referralsTable.$inferSelect;
 export const INVITATION_SOURCES = ["admin", "member"] as const;
 export type InvitationSource = (typeof INVITATION_SOURCES)[number];
 
-export const INVITATION_STATUSES = [
-  "pending",
-  "accepted",
-  "expired",
-  "revoked",
-  "failed",
-] as const;
+export const INVITATION_STATUSES = ["pending", "accepted", "expired", "revoked", "failed"] as const;
 export type InvitationStatus = (typeof INVITATION_STATUSES)[number];
 
 export const registrationInvitationsTable = pgTable(
@@ -144,9 +134,7 @@ export const registrationInvitationsTable = pgTable(
     id: uuid("id").primaryKey().defaultRandom().notNull(),
     recipientEmail: text("recipient_email").notNull(),
     tokenHash: varchar("token_hash", { length: 64 }).notNull().unique(),
-    source: varchar("source", { length: 20 })
-      .$type<InvitationSource>()
-      .notNull(),
+    source: varchar("source", { length: 20 }).$type<InvitationSource>().notNull(),
     inviterId: uuid("inviter_id")
       .notNull()
       .references(() => usersTable.id, { onDelete: "cascade" }),
@@ -168,14 +156,8 @@ export const registrationInvitationsTable = pgTable(
   (t) => [
     index("registration_invitations_inviter_id_idx").on(t.inviterId),
     index("registration_invitations_accepted_user_id_idx").on(t.acceptedUserId),
-    index("registration_invitations_status_expires_at_idx").on(
-      t.status,
-      t.expiresAt,
-    ),
-    index("registration_invitations_inviter_created_at_idx").on(
-      t.inviterId,
-      t.createdAt,
-    ),
+    index("registration_invitations_status_expires_at_idx").on(t.status, t.expiresAt),
+    index("registration_invitations_inviter_created_at_idx").on(t.inviterId, t.createdAt),
     uniqueIndex("registration_invitations_active_recipient_email_unique")
       .on(t.recipientEmail)
       .where(sql`${t.status} = 'pending'`),
@@ -191,14 +173,8 @@ export const registrationInvitationsTable = pgTable(
       "registration_invitations_recipient_email_normalized_check",
       sql`${t.recipientEmail} = lower(btrim(${t.recipientEmail}))`,
     ),
-    check(
-      "registration_invitations_token_hash_check",
-      sql`${t.tokenHash} ~ '^[0-9a-f]{64}$'`,
-    ),
-    check(
-      "registration_invitations_source_check",
-      sql`${t.source} IN ('admin', 'member')`,
-    ),
+    check("registration_invitations_token_hash_check", sql`${t.tokenHash} ~ '^[0-9a-f]{64}$'`),
+    check("registration_invitations_source_check", sql`${t.source} IN ('admin', 'member')`),
     check(
       "registration_invitations_status_check",
       sql`${t.status} IN ('pending', 'accepted', 'expired', 'revoked', 'failed')`,
@@ -211,10 +187,7 @@ export const registrationInvitationsTable = pgTable(
         (${t.source} = 'member' AND ${t.memberSlot} BETWEEN 1 AND 3)
       )`,
     ),
-    check(
-      "registration_invitations_expiration_check",
-      sql`${t.expiresAt} > ${t.createdAt}`,
-    ),
+    check("registration_invitations_expiration_check", sql`${t.expiresAt} > ${t.createdAt}`),
     check(
       "registration_invitations_acceptance_check",
       sql`(
@@ -242,10 +215,8 @@ export const registrationInvitationsTable = pgTable(
   ],
 ).enableRLS();
 
-export type InsertRegistrationInvitation =
-  typeof registrationInvitationsTable.$inferInsert;
-export type SelectRegistrationInvitation =
-  typeof registrationInvitationsTable.$inferSelect;
+export type InsertRegistrationInvitation = typeof registrationInvitationsTable.$inferInsert;
+export type SelectRegistrationInvitation = typeof registrationInvitationsTable.$inferSelect;
 
 export const songReviewLikesTable = pgTable(
   "song_review_likes_table",
@@ -362,10 +333,8 @@ export const songReviewCommentsTable = pgTable(
   ],
 ).enableRLS();
 
-export type InsertSongReviewComment =
-  typeof songReviewCommentsTable.$inferInsert;
-export type SelectSongReviewComment =
-  typeof songReviewCommentsTable.$inferSelect;
+export type InsertSongReviewComment = typeof songReviewCommentsTable.$inferInsert;
+export type SelectSongReviewComment = typeof songReviewCommentsTable.$inferSelect;
 
 export const songReviewRatingsTable = pgTable(
   "song_review_ratings_table",
@@ -526,15 +495,12 @@ export const usersRelations = relations(usersTable, ({ many }) => ({
   songReviewComments: many(songReviewCommentsTable),
 }));
 
-export const collaborationsRelations = relations(
-  collaborationsTable,
-  ({ one }) => ({
-    user: one(usersTable, {
-      fields: [collaborationsTable.userId],
-      references: [usersTable.id],
-    }),
+export const collaborationsRelations = relations(collaborationsTable, ({ one }) => ({
+  user: one(usersTable, {
+    fields: [collaborationsTable.userId],
+    references: [usersTable.id],
   }),
-);
+}));
 
 export type InsertCollaboration = typeof collaborationsTable.$inferInsert;
 export type SelectCollaboration = typeof collaborationsTable.$inferSelect;
@@ -639,10 +605,8 @@ export const challengeParticipationsRelations = relations(
 
 export type InsertChallenge = typeof challengesTable.$inferInsert;
 export type SelectChallenge = typeof challengesTable.$inferSelect;
-export type InsertChallengeParticipation =
-  typeof challengeParticipationsTable.$inferInsert;
-export type SelectChallengeParticipation =
-  typeof challengeParticipationsTable.$inferSelect;
+export type InsertChallengeParticipation = typeof challengeParticipationsTable.$inferInsert;
+export type SelectChallengeParticipation = typeof challengeParticipationsTable.$inferSelect;
 
 export const waitlistInvitationsTable = pgTable("waitlist_invitations", {
   id: uuid("id").primaryKey().defaultRandom().notNull(),
@@ -668,19 +632,14 @@ export const waitlistEntriesTable = pgTable("waitlist_entries", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
-export const waitlistEntriesRelations = relations(
-  waitlistEntriesTable,
-  ({ one }) => ({
-    invitation: one(waitlistInvitationsTable, {
-      fields: [waitlistEntriesTable.invitationId],
-      references: [waitlistInvitationsTable.id],
-    }),
+export const waitlistEntriesRelations = relations(waitlistEntriesTable, ({ one }) => ({
+  invitation: one(waitlistInvitationsTable, {
+    fields: [waitlistEntriesTable.invitationId],
+    references: [waitlistInvitationsTable.id],
   }),
-);
+}));
 
 export type InsertWaitlistEntry = typeof waitlistEntriesTable.$inferInsert;
 export type SelectWaitlistEntry = typeof waitlistEntriesTable.$inferSelect;
-export type InsertWaitlistInvitation =
-  typeof waitlistInvitationsTable.$inferInsert;
-export type SelectWaitlistInvitation =
-  typeof waitlistInvitationsTable.$inferSelect;
+export type InsertWaitlistInvitation = typeof waitlistInvitationsTable.$inferInsert;
+export type SelectWaitlistInvitation = typeof waitlistInvitationsTable.$inferSelect;

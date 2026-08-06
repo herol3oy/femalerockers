@@ -13,12 +13,7 @@ type Props = {
   initialLiked: boolean;
 };
 
-export function LikeButton({
-  reviewId,
-  slug,
-  initialCount,
-  initialLiked,
-}: Props) {
+export function LikeButton({ reviewId, slug, initialCount, initialLiked }: Props) {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
 

@@ -17,9 +17,10 @@ export async function sendRegistrationInvitation(
   _expiresAt: Date,
   _inviterName?: string,
 ) {
-  const baseUrl = (
-    process.env.NEXT_PUBLIC_SITE_URL || "https://femalerockers.com"
-  ).replace(/\/+$/, "");
+  const baseUrl = (process.env.NEXT_PUBLIC_SITE_URL || "https://femalerockers.com").replace(
+    /\/+$/,
+    "",
+  );
   const invitationUrl = `${baseUrl}/auth/sign-up?invite=${encodeURIComponent(token)}`;
   const safeInvitationUrl = escapeHtml(invitationUrl);
   const text = `You're invited to Female Rockers

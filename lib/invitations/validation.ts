@@ -9,11 +9,7 @@ export function normalizeEmail(value: string): string {
 }
 
 export function isValidEmail(value: string): boolean {
-  return (
-    value.length > 0 &&
-    value.length <= MAX_EMAIL_LENGTH &&
-    EMAIL_PATTERN.test(value)
-  );
+  return value.length > 0 && value.length <= MAX_EMAIL_LENGTH && EMAIL_PATTERN.test(value);
 }
 
 export type ParsedBulkEmail =

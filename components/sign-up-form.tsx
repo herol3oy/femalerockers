@@ -4,13 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -54,10 +48,7 @@ export function SignUpForm({
     }
 
     try {
-      const validation = await validateInvitationRegistration(
-        invitationToken,
-        email,
-      );
+      const validation = await validateInvitationRegistration(invitationToken, email);
       if (!validation.success) {
         throw new Error(validation.error);
       }
@@ -94,10 +85,7 @@ export function SignUpForm({
     }
 
     try {
-      const validation = await validateInvitationRegistration(
-        invitationToken,
-        email,
-      );
+      const validation = await validateInvitationRegistration(invitationToken, email);
       if (!validation.success) {
         throw new Error(validation.error);
       }
@@ -124,9 +112,7 @@ export function SignUpForm({
       <Card>
         <CardHeader>
           <CardTitle className="text-2xl">Sign up</CardTitle>
-          <CardDescription>
-            You&apos;ve been invited to join Female Rockers
-          </CardDescription>
+          <CardDescription>You&apos;ve been invited to join Female Rockers</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSignUp}>
@@ -172,18 +158,13 @@ export function SignUpForm({
                   id="legal-acceptance"
                   name="legalAcceptance"
                   checked={acceptedLegal}
-                  onCheckedChange={(checked) =>
-                    setAcceptedLegal(checked === true)
-                  }
+                  onCheckedChange={(checked) => setAcceptedLegal(checked === true)}
                   required
                   aria-required="true"
                   aria-labelledby="legal-acceptance-label"
                   className="mt-0.5"
                 />
-                <p
-                  id="legal-acceptance-label"
-                  className="text-sm leading-5 text-muted-foreground"
-                >
+                <p id="legal-acceptance-label" className="text-sm leading-5 text-muted-foreground">
                   I confirm that I am at least 18 years old, agree to the{" "}
                   <Link
                     href="/terms"
@@ -206,18 +187,12 @@ export function SignUpForm({
                 </p>
               </div>
               {error && <p className="text-sm text-red-500">{error}</p>}
-              <Button
-                type="submit"
-                className="w-full"
-                disabled={isLoading || !acceptedLegal}
-              >
+              <Button type="submit" className="w-full" disabled={isLoading || !acceptedLegal}>
                 {isLoading ? "Creating an account..." : "Sign up"}
               </Button>
               <div className="relative flex items-center gap-4">
                 <div className="flex-1 border-t border-border" />
-                <span className="text-xs text-muted-foreground">
-                  or continue with
-                </span>
+                <span className="text-xs text-muted-foreground">or continue with</span>
                 <div className="flex-1 border-t border-border" />
               </div>
               <Button

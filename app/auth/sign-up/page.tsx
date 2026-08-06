@@ -2,13 +2,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { SignUpForm } from "@/components/sign-up-form";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { getInvitationPageState } from "@/lib/invitations/redemption";
 
 async function SignUpContent({
@@ -17,9 +11,7 @@ async function SignUpContent({
   searchParams: Promise<{ invite?: string | string[] }>;
 }) {
   const params = await searchParams;
-  const invitationToken = Array.isArray(params.invite)
-    ? params.invite[0]
-    : params.invite;
+  const invitationToken = Array.isArray(params.invite) ? params.invite[0] : params.invite;
   const state = await getInvitationPageState(invitationToken);
 
   if (state.state !== "available") {
@@ -30,9 +22,7 @@ async function SignUpContent({
           <Card>
             <CardHeader>
               <CardTitle>
-                {disabled
-                  ? "Registration is unavailable"
-                  : "Invitation unavailable"}
+                {disabled ? "Registration is unavailable" : "Invitation unavailable"}
               </CardTitle>
               <CardDescription>
                 {disabled

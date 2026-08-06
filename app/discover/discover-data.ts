@@ -31,8 +31,7 @@ export function getRecentCount(users: DiscoverUser[]) {
   const thirtyDaysAgo = new Date();
   thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
 
-  return users.filter((user) => new Date(user.created_at) >= thirtyDaysAgo)
-    .length;
+  return users.filter((user) => new Date(user.created_at) >= thirtyDaysAgo).length;
 }
 
 export function getDiscoverProfileHref(username: string) {

@@ -22,10 +22,7 @@ const MIME_TO_EXT: Record<string, string> = {
   "image/webp": "webp",
 };
 
-export async function completeOnboarding(
-  _prevState: { error: string } | null,
-  formData: FormData,
-) {
+export async function completeOnboarding(_prevState: { error: string } | null, formData: FormData) {
   const supabase = await createClient();
   const {
     data: { user },
@@ -52,23 +49,17 @@ export async function completeOnboarding(
     await assertInvitationMatchesEmail(invitationToken, userEmail);
   } catch (error) {
     return {
-      error:
-        error instanceof InvitationError
-          ? error.message
-          : "Could not verify this invitation.",
+      error: error instanceof InvitationError ? error.message : "Could not verify this invitation.",
     };
   }
 
   const username = formData.get("username")?.toString().trim();
   const artistName = formData.get("artistName")?.toString().trim();
-  const cityCountry =
-    formData.get("cityCountry")?.toString().trim() || undefined;
-  const mainInstrument =
-    formData.get("mainInstrument")?.toString().trim() || undefined;
+  const cityCountry = formData.get("cityCountry")?.toString().trim() || undefined;
+  const mainInstrument = formData.get("mainInstrument")?.toString().trim() || undefined;
   const genre = formData.get("genre")?.toString().trim() || undefined;
   const bio = formData.get("bio")?.toString().trim() || undefined;
-  const instagramUrl =
-    formData.get("instagramUrl")?.toString().trim() || undefined;
+  const instagramUrl = formData.get("instagramUrl")?.toString().trim() || undefined;
   const videoLink = formData.get("videoLink")?.toString().trim() || undefined;
   const collabStatus = formData.get("collabStatus") === "on";
   const newsletterOptIn = formData.get("newsletterOptIn") === "on";
@@ -79,8 +70,7 @@ export async function completeOnboarding(
 
   if (!/^[a-zA-Z0-9_]{3,50}$/.test(username)) {
     return {
-      error:
-        "Username must be 3–50 characters and contain only letters, numbers, or underscores.",
+      error: "Username must be 3–50 characters and contain only letters, numbers, or underscores.",
     };
   }
 
@@ -127,11 +117,7 @@ export async function completeOnboarding(
 
   try {
     await db.transaction(async (tx) => {
-      const invitation = await lockInvitationForOnboarding(
-        tx,
-        invitationToken,
-        userEmail,
-      );
+      const invitation = await lockInvitationForOnboarding(tx, invitationToken, userEmail);
 
       await tx.insert(usersTable).values({
         id: userId,

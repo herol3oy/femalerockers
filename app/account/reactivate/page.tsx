@@ -5,13 +5,7 @@ import { Suspense } from "react";
 import { db } from "@/app/db";
 import { usersTable } from "@/app/db/schema";
 import { Badge } from "@/components/ui/badge";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { createClient } from "@/lib/supabase/server";
 import { ReactivateForm } from "./reactivate-form";
@@ -50,8 +44,8 @@ async function ReactivateAccountContent() {
           </Badge>
           <CardTitle className="text-2xl">Welcome back</CardTitle>
           <CardDescription className="text-base leading-7">
-            Your profile and contributions are still safely stored. Reactivate
-            to make them visible and use Female Rockers again.
+            Your profile and contributions are still safely stored. Reactivate to make them visible
+            and use Female Rockers again.
           </CardDescription>
         </CardHeader>
         <CardContent>

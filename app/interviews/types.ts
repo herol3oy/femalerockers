@@ -38,19 +38,9 @@ export type SongReview = {
   body: PortableTextBlock[];
 };
 
-export type SongReviewListItem = Pick<
-  SongReview,
-  "_id" | "title" | "stageName" | "slug" | "date"
->;
+export type SongReviewListItem = Pick<SongReview, "_id" | "title" | "stageName" | "slug" | "date">;
 
 export type InterviewListItem = Pick<
   Interview,
-  | "_id"
-  | "title"
-  | "stageName"
-  | "slug"
-  | "country"
-  | "profession"
-  | "profileImage"
-  | "date"
+  "_id" | "title" | "stageName" | "slug" | "country" | "profession" | "profileImage" | "date"
 >;

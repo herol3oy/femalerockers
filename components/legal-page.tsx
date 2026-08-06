@@ -15,35 +15,20 @@ type LegalPageProps = {
   sections: LegalSection[];
 };
 
-export function LegalPage({
-  title,
-  description,
-  lastUpdated,
-  sections,
-}: LegalPageProps) {
+export function LegalPage({ title, description, lastUpdated, sections }: LegalPageProps) {
   return (
     <main className="mx-auto w-full max-w-5xl px-6 py-14 sm:px-8 sm:py-20">
       <header className="max-w-3xl space-y-4">
         <Badge variant="outline">Legal</Badge>
-        <h1 className="font-heading text-4xl font-semibold tracking-tight sm:text-5xl">
-          {title}
-        </h1>
-        <p className="text-base leading-7 text-muted-foreground sm:text-lg">
-          {description}
-        </p>
-        <p className="text-sm font-medium text-foreground">
-          Last updated: {lastUpdated}
-        </p>
+        <h1 className="font-heading text-4xl font-semibold tracking-tight sm:text-5xl">{title}</h1>
+        <p className="text-base leading-7 text-muted-foreground sm:text-lg">{description}</p>
+        <p className="text-sm font-medium text-foreground">Last updated: {lastUpdated}</p>
       </header>
 
       <div className="mt-12 grid gap-10 lg:grid-cols-[minmax(0,1fr)_15rem] lg:items-start">
         <article className="order-2 min-w-0 space-y-12 lg:order-1">
           {sections.map((section) => (
-            <section
-              key={section.id}
-              id={section.id}
-              className="scroll-mt-24 space-y-4"
-            >
+            <section key={section.id} id={section.id} className="scroll-mt-24 space-y-4">
               <h2 className="font-heading text-2xl font-semibold tracking-tight">
                 {section.title}
               </h2>
@@ -63,10 +48,7 @@ export function LegalPage({
             <ol className="mt-4 space-y-2.5 text-sm text-muted-foreground">
               {sections.map((section) => (
                 <li key={section.id}>
-                  <a
-                    href={`#${section.id}`}
-                    className="transition-colors hover:text-foreground"
-                  >
+                  <a href={`#${section.id}`} className="transition-colors hover:text-foreground">
                     {section.title}
                   </a>
                 </li>

@@ -28,11 +28,7 @@ async function OnboardingGate({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }
 
-export default function OnboardingLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function OnboardingLayout({ children }: { children: React.ReactNode }) {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <OnboardingGate>{children}</OnboardingGate>

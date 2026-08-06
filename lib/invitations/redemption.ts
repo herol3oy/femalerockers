@@ -9,9 +9,7 @@ import { hashInvitationToken, isInvitationToken } from "./token";
 import type { InvitationPageState, RedeemableInvitation } from "./types";
 import { normalizeEmail } from "./validation";
 
-type InvitationTransaction = Parameters<
-  Parameters<typeof db.transaction>[0]
->[0];
+type InvitationTransaction = Parameters<Parameters<typeof db.transaction>[0]>[0];
 
 const selection = {
   id: registrationInvitationsTable.id,
@@ -83,15 +81,10 @@ export async function assertInvitationMatchesEmail(
   const state = await getInvitationPageState(token);
 
   if (state.state === "disabled") {
-    throw new InvitationError(
-      "Invitation registration is currently unavailable.",
-    );
+    throw new InvitationError("Invitation registration is currently unavailable.");
   }
 
-  if (
-    state.state !== "available" ||
-    state.invitation.recipientEmail !== normalizeEmail(email)
-  ) {
+  if (state.state !== "available" || state.invitation.recipientEmail !== normalizeEmail(email)) {
     throw new InvitationError(
       "This invitation is invalid, expired, or belongs to another email address.",
     );
@@ -106,9 +99,7 @@ export async function lockInvitationForOnboarding(
   authenticatedEmail: string,
 ): Promise<RedeemableInvitation> {
   if (!isInvitationRedemptionEnabled()) {
-    throw new InvitationError(
-      "Invitation registration is currently unavailable.",
-    );
+    throw new InvitationError("Invitation registration is currently unavailable.");
   }
 
   if (!isInvitationToken(token)) {
@@ -127,10 +118,7 @@ export async function lockInvitationForOnboarding(
     throw new InvitationError("This invitation is invalid.");
   }
 
-  if (
-    invitation.status === "pending" &&
-    invitation.expiresAt.getTime() <= Date.now()
-  ) {
+  if (invitation.status === "pending" && invitation.expiresAt.getTime() <= Date.now()) {
     await tx
       .update(registrationInvitationsTable)
       .set({ status: "expired" })
@@ -148,9 +136,7 @@ export async function lockInvitationForOnboarding(
   }
 
   if (invitation.recipientEmail !== normalizeEmail(authenticatedEmail)) {
-    throw new InvitationError(
-      "Sign in with the email address that received this invitation.",
-    );
+    throw new InvitationError("Sign in with the email address that received this invitation.");
   }
 
   return invitation;

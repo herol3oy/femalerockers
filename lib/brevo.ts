@@ -12,13 +12,9 @@ const smtpTransport = smtpHost
     })
   : null;
 
-const brevo = !smtpHost
-  ? new BrevoClient({ apiKey: process.env.BREVO_API_KEY || "" })
-  : null;
+const brevo = !smtpHost ? new BrevoClient({ apiKey: process.env.BREVO_API_KEY || "" }) : null;
 
-export type SendEmailResult =
-  | { success: true }
-  | { success: false; error: string };
+export type SendEmailResult = { success: true } | { success: false; error: string };
 
 function senderEmail(): string {
   return process.env.BREVO_SENDER_EMAIL || "noreply@femalerockers.com";

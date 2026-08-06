@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  EnvelopeSimpleIcon,
-  GearIcon,
-  SignOutIcon,
-  UserIcon,
-} from "@phosphor-icons/react";
+import { EnvelopeSimpleIcon, GearIcon, SignOutIcon, UserIcon } from "@phosphor-icons/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -39,11 +34,7 @@ function getInitials(name: string) {
   return initials || "U";
 }
 
-export function AvatarDropdown({
-  email,
-  artistName,
-  avatarUrl,
-}: AvatarDropdownProps) {
+export function AvatarDropdown({ email, artistName, avatarUrl }: AvatarDropdownProps) {
   const router = useRouter();
   const emailIdentifier = email.split("@")[0] ?? "";
   const displayName = artistName?.trim() || emailIdentifier || "User";

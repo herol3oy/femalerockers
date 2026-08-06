@@ -7,10 +7,7 @@ let cachedCities: { name: string; country: string }[] | null = null;
 async function loadAllCities() {
   if (cachedCities) return cachedCities;
 
-  const [countries, allCities] = await Promise.all([
-    getCountries(),
-    getAllCitiesInWorld(),
-  ]);
+  const [countries, allCities] = await Promise.all([getCountries(), getAllCitiesInWorld()]);
 
   const countryMap = new Map(countries.map((c) => [c.iso2, c.name]));
 

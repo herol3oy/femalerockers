@@ -61,9 +61,7 @@ export function SubmitEntryForm({
           id="videoUrl"
           type="url"
           value={formData.videoUrl}
-          onChange={(e) =>
-            setFormData({ ...formData, videoUrl: e.target.value })
-          }
+          onChange={(e) => setFormData({ ...formData, videoUrl: e.target.value })}
           placeholder="https://drive.google.com/..."
           aria-describedby="video-url-requirements"
           required
@@ -76,9 +74,9 @@ export function SubmitEntryForm({
             A permanent, publicly accessible link is required
           </p>
           <p className="mt-1 text-muted-foreground">
-            Upload your video to Google Drive, Dropbox, MEGA, or similar cloud
-            storage, and enable access for anyone with the link. Temporary
-            links such as WeTransfer or SwissTransfer are not accepted.
+            Upload your video to Google Drive, Dropbox, MEGA, or similar cloud storage, and enable
+            access for anyone with the link. Temporary links such as WeTransfer or SwissTransfer are
+            not accepted.
           </p>
         </div>
       </div>
@@ -88,9 +86,7 @@ export function SubmitEntryForm({
         <Textarea
           id="description"
           value={formData.description}
-          onChange={(e) =>
-            setFormData({ ...formData, description: e.target.value })
-          }
+          onChange={(e) => setFormData({ ...formData, description: e.target.value })}
           placeholder="Tell us about your entry..."
           rows={6}
           required
@@ -101,11 +97,7 @@ export function SubmitEntryForm({
         <Button type="submit" disabled={isPending}>
           {isPending ? "Submitting..." : "Submit Entry"}
         </Button>
-        <Button
-          type="button"
-          variant="outline"
-          onClick={() => router.push("/challenge")}
-        >
+        <Button type="button" variant="outline" onClick={() => router.push("/challenge")}>
           Cancel
         </Button>
       </div>

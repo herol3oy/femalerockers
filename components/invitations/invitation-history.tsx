@@ -27,11 +27,7 @@ function statusVariant(status: InvitationListItem["status"]) {
   }
 }
 
-export function AdminInvitationHistory({
-  invitations,
-}: {
-  invitations: InvitationListItem[];
-}) {
+export function AdminInvitationHistory({ invitations }: { invitations: InvitationListItem[] }) {
   const [pendingId, setPendingId] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
@@ -74,10 +70,7 @@ export function AdminInvitationHistory({
           </thead>
           <tbody>
             {invitations.map((invitation) => (
-              <tr
-                key={invitation.id}
-                className="border-b border-border/60 align-top"
-              >
+              <tr key={invitation.id} className="border-b border-border/60 align-top">
                 <td className="px-4 py-3 font-medium">
                   {invitation.recipientEmail}
                   {invitation.deliveryError ? (
@@ -92,25 +85,17 @@ export function AdminInvitationHistory({
                 <td className="px-4 py-3">
                   <Badge variant="outline">
                     {invitation.source}
-                    {invitation.memberSlot
-                      ? ` · slot ${invitation.memberSlot}`
-                      : ""}
+                    {invitation.memberSlot ? ` · slot ${invitation.memberSlot}` : ""}
                   </Badge>
                 </td>
-                <td className="px-4 py-3 text-muted-foreground">
-                  {invitation.inviterEmail}
-                </td>
+                <td className="px-4 py-3 text-muted-foreground">{invitation.inviterEmail}</td>
                 <td className="px-4 py-3">
-                  <Badge variant={statusVariant(invitation.status)}>
-                    {invitation.status}
-                  </Badge>
+                  <Badge variant={statusVariant(invitation.status)}>{invitation.status}</Badge>
                 </td>
                 <td className="px-4 py-3 text-muted-foreground">
                   {formatDate(invitation.createdAt)}
                 </td>
-                <td className="px-4 py-3 text-muted-foreground">
-                  {formatDate(invitation.sentAt)}
-                </td>
+                <td className="px-4 py-3 text-muted-foreground">{formatDate(invitation.sentAt)}</td>
                 <td className="px-4 py-3 text-muted-foreground">
                   {formatDate(invitation.expiresAt)}
                 </td>

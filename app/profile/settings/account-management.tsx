@@ -30,14 +30,8 @@ const deletionReasons = [
 ] as const;
 
 export function AccountManagement() {
-  const [deactivateState, deactivateAction, deactivating] = useActionState(
-    deactivateAccount,
-    null,
-  );
-  const [deleteState, deleteAction, deleting] = useActionState(
-    deleteAccount,
-    null,
-  );
+  const [deactivateState, deactivateAction, deactivating] = useActionState(deactivateAccount, null);
+  const [deleteState, deleteAction, deleting] = useActionState(deleteAccount, null);
   const [reason, setReason] = useState("");
   const [confirmation, setConfirmation] = useState("");
 
@@ -51,8 +45,8 @@ export function AccountManagement() {
               <h2 className="font-semibold">Deactivate account</h2>
             </div>
             <p className="text-sm leading-6 text-muted-foreground">
-              Temporarily hide your profile and all activity. Your information
-              is preserved and will return when you reactivate.
+              Temporarily hide your profile and all activity. Your information is preserved and will
+              return when you reactivate.
             </p>
           </div>
           <AlertDialog>
@@ -63,26 +57,17 @@ export function AccountManagement() {
               <AlertDialogHeader>
                 <AlertDialogTitle>Deactivate your account?</AlertDialogTitle>
                 <AlertDialogDescription>
-                  Your public profile and contributions will disappear
-                  immediately, and you will be signed out on every device. Sign
-                  in again whenever you want to reactivate.
+                  Your public profile and contributions will disappear immediately, and you will be
+                  signed out on every device. Sign in again whenever you want to reactivate.
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <form action={deactivateAction}>
                 {deactivateState?.error ? (
-                  <p className="mb-4 text-sm text-destructive">
-                    {deactivateState.error}
-                  </p>
+                  <p className="mb-4 text-sm text-destructive">{deactivateState.error}</p>
                 ) : null}
                 <AlertDialogFooter>
-                  <AlertDialogCancel type="button">
-                    Keep active
-                  </AlertDialogCancel>
-                  <Button
-                    type="submit"
-                    variant="destructive"
-                    disabled={deactivating}
-                  >
+                  <AlertDialogCancel type="button">Keep active</AlertDialogCancel>
+                  <Button type="submit" variant="destructive" disabled={deactivating}>
                     {deactivating ? "Deactivating…" : "Deactivate account"}
                   </Button>
                 </AlertDialogFooter>
@@ -100,8 +85,8 @@ export function AccountManagement() {
               <h2 className="font-semibold">Delete profile</h2>
             </div>
             <p className="text-sm leading-6 text-muted-foreground">
-              Permanently erase your account, profile, contributions, and
-              uploaded images. This cannot be undone.
+              Permanently erase your account, profile, contributions, and uploaded images. This
+              cannot be undone.
             </p>
           </div>
           <AlertDialog>
@@ -114,34 +99,23 @@ export function AccountManagement() {
                   <div className="mx-auto flex size-11 items-center justify-center rounded-full bg-destructive/10 text-destructive sm:mx-0">
                     <WarningIcon className="size-6" />
                   </div>
-                  <AlertDialogTitle>
-                    Permanently delete your profile?
-                  </AlertDialogTitle>
+                  <AlertDialogTitle>Permanently delete your profile?</AlertDialogTitle>
                   <AlertDialogDescription>
-                    Please complete this short exit survey. Your response is
-                    stored without your user ID, email, or username.
+                    Please complete this short exit survey. Your response is stored without your
+                    user ID, email, or username.
                   </AlertDialogDescription>
                 </AlertDialogHeader>
 
                 <div className="space-y-3">
                   <Label>Why are you leaving?</Label>
-                  <RadioGroup
-                    name="reason"
-                    value={reason}
-                    onValueChange={setReason}
-                    required
-                  >
+                  <RadioGroup name="reason" value={reason} onValueChange={setReason} required>
                     {deletionReasons.map(([value, label]) => (
                       <Label
                         key={value}
                         htmlFor={`reason-${value}`}
                         className="flex cursor-pointer items-start gap-3 rounded-xl border border-border/70 p-3 font-normal hover:bg-muted/30"
                       >
-                        <RadioGroupItem
-                          id={`reason-${value}`}
-                          value={value}
-                          className="mt-0.5"
-                        />
+                        <RadioGroupItem id={`reason-${value}`} value={value} className="mt-0.5" />
                         <span>{label}</span>
                       </Label>
                     ))}
@@ -160,15 +134,12 @@ export function AccountManagement() {
                     rows={4}
                     placeholder="Please do not include personal information."
                   />
-                  <p className="text-xs text-muted-foreground">
-                    Maximum 500 characters.
-                  </p>
+                  <p className="text-xs text-muted-foreground">Maximum 500 characters.</p>
                 </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="delete-confirmation">
-                    Enter <span className="font-semibold">DELETE</span> to
-                    confirm
+                    Enter <span className="font-semibold">DELETE</span> to confirm
                   </Label>
                   <Input
                     id="delete-confirmation"
@@ -180,9 +151,7 @@ export function AccountManagement() {
                 </div>
 
                 {deleteState?.error ? (
-                  <p className="text-sm text-destructive">
-                    {deleteState.error}
-                  </p>
+                  <p className="text-sm text-destructive">{deleteState.error}</p>
                 ) : null}
 
                 <AlertDialogFooter>

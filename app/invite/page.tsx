@@ -1,18 +1,8 @@
-import {
-  EnvelopeIcon,
-  LockKeyIcon,
-  UsersThreeIcon,
-} from "@phosphor-icons/react/ssr";
+import { EnvelopeIcon, LockKeyIcon, UsersThreeIcon } from "@phosphor-icons/react/ssr";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { Badge } from "@/components/ui/badge";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { getMemberInvitationData } from "@/lib/invitations/queries";
 import { MemberInvitationForm } from "./invitation-form";
 
@@ -32,9 +22,7 @@ async function InviteContent() {
           <Card>
             <CardHeader>
               <CardTitle>Invitations are currently unavailable</CardTitle>
-              <CardDescription>
-                New invitations have been paused.
-              </CardDescription>
+              <CardDescription>New invitations have been paused.</CardDescription>
             </CardHeader>
           </Card>
         </div>
@@ -54,18 +42,13 @@ async function InviteContent() {
               Member invitations
             </Badge>
             <CardTitle className="text-3xl">Invite friends</CardTitle>
-            <CardDescription>
-              Approved members can send three lifetime invitations.
-            </CardDescription>
+            <CardDescription>Approved members can send three lifetime invitations.</CardDescription>
           </CardHeader>
           <CardContent className="grid gap-4 sm:grid-cols-3">
             {[1, 2, 3].map((slot) => {
               const used = slot <= usedSlots;
               return (
-                <div
-                  key={slot}
-                  className="rounded-2xl border border-border/60 bg-muted/20 p-5"
-                >
+                <div key={slot} className="rounded-2xl border border-border/60 bg-muted/20 p-5">
                   {used ? (
                     <LockKeyIcon className="mb-3 h-5 w-5 text-muted-foreground" />
                   ) : (
@@ -84,12 +67,12 @@ async function InviteContent() {
         <Card>
           <CardHeader>
             <CardTitle>
-              {data.remainingSlots} invitation{" "}
-              {data.remainingSlots === 1 ? "slot" : "slots"} remaining
+              {data.remainingSlots} invitation {data.remainingSlots === 1 ? "slot" : "slots"}{" "}
+              remaining
             </CardTitle>
             <CardDescription>
-              Expired and revoked invitations still use their slot. A failed
-              email delivery does not.
+              Expired and revoked invitations still use their slot. A failed email delivery does
+              not.
             </CardDescription>
           </CardHeader>
           <CardContent>

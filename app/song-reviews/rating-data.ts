@@ -15,10 +15,7 @@ export async function getReviewsRatingData(reviewIds: string[]) {
     .from(songReviewRatingsTable)
     .innerJoin(usersTable, eq(songReviewRatingsTable.userId, usersTable.id))
     .where(
-      and(
-        inArray(songReviewRatingsTable.reviewId, reviewIds),
-        isNull(usersTable.deactivatedAt),
-      ),
+      and(inArray(songReviewRatingsTable.reviewId, reviewIds), isNull(usersTable.deactivatedAt)),
     )
     .groupBy(songReviewRatingsTable.reviewId);
 
@@ -45,16 +42,9 @@ export async function getReviewRating(reviewId: string) {
     })
     .from(songReviewRatingsTable)
     .innerJoin(usersTable, eq(songReviewRatingsTable.userId, usersTable.id))
-    .where(
-      and(
-        eq(songReviewRatingsTable.reviewId, reviewId),
-        isNull(usersTable.deactivatedAt),
-      ),
-    );
+    .where(and(eq(songReviewRatingsTable.reviewId, reviewId), isNull(usersTable.deactivatedAt)));
 
-  const ratingAverage = aggregate?.average
-    ? Number(aggregate.average.toFixed(1))
-    : 0;
+  const ratingAverage = aggregate?.average ? Number(aggregate.average.toFixed(1)) : 0;
   const ratingCount = aggregate?.total ?? 0;
 
   if (!user) {

@@ -80,19 +80,13 @@ export function ChallengeView({
           <div className="space-y-2">
             <h1 className="text-3xl font-bold">{challenge.title}</h1>
             <div className="flex items-center gap-3">
-              <Badge variant={isEnded ? "secondary" : "default"}>
-                {challenge.status}
-              </Badge>
-              <span className="text-sm text-muted-foreground">
-                {timeRemaining()}
-              </span>
+              <Badge variant={isEnded ? "secondary" : "default"}>{challenge.status}</Badge>
+              <span className="text-sm text-muted-foreground">{timeRemaining()}</span>
             </div>
           </div>
         </div>
 
-        <p className="text-muted-foreground whitespace-pre-wrap">
-          {challenge.description}
-        </p>
+        <p className="text-muted-foreground whitespace-pre-wrap">{challenge.description}</p>
 
         <div className="text-sm text-muted-foreground">
           <p>
@@ -121,11 +115,7 @@ export function ChallengeView({
                 <Link href={`/challenges/${challenge.slug}/submit`}>
                   <Button>Submit Entry</Button>
                 </Link>
-                <Button
-                  variant="outline"
-                  onClick={handleLeave}
-                  disabled={isPending}
-                >
+                <Button variant="outline" onClick={handleLeave} disabled={isPending}>
                   {isPending ? "Leaving..." : "Leave Challenge"}
                 </Button>
               </>
@@ -155,8 +145,7 @@ export function ChallengeView({
         {isEnded && (
           <div className="rounded-lg border border-border/70 bg-muted/30 p-4">
             <p className="text-sm text-muted-foreground">
-              This challenge has ended. You can view participants but cannot
-              join or submit entries.
+              This challenge has ended. You can view participants but cannot join or submit entries.
             </p>
           </div>
         )}
@@ -164,14 +153,10 @@ export function ChallengeView({
 
       {/* Participants List */}
       <div className="space-y-4 rounded-xl border border-border/70 bg-card p-6">
-        <h2 className="text-xl font-semibold">
-          Participants ({participations.length})
-        </h2>
+        <h2 className="text-xl font-semibold">Participants ({participations.length})</h2>
 
         {participations.length === 0 ? (
-          <p className="text-muted-foreground">
-            No participants yet. Be the first to join!
-          </p>
+          <p className="text-muted-foreground">No participants yet. Be the first to join!</p>
         ) : (
           <div className="grid gap-4 sm:grid-cols-2">
             {participations.map((participation) => (
@@ -181,18 +166,12 @@ export function ChallengeView({
                 className="flex items-center gap-3 rounded-lg border border-border/50 p-3 transition-colors hover:bg-muted/30"
               >
                 <Avatar>
-                  <AvatarImage
-                    src={participation.user.avatarUrl || undefined}
-                  />
-                  <AvatarFallback>
-                    {participation.user.artistName[0]}
-                  </AvatarFallback>
+                  <AvatarImage src={participation.user.avatarUrl || undefined} />
+                  <AvatarFallback>{participation.user.artistName[0]}</AvatarFallback>
                 </Avatar>
                 <div className="flex-1">
                   <p className="font-medium">{participation.user.artistName}</p>
-                  <p className="text-sm text-muted-foreground">
-                    @{participation.user.username}
-                  </p>
+                  <p className="text-sm text-muted-foreground">@{participation.user.username}</p>
                 </div>
                 {participation.status === "submitted" && (
                   <Badge variant="secondary" className="text-xs">

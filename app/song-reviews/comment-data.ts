@@ -13,9 +13,7 @@ export type CommentWithUser = {
   avatarUrl: string | null;
 };
 
-export async function getReviewComments(
-  reviewId: string,
-): Promise<CommentWithUser[]> {
+export async function getReviewComments(reviewId: string): Promise<CommentWithUser[]> {
   const rows = await db
     .select({
       id: songReviewCommentsTable.id,
@@ -29,12 +27,7 @@ export async function getReviewComments(
     })
     .from(songReviewCommentsTable)
     .innerJoin(usersTable, eq(songReviewCommentsTable.userId, usersTable.id))
-    .where(
-      and(
-        eq(songReviewCommentsTable.reviewId, reviewId),
-        isNull(usersTable.deactivatedAt),
-      ),
-    )
+    .where(and(eq(songReviewCommentsTable.reviewId, reviewId), isNull(usersTable.deactivatedAt)))
     .orderBy(desc(songReviewCommentsTable.createdAt));
 
   return rows;
@@ -53,10 +46,7 @@ export async function getReviewsCommentCounts(
     .from(songReviewCommentsTable)
     .innerJoin(usersTable, eq(songReviewCommentsTable.userId, usersTable.id))
     .where(
-      and(
-        inArray(songReviewCommentsTable.reviewId, reviewIds),
-        isNull(usersTable.deactivatedAt),
-      ),
+      and(inArray(songReviewCommentsTable.reviewId, reviewIds), isNull(usersTable.deactivatedAt)),
     )
     .groupBy(songReviewCommentsTable.reviewId);
 

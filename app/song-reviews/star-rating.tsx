@@ -64,9 +64,7 @@ export function StarRating({
           >
             <StarIcon
               size={18}
-              weight={
-                n <= (initialUserRating ?? roundedAverage) ? "fill" : "regular"
-              }
+              weight={n <= (initialUserRating ?? roundedAverage) ? "fill" : "regular"}
             />
           </button>
         ))}

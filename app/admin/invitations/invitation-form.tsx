@@ -8,15 +8,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { sendAdminInvitations } from "@/lib/invitations/actions";
 import type { AdminBulkInvitationResponse } from "@/lib/invitations/types";
 
-export function AdminInvitationForm({
-  attemptsRemaining,
-}: {
-  attemptsRemaining: number;
-}) {
+export function AdminInvitationForm({ attemptsRemaining }: { attemptsRemaining: number }) {
   const id = useId();
-  const [result, setResult] = useState<AdminBulkInvitationResponse | null>(
-    null,
-  );
+  const [result, setResult] = useState<AdminBulkInvitationResponse | null>(null);
   const [isPending, startTransition] = useTransition();
 
   function submit(event: React.FormEvent<HTMLFormElement>) {
@@ -36,9 +30,7 @@ export function AdminInvitationForm({
       <div className="grid gap-2">
         <Label htmlFor={id}>
           Email addresses{" "}
-          <span className="text-muted-foreground">
-            (one per line or comma-separated)
-          </span>
+          <span className="text-muted-foreground">(one per line or comma-separated)</span>
         </Label>
         <Textarea
           id={id}
@@ -49,8 +41,8 @@ export function AdminInvitationForm({
           required
         />
         <p className="text-xs text-muted-foreground">
-          Up to 100 recipients per batch. {attemptsRemaining} of 500 attempts
-          remain in your rolling 24-hour window.
+          Up to 100 recipients per batch. {attemptsRemaining} of 500 attempts remain in your rolling
+          24-hour window.
         </p>
       </div>
 
@@ -74,10 +66,7 @@ export function AdminInvitationForm({
                   .filter((item) => item.status !== "sent")
                   .map((item, index) => (
                     <li key={`${item.input}-${index}`}>
-                      <span className="font-medium">
-                        {item.input || item.email}
-                      </span>
-                      : {item.status}
+                      <span className="font-medium">{item.input || item.email}</span>: {item.status}
                       {item.error ? ` — ${item.error}` : ""}
                     </li>
                   ))}

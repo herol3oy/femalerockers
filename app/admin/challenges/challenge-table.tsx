@@ -5,11 +5,7 @@ import type { ChallengeWithStatus } from "@/app/challenge/actions";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
-export function ChallengeTable({
-  challenges,
-}: {
-  challenges: ChallengeWithStatus[];
-}) {
+export function ChallengeTable({ challenges }: { challenges: ChallengeWithStatus[] }) {
   if (challenges.length === 0) {
     return (
       <div className="rounded-xl border border-border/70 p-8 text-center">
@@ -32,10 +28,7 @@ export function ChallengeTable({
         </thead>
         <tbody>
           {challenges.map((challenge) => (
-            <tr
-              key={challenge.id}
-              className="border-b last:border-b-0 hover:bg-muted/20"
-            >
+            <tr key={challenge.id} className="border-b last:border-b-0 hover:bg-muted/20">
               <td className="px-4 py-3">
                 <div className="font-medium">{challenge.title}</div>
                 <div className="text-xs text-muted-foreground line-clamp-1">
@@ -43,11 +36,7 @@ export function ChallengeTable({
                 </div>
               </td>
               <td className="px-4 py-3">
-                <Badge
-                  variant={
-                    challenge.status === "live" ? "default" : "secondary"
-                  }
-                >
+                <Badge variant={challenge.status === "live" ? "default" : "secondary"}>
                   {challenge.status}
                 </Badge>
               </td>

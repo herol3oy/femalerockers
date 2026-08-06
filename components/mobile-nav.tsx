@@ -56,11 +56,7 @@ export function MobileNav({
     {
       href: "/collab",
       label: "Collab",
-      show: !!(
-        isAuthenticated &&
-        isApproved &&
-        (role === "musician" || role === "band")
-      ),
+      show: !!(isAuthenticated && isApproved && (role === "musician" || role === "band")),
     },
     { href: "/admin", label: "Admin", show: role === "admin" },
   ].filter((link) => link.show);

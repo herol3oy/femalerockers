@@ -8,13 +8,10 @@ export function Footer() {
       <div className="mx-auto w-full max-w-6xl px-6 py-12 sm:px-8">
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-5">
           <div className="space-y-3 lg:col-span-2">
-            <p className="font-heading text-lg font-semibold tracking-tight">
-              Female Rockers
-            </p>
+            <p className="font-heading text-lg font-semibold tracking-tight">Female Rockers</p>
             <p className="max-w-md text-sm leading-relaxed text-muted-foreground">
-              Our mission is to spread the word for talented musicians and give
-              them a platform where they can professionally present their
-              portfolio.
+              Our mission is to spread the word for talented musicians and give them a platform
+              where they can professionally present their portfolio.
             </p>
           </div>
 

@@ -40,14 +40,10 @@ async function removeStorageFolder(
       return;
     }
 
-    const { error: removeError } = await admin.storage
-      .from(bucket)
-      .remove(paths);
+    const { error: removeError } = await admin.storage.from(bucket).remove(paths);
 
     if (removeError) {
-      throw new Error(
-        `Could not remove ${bucket} files: ${removeError.message}`,
-      );
+      throw new Error(`Could not remove ${bucket} files: ${removeError.message}`);
     }
   }
 }
@@ -80,10 +76,7 @@ export async function deactivateAccount(
   });
 
   if (signOutError) {
-    console.error(
-      "Failed to revoke sessions during deactivation",
-      signOutError,
-    );
+    console.error("Failed to revoke sessions during deactivation", signOutError);
   }
 
   revalidatePath("/");
@@ -125,10 +118,7 @@ export async function deleteAccount(
   const details = formData.get("details")?.toString().trim() || null;
   const confirmation = formData.get("confirmation")?.toString();
 
-  if (
-    !reason ||
-    !ACCOUNT_DELETION_REASONS.includes(reason as AccountDeletionReason)
-  ) {
+  if (!reason || !ACCOUNT_DELETION_REASONS.includes(reason as AccountDeletionReason)) {
     return { error: "Please select why you are leaving." };
   }
 
@@ -155,8 +145,7 @@ export async function deleteAccount(
   } catch (error) {
     console.error("Supabase admin client is not configured", error);
     return {
-      error:
-        "Account deletion is temporarily unavailable. Please contact support.",
+      error: "Account deletion is temporarily unavailable. Please contact support.",
     };
   }
 
@@ -178,9 +167,7 @@ export async function deleteAccount(
         reason,
         details,
       });
-      await tx
-        .delete(collaborationsTable)
-        .where(eq(collaborationsTable.userId, user.id));
+      await tx.delete(collaborationsTable).where(eq(collaborationsTable.userId, user.id));
 
       const [deletedAccount] = await tx
         .delete(usersTable)
@@ -196,10 +183,7 @@ export async function deleteAccount(
         removeStorageFolder(admin, "collab-covers", user.id),
       ]);
 
-      const { error: deleteUserError } = await admin.auth.admin.deleteUser(
-        user.id,
-        false,
-      );
+      const { error: deleteUserError } = await admin.auth.admin.deleteUser(user.id, false);
       if (deleteUserError) {
         throw deleteUserError;
       }

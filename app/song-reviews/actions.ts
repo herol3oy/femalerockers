@@ -29,17 +29,12 @@ export async function toggleLike(reviewId: string, slug: string) {
     .select({ id: songReviewLikesTable.id })
     .from(songReviewLikesTable)
     .where(
-      and(
-        eq(songReviewLikesTable.reviewId, reviewId),
-        eq(songReviewLikesTable.userId, user.id),
-      ),
+      and(eq(songReviewLikesTable.reviewId, reviewId), eq(songReviewLikesTable.userId, user.id)),
     )
     .limit(1);
 
   if (existing.length > 0) {
-    await db
-      .delete(songReviewLikesTable)
-      .where(eq(songReviewLikesTable.id, existing[0].id));
+    await db.delete(songReviewLikesTable).where(eq(songReviewLikesTable.id, existing[0].id));
   } else {
     await db.insert(songReviewLikesTable).values({
       reviewId,
@@ -52,11 +47,7 @@ export async function toggleLike(reviewId: string, slug: string) {
   return { liked: existing.length === 0 };
 }
 
-export async function rateReview(
-  reviewId: string,
-  slug: string,
-  rating: number,
-) {
+export async function rateReview(reviewId: string, slug: string, rating: number) {
   const supabase = await createClient();
   const {
     data: { user },
@@ -130,9 +121,7 @@ export async function removeRating(reviewId: string, slug: string) {
     .limit(1);
 
   if (existing.length > 0) {
-    await db
-      .delete(songReviewRatingsTable)
-      .where(eq(songReviewRatingsTable.id, existing[0].id));
+    await db.delete(songReviewRatingsTable).where(eq(songReviewRatingsTable.id, existing[0].id));
   }
 
   revalidatePath(`/song-reviews/${slug}`);
@@ -207,9 +196,7 @@ export async function deleteComment(commentId: string, slug: string) {
     return { error: "You can only delete your own comments." };
   }
 
-  await db
-    .delete(songReviewCommentsTable)
-    .where(eq(songReviewCommentsTable.id, commentId));
+  await db.delete(songReviewCommentsTable).where(eq(songReviewCommentsTable.id, commentId));
 
   revalidatePath(`/song-reviews/${slug}`);
   revalidatePath("/song-reviews");

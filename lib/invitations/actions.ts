@@ -4,11 +4,7 @@ import { and, count, eq, gte, inArray, lte, ne, sql } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { db } from "@/app/db";
 import { registrationInvitationsTable, usersTable } from "@/app/db/schema";
-import {
-  requireInvitationAdmin,
-  requireInvitationMember,
-  type InvitationActor,
-} from "./auth";
+import { requireInvitationAdmin, requireInvitationMember, type InvitationActor } from "./auth";
 import { invitationExpirationDate, isInvitationIssuingEnabled } from "./config";
 import { sendRegistrationInvitation } from "./email";
 import { InvitationError } from "./errors";
@@ -159,10 +155,7 @@ async function createAdminInvitation(
         .where(
           and(
             eq(registrationInvitationsTable.id, reservation.invitationId),
-            inArray(registrationInvitationsTable.status, [
-              "pending",
-              "revoked",
-            ]),
+            inArray(registrationInvitationsTable.status, ["pending", "revoked"]),
           ),
         );
 
@@ -238,8 +231,7 @@ export async function sendAdminInvitations(
   if (parsed.candidates.length > MAX_ADMIN_ATTEMPTS_PER_DAY - attempts) {
     return {
       success: false,
-      error:
-        "This batch exceeds your remaining invitation limit for the rolling 24-hour period.",
+      error: "This batch exceeds your remaining invitation limit for the rolling 24-hour period.",
     };
   }
 
@@ -264,15 +256,12 @@ export async function sendAdminInvitations(
     failed: results.filter((result) => result.status === "failed").length,
     skipped: results.filter((result) => result.status === "skipped").length,
     invalid: results.filter((result) => result.status === "invalid").length,
-    duplicates: results.filter((result) => result.status === "duplicate")
-      .length,
+    duplicates: results.filter((result) => result.status === "duplicate").length,
     results,
   };
 }
 
-export async function sendMemberInvitation(
-  rawEmail: string,
-): Promise<InvitationActionResult> {
+export async function sendMemberInvitation(rawEmail: string): Promise<InvitationActionResult> {
   if (!isInvitationIssuingEnabled()) {
     return issuingDisabledResult();
   }
@@ -315,9 +304,7 @@ export async function sendMemberInvitation(
         .limit(1);
 
       if (!eligibleMember) {
-        throw new InvitationError(
-          "Invitations are available to approved members only.",
-        );
+        throw new InvitationError("Invitations are available to approved members only.");
       }
 
       await tx
@@ -353,9 +340,7 @@ export async function sendMemberInvitation(
         .limit(1);
 
       if (activeInvitation) {
-        throw new InvitationError(
-          "An active invitation already exists for this email.",
-        );
+        throw new InvitationError("An active invitation already exists for this email.");
       }
 
       const usedRows = await tx
@@ -372,9 +357,7 @@ export async function sendMemberInvitation(
       const memberSlot = [1, 2, 3].find((slot) => !usedSlots.has(slot));
 
       if (!memberSlot) {
-        throw new InvitationError(
-          "You have already used all three lifetime invitation slots.",
-        );
+        throw new InvitationError("You have already used all three lifetime invitation slots.");
       }
 
       const token = generateInvitationToken();
@@ -417,18 +400,14 @@ export async function sendMemberInvitation(
         .where(
           and(
             eq(registrationInvitationsTable.id, allocation.invitationId),
-            inArray(registrationInvitationsTable.status, [
-              "pending",
-              "revoked",
-            ]),
+            inArray(registrationInvitationsTable.status, ["pending", "revoked"]),
           ),
         );
 
       revalidatePath("/invite");
       return {
         success: false,
-        error:
-          "The email could not be delivered. Your invitation slot was released.",
+        error: "The email could not be delivered. Your invitation slot was released.",
       };
     }
 
@@ -448,8 +427,7 @@ export async function sendMemberInvitation(
     if (databaseErrorCode(error) === "23505") {
       return {
         success: false,
-        error:
-          "That email already has an active invitation, or all slots are used.",
+        error: "That email already has an active invitation, or all slots are used.",
       };
     }
 
@@ -460,9 +438,7 @@ export async function sendMemberInvitation(
   }
 }
 
-export async function revokeAdminInvitation(
-  invitationId: string,
-): Promise<InvitationActionResult> {
+export async function revokeAdminInvitation(invitationId: string): Promise<InvitationActionResult> {
   if (!isInvitationIssuingEnabled()) {
     return issuingDisabledResult();
   }

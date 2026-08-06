@@ -4,12 +4,7 @@ export type InvitationActionResult =
   | { success: true; message: string }
   | { success: false; error: string };
 
-export type AdminInvitationResultStatus =
-  | "sent"
-  | "failed"
-  | "skipped"
-  | "invalid"
-  | "duplicate";
+export type AdminInvitationResultStatus = "sent" | "failed" | "skipped" | "invalid" | "duplicate";
 
 export type AdminInvitationResult = {
   input: string;

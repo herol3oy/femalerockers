@@ -4,13 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { createClient } from "@/lib/supabase/client";
@@ -66,9 +60,7 @@ export function LoginForm({
       <Card>
         <CardHeader>
           <CardTitle className="text-2xl">Login</CardTitle>
-          <CardDescription>
-            Enter your email below to login to your account
-          </CardDescription>
+          <CardDescription>Enter your email below to login to your account</CardDescription>
         </CardHeader>
         <CardContent>
           {notice ? (
@@ -113,9 +105,7 @@ export function LoginForm({
               </Button>
               <div className="relative flex items-center gap-4">
                 <div className="flex-1 border-t border-border" />
-                <span className="text-xs text-muted-foreground">
-                  or continue with
-                </span>
+                <span className="text-xs text-muted-foreground">or continue with</span>
                 <div className="flex-1 border-t border-border" />
               </div>
               <Button

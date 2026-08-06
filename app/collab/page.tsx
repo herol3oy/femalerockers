@@ -1,9 +1,4 @@
-import {
-  CheckCircleIcon,
-  ClockIcon,
-  HandshakeIcon,
-  XCircleIcon,
-} from "@phosphor-icons/react/ssr";
+import { CheckCircleIcon, ClockIcon, HandshakeIcon, XCircleIcon } from "@phosphor-icons/react/ssr";
 import { desc, eq } from "drizzle-orm";
 import Image from "next/image";
 import Link from "next/link";
@@ -12,13 +7,7 @@ import { db } from "@/app/db";
 import { collaborationsTable } from "@/app/db/schema";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { createClient } from "@/lib/supabase/server";
 import { WithdrawButton } from "./withdraw-button";
 
@@ -54,9 +43,8 @@ export default async function CollabPage() {
             </Badge>
             <CardTitle className="text-3xl">Apply for a Collab</CardTitle>
             <CardDescription className="max-w-2xl text-base">
-              Submit your performance reel to be featured on our Instagram,
-              YouTube, and TikTok. We&apos;ll craft the caption — you bring the
-              music.
+              Submit your performance reel to be featured on our Instagram, YouTube, and TikTok.
+              We&apos;ll craft the caption — you bring the music.
             </CardDescription>
           </CardHeader>
           <CardContent className="pt-6">
@@ -82,9 +70,7 @@ export default async function CollabPage() {
           <Card className="overflow-hidden border-border/70 bg-background/95 shadow-sm">
             <CardHeader className="border-b border-border/60 pb-4">
               <CardTitle className="text-xl">Submission History</CardTitle>
-              <CardDescription>
-                Your past collaboration submissions.
-              </CardDescription>
+              <CardDescription>Your past collaboration submissions.</CardDescription>
             </CardHeader>
             <CardContent className="pt-4 flex flex-col gap-4">
               {pastCollabs.map((collab) => (
@@ -150,8 +136,7 @@ function SubmissionStatus({
           </div>
           {collab.bandName && (
             <div>
-              <span className="text-muted-foreground">Band:</span>{" "}
-              {collab.bandName}
+              <span className="text-muted-foreground">Band:</span> {collab.bandName}
             </div>
           )}
           <div className="col-span-2">
@@ -180,9 +165,7 @@ function SubmissionStatus({
         )}
         {collab.upcomingNews && (
           <div>
-            <span className="text-sm text-muted-foreground">
-              Upcoming News:
-            </span>
+            <span className="text-sm text-muted-foreground">Upcoming News:</span>
             <p className="text-sm mt-1">{collab.upcomingNews}</p>
           </div>
         )}
@@ -208,12 +191,9 @@ function RejectionNotice({ adminNotes }: { adminNotes: string | null }) {
       <div>
         <h3 className="font-semibold">Previous Submission Declined</h3>
         <p className="text-sm text-muted-foreground mt-1">
-          Your previous submission was not accepted. You&apos;re welcome to
-          submit a new one.
+          Your previous submission was not accepted. You&apos;re welcome to submit a new one.
         </p>
-        {adminNotes && (
-          <p className="text-sm mt-2 italic">&ldquo;{adminNotes}&rdquo;</p>
-        )}
+        {adminNotes && <p className="text-sm mt-2 italic">&ldquo;{adminNotes}&rdquo;</p>}
       </div>
     </div>
   );
@@ -226,8 +206,7 @@ function ApprovalNotice() {
       <div>
         <h3 className="font-semibold">Previous Submission Approved</h3>
         <p className="text-sm text-muted-foreground mt-1">
-          Congratulations! Your last submission was approved. Feel free to
-          submit a new one.
+          Congratulations! Your last submission was approved. Feel free to submit a new one.
         </p>
       </div>
     </div>
@@ -268,9 +247,7 @@ function HistoryItem({
     },
   };
 
-  const config =
-    statusConfig[collab.status as keyof typeof statusConfig] ??
-    statusConfig.pending;
+  const config = statusConfig[collab.status as keyof typeof statusConfig] ?? statusConfig.pending;
   const Icon = config.icon;
 
   return (

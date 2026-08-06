@@ -84,18 +84,12 @@ export function EditProfileForm({ profile }: Props) {
   const [state, formAction, pending] = useActionState(updateProfile, null);
   const [preview, setPreview] = useState<string | null>(profile.avatarUrl);
   const [fileError, setFileError] = useState<string | null>(null);
-  const [collabStatus, setCollabStatus] = useState(
-    profile.collabStatus ?? false,
-  );
-  const [newsletterOptIn, setNewsletterOptIn] = useState(
-    profile.newsletterOptIn,
-  );
+  const [collabStatus, setCollabStatus] = useState(profile.collabStatus ?? false);
+  const [newsletterOptIn, setNewsletterOptIn] = useState(profile.newsletterOptIn);
   const [selectedInstruments, setSelectedInstruments] = useState<string[]>(() =>
     parseValues(profile.mainInstrument),
   );
-  const [selectedGenres, setSelectedGenres] = useState<string[]>(() =>
-    parseValues(profile.genre),
-  );
+  const [selectedGenres, setSelectedGenres] = useState<string[]>(() => parseValues(profile.genre));
 
   useEffect(() => {
     if (!state?.success || !state.preferences) return;
@@ -144,9 +138,7 @@ export function EditProfileForm({ profile }: Props) {
             className="max-w-64"
           />
         </div>
-        <p className="text-xs text-muted-foreground">
-          Max 2 MB. PNG, JPEG, or WebP.
-        </p>
+        <p className="text-xs text-muted-foreground">Max 2 MB. PNG, JPEG, or WebP.</p>
         {fileError && <p className="text-sm text-destructive">{fileError}</p>}
       </div>
 
@@ -159,9 +151,7 @@ export function EditProfileForm({ profile }: Props) {
           readOnly
           className="bg-muted cursor-not-allowed"
         />
-        <p className="text-xs text-muted-foreground">
-          Email cannot be changed.
-        </p>
+        <p className="text-xs text-muted-foreground">Email cannot be changed.</p>
       </div>
 
       <div className="flex flex-col gap-2">
@@ -173,9 +163,7 @@ export function EditProfileForm({ profile }: Props) {
           readOnly
           className="bg-muted cursor-not-allowed"
         />
-        <p className="text-xs text-muted-foreground">
-          Username cannot be changed.
-        </p>
+        <p className="text-xs text-muted-foreground">Username cannot be changed.</p>
       </div>
 
       <div className="flex flex-col gap-2">
@@ -191,10 +179,7 @@ export function EditProfileForm({ profile }: Props) {
 
       <div className="flex flex-col gap-2">
         <Label htmlFor="cityCountry">City / Country</Label>
-        <CityCountryCombobox
-          defaultValue={profile.cityCountry}
-          placeholder="Search city..."
-        />
+        <CityCountryCombobox defaultValue={profile.cityCountry} placeholder="Search city..." />
       </div>
 
       <div className="flex flex-col gap-2">
@@ -258,11 +243,7 @@ export function EditProfileForm({ profile }: Props) {
       </div>
 
       <div className="flex items-center gap-2">
-        <input
-          type="hidden"
-          name="collabStatus"
-          value={collabStatus ? "true" : "false"}
-        />
+        <input type="hidden" name="collabStatus" value={collabStatus ? "true" : "false"} />
         <Checkbox
           id="collabStatus"
           checked={collabStatus}
@@ -274,11 +255,7 @@ export function EditProfileForm({ profile }: Props) {
       </div>
 
       <div className="flex items-center gap-2">
-        <input
-          type="hidden"
-          name="newsletterOptIn"
-          value={newsletterOptIn ? "true" : "false"}
-        />
+        <input type="hidden" name="newsletterOptIn" value={newsletterOptIn ? "true" : "false"} />
         <Checkbox
           id="newsletterOptIn"
           checked={newsletterOptIn}

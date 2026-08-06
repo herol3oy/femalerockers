@@ -1,4 +1,5 @@
 <!-- BEGIN:nextjs-agent-rules -->
+
 # AI Agent Instructions
 
 ## Next.js

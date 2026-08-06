@@ -18,12 +18,6 @@
     "db:push": "dotenv -e .env.development.local -- sh -c 'supabase db push --db-url \"$DATABASE_URL\" --include-all \"$@\"' --",
     "db:push:prod": "dotenv -e .env.local -- sh -c 'supabase db push --db-url \"$MIGRATION_DATABASE_URL\" --include-all \"$@\"' --"
   },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "oxfmt --write",
-      "oxlint --fix"
-    ]
-  },
   "dependencies": {
     "@countrystatecity/countries": "^1.0.7",
     "@getbrevo/brevo": "^6.0.2",
@@ -63,5 +57,11 @@
     "supabase": "^2.109.1",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "oxfmt --write",
+      "oxlint --fix"
+    ]
   }
 }

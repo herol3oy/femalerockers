@@ -61,9 +61,7 @@ export function SubmitEntryForm({
           id="videoUrl"
           type="url"
           value={formData.videoUrl}
-          onChange={(e) =>
-            setFormData({ ...formData, videoUrl: e.target.value })
-          }
+          onChange={(e) => setFormData({ ...formData, videoUrl: e.target.value })}
           placeholder="https://youtube.com/watch?v=..."
           required
         />
@@ -77,9 +75,7 @@ export function SubmitEntryForm({
         <Textarea
           id="description"
           value={formData.description}
-          onChange={(e) =>
-            setFormData({ ...formData, description: e.target.value })
-          }
+          onChange={(e) => setFormData({ ...formData, description: e.target.value })}
           placeholder="Tell us about your entry..."
           rows={6}
           required

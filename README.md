@@ -43,22 +43,22 @@ This project uses **Drizzle ORM** for schema management and **Supabase CLI** for
 
 ### Environment files
 
-| File | Purpose |
-|---|---|
-| `.env.development.local` | Local Supabase database |
-| `.env.local` | Production Supabase database |
+| File                     | Purpose                      |
+| ------------------------ | ---------------------------- |
+| `.env.development.local` | Local Supabase database      |
+| `.env.local`             | Production Supabase database |
 
 > ⚠️ Note: `.env.local` is loaded in **all** environments including production. `.env.development.local` is only loaded when `NODE_ENV=development`. This follows Next.js conventions but is counterintuitive — `.env.local` here is intentionally used as the prod config.
 
 ### Available scripts
 
-| Script | What it does |
-|---|---|
-| `npm run db:generate` | Generate a new Drizzle migration file from schema changes |
-| `npm run db:migrate` | Apply Drizzle migrations to **local** DB |
-| `npm run db:migrate:prod` | Apply Drizzle migrations to **prod** DB |
-| `npm run db:push` | Apply Supabase SQL migrations (RLS/storage) to **local** DB |
-| `npm run db:push:prod` | Apply Supabase SQL migrations (RLS/storage) to **prod** DB |
+| Script                    | What it does                                                |
+| ------------------------- | ----------------------------------------------------------- |
+| `npm run db:generate`     | Generate a new Drizzle migration file from schema changes   |
+| `npm run db:migrate`      | Apply Drizzle migrations to **local** DB                    |
+| `npm run db:migrate:prod` | Apply Drizzle migrations to **prod** DB                     |
+| `npm run db:push`         | Apply Supabase SQL migrations (RLS/storage) to **local** DB |
+| `npm run db:push:prod`    | Apply Supabase SQL migrations (RLS/storage) to **prod** DB  |
 
 ### Migration types
 
@@ -131,18 +131,20 @@ Google sign-in is implemented via Supabase Auth's Google provider using the PKCE
 In the [Auth Platform → Clients](https://console.cloud.google.com/auth/clients) console, configure the OAuth client with:
 
 **Authorized redirect URIs:**
+
 ```
 http://127.0.0.1:54321/auth/v1/callback    # local dev
 https://<supabase-project-ref>.supabase.co/auth/v1/callback  # production
 ```
 
 **Authorized JavaScript origins:**
+
 ```
 http://localhost:3000         # local dev
 https://your-production-domain.com  # production
 ```
 
-> ⚠️ A mismatch between the redirect URI in the OAuth request and the list above causes Google to return *"Access blocked: This app's request is invalid."*
+> ⚠️ A mismatch between the redirect URI in the OAuth request and the list above causes Google to return _"Access blocked: This app's request is invalid."_
 
 ### Local development
 

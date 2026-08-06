@@ -43,9 +43,7 @@ function getChallengeStatus(endsAt: Date): "live" | "ended" {
   return new Date() > endsAt ? "ended" : "live";
 }
 
-export async function createChallenge(
-  data: Omit<InsertChallenge, "id" | "createdAt" | "slug">,
-) {
+export async function createChallenge(data: Omit<InsertChallenge, "id" | "createdAt" | "slug">) {
   const supabase = await createClient();
   const {
     data: { user },
@@ -156,9 +154,7 @@ export async function getActiveChallenge(): Promise<ChallengeWithStatus | null> 
   };
 }
 
-export async function getChallengeById(
-  id: string,
-): Promise<ChallengeWithStatus | null> {
+export async function getChallengeById(id: string): Promise<ChallengeWithStatus | null> {
   const challenge = await db.query.challengesTable.findFirst({
     where: eq(challengesTable.id, id),
   });
@@ -172,9 +168,7 @@ export async function getChallengeById(
   };
 }
 
-export async function getChallengeBySlug(
-  slug: string,
-): Promise<ChallengeWithStatus | null> {
+export async function getChallengeBySlug(slug: string): Promise<ChallengeWithStatus | null> {
   const challenge = await db.query.challengesTable.findFirst({
     where: eq(challengesTable.slug, slug),
   });

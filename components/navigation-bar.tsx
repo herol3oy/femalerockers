@@ -54,13 +54,7 @@ function NavContent({
     {
       href: "/invite",
       label: "Invite Friends",
-      show: !!(
-        user &&
-        username &&
-        isApproved &&
-        role !== "admin" &&
-        invitationIssuingEnabled
-      ),
+      show: !!(user && username && isApproved && role !== "admin" && invitationIssuingEnabled),
     },
     { href: "/collab", label: "Collab", show: !!(user && isApproved) },
     { href: "/admin", label: "Admin", show: role === "admin" },
@@ -107,18 +101,10 @@ function NavbarFallback() {
         <Link href="/interviews">Interviews</Link>
         <Link href="/about">About</Link>
         <Link href="/contact">Contact</Link>
-        <a
-          href="https://instagram.com/female_rockers"
-          target="_blank"
-          rel="noreferrer"
-        >
+        <a href="https://instagram.com/female_rockers" target="_blank" rel="noreferrer">
           Instagram
         </a>
-        <a
-          href="https://youtube.com/@FemaleRockers"
-          target="_blank"
-          rel="noreferrer"
-        >
+        <a href="https://youtube.com/@FemaleRockers" target="_blank" rel="noreferrer">
           YouTube
         </a>
       </div>

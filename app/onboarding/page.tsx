@@ -3,12 +3,7 @@ import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { db } from "@/app/db";
 import { usersTable } from "@/app/db/schema";
-import {
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { getInvitationPageState } from "@/lib/invitations/redemption";
 import { normalizeEmail } from "@/lib/invitations/validation";
 import { createClient } from "@/lib/supabase/server";
@@ -39,9 +34,7 @@ async function OnboardingContent({
   }
 
   const params = await searchParams;
-  const invitationToken = Array.isArray(params.invite)
-    ? params.invite[0]
-    : params.invite;
+  const invitationToken = Array.isArray(params.invite) ? params.invite[0] : params.invite;
   const state = await getInvitationPageState(invitationToken);
 
   if (state.state === "disabled") {
@@ -51,8 +44,7 @@ async function OnboardingContent({
           <CardHeader>
             <CardTitle>Registration is unavailable</CardTitle>
             <CardDescription>
-              Invitation redemption has been paused. Your profile cannot be
-              created right now.
+              Invitation redemption has been paused. Your profile cannot be created right now.
             </CardDescription>
           </CardHeader>
         </Card>

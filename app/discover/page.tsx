@@ -21,13 +21,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { getRoleLabel } from "@/lib/roles";
 import { createClient } from "@/lib/supabase/server";
 
@@ -53,10 +47,7 @@ function DiscoverSkeleton() {
         </div>
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {Array.from({ length: 6 }).map((_, index) => (
-            <Card
-              key={index}
-              className="border-border/70 bg-background/90 shadow-sm"
-            >
+            <Card key={index} className="border-border/70 bg-background/90 shadow-sm">
               <CardHeader className="space-y-4">
                 <Skeleton className="h-14 w-14 rounded-2xl" />
                 <Skeleton className="h-6 w-1/2" />
@@ -93,12 +84,10 @@ export async function Discover() {
               <Badge variant="destructive" className="w-fit">
                 Directory unavailable
               </Badge>
-              <CardTitle className="text-3xl">
-                Discover is temporarily offline
-              </CardTitle>
+              <CardTitle className="text-3xl">Discover is temporarily offline</CardTitle>
               <CardDescription className="max-w-2xl text-base">
-                The profile directory could not be loaded right now. Try again
-                shortly or create your own profile while the feed reconnects.
+                The profile directory could not be loaded right now. Try again shortly or create
+                your own profile while the feed reconnects.
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -112,9 +101,7 @@ export async function Discover() {
     );
   }
 
-  const users = ((data ?? []) as DiscoverUser[]).filter(
-    (user) => user.is_approved,
-  );
+  const users = ((data ?? []) as DiscoverUser[]).filter((user) => user.is_approved);
   const openToCollab = users.filter((user) => user.collab_status);
   const genres = new Set(users.map((user) => user.genre).filter(Boolean));
   const recentCount = getRecentCount(users);
@@ -135,9 +122,8 @@ export async function Discover() {
                   Find femme musicians ready to build the next project with you.
                 </h1>
                 <p className="max-w-2xl text-base text-muted-foreground sm:text-lg">
-                  Browse approved community profiles, scan instruments and
-                  genres fast, and jump straight into collaboration when someone
-                  matches your sound.
+                  Browse approved community profiles, scan instruments and genres fast, and jump
+                  straight into collaboration when someone matches your sound.
                 </p>
               </div>
               <div className="flex flex-col gap-3 sm:flex-row">
@@ -150,35 +136,23 @@ export async function Discover() {
             <Card className="border-border/70 bg-background/90 shadow-sm backdrop-blur">
               <CardHeader className="pb-4">
                 <CardDescription>Community snapshot</CardDescription>
-                <CardTitle className="text-2xl">
-                  A curated, collaboration-first directory
-                </CardTitle>
+                <CardTitle className="text-2xl">A curated, collaboration-first directory</CardTitle>
               </CardHeader>
               <CardContent className="grid gap-4 sm:grid-cols-2">
                 <div className="rounded-2xl border bg-muted/40 p-4">
-                  <p className="text-sm text-muted-foreground">
-                    Approved artists
-                  </p>
+                  <p className="text-sm text-muted-foreground">Approved artists</p>
                   <p className="mt-2 text-3xl font-semibold">{users.length}</p>
                 </div>
                 <div className="rounded-2xl border bg-muted/40 p-4">
-                  <p className="text-sm text-muted-foreground">
-                    Open to collab
-                  </p>
-                  <p className="mt-2 text-3xl font-semibold">
-                    {openToCollab.length}
-                  </p>
+                  <p className="text-sm text-muted-foreground">Open to collab</p>
+                  <p className="mt-2 text-3xl font-semibold">{openToCollab.length}</p>
                 </div>
                 <div className="rounded-2xl border bg-muted/40 p-4">
-                  <p className="text-sm text-muted-foreground">
-                    Genres represented
-                  </p>
+                  <p className="text-sm text-muted-foreground">Genres represented</p>
                   <p className="mt-2 text-3xl font-semibold">{genres.size}</p>
                 </div>
                 <div className="rounded-2xl border bg-muted/40 p-4">
-                  <p className="text-sm text-muted-foreground">
-                    Joined this month
-                  </p>
+                  <p className="text-sm text-muted-foreground">Joined this month</p>
                   <p className="mt-2 text-3xl font-semibold">{recentCount}</p>
                 </div>
               </CardContent>
@@ -191,8 +165,7 @@ export async function Discover() {
             <CardHeader>
               <CardTitle>No live profiles yet</CardTitle>
               <CardDescription>
-                Once artists are approved, they will appear here as a browsable
-                directory.
+                Once artists are approved, they will appear here as a browsable directory.
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -205,9 +178,7 @@ export async function Discover() {
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             {users.map((user) => {
               const displayName = user.artist_name || user.username;
-              const hasExternalLinks = Boolean(
-                user.instagram_url || user.video_link,
-              );
+              const hasExternalLinks = Boolean(user.instagram_url || user.video_link);
 
               return (
                 <Card
@@ -237,9 +208,7 @@ export async function Discover() {
                           </div>
                         )}
                         <div className="space-y-1">
-                          <CardTitle className="text-xl">
-                            {displayName}
-                          </CardTitle>
+                          <CardTitle className="text-xl">{displayName}</CardTitle>
                           <CardDescription>@{user.username}</CardDescription>
                         </div>
                       </div>
@@ -265,9 +234,7 @@ export async function Discover() {
                           {value}
                         </Badge>
                       ))}
-                      <Badge variant="secondary">
-                        {getRoleLabel(user.role)}
-                      </Badge>
+                      <Badge variant="secondary">{getRoleLabel(user.role)}</Badge>
                     </div>
                   </CardHeader>
 
@@ -299,11 +266,7 @@ export async function Discover() {
                       <div className="pointer-events-auto relative z-30 flex flex-wrap gap-3 pt-2">
                         {user.instagram_url ? (
                           <Button asChild variant="outline">
-                            <a
-                              href={user.instagram_url}
-                              target="_blank"
-                              rel="noreferrer"
-                            >
+                            <a href={user.instagram_url} target="_blank" rel="noreferrer">
                               <GlobeIcon className="h-4 w-4" />
                               Instagram
                               <ArrowUpRightIcon className="h-4 w-4" />
@@ -312,11 +275,7 @@ export async function Discover() {
                         ) : null}
                         {user.video_link ? (
                           <Button asChild>
-                            <a
-                              href={user.video_link}
-                              target="_blank"
-                              rel="noreferrer"
-                            >
+                            <a href={user.video_link} target="_blank" rel="noreferrer">
                               <PlayCircleIcon className="h-4 w-4" />
                               Watch clip
                             </a>
@@ -325,8 +284,8 @@ export async function Discover() {
                       </div>
                     ) : (
                       <div className="rounded-2xl border border-dashed bg-muted/30 p-4 text-sm text-muted-foreground">
-                        This artist has not added links yet, but their profile
-                        is now visible in the directory.
+                        This artist has not added links yet, but their profile is now visible in the
+                        directory.
                       </div>
                     )}
 

@@ -153,10 +153,7 @@ enabled = true
 site_url = "http://localhost:3000"
 # Allow every app route for local Auth flows. Both hostnames are included because PKCE recovery
 # must return to the same hostname and browser that initiated the request.
-additional_redirect_urls = [
-  "http://localhost:3000/**",
-  "http://127.0.0.1:3000/**",
-]
+additional_redirect_urls = ["http://localhost:3000/**", "http://127.0.0.1:3000/**"]
 # How long tokens are valid for, in seconds. Defaults to 3600 (1 hour), maximum 604,800 (1 week).
 jwt_expiry = 3600
 # JWT issuer URL. If not set, defaults to the local API URL (http://127.0.0.1:<port>/auth/v1).

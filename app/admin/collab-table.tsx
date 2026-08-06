@@ -25,9 +25,7 @@ type CollabRow = {
 
 export function CollabTable({ collabs }: { collabs: CollabRow[] }) {
   if (collabs.length === 0) {
-    return (
-      <p className="text-muted-foreground">No collaboration submissions yet.</p>
-    );
+    return <p className="text-muted-foreground">No collaboration submissions yet.</p>;
   }
 
   return (
@@ -115,12 +113,7 @@ function CollabRow({ collab }: { collab: CollabRow }) {
               <Button size="sm" disabled={isPending} onClick={handleApprove}>
                 {isPending ? "Saving…" : "Approve"}
               </Button>
-              <Button
-                size="sm"
-                variant="destructive"
-                disabled={isPending}
-                onClick={handleReject}
-              >
+              <Button size="sm" variant="destructive" disabled={isPending} onClick={handleReject}>
                 {isPending ? "Saving…" : "Reject"}
               </Button>
             </div>
@@ -136,19 +129,10 @@ function CollabRow({ collab }: { collab: CollabRow }) {
                 value={rejectNotes}
                 onChange={(e) => setRejectNotes(e.target.value)}
               />
-              <Button
-                size="sm"
-                variant="destructive"
-                disabled={isPending}
-                onClick={handleReject}
-              >
+              <Button size="sm" variant="destructive" disabled={isPending} onClick={handleReject}>
                 Confirm Reject
               </Button>
-              <Button
-                size="sm"
-                variant="outline"
-                onClick={() => setShowRejectInput(false)}
-              >
+              <Button size="sm" variant="outline" onClick={() => setShowRejectInput(false)}>
                 Cancel
               </Button>
             </div>
@@ -160,16 +144,12 @@ function CollabRow({ collab }: { collab: CollabRow }) {
           <td colSpan={6} className="px-4 py-4">
             <div className="flex flex-col gap-3 max-w-2xl">
               <div>
-                <span className="text-xs font-medium text-muted-foreground uppercase">
-                  Bio
-                </span>
+                <span className="text-xs font-medium text-muted-foreground uppercase">Bio</span>
                 <p className="text-sm mt-1">{collab.bio}</p>
               </div>
               {collab.bandName && (
                 <div>
-                  <span className="text-xs font-medium text-muted-foreground uppercase">
-                    Band
-                  </span>
+                  <span className="text-xs font-medium text-muted-foreground uppercase">Band</span>
                   <p className="text-sm mt-1">{collab.bandName}</p>
                 </div>
               )}

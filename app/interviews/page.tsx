@@ -5,12 +5,7 @@ import { Suspense } from "react";
 import { interviewsListQuery } from "@/app/interviews/queries";
 import type { InterviewListItem } from "@/app/interviews/types";
 import { Badge } from "@/components/ui/badge";
-import {
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { sanityClient } from "@/lib/sanity/client";
 import { urlFor } from "@/lib/sanity/image";
@@ -43,8 +38,7 @@ function InterviewsSkeleton() {
 }
 
 async function InterviewsList() {
-  const interviews =
-    await sanityClient.fetch<InterviewListItem[]>(interviewsListQuery);
+  const interviews = await sanityClient.fetch<InterviewListItem[]>(interviewsListQuery);
 
   return (
     <section className="min-h-screen bg-[radial-gradient(circle_at_top,hsl(var(--secondary))_0%,transparent_45%),linear-gradient(to_bottom,hsl(var(--background)),hsl(var(--muted)/0.35))]">
@@ -58,8 +52,8 @@ async function InterviewsList() {
               Stories from female musicians around the world.
             </h1>
             <p className="max-w-2xl text-base text-muted-foreground sm:text-lg">
-              Read in-depth interviews with artists from our community — their
-              journeys, creative process, and advice for fellow musicians.
+              Read in-depth interviews with artists from our community — their journeys, creative
+              process, and advice for fellow musicians.
             </p>
           </div>
         </div>
@@ -89,10 +83,7 @@ async function InterviewsList() {
                 {/* Background Image with grayscale and hover effect */}
                 {interview.profileImage ? (
                   <Image
-                    src={urlFor(interview.profileImage)
-                      .width(600)
-                      .height(800)
-                      .url()}
+                    src={urlFor(interview.profileImage).width(600).height(800).url()}
                     alt={interview.stageName}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -121,9 +112,7 @@ async function InterviewsList() {
                       )}
 
                       <div className="flex flex-wrap items-center gap-x-2 gap-y-1 pt-1">
-                        <p className="text-sm font-medium text-white/90">
-                          {interview.stageName}
-                        </p>
+                        <p className="text-sm font-medium text-white/90">{interview.stageName}</p>
 
                         {interview.country && (
                           <>
@@ -137,20 +126,19 @@ async function InterviewsList() {
                       </div>
                     </div>
 
-                    {interview.profession &&
-                      interview.profession.length > 0 && (
-                        <div className="flex flex-wrap gap-2">
-                          {interview.profession.map((p) => (
-                            <Badge
-                              key={p}
-                              variant="secondary"
-                              className="border-none bg-white/20 text-white backdrop-blur-md"
-                            >
-                              {p}
-                            </Badge>
-                          ))}
-                        </div>
-                      )}
+                    {interview.profession && interview.profession.length > 0 && (
+                      <div className="flex flex-wrap gap-2">
+                        {interview.profession.map((p) => (
+                          <Badge
+                            key={p}
+                            variant="secondary"
+                            className="border-none bg-white/20 text-white backdrop-blur-md"
+                          >
+                            {p}
+                          </Badge>
+                        ))}
+                      </div>
+                    )}
 
                     {interview.date && (
                       <p className="pt-1 text-xs text-white/60">

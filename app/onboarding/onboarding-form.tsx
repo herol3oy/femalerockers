@@ -13,20 +13,14 @@ import { completeOnboarding } from "./actions";
 
 const MAX_AVATAR_SIZE = 2 * 1024 * 1024;
 
-export function OnboardingForm({
-  invitationToken,
-}: {
-  invitationToken: string;
-}) {
+export function OnboardingForm({ invitationToken }: { invitationToken: string }) {
   const [state, formAction, pending] = useActionState(completeOnboarding, null);
   const [preview, setPreview] = useState<string | null>(null);
   const [fileError, setFileError] = useState<string | null>(null);
   const [newsletter, setNewsletter] = useState(false);
   const [selectedRole, setSelectedRole] = useState<string>("");
 
-  const roleConfig = selectedRole
-    ? ROLE_CONFIGS[selectedRole as keyof typeof ROLE_CONFIGS]
-    : null;
+  const roleConfig = selectedRole ? ROLE_CONFIGS[selectedRole as keyof typeof ROLE_CONFIGS] : null;
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -47,8 +41,7 @@ export function OnboardingForm({
         <div className="flex flex-col gap-2">
           <h1 className="text-2xl font-bold">Complete your profile</h1>
           <p className="text-sm text-muted-foreground">
-            Choose your role and fill in the details to get started on Female
-            Rockers.
+            Choose your role and fill in the details to get started on Female Rockers.
           </p>
         </div>
 
@@ -58,12 +51,7 @@ export function OnboardingForm({
             <Label className="text-base font-semibold">
               I am a… <span className="text-destructive">*</span>
             </Label>
-            <RadioGroup
-              name="role"
-              value={selectedRole}
-              onValueChange={setSelectedRole}
-              required
-            >
+            <RadioGroup name="role" value={selectedRole} onValueChange={setSelectedRole} required>
               {USER_ROLES.map((role) => {
                 const config = ROLE_CONFIGS[role];
                 return (
@@ -72,18 +60,10 @@ export function OnboardingForm({
                     htmlFor={`role-${role}`}
                     className="flex items-start gap-3 rounded-lg border p-4 cursor-pointer transition-colors hover:bg-accent has-[:checked]:border-primary has-[:checked]:bg-accent/50"
                   >
-                    <RadioGroupItem
-                      value={role}
-                      id={`role-${role}`}
-                      className="mt-0.5"
-                    />
+                    <RadioGroupItem value={role} id={`role-${role}`} className="mt-0.5" />
                     <div className="flex flex-col gap-0.5">
-                      <span className="font-medium text-sm">
-                        {config.label}
-                      </span>
-                      <span className="text-xs text-muted-foreground">
-                        {config.description}
-                      </span>
+                      <span className="font-medium text-sm">{config.label}</span>
+                      <span className="text-xs text-muted-foreground">{config.description}</span>
                     </div>
                   </Label>
                 );
@@ -120,12 +100,8 @@ export function OnboardingForm({
                     className="max-w-64"
                   />
                 </div>
-                <p className="text-xs text-muted-foreground">
-                  Max 2 MB. PNG, JPEG, or WebP.
-                </p>
-                {fileError && (
-                  <p className="text-sm text-destructive">{fileError}</p>
-                )}
+                <p className="text-xs text-muted-foreground">Max 2 MB. PNG, JPEG, or WebP.</p>
+                {fileError && <p className="text-sm text-destructive">{fileError}</p>}
               </div>
 
               <div className="flex flex-col gap-2">
@@ -142,8 +118,8 @@ export function OnboardingForm({
                   pattern="^[a-zA-Z0-9_]+$"
                 />
                 <p className="text-xs text-muted-foreground">
-                  Letters, numbers, and underscores only. This will be your
-                  public URL and cannot be changed later.
+                  Letters, numbers, and underscores only. This will be your public URL and cannot be
+                  changed later.
                 </p>
               </div>
 
@@ -164,9 +140,7 @@ export function OnboardingForm({
                     <div key={field.id} className="flex flex-col gap-2">
                       <Label htmlFor={field.id}>
                         {field.label}
-                        {field.required && (
-                          <span className="text-destructive"> *</span>
-                        )}
+                        {field.required && <span className="text-destructive"> *</span>}
                       </Label>
                       <textarea
                         id={field.id}
@@ -185,9 +159,7 @@ export function OnboardingForm({
                     <div key={field.id} className="flex flex-col gap-2">
                       <Label htmlFor={field.id}>
                         {field.label}
-                        {field.required && (
-                          <span className="text-destructive"> *</span>
-                        )}
+                        {field.required && <span className="text-destructive"> *</span>}
                       </Label>
                       <CityCountryCombobox
                         name={field.id}
@@ -202,9 +174,7 @@ export function OnboardingForm({
                   <div key={field.id} className="flex flex-col gap-2">
                     <Label htmlFor={field.id}>
                       {field.label}
-                      {field.required && (
-                        <span className="text-destructive"> *</span>
-                      )}
+                      {field.required && <span className="text-destructive"> *</span>}
                     </Label>
                     <Input
                       id={field.id}
@@ -232,9 +202,7 @@ export function OnboardingForm({
             </>
           )}
 
-          {state?.error && (
-            <p className="text-sm text-destructive">{state.error}</p>
-          )}
+          {state?.error && <p className="text-sm text-destructive">{state.error}</p>}
 
           <Button type="submit" disabled={pending || !selectedRole}>
             {pending ? "Saving…" : "Complete Setup"}

@@ -6,13 +6,7 @@ import { Suspense } from "react";
 import { db } from "@/app/db";
 import { usersTable } from "@/app/db/schema";
 import { Badge } from "@/components/ui/badge";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { createClient } from "@/lib/supabase/server";
 import { EditProfileForm } from "../edit-profile-form";
@@ -58,11 +52,7 @@ async function EditProfileContent() {
     redirect("/auth/login");
   }
 
-  const rows = await db
-    .select()
-    .from(usersTable)
-    .where(eq(usersTable.id, user.id))
-    .limit(1);
+  const rows = await db.select().from(usersTable).where(eq(usersTable.id, user.id)).limit(1);
 
   if (rows.length === 0) {
     redirect("/onboarding");
@@ -81,8 +71,7 @@ async function EditProfileContent() {
             </Badge>
             <CardTitle className="text-3xl">Update your profile</CardTitle>
             <CardDescription className="max-w-2xl text-base">
-              Changes will be reflected on your public profile in the discover
-              directory.
+              Changes will be reflected on your public profile in the discover directory.
             </CardDescription>
           </CardHeader>
           <CardContent className="pt-6">

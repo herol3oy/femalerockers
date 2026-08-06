@@ -78,10 +78,7 @@ export async function getAdminInvitationData() {
     issuingEnabled,
     invitations,
     statuses,
-    attemptsRemaining: Math.max(
-      0,
-      MAX_ADMIN_ATTEMPTS_PER_DAY - Number(attempts?.value ?? 0),
-    ),
+    attemptsRemaining: Math.max(0, MAX_ADMIN_ATTEMPTS_PER_DAY - Number(attempts?.value ?? 0)),
   };
 }
 

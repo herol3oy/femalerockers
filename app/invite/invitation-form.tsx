@@ -6,11 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { sendMemberInvitation } from "@/lib/invitations/actions";
 
-export function MemberInvitationForm({
-  remainingSlots,
-}: {
-  remainingSlots: number;
-}) {
+export function MemberInvitationForm({ remainingSlots }: { remainingSlots: number }) {
   const id = useId();
   const [notice, setNotice] = useState<{
     success: boolean;
@@ -52,11 +48,7 @@ export function MemberInvitationForm({
       </Button>
       {notice ? (
         <p
-          className={
-            notice.success
-              ? "text-sm text-muted-foreground"
-              : "text-sm text-destructive"
-          }
+          className={notice.success ? "text-sm text-muted-foreground" : "text-sm text-destructive"}
           aria-live="polite"
         >
           {notice.text}

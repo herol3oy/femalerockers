@@ -13,12 +13,7 @@ export async function getReviewsLikeCounts(reviewIds: string[]) {
     })
     .from(songReviewLikesTable)
     .innerJoin(usersTable, eq(songReviewLikesTable.userId, usersTable.id))
-    .where(
-      and(
-        inArray(songReviewLikesTable.reviewId, reviewIds),
-        isNull(usersTable.deactivatedAt),
-      ),
-    )
+    .where(and(inArray(songReviewLikesTable.reviewId, reviewIds), isNull(usersTable.deactivatedAt)))
     .groupBy(songReviewLikesTable.reviewId);
 
   const counts: Record<string, number> = {};
@@ -38,12 +33,7 @@ export async function getReviewLikes(reviewId: string) {
     .select({ total: count() })
     .from(songReviewLikesTable)
     .innerJoin(usersTable, eq(songReviewLikesTable.userId, usersTable.id))
-    .where(
-      and(
-        eq(songReviewLikesTable.reviewId, reviewId),
-        isNull(usersTable.deactivatedAt),
-      ),
-    );
+    .where(and(eq(songReviewLikesTable.reviewId, reviewId), isNull(usersTable.deactivatedAt)));
 
   const likeCount = Number(result?.total ?? 0);
 
@@ -55,10 +45,7 @@ export async function getReviewLikes(reviewId: string) {
     .select({ id: songReviewLikesTable.id })
     .from(songReviewLikesTable)
     .where(
-      and(
-        eq(songReviewLikesTable.reviewId, reviewId),
-        eq(songReviewLikesTable.userId, user.id),
-      ),
+      and(eq(songReviewLikesTable.reviewId, reviewId), eq(songReviewLikesTable.userId, user.id)),
     )
     .limit(1);
 

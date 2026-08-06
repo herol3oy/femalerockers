@@ -12,11 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 
-export function ChallengeForm({
-  challenge,
-}: {
-  challenge?: ChallengeWithStatus;
-}) {
+export function ChallengeForm({ challenge }: { challenge?: ChallengeWithStatus }) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
@@ -24,9 +20,7 @@ export function ChallengeForm({
   const [formData, setFormData] = useState({
     title: challenge?.title || "",
     description: challenge?.description || "",
-    endsAt: challenge?.endsAt
-      ? new Date(challenge.endsAt).toISOString().slice(0, 16)
-      : "",
+    endsAt: challenge?.endsAt ? new Date(challenge.endsAt).toISOString().slice(0, 16) : "",
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -81,9 +75,7 @@ export function ChallengeForm({
         <Textarea
           id="description"
           value={formData.description}
-          onChange={(e) =>
-            setFormData({ ...formData, description: e.target.value })
-          }
+          onChange={(e) => setFormData({ ...formData, description: e.target.value })}
           placeholder="Describe the challenge"
           rows={6}
           required
@@ -114,11 +106,7 @@ export function ChallengeForm({
               ? "Update Challenge"
               : "Create Challenge"}
         </Button>
-        <Button
-          type="button"
-          variant="outline"
-          onClick={() => router.push("/admin/challenges")}
-        >
+        <Button type="button" variant="outline" onClick={() => router.push("/admin/challenges")}>
           Cancel
         </Button>
       </div>

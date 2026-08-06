@@ -21,15 +21,9 @@ export function ReactivateForm() {
 
   return (
     <div className="space-y-4">
-      {state?.error ? (
-        <p className="text-sm text-destructive">{state.error}</p>
-      ) : null}
+      {state?.error ? <p className="text-sm text-destructive">{state.error}</p> : null}
       <form action={formAction}>
-        <Button
-          type="submit"
-          className="w-full"
-          disabled={pending || signingOut}
-        >
+        <Button type="submit" className="w-full" disabled={pending || signingOut}>
           {pending ? "Reactivating…" : "Reactivate my account"}
         </Button>
       </form>

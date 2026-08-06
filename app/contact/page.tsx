@@ -72,9 +72,7 @@ export default function ContactPage() {
   return (
     <main className="mx-auto w-full max-w-4xl px-6 py-14 sm:px-8 sm:py-20">
       <header className="space-y-4">
-        <h1 className="font-heading text-4xl font-semibold tracking-tight sm:text-5xl">
-          Contact
-        </h1>
+        <h1 className="font-heading text-4xl font-semibold tracking-tight sm:text-5xl">Contact</h1>
         <p className="text-base text-muted-foreground sm:text-lg">
           Send us a message. We read every note.
         </p>
@@ -95,13 +93,7 @@ export default function ContactPage() {
           <Label htmlFor={fullNameId}>
             Full name <span className="text-destructive">*</span>
           </Label>
-          <Input
-            id={fullNameId}
-            name="name"
-            autoComplete="name"
-            placeholder="Your name"
-            required
-          />
+          <Input id={fullNameId} name="name" autoComplete="name" placeholder="Your name" required />
         </div>
 
         <div className="grid gap-2">
@@ -133,8 +125,7 @@ export default function ContactPage() {
         </div>
 
         <p className="text-sm leading-6 text-muted-foreground">
-          We use the information you provide to respond to your message. Learn
-          more in our{" "}
+          We use the information you provide to respond to your message. Learn more in our{" "}
           <Link
             href="/privacy"
             className="font-medium text-foreground underline underline-offset-4 hover:text-foreground/80"
@@ -159,8 +150,7 @@ export default function ContactPage() {
             </Card>
           ) : (
             <p className="text-sm text-muted-foreground">
-              Fields marked <span className="text-destructive">*</span> are
-              required.
+              Fields marked <span className="text-destructive">*</span> are required.
             </p>
           )}
         </div>
