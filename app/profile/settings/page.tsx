@@ -7,6 +7,7 @@ import { db } from "@/app/db";
 import { usersTable } from "@/app/db/schema";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   Card,
   CardContent,
@@ -68,14 +69,14 @@ function AccountSettingsSkeleton() {
     <section className="min-h-screen">
       <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
         <Card className="border-border/70 bg-background/95 shadow-sm">
-          <CardHeader className="animate-pulse space-y-3">
-            <div className="h-6 w-36 rounded-md bg-muted" />
-            <div className="h-9 w-64 rounded-lg bg-muted" />
-            <div className="h-5 w-full max-w-xl rounded-lg bg-muted" />
+          <CardHeader className="space-y-3">
+            <Skeleton className="h-6 w-36" />
+            <Skeleton className="h-9 w-64" />
+            <Skeleton className="h-5 w-full max-w-xl" />
           </CardHeader>
-          <CardContent className="animate-pulse space-y-4">
-            <div className="h-32 rounded-2xl bg-muted" />
-            <div className="h-32 rounded-2xl bg-muted" />
+          <CardContent className="space-y-4">
+            <Skeleton className="h-32 rounded-2xl" />
+            <Skeleton className="h-32 rounded-2xl" />
           </CardContent>
         </Card>
       </div>

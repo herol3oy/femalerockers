@@ -17,6 +17,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { sanityClient } from "@/lib/sanity/client";
 import { urlFor } from "@/lib/sanity/image";
+import { Skeleton } from "@/components/ui/skeleton";
 
 type Params = Promise<{ slug: string }>;
 
@@ -199,13 +200,13 @@ async function InterviewContent({ params }: { params: Params }) {
 function InterviewSkeleton() {
   return (
     <section className="min-h-screen bg-[radial-gradient(circle_at_top,hsl(var(--secondary))_0%,transparent_45%),linear-gradient(to_bottom,hsl(var(--background)),hsl(var(--muted)/0.35))]">
-      <div className="flex flex-col max-w-4xl gap-8 px-4 py-8 mx-auto sm:px-6 lg:px-8 lg:py-12 animate-pulse">
-        <div className="w-24 h-4 rounded bg-muted" />
-        <div className="w-full rounded-3xl aspect-21/9 bg-muted" />
+      <div className="flex flex-col max-w-4xl gap-8 px-4 py-8 mx-auto sm:px-6 lg:px-8 lg:py-12">
+        <Skeleton className="h-4 w-24" />
+        <Skeleton className="aspect-21/9 w-full rounded-3xl" />
         <div className="space-y-4 border shadow-sm rounded-3xl bg-background/95 p-8">
-          <div className="w-24 h-24 rounded-2xl bg-muted" />
-          <div className="w-1/2 h-8 rounded-lg bg-muted" />
-          <div className="w-1/3 h-4 rounded bg-muted" />
+          <Skeleton className="h-24 w-24 rounded-2xl" />
+          <Skeleton className="h-8 w-1/2" />
+          <Skeleton className="h-4 w-1/3" />
         </div>
       </div>
     </section>

@@ -19,6 +19,7 @@ import { usersTable } from "@/app/db/schema";
 import { formatJoinedDate, getInitials } from "@/app/discover/discover-data";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   Card,
   CardContent,
@@ -49,48 +50,48 @@ function DiscoverProfileSkeleton() {
     <section className="min-h-screen bg-[radial-gradient(circle_at_top,_hsl(var(--secondary))_0%,_transparent_45%),linear-gradient(to_bottom,_hsl(var(--background)),_hsl(var(--muted)/0.35))]">
       <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div className="h-10 w-40 animate-pulse rounded-md bg-muted" />
-          <div className="h-8 w-32 animate-pulse rounded-md bg-muted" />
+          <Skeleton className="h-10 w-40" />
+          <Skeleton className="h-8 w-32" />
         </div>
 
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1.35fr)_320px] lg:items-start">
           <Card className="overflow-hidden border-border/70 bg-background/95 shadow-sm">
             <CardHeader className="gap-6 border-b border-border/60 pb-8 sm:flex-row sm:items-start sm:justify-between">
               <div className="flex items-start gap-5">
-                <div className="h-20 w-20 animate-pulse rounded-3xl bg-muted" />
+                <Skeleton className="h-20 w-20 rounded-3xl" />
                 <div className="space-y-3">
-                  <div className="h-10 w-56 animate-pulse rounded-xl bg-muted" />
-                  <div className="h-5 w-32 animate-pulse rounded-lg bg-muted" />
+                  <Skeleton className="h-10 w-56" />
+                  <Skeleton className="h-5 w-32" />
                   <div className="flex flex-wrap gap-2">
-                    <div className="h-6 w-24 animate-pulse rounded-md bg-muted" />
-                    <div className="h-6 w-28 animate-pulse rounded-md bg-muted" />
-                    <div className="h-6 w-32 animate-pulse rounded-md bg-muted" />
+                    <Skeleton className="h-6 w-24" />
+                    <Skeleton className="h-6 w-28" />
+                    <Skeleton className="h-6 w-32" />
                   </div>
                 </div>
               </div>
 
-              <div className="h-28 w-full animate-pulse rounded-2xl bg-muted sm:w-56" />
+              <Skeleton className="h-28 w-full sm:w-56" />
             </CardHeader>
 
             <CardContent className="grid gap-6 pt-6 lg:grid-cols-[minmax(0,1fr)_240px]">
               <div className="space-y-4">
-                <div className="h-6 w-20 animate-pulse rounded-lg bg-muted" />
-                <div className="h-4 w-full animate-pulse rounded-lg bg-muted" />
-                <div className="h-4 w-11/12 animate-pulse rounded-lg bg-muted" />
-                <div className="h-4 w-4/5 animate-pulse rounded-lg bg-muted" />
+                <Skeleton className="h-6 w-20" />
+                <Skeleton className="h-4 w-full" />
+                <Skeleton className="h-4 w-11/12" />
+                <Skeleton className="h-4 w-4/5" />
                 <div className="flex gap-3 pt-2">
-                  <div className="h-10 w-32 animate-pulse rounded-md bg-muted" />
-                  <div className="h-10 w-32 animate-pulse rounded-md bg-muted" />
+                  <Skeleton className="h-10 w-32" />
+                  <Skeleton className="h-10 w-32" />
                 </div>
               </div>
 
               <Card className="border-border/60 bg-muted/25 shadow-none">
                 <CardHeader className="pb-3">
-                  <div className="h-5 w-28 animate-pulse rounded-lg bg-muted" />
+                  <Skeleton className="h-5 w-28" />
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="h-12 animate-pulse rounded-xl bg-muted" />
-                  <div className="h-12 animate-pulse rounded-xl bg-muted" />
+                  <Skeleton className="h-12" />
+                  <Skeleton className="h-12" />
                 </CardContent>
               </Card>
             </CardContent>
@@ -98,13 +99,13 @@ function DiscoverProfileSkeleton() {
 
           <Card className="border-border/70 bg-background/90 shadow-sm">
             <CardHeader>
-              <div className="h-4 w-24 animate-pulse rounded-lg bg-muted" />
-              <div className="h-8 w-48 animate-pulse rounded-xl bg-muted" />
+              <Skeleton className="h-4 w-24" />
+              <Skeleton className="h-8 w-48" />
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="h-4 w-full animate-pulse rounded-lg bg-muted" />
-              <div className="h-4 w-5/6 animate-pulse rounded-lg bg-muted" />
-              <div className="h-10 w-full animate-pulse rounded-md bg-muted" />
+              <Skeleton className="h-4 w-full" />
+              <Skeleton className="h-4 w-5/6" />
+              <Skeleton className="h-10 w-full" />
             </CardContent>
           </Card>
         </div>

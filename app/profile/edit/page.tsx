@@ -13,6 +13,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import { createClient } from "@/lib/supabase/server";
 import { EditProfileForm } from "../edit-profile-form";
 
@@ -21,16 +22,16 @@ function EditProfileSkeleton() {
     <section className="min-h-screen bg-[radial-gradient(circle_at_top,_hsl(var(--secondary))_0%,_transparent_45%),linear-gradient(to_bottom,_hsl(var(--background)),_hsl(var(--muted)/0.35))]">
       <div className="mx-auto flex max-w-4xl flex-col gap-6 px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
         <Card className="overflow-hidden border-border/70 bg-background/95 shadow-sm">
-          <CardHeader className="animate-pulse space-y-4 border-b border-border/60 pb-8">
-            <div className="h-6 w-28 rounded-md bg-muted" />
-            <div className="h-10 w-56 rounded-xl bg-muted" />
-            <div className="h-5 w-2/3 rounded-lg bg-muted" />
+          <CardHeader className="space-y-4 border-b border-border/60 pb-8">
+            <Skeleton className="h-6 w-28" />
+            <Skeleton className="h-10 w-56" />
+            <Skeleton className="h-5 w-2/3" />
           </CardHeader>
-          <CardContent className="animate-pulse space-y-4 pt-6">
+          <CardContent className="space-y-4 pt-6">
             {Array.from({ length: 5 }).map((_, i) => (
               <div key={i} className="space-y-2">
-                <div className="h-4 w-24 rounded-lg bg-muted" />
-                <div className="h-10 w-full max-w-md rounded-lg bg-muted" />
+                <Skeleton className="h-4 w-24" />
+                <Skeleton className="h-10 w-full max-w-md" />
               </div>
             ))}
           </CardContent>

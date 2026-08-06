@@ -1,4 +1,5 @@
 import { LoginForm } from "@/components/login-form";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Suspense } from "react";
 
 async function LoginContent({
@@ -29,12 +30,12 @@ async function LoginContent({
 function LoginSkeleton() {
   return (
     <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
-      <div className="w-full max-w-sm animate-pulse rounded-xl border p-6">
-        <div className="h-8 w-24 rounded-lg bg-muted" />
-        <div className="mt-3 h-4 w-64 rounded-lg bg-muted" />
-        <div className="mt-8 h-10 w-full rounded-lg bg-muted" />
-        <div className="mt-5 h-10 w-full rounded-lg bg-muted" />
-        <div className="mt-6 h-9 w-full rounded-full bg-muted" />
+      <div className="w-full max-w-sm rounded-xl border p-6">
+        <Skeleton className="h-8 w-24" />
+        <Skeleton className="mt-3 h-4 w-64" />
+        <Skeleton className="mt-8 h-10 w-full" />
+        <Skeleton className="mt-5 h-10 w-full" />
+        <Skeleton className="mt-6 h-9 w-full rounded-full" />
       </div>
     </div>
   );

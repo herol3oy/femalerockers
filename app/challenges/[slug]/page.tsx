@@ -6,6 +6,7 @@ import {
   getChallengeParticipations,
   getUserParticipation,
 } from "@/app/challenge/actions";
+import { Skeleton } from "@/components/ui/skeleton";
 import { ChallengeView } from "./challenge-view";
 
 async function ChallengeContent({
@@ -38,12 +39,12 @@ function ChallengeSkeleton() {
   return (
     <div className="container mx-auto max-w-4xl space-y-8 p-6">
       <div className="space-y-4 rounded-xl border border-border/70 bg-card p-6">
-        <div className="h-8 w-3/4 animate-pulse rounded bg-muted" />
-        <div className="h-4 w-1/4 animate-pulse rounded bg-muted" />
+        <Skeleton className="h-8 w-3/4" />
+        <Skeleton className="h-4 w-1/4" />
         <div className="space-y-2">
-          <div className="h-4 w-full animate-pulse rounded bg-muted" />
-          <div className="h-4 w-full animate-pulse rounded bg-muted" />
-          <div className="h-4 w-2/3 animate-pulse rounded bg-muted" />
+          <Skeleton className="h-4 w-full" />
+          <Skeleton className="h-4 w-full" />
+          <Skeleton className="h-4 w-2/3" />
         </div>
       </div>
     </div>

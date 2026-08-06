@@ -7,6 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import { sanityClient } from "@/lib/sanity/client";
 import { songReviewsListQuery } from "../interviews/queries";
 import type { SongReviewListItem } from "../interviews/types";
@@ -18,10 +19,10 @@ function SongReviewsSkeleton() {
   return (
     <section className="min-h-screen bg-[radial-gradient(circle_at_top,hsl(var(--secondary))_0%,transparent_45%),linear-gradient(to_bottom,hsl(var(--background)),hsl(var(--muted)/0.35))]">
       <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
-        <div className="overflow-hidden rounded-3xl border bg-background/95 p-8 shadow-sm animate-pulse">
-          <div className="h-6 w-32 rounded-md bg-muted" />
-          <div className="mt-4 h-12 w-full max-w-2xl rounded-xl bg-muted" />
-          <div className="mt-3 h-5 w-full max-w-3xl rounded-lg bg-muted" />
+        <div className="overflow-hidden rounded-3xl border bg-background/95 p-8 shadow-sm">
+          <Skeleton className="h-6 w-32" />
+          <Skeleton className="mt-4 h-12 w-full max-w-2xl" />
+          <Skeleton className="mt-3 h-5 w-full max-w-3xl" />
         </div>
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {Array.from({ length: 6 }).map((_, i) => (
@@ -29,9 +30,9 @@ function SongReviewsSkeleton() {
               key={`skeleton-${i.toString()}`}
               className="min-h-87.5 border-border/70 bg-background/90 shadow-sm"
             >
-              <CardHeader className="flex h-full flex-col justify-end animate-pulse space-y-4">
-                <div className="h-6 w-1/2 rounded-lg bg-muted" />
-                <div className="h-4 w-2/3 rounded-lg bg-muted" />
+              <CardHeader className="flex h-full flex-col justify-end space-y-4">
+                <Skeleton className="h-6 w-1/2" />
+                <Skeleton className="h-4 w-2/3" />
               </CardHeader>
             </Card>
           ))}

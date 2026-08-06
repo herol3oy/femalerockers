@@ -12,6 +12,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import { createClient } from "@/lib/supabase/server";
 import { ReactivateForm } from "./reactivate-form";
 
@@ -65,14 +66,14 @@ function ReactivateAccountSkeleton() {
   return (
     <section className="flex min-h-svh items-center justify-center p-6">
       <Card className="w-full max-w-md border-border/70 bg-background/95 shadow-sm">
-        <CardHeader className="animate-pulse space-y-3">
-          <div className="h-6 w-40 rounded-md bg-muted" />
-          <div className="h-8 w-48 rounded-lg bg-muted" />
-          <div className="h-5 w-full rounded-lg bg-muted" />
+        <CardHeader className="space-y-3">
+          <Skeleton className="h-6 w-40" />
+          <Skeleton className="h-8 w-48" />
+          <Skeleton className="h-5 w-full" />
         </CardHeader>
-        <CardContent className="animate-pulse space-y-3">
-          <div className="h-9 w-full rounded-full bg-muted" />
-          <div className="h-9 w-full rounded-full bg-muted" />
+        <CardContent className="space-y-3">
+          <Skeleton className="h-9 w-full rounded-full" />
+          <Skeleton className="h-9 w-full rounded-full" />
         </CardContent>
       </Card>
     </section>

@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { getActiveChallenge, getUserParticipation } from "../actions";
+import { Skeleton } from "@/components/ui/skeleton";
 import { SubmitEntryForm } from "./submit-entry-form";
 
 async function SubmitEntryContent() {
@@ -12,7 +13,7 @@ async function SubmitEntryContent() {
 
   const userParticipation = await getUserParticipation(challenge.id);
 
-  if (!userParticipation || userParticipation.status !== "committed") {
+  if (userParticipation?.status !== "committed") {
     redirect("/challenge");
   }
 
@@ -36,8 +37,8 @@ async function SubmitEntryContent() {
 function SubmitEntrySkeleton() {
   return (
     <div className="container mx-auto max-w-2xl space-y-8 p-6">
-      <div className="h-8 w-48 animate-pulse rounded bg-muted" />
-      <div className="h-32 animate-pulse rounded bg-muted" />
+      <Skeleton className="h-8 w-48" />
+      <Skeleton className="h-32" />
     </div>
   );
 }

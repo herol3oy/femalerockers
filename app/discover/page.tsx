@@ -20,6 +20,7 @@ import {
 } from "@/app/discover/discover-data";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   Card,
   CardContent,
@@ -44,10 +45,10 @@ function DiscoverSkeleton() {
     <section className="min-h-screen bg-[radial-gradient(circle_at_top,hsl(var(--secondary))_0%,transparent_45%),linear-gradient(to_bottom,hsl(var(--background)),hsl(var(--muted)/0.35))]">
       <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
         <div className="overflow-hidden rounded-3xl border bg-background/95 p-8 shadow-sm">
-          <div className="flex flex-col gap-4 animate-pulse">
-            <div className="h-6 w-32 rounded-md bg-muted" />
-            <div className="h-12 w-full max-w-2xl rounded-xl bg-muted" />
-            <div className="h-5 w-full max-w-3xl rounded-lg bg-muted" />
+          <div className="flex flex-col gap-4">
+            <Skeleton className="h-6 w-32" />
+            <Skeleton className="h-12 w-full max-w-2xl" />
+            <Skeleton className="h-5 w-full max-w-3xl" />
           </div>
         </div>
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
@@ -56,15 +57,15 @@ function DiscoverSkeleton() {
               key={index}
               className="border-border/70 bg-background/90 shadow-sm"
             >
-              <CardHeader className="animate-pulse space-y-4">
-                <div className="h-14 w-14 rounded-2xl bg-muted" />
-                <div className="h-6 w-1/2 rounded-lg bg-muted" />
-                <div className="h-4 w-2/3 rounded-lg bg-muted" />
+              <CardHeader className="space-y-4">
+                <Skeleton className="h-14 w-14 rounded-2xl" />
+                <Skeleton className="h-6 w-1/2" />
+                <Skeleton className="h-4 w-2/3" />
               </CardHeader>
-              <CardContent className="space-y-3 animate-pulse">
-                <div className="h-4 w-full rounded-lg bg-muted" />
-                <div className="h-4 w-5/6 rounded-lg bg-muted" />
-                <div className="h-10 w-full rounded-xl bg-muted" />
+              <CardContent className="space-y-3">
+                <Skeleton className="h-4 w-full" />
+                <Skeleton className="h-4 w-5/6" />
+                <Skeleton className="h-10 w-full" />
               </CardContent>
             </Card>
           ))}
