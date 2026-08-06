@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useActionState, useState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import { CityCountryCombobox } from "@/components/city-country-combobox";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -42,6 +42,19 @@ export function EditProfileForm({ profile }: Props) {
   const [state, formAction, pending] = useActionState(updateProfile, null);
   const [preview, setPreview] = useState<string | null>(profile.avatarUrl);
   const [fileError, setFileError] = useState<string | null>(null);
+  const [collabStatus, setCollabStatus] = useState(
+    profile.collabStatus ?? false,
+  );
+  const [newsletterOptIn, setNewsletterOptIn] = useState(
+    profile.newsletterOptIn,
+  );
+
+  useEffect(() => {
+    if (!state?.success || !state.preferences) return;
+
+    setCollabStatus(state.preferences.collabStatus);
+    setNewsletterOptIn(state.preferences.newsletterOptIn);
+  }, [state]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -190,11 +203,15 @@ export function EditProfileForm({ profile }: Props) {
       </div>
 
       <div className="flex items-center gap-2">
+        <input
+          type="hidden"
+          name="collabStatus"
+          value={collabStatus ? "true" : "false"}
+        />
         <Checkbox
           id="collabStatus"
-          name="collabStatus"
-          defaultChecked={profile.collabStatus ?? false}
-          value="on"
+          checked={collabStatus}
+          onCheckedChange={(checked) => setCollabStatus(checked === true)}
         />
         <Label htmlFor="collabStatus" className="cursor-pointer">
           Open to collaborate
@@ -202,11 +219,15 @@ export function EditProfileForm({ profile }: Props) {
       </div>
 
       <div className="flex items-center gap-2">
+        <input
+          type="hidden"
+          name="newsletterOptIn"
+          value={newsletterOptIn ? "true" : "false"}
+        />
         <Checkbox
           id="newsletterOptIn"
-          name="newsletterOptIn"
-          defaultChecked={profile.newsletterOptIn}
-          value="on"
+          checked={newsletterOptIn}
+          onCheckedChange={(checked) => setNewsletterOptIn(checked === true)}
         />
         <Label htmlFor="newsletterOptIn" className="cursor-pointer">
           I want to receive updates and newsletters via email
@@ -214,7 +235,18 @@ export function EditProfileForm({ profile }: Props) {
       </div>
 
       {state?.error && (
-        <p className="text-sm text-destructive">{state.error}</p>
+        <p role="alert" className="text-sm text-destructive">
+          {state.error}
+        </p>
+      )}
+
+      {state?.success && (
+        <p
+          role="status"
+          className="rounded-lg border border-green-500/50 bg-green-500/10 p-3 text-sm text-green-600 dark:text-green-400"
+        >
+          Your profile changes have been saved.
+        </p>
       )}
 
       <div className="flex gap-3">

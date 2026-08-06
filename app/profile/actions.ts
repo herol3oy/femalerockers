@@ -1,6 +1,7 @@
 "use server";
 
 import { and, eq, ne } from "drizzle-orm";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { db } from "@/app/db";
 import { usersTable } from "@/app/db/schema";
@@ -13,6 +14,15 @@ const MIME_TO_EXT: Record<string, string> = {
   "image/png": "png",
   "image/jpeg": "jpg",
   "image/webp": "webp",
+};
+
+export type UpdateProfileState = {
+  error?: string;
+  success?: boolean;
+  preferences?: {
+    collabStatus: boolean;
+    newsletterOptIn: boolean;
+  };
 };
 
 async function uploadAvatar(
@@ -58,9 +68,9 @@ async function uploadAvatar(
 }
 
 export async function updateProfile(
-  _prevState: { error?: string; success?: boolean } | null,
+  _prevState: UpdateProfileState | null,
   formData: FormData,
-) {
+): Promise<UpdateProfileState> {
   const supabase = await createClient();
   const {
     data: { user },
@@ -83,8 +93,8 @@ export async function updateProfile(
   const bio = formData.get("bio")?.toString().trim() || null;
   const instagramUrl = formData.get("instagramUrl")?.toString().trim() || null;
   const videoLink = formData.get("videoLink")?.toString().trim() || null;
-  const collabStatus = formData.get("collabStatus") === "on";
-  const newsletterOptIn = formData.get("newsletterOptIn") === "on";
+  const collabStatus = formData.get("collabStatus") === "true";
+  const newsletterOptIn = formData.get("newsletterOptIn") === "true";
 
   if (!username || !artistName) {
     return { error: "Username and Artist Name are required." };
@@ -97,12 +107,19 @@ export async function updateProfile(
     };
   }
 
-  // Check if username is taken by another user
-  const existing = await db
-    .select({ id: usersTable.id })
-    .from(usersTable)
-    .where(and(eq(usersTable.username, username), ne(usersTable.id, user.id)))
-    .limit(1);
+  // Check if username is taken and retain the old path for cache invalidation.
+  const [existing, currentProfile] = await Promise.all([
+    db
+      .select({ id: usersTable.id })
+      .from(usersTable)
+      .where(and(eq(usersTable.username, username), ne(usersTable.id, user.id)))
+      .limit(1),
+    db
+      .select({ username: usersTable.username })
+      .from(usersTable)
+      .where(eq(usersTable.id, user.id))
+      .limit(1),
+  ]);
 
   if (existing.length > 0) {
     return { error: "Username is already taken." };
@@ -117,8 +134,10 @@ export async function updateProfile(
     avatarUrl = result.url;
   }
 
+  let savedPreferences: UpdateProfileState["preferences"];
+
   try {
-    await db
+    const [updatedProfile] = await db
       .update(usersTable)
       .set({
         username,
@@ -134,10 +153,32 @@ export async function updateProfile(
         newsletterOptInAt: newsletterOptIn ? new Date() : null,
         ...(avatarUrl !== undefined && { avatarUrl }),
       })
-      .where(eq(usersTable.id, user.id));
+      .where(eq(usersTable.id, user.id))
+      .returning({
+        collabStatus: usersTable.collabStatus,
+        newsletterOptIn: usersTable.newsletterOptIn,
+      });
+
+    if (!updatedProfile) {
+      return { error: "Something went wrong. Please try again." };
+    }
+
+    savedPreferences = {
+      collabStatus: updatedProfile.collabStatus ?? false,
+      newsletterOptIn: updatedProfile.newsletterOptIn,
+    };
   } catch {
     return { error: "Something went wrong. Please try again." };
   }
 
-  redirect("/profile");
+  revalidatePath("/profile");
+  revalidatePath("/discover");
+  revalidatePath(`/${username}`);
+
+  const previousUsername = currentProfile[0]?.username;
+  if (previousUsername && previousUsername !== username) {
+    revalidatePath(`/${previousUsername}`);
+  }
+
+  return { success: true, preferences: savedPreferences };
 }
